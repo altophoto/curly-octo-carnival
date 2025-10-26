@@ -3,20 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Cool Site</title>
+    <title>Film Log</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style>
+        * { box-sizing: border-box; }
         body {
             font-family: 'Georgia', serif;
-            max-width: 1000px;
-            margin: 50px auto;
+            max-width: 1100px;
+            margin: 30px auto;
             padding: 20px;
-            line-height: 1.6;
             background: #f4f4f4;
         }
         h1 {
             color: #333;
             border-bottom: 3px solid #333;
             padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .controls {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            flex: 1;
+            min-width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #555;
+        }
+        button.secondary {
+            background: #666;
         }
         table {
             width: 100%;
@@ -32,12 +68,9 @@
             text-align: left;
             cursor: pointer;
             user-select: none;
-            position: relative;
         }
-        th:hover {
-            background: #555;
-        }
-        th.sortable::after {
+        th:hover { background: #555; }
+        th::after {
             content: ' ⇅';
             opacity: 0.5;
             font-size: 0.9em;
@@ -54,129 +87,268 @@
             padding: 10px 12px;
             border-bottom: 1px solid #ddd;
         }
-        tr:hover {
-            background: #f9f9f9;
-        }
+        tr:hover { background: #f9f9f9; }
         a {
             color: #0066cc;
             text-decoration: none;
         }
-        a:hover {
-            text-decoration: underline;
+        a:hover { text-decoration: underline; }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        .delete-btn {
+            background: #c00;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+        .delete-btn:hover {
+            background: #900;
+        }
+        .no-results {
+            padding: 40px;
+            text-align: center;
+            color: #666;
+            background: white;
+            border-radius: 8px;
         }
     </style>
 </head>
 <body>
-    <h1>Film Log</h1>
-    
-    <table id="filmTable">
-        <thead>
-            <tr>
-                <th class="sortable" data-column="0">Line #</th>
-                <th class="sortable" data-column="1">Film</th>
-                <th class="sortable" data-column="2">Duration</th>
-                <th class="sortable" data-column="3">Date</th>
-            </tr>
-        </thead>
-        <tbody id="tableBody">
-            <!-- Rows will be inserted here by JavaScript -->
-        </tbody>
-    </table>
+    <div id="app">
+        <h1>Film Log</h1>
+        
+        <div class="controls">
+            <input 
+                type="text" 
+                v-model="searchQuery" 
+                placeholder="Search films..."
+            />
+            <button @click="showAddModal = true">+ Add Film</button>
+            <button class="secondary" @click="clearSearch" v-if="searchQuery">Clear</button>
+        </div>
+
+        <table v-if="filteredFilms.length > 0">
+            <thead>
+                <tr>
+                    <th @click="sortBy('line')" :class="sortClass('line')">Line #</th>
+                    <th @click="sortBy('film')" :class="sortClass('film')">Film</th>
+                    <th @click="sortBy('duration')" :class="sortClass('duration')">Duration</th>
+                    <th @click="sortBy('date')" :class="sortClass('date')">Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="film in filteredFilms" :key="film.line">
+                    <td>{{ film.line }}</td>
+                    <td>
+                        <a v-if="film.link" :href="film.link" target="_blank">{{ film.film }}</a>
+                        <span v-else>{{ film.film }}</span>
+                    </td>
+                    <td>{{ film.duration }}</td>
+                    <td>{{ formatDate(film.date) }}</td>
+                    <td>
+                        <button class="delete-btn" @click="deleteFilm(film.line)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div v-else class="no-results">
+            <p>No films found matching "{{ searchQuery }}"</p>
+        </div>
+
+        <!-- Add Film Modal -->
+        <div class="modal" v-if="showAddModal" @click.self="showAddModal = false">
+            <div class="modal-content">
+                <h2>Add New Film</h2>
+                <form @submit.prevent="addFilm">
+                    <div class="form-group">
+                        <label>Film Title</label>
+                        <input type="text" v-model="newFilm.film" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Link (optional)</label>
+                        <input type="url" v-model="newFilm.link" placeholder="https://..." />
+                    </div>
+                    <div class="form-group">
+                        <label>Duration</label>
+                        <input type="text" v-model="newFilm.duration" placeholder="120 min" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" v-model="newFilm.date" required />
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="secondary" @click="showAddModal = false">Cancel</button>
+                        <button type="submit">Add Film</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // YOUR DATA GOES HERE - Easy to edit!
-        const filmData = [
-            {
-                line: 1,
-                film: '<a href="https://www.imdb.com/title/tt0111161/">The Shawshank Redemption</a>',
-                duration: '142 min',
-                date: '2024-01-15'
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    films: [],
+                    searchQuery: '',
+                    sortKey: 'line',
+                    sortDirection: 'asc',
+                    showAddModal: false,
+                    newFilm: {
+                        film: '',
+                        link: '',
+                        duration: '',
+                        date: ''
+                    }
+                };
             },
-            {
-                line: 2,
-                film: '<a href="https://www.imdb.com/title/tt0068646/">The Godfather</a>',
-                duration: '175 min',
-                date: '2024-02-20'
-            },
-            {
-                line: 3,
-                film: 'Citizen Kane',
-                duration: '119 min',
-                date: '2024-03-10'
-            }
-            // Add more rows here following the same pattern
-        ];
-
-        // Render the table
-        function renderTable(data) {
-            const tbody = document.getElementById('tableBody');
-            tbody.innerHTML = '';
-            
-            data.forEach(row => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${row.line}</td>
-                    <td>${row.film}</td>
-                    <td>${row.duration}</td>
-                    <td>${row.date}</td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        // Sorting functionality
-        let currentSort = { column: null, direction: 'asc' };
-
-        document.querySelectorAll('th.sortable').forEach(header => {
-            header.addEventListener('click', function() {
-                const column = parseInt(this.dataset.column);
-                const columnNames = ['line', 'film', 'duration', 'date'];
-                const sortKey = columnNames[column];
-                
-                // Toggle direction if same column, otherwise default to asc
-                if (currentSort.column === column) {
-                    currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
-                } else {
-                    currentSort.direction = 'asc';
+            computed: {
+                filteredFilms() {
+                    let filtered = this.films;
+                    
+                    // Search filter
+                    if (this.searchQuery) {
+                        const query = this.searchQuery.toLowerCase();
+                        filtered = filtered.filter(f => 
+                            f.film.toLowerCase().includes(query) ||
+                            f.duration.toLowerCase().includes(query) ||
+                            f.date.includes(query)
+                        );
+                    }
+                    
+                    // Sort
+                    return [...filtered].sort((a, b) => {
+                        let aVal = a[this.sortKey];
+                        let bVal = b[this.sortKey];
+                        
+                        // Numeric sort for line
+                        if (this.sortKey === 'line') {
+                            aVal = parseInt(aVal);
+                            bVal = parseInt(bVal);
+                        }
+                        
+                        if (aVal < bVal) return this.sortDirection === 'asc' ? -1 : 1;
+                        if (aVal > bVal) return this.sortDirection === 'asc' ? 1 : -1;
+                        return 0;
+                    });
                 }
-                currentSort.column = column;
-                
-                // Remove sort classes from all headers
-                document.querySelectorAll('th').forEach(h => {
-                    h.classList.remove('sort-asc', 'sort-desc');
-                });
-                
-                // Add sort class to current header
-                this.classList.add(currentSort.direction === 'asc' ? 'sort-asc' : 'sort-desc');
-                
-                // Sort the data
-                const sortedData = [...filmData].sort((a, b) => {
-                    let aVal = a[sortKey];
-                    let bVal = b[sortKey];
-                    
-                    // Strip HTML tags for sorting film column
-                    if (sortKey === 'film') {
-                        aVal = aVal.replace(/<[^>]*>/g, '');
-                        bVal = bVal.replace(/<[^>]*>/g, '');
+            },
+            methods: {
+                sortBy(key) {
+                    if (this.sortKey === key) {
+                        this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+                    } else {
+                        this.sortKey = key;
+                        this.sortDirection = 'asc';
                     }
-                    
-                    // Handle numeric sorting for line numbers
-                    if (sortKey === 'line') {
-                        aVal = parseInt(aVal);
-                        bVal = parseInt(bVal);
+                },
+                sortClass(key) {
+                    if (this.sortKey === key) {
+                        return this.sortDirection === 'asc' ? 'sort-asc' : 'sort-desc';
                     }
+                    return '';
+                },
+                addFilm() {
+                    const nextLine = this.films.length > 0 
+                        ? Math.max(...this.films.map(f => f.line)) + 1 
+                        : 1;
                     
-                    if (aVal < bVal) return currentSort.direction === 'asc' ? -1 : 1;
-                    if (aVal > bVal) return currentSort.direction === 'asc' ? 1 : -1;
-                    return 0;
-                });
-                
-                renderTable(sortedData);
-            });
-        });
-
-        // Initial render
-        renderTable(filmData);
+                    this.films.push({
+                        line: nextLine,
+                        film: this.newFilm.film,
+                        link: this.newFilm.link,
+                        duration: this.newFilm.duration,
+                        date: this.newFilm.date
+                    });
+                    
+                    this.saveFilms();
+                    this.showAddModal = false;
+                    
+                    // Reset form
+                    this.newFilm = { film: '', link: '', duration: '', date: '' };
+                },
+                deleteFilm(line) {
+                    if (confirm('Delete this film?')) {
+                        this.films = this.films.filter(f => f.line !== line);
+                        this.saveFilms();
+                    }
+                },
+                clearSearch() {
+                    this.searchQuery = '';
+                },
+                formatDate(date) {
+                    return new Date(date + 'T00:00:00').toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    });
+                },
+                saveFilms() {
+                    localStorage.setItem('filmLog', JSON.stringify(this.films));
+                },
+                loadFilms() {
+                    const saved = localStorage.getItem('filmLog');
+                    if (saved) {
+                        this.films = JSON.parse(saved);
+                    } else {
+                        // Initial seed data
+                        this.films = [
+                            { line: 1, film: 'The Shawshank Redemption', link: 'https://www.imdb.com/title/tt0111161/', duration: '142 min', date: '2024-01-15' },
+                            { line: 2, film: 'The Godfather', link: 'https://www.imdb.com/title/tt0068646/', duration: '175 min', date: '2024-02-20' },
+                            { line: 3, film: 'Citizen Kane', link: '', duration: '119 min', date: '2024-03-10' }
+                        ];
+                        this.saveFilms();
+                    }
+                }
+            },
+            mounted() {
+                this.loadFilms();
+            }
+        }).mount('#app');
     </script>
 </body>
 </html>
