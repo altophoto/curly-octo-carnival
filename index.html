@@ -934,9 +934,9 @@
                         this.films = JSON.parse(saved);
                     } else {
                         this.films = [
-                            { line: 1, film: 'The Shawshank Redemption', link: 'https://www.imdb.com/title/tt0111161/', duration: 142, platform: 'Amazon Prime', date: '2024-01-15', tags: ['drama', 'classic'] },
-                            { line: 2, film: 'The Godfather', link: 'https://www.imdb.com/title/tt0068646/', duration: 175, platform: 'Paramount+', date: '2024-02-20', tags: ['drama', 'crime', 'classic'] },
-                            { line: 3, film: 'Citizen Kane', link: '', duration: 119, platform: 'Criterion', date: '2024-03-10', tags: ['classic', 'criterion'] }
+                            { line: 1, film: 'The Shawshank Redemption', link: 'https://www.imdb.com/title/tt0111161/', duration: 142, platform: 'Amazon Prime', platformLink: '', date: '2024-01-15', tags: ['drama', 'classic'] },
+                            { line: 2, film: 'The Godfather', link: 'https://www.imdb.com/title/tt0068646/', duration: 175, platform: 'Paramount+', platformLink: '', date: '2024-02-20', tags: ['drama', 'crime', 'classic'] },
+                            { line: 3, film: 'Citizen Kane', link: '', duration: 119, platform: 'Criterion', platformLink: '', date: '2024-03-10', tags: ['classic', 'criterion'] }
                         ];
                         this.saveFilms();
                     }
@@ -1013,7 +1013,7 @@
                                         link,
                                         duration,
                                         platform,
-                                        platformLink
+                                        platformLink,
                                         date,
                                         tags
                                     });
