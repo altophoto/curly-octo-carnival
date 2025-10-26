@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cool Site</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            line-height: 1.6;
+            background: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #333;
+            padding-bottom: 10px;
+        }
+        .fun-fact {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to My Corner of the Internet</h1>
+    <div class="fun-fact">
+        <p>This website was built entirely from an iPhone while staying warm in bed.</p>
+        <p>Because sometimes the best systems architecture happens under blankets.</p>
+    </div>
+    
+    <script>
+        // Add a timestamp for fun
+        document.querySelector('.fun-fact').innerHTML += 
+            `<p><em>Last tinkered: ${new Date().toLocaleString()}</em></p>`;
+    </script>
+</body>
+</html>
