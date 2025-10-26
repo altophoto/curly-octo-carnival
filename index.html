@@ -67,6 +67,13 @@
     </style>
 </head>
 <body>
+        <h1>Welcome to My Corner of the Internet</h1>
+    <div class="fun-fact">
+        <p>This website was built entirely from an iPhone while staying warm in bed.</p>
+        <p>Because sometimes the best systems architecture happens under blankets.</p>
+    </div>
+    
+   
     <h1>Film Log</h1>
     
     <table id="filmTable">
@@ -177,6 +184,11 @@
 
         // Initial render
         renderTable(filmData);
+    </script>
+     <script>
+        // Add a timestamp for fun
+        document.querySelector('.fun-fact').innerHTML += 
+            `<p><em>Last tinkered: ${new Date().toLocaleString()}</em></p>`;
     </script>
 </body>
 </html>
