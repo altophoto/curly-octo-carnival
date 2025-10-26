@@ -195,6 +195,26 @@
             font-weight: bold;
             color: #d32f2f;
         }
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        .edit-btn {
+            background: #1976d2;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+        .edit-btn:hover {
+            background: #1565c0;
+        }
+        .delete-btn {
+            background: #c00;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+        .delete-btn:hover {
+            background: #900;
+        }
         .modal {
             position: fixed;
             top: 0;
@@ -244,14 +264,6 @@
             gap: 10px;
             justify-content: flex-end;
             margin-top: 20px;
-        }
-        .delete-btn {
-            background: #c00;
-            padding: 6px 12px;
-            font-size: 12px;
-        }
-        .delete-btn:hover {
-            background: #900;
         }
         .no-results {
             padding: 40px;
@@ -335,7 +347,7 @@
 </head>
 <body>
     <div id="app">
-        <h1>Welcome to My Corner of the Internet</h1>
+        <h1>Welcome to Family Groovy Night</h1>
         <div class="fun-fact">
             <p>This website was built entirely from an iPhone while staying warm in bed.</p>
             <p>Because sometimes the best systems architecture happens under blankets.</p>
@@ -367,7 +379,7 @@
                         v-model="searchQuery" 
                         placeholder="Search films..."
                     />
-                    <button @click="showAddModal = true">+ Add Film</button>
+                    <button @click="openAddModal">+ Add Film</button>
                     <button class="secondary" @click="clearSearch" v-if="searchQuery">Clear</button>
                 </div>
                 
@@ -431,7 +443,10 @@
                         </td>
                         <td class="start-time">{{ calculateStartTime(film.duration) }}</td>
                         <td>
-                            <button class="delete-btn" @click="deleteFilm(film.line)">Delete</button>
+                            <div class="action-buttons">
+                                <button class="edit-btn" @click="openEditModal(film)">Edit</button>
+                                <button class="delete-btn" @click="deleteFilm(film.line)">Delete</button>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -571,43 +586,43 @@
             </div>
         </div>
 
-        <!-- Add Film Modal -->
-        <div class="modal" v-if="showAddModal" @click.self="showAddModal = false">
+        <!-- Add/Edit Film Modal -->
+        <div class="modal" v-if="showFilmModal" @click.self="closeFilmModal">
             <div class="modal-content">
-                <h2>Add New Film</h2>
-                <form @submit.prevent="addFilm">
+                <h2>{{ editingFilm ? 'Edit Film' : 'Add New Film' }}</h2>
+                <form @submit.prevent="saveFilm">
                     <div class="form-group">
                         <label>Film Title</label>
-                        <input type="text" v-model="newFilm.film" required />
+                        <input type="text" v-model="filmForm.film" required />
                     </div>
                     <div class="form-group">
                         <label>Link (optional)</label>
-                        <input type="url" v-model="newFilm.link" placeholder="https://..." />
+                        <input type="url" v-model="filmForm.link" placeholder="https://..." />
                     </div>
                     <div class="form-group">
                         <label>Duration (minutes)</label>
-                        <input type="number" v-model.number="newFilm.duration" min="1" placeholder="142" required />
+                        <input type="number" v-model.number="filmForm.duration" min="1" placeholder="142" required />
                         <small>Enter just the number of minutes</small>
                     </div>
                     <div class="form-group">
                         <label>Platform (optional)</label>
-                        <select v-model="newFilm.platform">
+                        <select v-model="filmForm.platform">
                             <option value="">-- Select Platform --</option>
                             <option v-for="(url, name) in platforms" :key="name" :value="name">{{ name }}</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Date</label>
-                        <input type="date" v-model="newFilm.date" required />
+                        <input type="date" v-model="filmForm.date" required />
                     </div>
                     <div class="form-group">
                         <label>Tags (comma-separated, optional)</label>
-                        <input type="text" v-model="newFilm.tagsInput" placeholder="drama, classic, criterion" />
+                        <input type="text" v-model="filmForm.tagsInput" placeholder="drama, classic, criterion" />
                         <small>Separate tags with commas</small>
                     </div>
                     <div class="form-actions">
-                        <button type="button" class="secondary" @click="showAddModal = false">Cancel</button>
-                        <button type="submit">Add Film</button>
+                        <button type="button" class="secondary" @click="closeFilmModal">Cancel</button>
+                        <button type="submit">{{ editingFilm ? 'Update Film' : 'Add Film' }}</button>
                     </div>
                 </form>
             </div>
@@ -626,8 +641,9 @@
                     selectedTags: [],
                     sortKey: 'line',
                     sortDirection: 'asc',
-                    showAddModal: false,
-                    newFilm: {
+                    showFilmModal: false,
+                    editingFilm: null,
+                    filmForm: {
                         film: '',
                         link: '',
                         duration: null,
@@ -668,14 +684,12 @@
                 filteredFilms() {
                     let filtered = this.films;
                     
-                    // Tag filter
                     if (this.selectedTags.length > 0) {
                         filtered = filtered.filter(f => 
                             f.tags && this.selectedTags.some(tag => f.tags.includes(tag))
                         );
                     }
                     
-                    // Search filter
                     if (this.searchQuery) {
                         const query = this.searchQuery.toLowerCase();
                         filtered = filtered.filter(f => 
@@ -687,7 +701,6 @@
                         );
                     }
                     
-                    // Sort
                     return [...filtered].sort((a, b) => {
                         let aVal = a[this.sortKey];
                         let bVal = b[this.sortKey];
@@ -792,33 +805,75 @@
                     return `${displayHours}:${String(startMins).padStart(2, '0')} ${period}`;
                 },
                 getPlatformUrl(platform, filmLink) {
-                    // If there's a specific film link, use that; otherwise use platform homepage
                     return filmLink || this.platforms[platform] || '#';
                 },
-                addFilm() {
-                    const nextLine = this.films.length > 0 
-                        ? Math.max(...this.films.map(f => f.line)) + 1 
-                        : 1;
-                    
-                    const tags = this.newFilm.tagsInput
+                openAddModal() {
+                    this.editingFilm = null;
+                    this.filmForm = {
+                        film: '',
+                        link: '',
+                        duration: null,
+                        platform: '',
+                        date: '',
+                        tagsInput: ''
+                    };
+                    this.showFilmModal = true;
+                },
+                openEditModal(film) {
+                    this.editingFilm = film;
+                    this.filmForm = {
+                        film: film.film,
+                        link: film.link || '',
+                        duration: film.duration,
+                        platform: film.platform || '',
+                        date: film.date,
+                        tagsInput: film.tags ? film.tags.join(', ') : ''
+                    };
+                    this.showFilmModal = true;
+                },
+                closeFilmModal() {
+                    this.showFilmModal = false;
+                    this.editingFilm = null;
+                },
+                saveFilm() {
+                    const tags = this.filmForm.tagsInput
                         .split(',')
                         .map(t => t.trim())
                         .filter(t => t.length > 0);
                     
-                    this.films.push({
-                        line: nextLine,
-                        film: this.newFilm.film,
-                        link: this.newFilm.link,
-                        duration: this.newFilm.duration,
-                        platform: this.newFilm.platform,
-                        date: this.newFilm.date,
-                        tags: tags
-                    });
+                    if (this.editingFilm) {
+                        // Update existing film
+                        const index = this.films.findIndex(f => f.line === this.editingFilm.line);
+                        if (index !== -1) {
+                            this.films[index] = {
+                                ...this.films[index],
+                                film: this.filmForm.film,
+                                link: this.filmForm.link,
+                                duration: this.filmForm.duration,
+                                platform: this.filmForm.platform,
+                                date: this.filmForm.date,
+                                tags: tags
+                            };
+                        }
+                    } else {
+                        // Add new film
+                        const nextLine = this.films.length > 0 
+                            ? Math.max(...this.films.map(f => f.line)) + 1 
+                            : 1;
+                        
+                        this.films.push({
+                            line: nextLine,
+                            film: this.filmForm.film,
+                            link: this.filmForm.link,
+                            duration: this.filmForm.duration,
+                            platform: this.filmForm.platform,
+                            date: this.filmForm.date,
+                            tags: tags
+                        });
+                    }
                     
                     this.saveFilms();
-                    this.showAddModal = false;
-                    
-                    this.newFilm = { film: '', link: '', duration: null, platform: '', date: '', tagsInput: '' };
+                    this.closeFilmModal();
                 },
                 deleteFilm(line) {
                     if (confirm('Delete this film?')) {
@@ -868,7 +923,6 @@
                     if (saved) {
                         this.films = JSON.parse(saved);
                     } else {
-                        // Initial seed data
                         this.films = [
                             { line: 1, film: 'The Shawshank Redemption', link: 'https://www.imdb.com/title/tt0111161/', duration: 142, platform: 'Amazon Prime', date: '2024-01-15', tags: ['drama', 'classic'] },
                             { line: 2, film: 'The Godfather', link: 'https://www.imdb.com/title/tt0068646/', duration: 175, platform: 'Paramount+', date: '2024-02-20', tags: ['drama', 'crime', 'classic'] },
@@ -921,7 +975,6 @@
                             const csv = e.target.result;
                             const lines = csv.split('\n').filter(line => line.trim());
                             
-                            // Skip header row
                             const dataLines = lines.slice(1);
                             
                             const nextLine = this.films.length > 0 
