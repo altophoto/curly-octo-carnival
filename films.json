@@ -601,5 +601,17 @@
     "podcastLink": "",
     "dateAdded": "2025-10-27",
     "tags": []
+  },
+  {
+    "line": 48,
+    "film": "The Thing",
+    "year": null,
+    "director": "John Carpenter",
+    "link": "",
+    "duration": 1,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-27",
+    "tags": []
   }
 ]
