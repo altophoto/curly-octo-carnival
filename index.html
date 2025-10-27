@@ -493,10 +493,10 @@
         </div>
 
         <!-- Setup Required Notice -->
-        <div v-if="!githubToken && !loading" class="setup-required">
+        <div v-if="!githubToken && !loading && currentView !== 'settings'" class="setup-required">
             <h2>⚙️ Setup Required</h2>
             <p>To use GitHub as your database, you need to configure your GitHub Personal Access Token.</p>
-            <p>Go to <strong>Settings</strong> → <strong>GitHub Sync</strong> to set it up.</p>
+            <p>Go to <strong>Settings</strong> to set it up.</p>
             <button @click="currentView = 'settings'">Go to Settings</button>
         </div>
 
@@ -505,290 +505,288 @@
             <p>Loading your film collection...</p>
         </div>
 
-        <div v-else-if="githubToken">
-            <!-- Navigation -->
-            <div class="nav">
-                <button @click="currentView = 'log'" :class="{ active: currentView === 'log' }">
-                    Film Log
-                </button>
-                <button @click="currentView = 'stats'" :class="{ active: currentView === 'stats' }">
-                    Statistics
-                </button>
-                <button @click="currentView = 'import'" :class="{ active: currentView === 'import' }">
-                    Import/Export
-                </button>
-                <button @click="currentView = 'settings'" :class="{ active: currentView === 'settings' }">
-                    Settings
-                </button>
-            </div>
+        <!-- Navigation (always show if token exists OR in settings) -->
+        <div v-if="githubToken || currentView === 'settings'" class="nav">
+            <button @click="currentView = 'log'" :class="{ active: currentView === 'log' }" :disabled="!githubToken">
+                Film Log
+            </button>
+            <button @click="currentView = 'stats'" :class="{ active: currentView === 'stats' }" :disabled="!githubToken">
+                Statistics
+            </button>
+            <button @click="currentView = 'import'" :class="{ active: currentView === 'import' }" :disabled="!githubToken">
+                Import/Export
+            </button>
+            <button @click="currentView = 'settings'" :class="{ active: currentView === 'settings' }">
+                Settings
+            </button>
+        </div>
 
-            <!-- FILM LOG VIEW -->
-            <div v-if="currentView === 'log'">
-                <div class="controls">
-                    <div class="control-row">
-                        <input 
-                            type="text" 
-                            v-model="searchQuery" 
-                            placeholder="Search films..."
-                        />
-                        <button @click="openAddModal">+ Add Film</button>
-                        <button class="secondary" @click="clearSearch" v-if="searchQuery">Clear</button>
-                    </div>
-                    
-                    <div class="control-row" v-if="allTags.length > 0">
-                        <div class="tag-filters">
-                            <span style="font-weight: bold; margin-right: 10px;">Filter by tag:</span>
-                            <div 
-                                class="tag-chip" 
-                                v-for="tag in allTags" 
-                                :key="tag"
-                                :class="{ active: selectedTags.includes(tag) }"
-                                @click="toggleTag(tag)"
-                            >
-                                {{ tag }}
-                            </div>
-                            <div 
-                                class="tag-chip clear" 
-                                v-if="selectedTags.length > 0"
-                                @click="selectedTags = []"
-                            >
-                                Clear filters
-                            </div>
+        <!-- FILM LOG VIEW -->
+        <div v-if="currentView === 'log' && githubToken">
+            <div class="controls">
+                <div class="control-row">
+                    <input 
+                        type="text" 
+                        v-model="searchQuery" 
+                        placeholder="Search films..."
+                    />
+                    <button @click="openAddModal">+ Add Film</button>
+                    <button class="secondary" @click="clearSearch" v-if="searchQuery">Clear</button>
+                </div>
+                
+                <div class="control-row" v-if="allTags.length > 0">
+                    <div class="tag-filters">
+                        <span style="font-weight: bold; margin-right: 10px;">Filter by tag:</span>
+                        <div 
+                            class="tag-chip" 
+                            v-for="tag in allTags" 
+                            :key="tag"
+                            :class="{ active: selectedTags.includes(tag) }"
+                            @click="toggleTag(tag)"
+                        >
+                            {{ tag }}
+                        </div>
+                        <div 
+                            class="tag-chip clear" 
+                            v-if="selectedTags.length > 0"
+                            @click="selectedTags = []"
+                        >
+                            Clear filters
                         </div>
                     </div>
                 </div>
-
-                <div class="table-wrapper" v-if="filteredFilms.length > 0">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th @click="sortBy('line')" :class="sortClass('line')">#</th>
-                                <th @click="sortBy('film')" :class="sortClass('film')">Film</th>
-                                <th @click="sortBy('duration')" :class="sortClass('duration')">Duration</th>
-                                <th @click="sortBy('platform')" :class="sortClass('platform')">Platform</th>
-                                <th class="no-sort center-text">🎧</th>
-                                <th @click="sortBy('date')" :class="sortClass('date')">Date</th>
-                                <th class="no-sort">Tags</th>
-                                <th class="no-sort">Start Time</th>
-                                <th class="no-sort">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="film in filteredFilms" :key="film.line">
-                                <td>{{ film.line }}</td>
-                                <td>
-                                    <a v-if="film.link" :href="film.link" target="_blank">{{ film.film }}</a>
-                                    <span v-else>{{ film.film }}</span>
-                                </td>
-                                <td>{{ film.duration }} min</td>
-                                <td>
-                                    <a v-if="film.platform && film.platformLink" 
-                                       :href="film.platformLink" 
-                                       target="_blank" 
-                                       class="platform-badge">
-                                        {{ film.platform }}
-                                    </a>
-                                    <span v-else-if="film.platform" class="platform-text">
-                                        {{ film.platform }}
-                                    </span>
-                                </td>
-                                <td class="center-text">
-                                    <a v-if="film.podcastLink" 
-                                       :href="film.podcastLink" 
-                                       target="_blank" 
-                                       class="podcast-icon"
-                                       title="Listen to podcast">
-                                        🎧
-                                    </a>
-                                    <span v-else class="podcast-icon inactive">🎧</span>
-                                </td>
-                                <td>{{ formatDate(film.date) }}</td>
-                                <td>
-                                    <div class="tags-cell">
-                                        <span class="tag-badge" v-for="tag in film.tags" :key="tag">{{ tag }}</span>
-                                    </div>
-                                </td>
-                                <td class="start-time">{{ calculateStartTime(film.duration) }}</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="edit-btn" @click="openEditModal(film)">Edit</button>
-                                        <button class="delete-btn" @click="deleteFilm(film.line)">Delete</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div v-else class="no-results">
-                    <p>No films found matching your criteria</p>
-                </div>
             </div>
 
-            <!-- STATISTICS VIEW -->
-            <div v-if="currentView === 'stats'">
-                <h2>Statistics</h2>
+            <div class="table-wrapper" v-if="filteredFilms.length > 0">
+                <table>
+                    <thead>
+                        <tr>
+                            <th @click="sortBy('line')" :class="sortClass('line')">#</th>
+                            <th @click="sortBy('film')" :class="sortClass('film')">Film</th>
+                            <th @click="sortBy('duration')" :class="sortClass('duration')">Duration</th>
+                            <th @click="sortBy('platform')" :class="sortClass('platform')">Platform</th>
+                            <th class="no-sort center-text">🎧</th>
+                            <th @click="sortBy('date')" :class="sortClass('date')">Date</th>
+                            <th class="no-sort">Tags</th>
+                            <th class="no-sort">Start Time</th>
+                            <th class="no-sort">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="film in filteredFilms" :key="film.line">
+                            <td>{{ film.line }}</td>
+                            <td>
+                                <a v-if="film.link" :href="film.link" target="_blank">{{ film.film }}</a>
+                                <span v-else>{{ film.film }}</span>
+                            </td>
+                            <td>{{ film.duration }} min</td>
+                            <td>
+                                <a v-if="film.platform && film.platformLink" 
+                                   :href="film.platformLink" 
+                                   target="_blank" 
+                                   class="platform-badge">
+                                    {{ film.platform }}
+                                </a>
+                                <span v-else-if="film.platform" class="platform-text">
+                                    {{ film.platform }}
+                                </span>
+                            </td>
+                            <td class="center-text">
+                                <a v-if="film.podcastLink" 
+                                   :href="film.podcastLink" 
+                                   target="_blank" 
+                                   class="podcast-icon"
+                                   title="Listen to podcast">
+                                    🎧
+                                </a>
+                                <span v-else class="podcast-icon inactive">🎧</span>
+                            </td>
+                            <td>{{ formatDate(film.date) }}</td>
+                            <td>
+                                <div class="tags-cell">
+                                    <span class="tag-badge" v-for="tag in film.tags" :key="tag">{{ tag }}</span>
+                                </div>
+                            </td>
+                            <td class="start-time">{{ calculateStartTime(film.duration) }}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="edit-btn" @click="openEditModal(film)">Edit</button>
+                                    <button class="delete-btn" @click="deleteFilm(film.line)">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div v-else class="no-results">
+                <p>No films found matching your criteria</p>
+            </div>
+        </div>
+
+        <!-- STATISTICS VIEW -->
+        <div v-if="currentView === 'stats' && githubToken">
+            <h2>Statistics</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Films</h3>
+                    <div class="stat-value">{{ films.length }}</div>
+                </div>
                 
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h3>Total Films</h3>
-                        <div class="stat-value">{{ films.length }}</div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <h3>Total Duration</h3>
-                        <div class="stat-value">{{ totalDuration }}</div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <h3>Average Duration</h3>
-                        <div class="stat-value">{{ averageDuration }}</div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <h3>Most Recent</h3>
-                        <div class="stat-value" style="font-size: 20px;">{{ mostRecentFilm }}</div>
-                    </div>
-
-                    <div class="stat-card">
-                        <h3>Films with Podcasts</h3>
-                        <div class="stat-value">{{ filmsWithPodcasts }}</div>
-                    </div>
+                <div class="stat-card">
+                    <h3>Total Duration</h3>
+                    <div class="stat-value">{{ totalDuration }}</div>
                 </div>
-
-                <div class="stat-card" v-if="filmsByPlatform && Object.keys(filmsByPlatform).length > 0">
-                    <h3>Films by Platform</h3>
-                    <ul class="stat-list">
-                        <li v-for="(count, platform) in filmsByPlatform" :key="platform">
-                            <span>{{ platform }}</span>
-                            <strong>{{ count }}</strong>
-                        </li>
-                    </ul>
+                
+                <div class="stat-card">
+                    <h3>Average Duration</h3>
+                    <div class="stat-value">{{ averageDuration }}</div>
                 </div>
-
-                <div class="stat-card" v-if="filmsByTag && Object.keys(filmsByTag).length > 0">
-                    <h3>Films by Tag</h3>
-                    <ul class="stat-list">
-                        <li v-for="(count, tag) in filmsByTag" :key="tag">
-                            <span>{{ tag }}</span>
-                            <strong>{{ count }}</strong>
-                        </li>
-                    </ul>
+                
+                <div class="stat-card">
+                    <h3>Most Recent</h3>
+                    <div class="stat-value" style="font-size: 20px;">{{ mostRecentFilm }}</div>
                 </div>
 
                 <div class="stat-card">
-                    <h3>Films by Year</h3>
+                    <h3>Films with Podcasts</h3>
+                    <div class="stat-value">{{ filmsWithPodcasts }}</div>
+                </div>
+            </div>
+
+            <div class="stat-card" v-if="filmsByPlatform && Object.keys(filmsByPlatform).length > 0">
+                <h3>Films by Platform</h3>
+                <ul class="stat-list">
+                    <li v-for="(count, platform) in filmsByPlatform" :key="platform">
+                        <span>{{ platform }}</span>
+                        <strong>{{ count }}</strong>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="stat-card" v-if="filmsByTag && Object.keys(filmsByTag).length > 0">
+                <h3>Films by Tag</h3>
+                <ul class="stat-list">
+                    <li v-for="(count, tag) in filmsByTag" :key="tag">
+                        <span>{{ tag }}</span>
+                        <strong>{{ count }}</strong>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="stat-card">
+                <h3>Films by Year</h3>
+                <ul class="stat-list">
+                    <li v-for="(count, year) in filmsByYear" :key="year">
+                        <span>{{ year }}</span>
+                        <strong>{{ count }}</strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- IMPORT/EXPORT VIEW -->
+        <div v-if="currentView === 'import' && githubToken">
+            <div class="import-export">
+                <h2>Export Data</h2>
+                <p>Download your film log for backup, sharing, or printing.</p>
+                <div class="export-buttons">
+                    <button @click="exportJSON">Download JSON</button>
+                    <button @click="exportPDF">Download PDF (Printable)</button>
+                </div>
+            </div>
+
+            <div class="import-export import-section">
+                <h2>Import JSON</h2>
+                <p>Upload a JSON file to merge with your existing data.</p>
+                <div class="file-input-wrapper">
+                    <input 
+                        type="file" 
+                        accept=".json" 
+                        @change="handleJSONImport"
+                        ref="jsonInput"
+                    />
+                </div>
+                <div v-if="importMessage" :class="importSuccess ? 'success-message' : 'error-message'">
+                    {{ importMessage }}
+                </div>
+            </div>
+
+            <div class="import-export import-section">
+                <h2>Import CSV</h2>
+                <p>Upload a CSV file with columns: film, link, duration, platform, platformLink, podcastLink, date, tags</p>
+                <p><small>Duration should be just the number (e.g., 142). Tags should be comma-separated within quotes if multiple.</small></p>
+                <div class="file-input-wrapper">
+                    <input 
+                        type="file" 
+                        accept=".csv" 
+                        @change="handleCSVImport"
+                        ref="csvInput"
+                    />
+                </div>
+                <div v-if="csvMessage" :class="csvSuccess ? 'success-message' : 'error-message'">
+                    {{ csvMessage }}
+                </div>
+            </div>
+        </div>
+
+        <!-- SETTINGS VIEW (always accessible) -->
+        <div v-if="currentView === 'settings'">
+            <div class="settings-section">
+                <h2>GitHub Sync Setup</h2>
+                <p>Your data is stored in GitHub. Enter your Personal Access Token to enable syncing.</p>
+                
+                <div class="form-group">
+                    <label>GitHub Personal Access Token</label>
+                    <input 
+                        type="password" 
+                        v-model="tokenInput" 
+                        placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                    />
+                    <small>
+                        Create a token at: GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)<br>
+                        Required permission: <strong>repo</strong> (Full control of private repositories)
+                    </small>
+                </div>
+                
+                <button @click="saveToken">Save Token</button>
+                <button v-if="githubToken" class="secondary" @click="clearToken" style="margin-left: 10px;">Clear Token</button>
+                
+                <div v-if="tokenSaved" class="token-status configured">
+                    ✓ Token configured and saved
+                </div>
+                <div v-else class="token-status not-configured">
+                    ⚠ Token not configured - GitHub sync disabled
+                </div>
+                
+                <p style="margin-top: 20px;"><strong>Repository:</strong> altophoto/curly-octo-carnival</p>
+                <p><strong>Data file:</strong> films.json</p>
+            </div>
+
+            <div v-if="githubToken" class="settings-section">
+                <h2>Target End Time</h2>
+                <p>Set the time you want to finish watching by. The "Start Time" column will calculate backwards based on film duration.</p>
+                <div class="form-group">
+                    <label>Target End Time</label>
+                    <input 
+                        type="time" 
+                        v-model="targetEndTime" 
+                        @change="saveSettings"
+                        class="time-input"
+                    />
+                </div>
+            </div>
+
+            <div v-if="githubToken" class="settings-section">
+                <h2>Platform Options</h2>
+                <p>Available platforms for the dropdown menu. These are just labels - you'll add the specific URL for each film when adding/editing.</p>
+                <div class="stat-card">
                     <ul class="stat-list">
-                        <li v-for="(count, year) in filmsByYear" :key="year">
-                            <span>{{ year }}</span>
-                            <strong>{{ count }}</strong>
+                        <li v-for="platform in platformOptions" :key="platform">
+                            <span>{{ platform }}</span>
                         </li>
                     </ul>
-                </div>
-            </div>
-
-            <!-- IMPORT/EXPORT VIEW -->
-            <div v-if="currentView === 'import'">
-                <div class="import-export">
-                    <h2>Export Data</h2>
-                    <p>Download your film log for backup, sharing, or printing.</p>
-                    <div class="export-buttons">
-                        <button @click="exportJSON">Download JSON</button>
-                        <button @click="exportPDF">Download PDF (Printable)</button>
-                    </div>
-                </div>
-
-                <div class="import-export import-section">
-                    <h2>Import JSON</h2>
-                    <p>Upload a JSON file to merge with your existing data.</p>
-                    <div class="file-input-wrapper">
-                        <input 
-                            type="file" 
-                            accept=".json" 
-                            @change="handleJSONImport"
-                            ref="jsonInput"
-                        />
-                    </div>
-                    <div v-if="importMessage" :class="importSuccess ? 'success-message' : 'error-message'">
-                        {{ importMessage }}
-                    </div>
-                </div>
-
-                <div class="import-export import-section">
-                    <h2>Import CSV</h2>
-                    <p>Upload a CSV file with columns: film, link, duration, platform, platformLink, podcastLink, date, tags</p>
-                    <p><small>Duration should be just the number (e.g., 142). Tags should be comma-separated within quotes if multiple.</small></p>
-                    <div class="file-input-wrapper">
-                        <input 
-                            type="file" 
-                            accept=".csv" 
-                            @change="handleCSVImport"
-                            ref="csvInput"
-                        />
-                    </div>
-                    <div v-if="csvMessage" :class="csvSuccess ? 'success-message' : 'error-message'">
-                        {{ csvMessage }}
-                    </div>
-                </div>
-            </div>
-
-            <!-- SETTINGS VIEW -->
-            <div v-if="currentView === 'settings'">
-                <div class="settings-section">
-                    <h2>Target End Time</h2>
-                    <p>Set the time you want to finish watching by. The "Start Time" column will calculate backwards based on film duration.</p>
-                    <div class="form-group">
-                        <label>Target End Time</label>
-                        <input 
-                            type="time" 
-                            v-model="targetEndTime" 
-                            @change="saveSettings"
-                            class="time-input"
-                        />
-                    </div>
-                </div>
-
-                <div class="settings-section">
-                    <h2>Platform Options</h2>
-                    <p>Available platforms for the dropdown menu. These are just labels - you'll add the specific URL for each film when adding/editing.</p>
-                    <div class="stat-card">
-                        <ul class="stat-list">
-                            <li v-for="platform in platformOptions" :key="platform">
-                                <span>{{ platform }}</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="settings-section">
-                    <h2>GitHub Sync Setup</h2>
-                    <p>Your data is stored in GitHub. Enter your Personal Access Token once to enable syncing.</p>
-                    
-                    <div class="form-group">
-                        <label>GitHub Personal Access Token</label>
-                        <input 
-                            type="password" 
-                            v-model="tokenInput" 
-                            placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                        />
-                        <small>
-                            Create a token at: GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)<br>
-                            Required permission: <strong>repo</strong> (Full control of private repositories)
-                        </small>
-                    </div>
-                    
-                    <button @click="saveToken">Save Token</button>
-                    <button v-if="githubToken" class="secondary" @click="clearToken" style="margin-left: 10px;">Clear Token</button>
-                    
-                    <div v-if="tokenSaved" class="token-status configured">
-                        ✓ Token configured and saved
-                    </div>
-                    <div v-else class="token-status not-configured">
-                        ⚠ Token not configured - GitHub sync disabled
-                    </div>
-                    
-                    <p style="margin-top: 20px;"><strong>Repository:</strong> altophoto/curly-octo-carnival</p>
-                    <p><strong>Data file:</strong> films.json</p>
                 </div>
             </div>
         </div>
