@@ -637,5 +637,17 @@
     "podcastLink": "",
     "dateAdded": "2025-10-27",
     "tags": []
+  },
+  {
+    "line": 51,
+    "film": "They Live",
+    "year": 1988,
+    "director": "John Carpenter",
+    "link": "",
+    "duration": 1,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-27",
+    "tags": []
   }
 ]
