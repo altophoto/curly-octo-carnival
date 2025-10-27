@@ -608,7 +608,7 @@
                         <label>Platform (optional)</label>
                         <select v-model="filmForm.platform">
                             <option value="">-- Select Platform --</option>
-                            <option v-for="(url, name) in platforms" :key="name" :value="name">{{ name }}</option>
+                            <option v-for="name in platforms" :key="name" :value="name">{{ name }}</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -810,8 +810,8 @@
                     
                     return `${displayHours}:${String(startMins).padStart(2, '0')} ${period}`;
                 },
-                getPlatformUrl(platform, filmLink) {
-                    return filmLink || this.platforms[platform] || '#';
+                getPlatformUrl(platform, platformLink) {
+                    return platformLink || this.platforms[platform] || '#';
                 },
                 openAddModal() {
                     this.editingFilm = null;
@@ -924,7 +924,7 @@
                 editPlatform(platform) {
                     const newUrl = prompt(`Enter URL for ${platform}:`, this.platforms[platform]);
                     if (newUrl !== null) {
-                        this.platforms[platform] = newUrl;
+                        this.platforms[platformLink] = newUrl;
                         this.saveSettings();
                     }
                 },
