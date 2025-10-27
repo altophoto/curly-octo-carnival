@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Film Log</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
     <style>
         * { box-sizing: border-box; }
         body {
             font-family: 'Georgia', serif;
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 30px auto;
             padding: 20px;
             background: #f4f4f4;
@@ -20,24 +22,70 @@
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
+        h2 {
+            color: #333;
+            margin-top: 30px;
+        }
+        .fun-fact {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+        .nav {
+            background: white;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .nav button {
+            padding: 10px 20px;
+            background: #666;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .nav button.active {
+            background: #333;
+        }
+        .nav button:hover {
+            background: #555;
+        }
         .controls {
             background: white;
             padding: 20px;
             margin-bottom: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .control-row {
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
             align-items: center;
+            margin-bottom: 15px;
         }
-        input[type="text"] {
+        .control-row:last-child {
+            margin-bottom: 0;
+        }
+        input[type="text"], input[type="file"], input[type="number"], select {
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 14px;
             flex: 1;
             min-width: 200px;
+        }
+        select {
+            cursor: pointer;
         }
         button {
             padding: 10px 20px;
@@ -47,6 +95,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 14px;
+            white-space: nowrap;
         }
         button:hover {
             background: #555;
@@ -54,20 +103,76 @@
         button.secondary {
             background: #666;
         }
+        .tag-filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .tag-chip {
+            padding: 6px 12px;
+            background: #e0e0e0;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tag-chip:hover {
+            background: #d0d0d0;
+        }
+        .tag-chip.active {
+            background: #333;
+            color: white;
+            border-color: #333;
+        }
+        .tag-chip.clear {
+            background: #c00;
+            color: white;
+        }
+        
+        /* Mobile-friendly table wrapper */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        /* Scroll hint for mobile */
+        .table-wrapper::after {
+            content: '← Swipe to see more →';
+            display: none;
+            text-align: center;
+            padding: 10px;
+            background: #f9f9f9;
+            color: #666;
+            font-size: 12px;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .table-wrapper::after {
+                display: block;
+            }
+        }
+        
         table {
             width: 100%;
-            background: white;
             border-collapse: collapse;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin: 20px 0;
+            font-size: 14px;
+            min-width: 900px; /* Ensures horizontal scroll on small screens */
         }
         th {
             background: #333;
             color: white;
-            padding: 12px;
+            padding: 12px 8px;
             text-align: left;
             cursor: pointer;
             user-select: none;
+            white-space: nowrap;
         }
         th:hover { background: #555; }
         th::after {
@@ -83,8 +188,14 @@
             content: ' ▼';
             opacity: 1;
         }
+        th.no-sort::after {
+            content: '';
+        }
+        th.no-sort {
+            cursor: default;
+        }
         td {
-            padding: 10px 12px;
+            padding: 10px 8px;
             border-bottom: 1px solid #ddd;
         }
         tr:hover { background: #f9f9f9; }
@@ -93,6 +204,86 @@
             text-decoration: none;
         }
         a:hover { text-decoration: underline; }
+        .tags-cell {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        .tag-badge {
+            padding: 3px 8px;
+            background: #e0e0e0;
+            border-radius: 12px;
+            font-size: 11px;
+            color: #333;
+            white-space: nowrap;
+        }
+        .platform-badge {
+            padding: 4px 10px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        .platform-badge:hover {
+            background: #45a049;
+        }
+        .platform-text {
+            padding: 4px 10px;
+            background: #999;
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        .podcast-icon {
+            font-size: 20px;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .podcast-icon:hover {
+            transform: scale(1.2);
+        }
+        .podcast-icon.inactive {
+            opacity: 0.2;
+            cursor: default;
+        }
+        .podcast-icon.inactive:hover {
+            transform: none;
+        }
+        .start-time {
+            font-weight: bold;
+            color: #d32f2f;
+            white-space: nowrap;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+            white-space: nowrap;
+        }
+        .edit-btn {
+            background: #1976d2;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+        .edit-btn:hover {
+            background: #1565c0;
+        }
+        .delete-btn {
+            background: #c00;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+        .delete-btn:hover {
+            background: #900;
+        }
         .modal {
             position: fixed;
             top: 0;
@@ -123,26 +314,25 @@
             font-weight: bold;
             color: #333;
         }
-        .form-group input {
+        .form-group input, .form-group textarea, .form-group select {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 14px;
+            font-family: inherit;
+        }
+        .form-group small {
+            color: #666;
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
         }
         .form-actions {
             display: flex;
             gap: 10px;
             justify-content: flex-end;
             margin-top: 20px;
-        }
-        .delete-btn {
-            background: #c00;
-            padding: 6px 12px;
-            font-size: 12px;
-        }
-        .delete-btn:hover {
-            background: #900;
         }
         .no-results {
             padding: 40px;
@@ -151,76 +341,407 @@
             background: white;
             border-radius: 8px;
         }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .stat-card h3 {
+            margin: 0 0 10px 0;
+            color: #666;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        .stat-card .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+        }
+        .stat-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+        .stat-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+        .import-export {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        .import-section {
+            margin-bottom: 30px;
+        }
+        .file-input-wrapper {
+            margin: 15px 0;
+        }
+        .success-message {
+            padding: 15px;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        .error-message {
+            padding: 15px;
+            background: #f8d7da;
+            color: #721c24;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        .settings-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        .time-input {
+            width: 120px;
+        }
+        .center-text {
+            text-align: center;
+        }
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
     </style>
 </head>
 <body>
     <div id="app">
-        <h1>Film Log</h1>
-        
-        <div class="controls">
-            <input 
-                type="text" 
-                v-model="searchQuery" 
-                placeholder="Search films..."
-            />
-            <button @click="showAddModal = true">+ Add Film</button>
-            <button class="secondary" @click="clearSearch" v-if="searchQuery">Clear</button>
+        <h1>Welcome to Family Groovy Night</h1>
+        <div class="fun-fact">
+            <p>This website was built entirely from an iPhone while staying warm in bed.</p>
+            <p>Because sometimes the best systems architecture happens under blankets.</p>
+            <p><em>Last tinkered: {{ lastTinkered }}</em></p>
         </div>
 
-        <table v-if="filteredFilms.length > 0">
-            <thead>
-                <tr>
-                    <th @click="sortBy('line')" :class="sortClass('line')">Line #</th>
-                    <th @click="sortBy('film')" :class="sortClass('film')">Film</th>
-                    <th @click="sortBy('duration')" :class="sortClass('duration')">Duration</th>
-                    <th @click="sortBy('date')" :class="sortClass('date')">Date</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="film in filteredFilms" :key="film.line">
-                    <td>{{ film.line }}</td>
-                    <td>
-                        <a v-if="film.link" :href="film.link" target="_blank">{{ film.film }}</a>
-                        <span v-else>{{ film.film }}</span>
-                    </td>
-                    <td>{{ film.duration }}</td>
-                    <td>{{ formatDate(film.date) }}</td>
-                    <td>
-                        <button class="delete-btn" @click="deleteFilm(film.line)">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div v-else class="no-results">
-            <p>No films found matching "{{ searchQuery }}"</p>
+        <!-- Navigation -->
+        <div class="nav">
+            <button @click="currentView = 'log'" :class="{ active: currentView === 'log' }">
+                Film Log
+            </button>
+            <button @click="currentView = 'stats'" :class="{ active: currentView === 'stats' }">
+                Statistics
+            </button>
+            <button @click="currentView = 'import'" :class="{ active: currentView === 'import' }">
+                Import/Export
+            </button>
+            <button @click="currentView = 'settings'" :class="{ active: currentView === 'settings' }">
+                Settings
+            </button>
         </div>
 
-        <!-- Add Film Modal -->
-        <div class="modal" v-if="showAddModal" @click.self="showAddModal = false">
+        <!-- FILM LOG VIEW -->
+        <div v-if="currentView === 'log'">
+            <div class="controls">
+                <div class="control-row">
+                    <input 
+                        type="text" 
+                        v-model="searchQuery" 
+                        placeholder="Search films..."
+                    />
+                    <button @click="openAddModal">+ Add Film</button>
+                    <button class="secondary" @click="clearSearch" v-if="searchQuery">Clear</button>
+                </div>
+                
+                <div class="control-row" v-if="allTags.length > 0">
+                    <div class="tag-filters">
+                        <span style="font-weight: bold; margin-right: 10px;">Filter by tag:</span>
+                        <div 
+                            class="tag-chip" 
+                            v-for="tag in allTags" 
+                            :key="tag"
+                            :class="{ active: selectedTags.includes(tag) }"
+                            @click="toggleTag(tag)"
+                        >
+                            {{ tag }}
+                        </div>
+                        <div 
+                            class="tag-chip clear" 
+                            v-if="selectedTags.length > 0"
+                            @click="selectedTags = []"
+                        >
+                            Clear filters
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-wrapper" v-if="filteredFilms.length > 0">
+                <table>
+                    <thead>
+                        <tr>
+                            <th @click="sortBy('line')" :class="sortClass('line')">#</th>
+                            <th @click="sortBy('film')" :class="sortClass('film')">Film</th>
+                            <th @click="sortBy('duration')" :class="sortClass('duration')">Duration</th>
+                            <th @click="sortBy('platform')" :class="sortClass('platform')">Platform</th>
+                            <th class="no-sort center-text">🎧</th>
+                            <th @click="sortBy('date')" :class="sortClass('date')">Date</th>
+                            <th class="no-sort">Tags</th>
+                            <th class="no-sort">Start Time</th>
+                            <th class="no-sort">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="film in filteredFilms" :key="film.line">
+                            <td>{{ film.line }}</td>
+                            <td>
+                                <a v-if="film.link" :href="film.link" target="_blank">{{ film.film }}</a>
+                                <span v-else>{{ film.film }}</span>
+                            </td>
+                            <td>{{ film.duration }} min</td>
+                            <td>
+                                <a v-if="film.platform && film.platformLink" 
+                                   :href="film.platformLink" 
+                                   target="_blank" 
+                                   class="platform-badge">
+                                    {{ film.platform }}
+                                </a>
+                                <span v-else-if="film.platform" class="platform-text">
+                                    {{ film.platform }}
+                                </span>
+                            </td>
+                            <td class="center-text">
+                                <a v-if="film.podcastLink" 
+                                   :href="film.podcastLink" 
+                                   target="_blank" 
+                                   class="podcast-icon"
+                                   title="Listen to podcast">
+                                    🎧
+                                </a>
+                                <span v-else class="podcast-icon inactive">🎧</span>
+                            </td>
+                            <td>{{ formatDate(film.date) }}</td>
+                            <td>
+                                <div class="tags-cell">
+                                    <span class="tag-badge" v-for="tag in film.tags" :key="tag">{{ tag }}</span>
+                                </div>
+                            </td>
+                            <td class="start-time">{{ calculateStartTime(film.duration) }}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="edit-btn" @click="openEditModal(film)">Edit</button>
+                                    <button class="delete-btn" @click="deleteFilm(film.line)">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div v-else class="no-results">
+                <p>No films found matching your criteria</p>
+            </div>
+        </div>
+
+        <!-- STATISTICS VIEW -->
+        <div v-if="currentView === 'stats'">
+            <h2>Statistics</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Films</h3>
+                    <div class="stat-value">{{ films.length }}</div>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>Total Duration</h3>
+                    <div class="stat-value">{{ totalDuration }}</div>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>Average Duration</h3>
+                    <div class="stat-value">{{ averageDuration }}</div>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>Most Recent</h3>
+                    <div class="stat-value" style="font-size: 20px;">{{ mostRecentFilm }}</div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Films with Podcasts</h3>
+                    <div class="stat-value">{{ filmsWithPodcasts }}</div>
+                </div>
+            </div>
+
+            <div class="stat-card" v-if="filmsByPlatform && Object.keys(filmsByPlatform).length > 0">
+                <h3>Films by Platform</h3>
+                <ul class="stat-list">
+                    <li v-for="(count, platform) in filmsByPlatform" :key="platform">
+                        <span>{{ platform }}</span>
+                        <strong>{{ count }}</strong>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="stat-card" v-if="filmsByTag && Object.keys(filmsByTag).length > 0">
+                <h3>Films by Tag</h3>
+                <ul class="stat-list">
+                    <li v-for="(count, tag) in filmsByTag" :key="tag">
+                        <span>{{ tag }}</span>
+                        <strong>{{ count }}</strong>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="stat-card">
+                <h3>Films by Year</h3>
+                <ul class="stat-list">
+                    <li v-for="(count, year) in filmsByYear" :key="year">
+                        <span>{{ year }}</span>
+                        <strong>{{ count }}</strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- IMPORT/EXPORT VIEW -->
+        <div v-if="currentView === 'import'">
+            <div class="import-export">
+                <h2>Export Data</h2>
+                <p>Download your film log for backup, sharing, or printing.</p>
+                <div class="export-buttons">
+                    <button @click="exportJSON">Download JSON</button>
+                    <button @click="exportPDF">Download PDF (Printable)</button>
+                </div>
+            </div>
+
+            <div class="import-export import-section">
+                <h2>Import JSON</h2>
+                <p>Upload a previously exported JSON file to restore your data.</p>
+                <div class="file-input-wrapper">
+                    <input 
+                        type="file" 
+                        accept=".json" 
+                        @change="handleJSONImport"
+                        ref="jsonInput"
+                    />
+                </div>
+                <div v-if="importMessage" :class="importSuccess ? 'success-message' : 'error-message'">
+                    {{ importMessage }}
+                </div>
+            </div>
+
+            <div class="import-export import-section">
+                <h2>Import CSV</h2>
+                <p>Upload a CSV file with columns: film, link, duration, platform, platformLink, podcastLink, date, tags</p>
+                <p><small>Duration should be just the number (e.g., 142). Tags should be comma-separated within quotes if multiple.</small></p>
+                <div class="file-input-wrapper">
+                    <input 
+                        type="file" 
+                        accept=".csv" 
+                        @change="handleCSVImport"
+                        ref="csvInput"
+                    />
+                </div>
+                <div v-if="csvMessage" :class="csvSuccess ? 'success-message' : 'error-message'">
+                    {{ csvMessage }}
+                </div>
+            </div>
+        </div>
+
+        <!-- SETTINGS VIEW -->
+        <div v-if="currentView === 'settings'">
+            <div class="settings-section">
+                <h2>Target End Time</h2>
+                <p>Set the time you want to finish watching by. The "Start Time" column will calculate backwards based on film duration.</p>
+                <div class="form-group">
+                    <label>Target End Time</label>
+                    <input 
+                        type="time" 
+                        v-model="targetEndTime" 
+                        @change="saveSettings"
+                        class="time-input"
+                    />
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2>Platform Options</h2>
+                <p>Available platforms for the dropdown menu. These are just labels - you'll add the specific URL for each film when adding/editing.</p>
+                <div class="stat-card">
+                    <ul class="stat-list">
+                        <li v-for="platform in platformOptions" :key="platform">
+                            <span>{{ platform }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add/Edit Film Modal -->
+        <div class="modal" v-if="showFilmModal" @click.self="closeFilmModal">
             <div class="modal-content">
-                <h2>Add New Film</h2>
-                <form @submit.prevent="addFilm">
+                <h2>{{ editingFilm ? 'Edit Film' : 'Add New Film' }}</h2>
+                <form @submit.prevent="saveFilm">
                     <div class="form-group">
                         <label>Film Title</label>
-                        <input type="text" v-model="newFilm.film" required />
+                        <input type="text" v-model="filmForm.film" required />
                     </div>
+                    
                     <div class="form-group">
-                        <label>Link (optional)</label>
-                        <input type="url" v-model="newFilm.link" placeholder="https://..." />
+                        <label>Info Link (optional)</label>
+                        <input type="url" v-model="filmForm.link" placeholder="https://www.imdb.com/..." />
+                        <small>Link to IMDB, Wikipedia, etc.</small>
                     </div>
+                    
                     <div class="form-group">
-                        <label>Duration</label>
-                        <input type="text" v-model="newFilm.duration" placeholder="120 min" required />
+                        <label>Duration (minutes)</label>
+                        <input type="number" v-model.number="filmForm.duration" min="1" placeholder="142" required />
+                        <small>Enter just the number of minutes</small>
                     </div>
+                    
+                    <div class="form-group">
+                        <label>Platform (optional)</label>
+                        <select v-model="filmForm.platform">
+                            <option value="">-- Select Platform --</option>
+                            <option v-for="platform in platformOptions" :key="platform" :value="platform">{{ platform }}</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Platform Link (optional)</label>
+                        <input type="url" v-model="filmForm.platformLink" placeholder="https://..." />
+                        <small>Direct link to watch the film (Amazon Prime page, Google Drive file, etc.)</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Podcast Link (optional)</label>
+                        <input type="url" v-model="filmForm.podcastLink" placeholder="https://..." />
+                        <small>Link to podcast episode, director commentary, or audio file about this film</small>
+                    </div>
+                    
                     <div class="form-group">
                         <label>Date</label>
-                        <input type="date" v-model="newFilm.date" required />
+                        <input type="date" v-model="filmForm.date" required />
                     </div>
+                    
+                    <div class="form-group">
+                        <label>Tags (comma-separated, optional)</label>
+                        <input type="text" v-model="filmForm.tagsInput" placeholder="drama, classic, criterion" />
+                        <small>Separate tags with commas</small>
+                    </div>
+                    
                     <div class="form-actions">
-                        <button type="button" class="secondary" @click="showAddModal = false">Cancel</button>
-                        <button type="submit">Add Film</button>
+                        <button type="button" class="secondary" @click="closeFilmModal">Cancel</button>
+                        <button type="submit">{{ editingFilm ? 'Update Film' : 'Add Film' }}</button>
                     </div>
                 </form>
             </div>
@@ -233,40 +754,93 @@
         createApp({
             data() {
                 return {
+                    currentView: 'log',
                     films: [],
                     searchQuery: '',
+                    selectedTags: [],
                     sortKey: 'line',
                     sortDirection: 'asc',
-                    showAddModal: false,
-                    newFilm: {
+                    showFilmModal: false,
+                    editingFilm: null,
+                    filmForm: {
                         film: '',
                         link: '',
-                        duration: '',
-                        date: ''
-                    }
+                        duration: null,
+                        platform: '',
+                        platformLink: '',
+                        podcastLink: '',
+                        date: '',
+                        tagsInput: ''
+                    },
+                    importMessage: '',
+                    importSuccess: false,
+                    csvMessage: '',
+                    csvSuccess: false,
+                    lastTinkered: new Date().toLocaleString(),
+                    targetEndTime: '20:00',
+                    platformOptions: [
+                        'iTunes',
+                        'Amazon Prime',
+                        'Netflix',
+                        'Hulu',
+                        'Disney+',
+                        'HBO Max',
+                        'Tubi',
+                        'Peacock',
+                        'Paramount+',
+                        'Criterion',
+                        'Google Drive',
+                        'Plex',
+                        'Other'
+                    ]
                 };
             },
             computed: {
+                allTags() {
+                    const tags = new Set();
+                    this.films.forEach(f => {
+                        if (f.tags) {
+                            f.tags.forEach(t => tags.add(t));
+                        }
+                    });
+                    return Array.from(tags).sort();
+                },
                 filteredFilms() {
                     let filtered = this.films;
                     
-                    // Search filter
+                    if (this.selectedTags.length > 0) {
+                        filtered = filtered.filter(f => 
+                            f.tags && this.selectedTags.some(tag => f.tags.includes(tag))
+                        );
+                    }
+                    
                     if (this.searchQuery) {
                         const query = this.searchQuery.toLowerCase();
                         filtered = filtered.filter(f => 
                             f.film.toLowerCase().includes(query) ||
-                            f.duration.toLowerCase().includes(query) ||
-                            f.date.includes(query)
+                            String(f.duration).includes(query) ||
+                            f.date.includes(query) ||
+                            (f.platform && f.platform.toLowerCase().includes(query)) ||
+                            (f.tags && f.tags.some(t => t.toLowerCase().includes(query)))
                         );
                     }
+                },
+                sortClass(key) {
+                    if (this.sortKey === key) {
+                        return this.sortDirection === 'asc' ? 'sort-asc' : 'sort-desc';
+                    }
+                    return '';
+                },
+                addFilm() {
+                    const nextLine = this.films.length > 0 
+                        ? Math.max(...this.films.map(f => f.line)) + 1 
+                        : 1;
                     
-                    // Sort
                     return [...filtered].sort((a, b) => {
                         let aVal = a[this.sortKey];
                         let bVal = b[this.sortKey];
                         
-                        // Numeric sort for line
-                        if (this.sortKey === 'line') {
+                        if (this.sortKey === 'line' || this.sortKey === 'duration') {
                             aVal = parseInt(aVal);
                             bVal = parseInt(bVal);
                         }
@@ -275,9 +849,68 @@
                         if (aVal > bVal) return this.sortDirection === 'asc' ? 1 : -1;
                         return 0;
                     });
+                },
+                totalDuration() {
+                    const total = this.films.reduce((sum, f) => sum + parseInt(f.duration), 0);
+                    const hours = Math.floor(total / 60);
+                    const mins = total % 60;
+                    return `${hours}h ${mins}m`;
+                },
+                averageDuration() {
+                    if (this.films.length === 0) return '0 min';
+                    const total = this.films.reduce((sum, f) => sum + parseInt(f.duration), 0);
+                    return Math.round(total / this.films.length) + ' min';
+                },
+                mostRecentFilm() {
+                    if (this.films.length === 0) return 'N/A';
+                    const sorted = [...this.films].sort((a, b) => 
+                        new Date(b.date) - new Date(a.date)
+                    );
+                    return sorted[0].film;
+                },
+                filmsWithPodcasts() {
+                    return this.films.filter(f => f.podcastLink).length;
+                },
+                filmsByTag() {
+                    const counts = {};
+                    this.films.forEach(f => {
+                        if (f.tags) {
+                            f.tags.forEach(tag => {
+                                counts[tag] = (counts[tag] || 0) + 1;
+                            });
+                        }
+                    });
+                    return counts;
+                },
+                filmsByPlatform() {
+                    const counts = {};
+                    this.films.forEach(f => {
+                        if (f.platform) {
+                            counts[f.platform] = (counts[f.platform] || 0) + 1;
+                        }
+                    });
+                    return counts;
+                },
+                filmsByYear() {
+                    const counts = {};
+                    this.films.forEach(f => {
+                        const year = new Date(f.date).getFullYear();
+                        counts[year] = (counts[year] || 0) + 1;
+                    });
+                    return Object.fromEntries(
+                        Object.entries(counts).sort((a, b) => b[0] - a[0])
+                    );
                 }
             },
             methods: {
+                toggleTag(tag) {
+                    const index = this.selectedTags.indexOf(tag);
+                    if (index > -1) {
+                        this.selectedTags.splice(index, 1);
+                    } else {
+                        this.selectedTags.push(tag);
+                    }
+                },
                 sortBy(key) {
                     if (this.sortKey === key) {
                         this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
@@ -292,24 +925,149 @@
                     }
                     return '';
                 },
-                addFilm() {
-                    const nextLine = this.films.length > 0 
-                        ? Math.max(...this.films.map(f => f.line)) + 1 
-                        : 1;
+                calculateStartTime(duration) {
+                    const [hours, minutes] = this.targetEndTime.split(':').map(Number);
+                    const endTimeMinutes = hours * 60 + minutes;
+                    const startTimeMinutes = endTimeMinutes - parseInt(duration);
                     
-                    this.films.push({
-                        line: nextLine,
-                        film: this.newFilm.film,
-                        link: this.newFilm.link,
-                        duration: this.newFilm.duration,
-                        date: this.newFilm.date
+                    if (startTimeMinutes < 0) {
+                        return 'N/A';
+                    }
+                    
+                    const startHours = Math.floor(startTimeMinutes / 60);
+                    const startMins = startTimeMinutes % 60;
+                    
+                    const period = startHours >= 12 ? 'PM' : 'AM';
+                    const displayHours = startHours > 12 ? startHours - 12 : (startHours === 0 ? 12 : startHours);
+                    
+                    return `${displayHours}:${String(startMins).padStart(2, '0')} ${period}`;
+                },
+                exportPDF() {
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF('landscape');
+                    
+                    // Title
+                    doc.setFontSize(18);
+                    doc.text('Family Groovy Night - Film Log', 14, 15);
+                    
+                    doc.setFontSize(10);
+                    doc.text(`Generated: ${new Date().toLocaleDateString()}`, 14, 22);
+                    
+                    // Prepare table data
+                    const tableData = this.films.map(f => [
+                        f.line,
+                        f.film,
+                        `${f.duration} min`,
+                        f.platform || '-',
+                        f.podcastLink ? '🎧' : '',
+                        this.formatDate(f.date),
+                        f.tags ? f.tags.join(', ') : '',
+                        this.calculateStartTime(f.duration)
+                    ]);
+                    
+                    // Generate table
+                    doc.autoTable({
+                        startY: 28,
+                        head: [['#', 'Film', 'Duration', 'Platform', '🎧', 'Date', 'Tags', 'Start Time']],
+                        body: tableData,
+                        styles: { 
+                            fontSize: 8,
+                            cellPadding: 2
+                        },
+                        headStyles: {
+                            fillColor: [51, 51, 51],
+                            textColor: 255,
+                            fontStyle: 'bold'
+                        },
+                        columnStyles: {
+                            0: { cellWidth: 10 },
+                            1: { cellWidth: 60 },
+                            2: { cellWidth: 22 },
+                            3: { cellWidth: 30 },
+                            4: { cellWidth: 12 },
+                            5: { cellWidth: 25 },
+                            6: { cellWidth: 50 },
+                            7: { cellWidth: 25 }
+                        },
+                        margin: { top: 28 }
                     });
                     
-                    this.saveFilms();
-                    this.showAddModal = false;
+                    // Save
+                    doc.save(`family-groovy-night-${new Date().toISOString().split('T')[0]}.pdf`);
+                },
+                openAddModal() {
+                    this.editingFilm = null;
+                    this.filmForm = {
+                        film: '',
+                        link: '',
+                        duration: null,
+                        platform: '',
+                        platformLink: '',
+                        podcastLink: '',
+                        date: '',
+                        tagsInput: ''
+                    };
+                    this.showFilmModal = true;
+                },
+                openEditModal(film) {
+                    this.editingFilm = film;
+                    this.filmForm = {
+                        film: film.film,
+                        link: film.link || '',
+                        duration: film.duration,
+                        platform: film.platform || '',
+                        platformLink: film.platformLink || '',
+                        podcastLink: film.podcastLink || '',
+                        date: film.date,
+                        tagsInput: film.tags ? film.tags.join(', ') : ''
+                    };
+                    this.showFilmModal = true;
+                },
+                closeFilmModal() {
+                    this.showFilmModal = false;
+                    this.editingFilm = null;
+                },
+                saveFilm() {
+                    const tags = this.filmForm.tagsInput
+                        .split(',')
+                        .map(t => t.trim())
+                        .filter(t => t.length > 0);
                     
-                    // Reset form
-                    this.newFilm = { film: '', link: '', duration: '', date: '' };
+                    if (this.editingFilm) {
+                        const index = this.films.findIndex(f => f.line === this.editingFilm.line);
+                        if (index !== -1) {
+                            this.films[index] = {
+                                ...this.films[index],
+                                film: this.filmForm.film,
+                                link: this.filmForm.link,
+                                duration: this.filmForm.duration,
+                                platform: this.filmForm.platform,
+                                platformLink: this.filmForm.platformLink,
+                                podcastLink: this.filmForm.podcastLink,
+                                date: this.filmForm.date,
+                                tags: tags
+                            };
+                        }
+                    } else {
+                        const nextLine = this.films.length > 0 
+                            ? Math.max(...this.films.map(f => f.line)) + 1 
+                            : 1;
+                        
+                        this.films.push({
+                            line: nextLine,
+                            film: this.filmForm.film,
+                            link: this.filmForm.link,
+                            duration: this.filmForm.duration,
+                            platform: this.filmForm.platform,
+                            platformLink: this.filmForm.platformLink,
+                            podcastLink: this.filmForm.podcastLink,
+                            date: this.filmForm.date,
+                            tags: tags
+                        });
+                    }
+                    
+                    this.saveFilms();
+                    this.closeFilmModal();
                 },
                 deleteFilm(line) {
                     if (confirm('Delete this film?')) {
@@ -329,23 +1087,130 @@
                 },
                 saveFilms() {
                     localStorage.setItem('filmLog', JSON.stringify(this.films));
+                    this.lastTinkered = new Date().toLocaleString();
+                },
+                saveSettings() {
+                    localStorage.setItem('filmLogSettings', JSON.stringify({
+                        targetEndTime: this.targetEndTime
+                    }));
+                },
+                loadSettings() {
+                    const saved = localStorage.getItem('filmLogSettings');
+                    if (saved) {
+                        const settings = JSON.parse(saved);
+                        this.targetEndTime = settings.targetEndTime || '20:00';
+                    }
                 },
                 loadFilms() {
                     const saved = localStorage.getItem('filmLog');
                     if (saved) {
                         this.films = JSON.parse(saved);
                     } else {
-                        // Initial seed data
                         this.films = [
-                            { line: 1, film: 'The Shawshank Redemption', link: 'https://www.imdb.com/title/tt0111161/', duration: '142 min', date: '2024-01-15' },
-                            { line: 2, film: 'The Godfather', link: 'https://www.imdb.com/title/tt0068646/', duration: '175 min', date: '2024-02-20' },
-                            { line: 3, film: 'Citizen Kane', link: '', duration: '119 min', date: '2024-03-10' }
+                            { line: 1, film: 'The Shawshank Redemption', link: 'https://www.imdb.com/title/tt0111161/', duration: 142, platform: 'Amazon Prime', platformLink: 'https://www.amazon.com/Shawshank-Redemption-Tim-Robbins/dp/B001UI5APQ', podcastLink: '', date: '2024-01-15', tags: ['drama', 'classic'] },
+                            { line: 2, film: 'The Godfather', link: 'https://www.imdb.com/title/tt0068646/', duration: 175, platform: 'Paramount+', platformLink: '', podcastLink: 'https://example.com/godfather-podcast', date: '2024-02-20', tags: ['drama', 'crime', 'classic'] },
+                            { line: 3, film: 'Citizen Kane', link: '', duration: 119, platform: 'Criterion', platformLink: '', podcastLink: '', date: '2024-03-10', tags: ['classic', 'criterion'] }
                         ];
                         this.saveFilms();
                     }
+                },
+                exportJSON() {
+                    const dataStr = JSON.stringify(this.films, null, 2);
+                    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                    const url = URL.createObjectURL(dataBlob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `film-log-${new Date().toISOString().split('T')[0]}.json`;
+                    link.click();
+                    URL.revokeObjectURL(url);
+                },
+                handleJSONImport(event) {
+                    const file = event.target.files[0];
+                    if (!file) return;
+                    
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        try {
+                            const imported = JSON.parse(e.target.result);
+                            if (!Array.isArray(imported)) {
+                                throw new Error('Invalid format: expected an array');
+                            }
+                            this.films = imported;
+                            this.saveFilms();
+                            this.importMessage = `Successfully imported ${imported.length} films!`;
+                            this.importSuccess = true;
+                            this.currentView = 'log';
+                        } catch (error) {
+                            this.importMessage = `Error importing JSON: ${error.message}`;
+                            this.importSuccess = false;
+                        }
+                        this.$refs.jsonInput.value = '';
+                    };
+                    reader.readAsText(file);
+                },
+                handleCSVImport(event) {
+                    const file = event.target.files[0];
+                    if (!file) return;
+                    
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        try {
+                            const csv = e.target.result;
+                            const lines = csv.split('\n').filter(line => line.trim());
+                            
+                            const dataLines = lines.slice(1);
+                            
+                            const nextLine = this.films.length > 0 
+                                ? Math.max(...this.films.map(f => f.line)) + 1 
+                                : 1;
+                            
+                            let imported = 0;
+                            dataLines.forEach((line, index) => {
+                                const parts = line.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
+                                if (!parts || parts.length < 6) return;
+                                
+                                const film = parts[0].replace(/"/g, '').trim();
+                                const link = parts[1] ? parts[1].replace(/"/g, '').trim() : '';
+                                const duration = parseInt(parts[2].replace(/"/g, '').trim());
+                                const platform = parts[3] ? parts[3].replace(/"/g, '').trim() : '';
+                                const platformLink = parts[4] ? parts[4].replace(/"/g, '').trim() : '';
+                                const podcastLink = parts[5] ? parts[5].replace(/"/g, '').trim() : '';
+                                const date = parts[6].replace(/"/g, '').trim();
+                                const tagsStr = parts[7] ? parts[7].replace(/"/g, '').trim() : '';
+                                
+                                const tags = tagsStr.split(',').map(t => t.trim()).filter(t => t);
+                                
+                                if (film && duration && date) {
+                                    this.films.push({
+                                        line: nextLine + imported,
+                                        film,
+                                        link,
+                                        duration,
+                                        platform,
+                                        platformLink,
+                                        podcastLink,
+                                        date,
+                                        tags
+                                    });
+                                    imported++;
+                                }
+                            });
+                            
+                            this.saveFilms();
+                            this.csvMessage = `Successfully imported ${imported} films from CSV!`;
+                            this.csvSuccess = true;
+                            this.currentView = 'log';
+                        } catch (error) {
+                            this.csvMessage = `Error importing CSV: ${error.message}`;
+                            this.csvSuccess = false;
+                        }
+                        this.$refs.csvInput.value = '';
+                    };
+                    reader.readAsText(file);
                 }
             },
             mounted() {
+                this.loadSettings();
                 this.loadFilms();
             }
         }).mount('#app');
