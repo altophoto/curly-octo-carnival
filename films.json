@@ -243,10 +243,10 @@
   {
     "line": 18,
     "film": "The Big Lebowski",
-    "year": null,
+    "year": 1998,
     "director": "Joel and Ethan Coen",
-    "link": "",
-    "duration": 1,
+    "link": "https://www.imdb.com/title/tt0118715/?ref_=ext_shr_lnk",
+    "duration": 117,
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-10-27",
