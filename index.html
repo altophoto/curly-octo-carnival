@@ -11,7 +11,7 @@
         * { box-sizing: border-box; }
         body {
             font-family: 'Georgia', serif;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 30px auto;
             padding: 20px;
             background: #f4f4f4;
@@ -56,8 +56,12 @@
         .nav button.active {
             background: #333;
         }
-        .nav button:hover {
+        .nav button:hover:not(:disabled) {
             background: #555;
+        }
+        .nav button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
         .controls {
             background: white;
@@ -129,6 +133,38 @@
             background: #c00;
             color: white;
         }
+        .tag-selector {
+            margin-bottom: 15px;
+        }
+        .tag-selector-label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .tag-options {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .tag-option {
+            padding: 5px 10px;
+            background: #f0f0f0;
+            border: 2px solid #ddd;
+            border-radius: 15px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tag-option:hover {
+            background: #e0e0e0;
+        }
+        .tag-option.selected {
+            background: #333;
+            color: white;
+            border-color: #333;
+        }
         .table-wrapper {
             width: 100%;
             overflow-x: auto;
@@ -157,7 +193,7 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
-            min-width: 900px;
+            min-width: 1100px;
         }
         th {
             background: #333;
@@ -343,7 +379,7 @@
             background: white;
             padding: 30px;
             border-radius: 8px;
-            max-width: 500px;
+            max-width: 600px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
@@ -505,7 +541,7 @@
             <p>Loading your film collection...</p>
         </div>
 
-        <!-- Navigation (always show if token exists OR in settings) -->
+        <!-- Navigation -->
         <div v-if="githubToken || currentView === 'settings'" class="nav">
             <button @click="currentView = 'log'" :class="{ active: currentView === 'log' }" :disabled="!githubToken">
                 Film Log
@@ -563,6 +599,8 @@
                         <tr>
                             <th @click="sortBy('line')" :class="sortClass('line')">#</th>
                             <th @click="sortBy('film')" :class="sortClass('film')">Film</th>
+                            <th @click="sortBy('year')" :class="sortClass('year')">Year</th>
+                            <th @click="sortBy('director')" :class="sortClass('director')">Director</th>
                             <th @click="sortBy('duration')" :class="sortClass('duration')">Duration</th>
                             <th @click="sortBy('platform')" :class="sortClass('platform')">Platform</th>
                             <th class="no-sort center-text">🎧</th>
@@ -579,6 +617,8 @@
                                 <a v-if="film.link" :href="film.link" target="_blank">{{ film.film }}</a>
                                 <span v-else>{{ film.film }}</span>
                             </td>
+                            <td>{{ film.year || '-' }}</td>
+                            <td>{{ film.director || '-' }}</td>
                             <td>{{ film.duration }} min</td>
                             <td>
                                 <a v-if="film.platform && film.platformLink" 
@@ -676,10 +716,20 @@
             </div>
 
             <div class="stat-card">
-                <h3>Films by Year</h3>
+                <h3>Films by Year Watched</h3>
                 <ul class="stat-list">
-                    <li v-for="(count, year) in filmsByYear" :key="year">
+                    <li v-for="(count, year) in filmsByYearWatched" :key="year">
                         <span>{{ year }}</span>
+                        <strong>{{ count }}</strong>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="stat-card" v-if="filmsByDecade && Object.keys(filmsByDecade).length > 0">
+                <h3>Films by Decade Released</h3>
+                <ul class="stat-list">
+                    <li v-for="(count, decade) in filmsByDecade" :key="decade">
+                        <span>{{ decade }}</span>
                         <strong>{{ count }}</strong>
                     </li>
                 </ul>
@@ -715,8 +765,8 @@
 
             <div class="import-export import-section">
                 <h2>Import CSV</h2>
-                <p>Upload a CSV file with columns: film, link, duration, platform, platformLink, podcastLink, date, tags</p>
-                <p><small>Duration should be just the number (e.g., 142). Tags should be comma-separated within quotes if multiple.</small></p>
+                <p>Upload a CSV file with columns: film, link, year, director, duration, platform, platformLink, podcastLink, date, tags</p>
+                <p><small>Duration and year should be just numbers. Tags should be comma-separated.</small></p>
                 <div class="file-input-wrapper">
                     <input 
                         type="file" 
@@ -731,7 +781,7 @@
             </div>
         </div>
 
-        <!-- SETTINGS VIEW (always accessible) -->
+        <!-- SETTINGS VIEW -->
         <div v-if="currentView === 'settings'">
             <div class="settings-section">
                 <h2>GitHub Sync Setup</h2>
@@ -780,7 +830,7 @@
 
             <div v-if="githubToken" class="settings-section">
                 <h2>Platform Options</h2>
-                <p>Available platforms for the dropdown menu. These are just labels - you'll add the specific URL for each film when adding/editing.</p>
+                <p>Available platforms for the dropdown menu.</p>
                 <div class="stat-card">
                     <ul class="stat-list">
                         <li v-for="platform in platformOptions" :key="platform">
@@ -797,24 +847,36 @@
                 <h2>{{ editingFilm ? 'Edit Film' : 'Add New Film' }}</h2>
                 <form @submit.prevent="saveFilm">
                     <div class="form-group">
-                        <label>Film Title</label>
+                        <label>Film Title *</label>
                         <input type="text" v-model="filmForm.film" required />
                     </div>
                     
                     <div class="form-group">
-                        <label>Info Link (optional)</label>
+                        <label>Year Released</label>
+                        <select v-model="filmForm.year">
+                            <option value="">-- Select Year --</option>
+                            <option v-for="year in yearOptions" :key="year" :value="year">{{ year }}</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Director</label>
+                        <input type="text" v-model="filmForm.director" placeholder="e.g., Steven Spielberg" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Info Link</label>
                         <input type="url" v-model="filmForm.link" placeholder="https://www.imdb.com/..." />
                         <small>Link to IMDB, Wikipedia, etc.</small>
                     </div>
                     
                     <div class="form-group">
-                        <label>Duration (minutes)</label>
+                        <label>Duration (minutes) *</label>
                         <input type="number" v-model.number="filmForm.duration" min="1" placeholder="142" required />
-                        <small>Enter just the number of minutes</small>
                     </div>
                     
                     <div class="form-group">
-                        <label>Platform (optional)</label>
+                        <label>Platform</label>
                         <select v-model="filmForm.platform">
                             <option value="">-- Select Platform --</option>
                             <option v-for="platform in platformOptions" :key="platform" :value="platform">{{ platform }}</option>
@@ -822,26 +884,40 @@
                     </div>
                     
                     <div class="form-group">
-                        <label>Platform Link (optional)</label>
+                        <label>Platform Link</label>
                         <input type="url" v-model="filmForm.platformLink" placeholder="https://..." />
                         <small>Direct link to watch the film</small>
                     </div>
 
                     <div class="form-group">
-                        <label>Podcast Link (optional)</label>
+                        <label>Podcast Link</label>
                         <input type="url" v-model="filmForm.podcastLink" placeholder="https://..." />
                         <small>Link to podcast episode or audio file</small>
                     </div>
                     
                     <div class="form-group">
-                        <label>Date</label>
+                        <label>Date Watched *</label>
                         <input type="date" v-model="filmForm.date" required />
                     </div>
                     
                     <div class="form-group">
-                        <label>Tags (comma-separated, optional)</label>
+                        <div class="tag-selector" v-if="allTags.length > 0">
+                            <label class="tag-selector-label">Select Existing Tags</label>
+                            <div class="tag-options">
+                                <div 
+                                    class="tag-option" 
+                                    v-for="tag in allTags" 
+                                    :key="tag"
+                                    :class="{ selected: selectedFormTags.includes(tag) }"
+                                    @click="toggleFormTag(tag)"
+                                >
+                                    {{ tag }}
+                                </div>
+                            </div>
+                        </div>
+                        <label>Add New Tags</label>
                         <input type="text" v-model="filmForm.tagsInput" placeholder="drama, classic, criterion" />
-                        <small>Separate tags with commas</small>
+                        <small>Separate new tags with commas. Click existing tags above to select them.</small>
                     </div>
                     
                     <div class="form-actions">
@@ -870,12 +946,15 @@
                     films: [],
                     searchQuery: '',
                     selectedTags: [],
+                    selectedFormTags: [],
                     sortKey: 'line',
                     sortDirection: 'asc',
                     showFilmModal: false,
                     editingFilm: null,
                     filmForm: {
                         film: '',
+                        year: '',
+                        director: '',
                         link: '',
                         duration: null,
                         platform: '',
@@ -912,6 +991,14 @@
                 };
             },
             computed: {
+                yearOptions() {
+                    const currentYear = new Date().getFullYear();
+                    const years = [];
+                    for (let year = currentYear; year >= 1900; year--) {
+                        years.push(year);
+                    }
+                    return years;
+                },
                 allTags() {
                     const tags = new Set();
                     this.films.forEach(f => {
@@ -919,7 +1006,7 @@
                             f.tags.forEach(t => tags.add(t));
                         }
                     });
-                    return Array.from(tags).sort();
+                    return Array.from(tags).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
                 },
                 filteredFilms() {
                     let filtered = this.films;
@@ -936,6 +1023,8 @@
                             f.film.toLowerCase().includes(query) ||
                             String(f.duration).includes(query) ||
                             f.date.includes(query) ||
+                            (f.year && String(f.year).includes(query)) ||
+                            (f.director && f.director.toLowerCase().includes(query)) ||
                             (f.platform && f.platform.toLowerCase().includes(query)) ||
                             (f.tags && f.tags.some(t => t.toLowerCase().includes(query)))
                         );
@@ -945,9 +1034,9 @@
                         let aVal = a[this.sortKey];
                         let bVal = b[this.sortKey];
                         
-                        if (this.sortKey === 'line' || this.sortKey === 'duration') {
-                            aVal = parseInt(aVal);
-                            bVal = parseInt(bVal);
+                        if (this.sortKey === 'line' || this.sortKey === 'duration' || this.sortKey === 'year') {
+                            aVal = parseInt(aVal) || 0;
+                            bVal = parseInt(bVal) || 0;
                         }
                         
                         if (aVal < bVal) return this.sortDirection === 'asc' ? -1 : 1;
@@ -996,7 +1085,7 @@
                     });
                     return counts;
                 },
-                filmsByYear() {
+                filmsByYearWatched() {
                     const counts = {};
                     this.films.forEach(f => {
                         const year = new Date(f.date).getFullYear();
@@ -1004,6 +1093,19 @@
                     });
                     return Object.fromEntries(
                         Object.entries(counts).sort((a, b) => b[0] - a[0])
+                    );
+                },
+                filmsByDecade() {
+                    const counts = {};
+                    this.films.forEach(f => {
+                        if (f.year) {
+                            const decade = Math.floor(f.year / 10) * 10;
+                            const label = `${decade}s`;
+                            counts[label] = (counts[label] || 0) + 1;
+                        }
+                    });
+                    return Object.fromEntries(
+                        Object.entries(counts).sort((a, b) => b[0].localeCompare(a[0]))
                     );
                 }
             },
@@ -1026,7 +1128,7 @@
                     }
                 },
                 clearToken() {
-                    if (confirm('Are you sure you want to clear your GitHub token? You will need to re-enter it to sync.')) {
+                    if (confirm('Are you sure you want to clear your GitHub token?')) {
                         this.githubToken = '';
                         this.tokenInput = '';
                         this.tokenSaved = false;
@@ -1121,6 +1223,14 @@
                         this.selectedTags.push(tag);
                     }
                 },
+                toggleFormTag(tag) {
+                    const index = this.selectedFormTags.indexOf(tag);
+                    if (index > -1) {
+                        this.selectedFormTags.splice(index, 1);
+                    } else {
+                        this.selectedFormTags.push(tag);
+                    }
+                },
                 sortBy(key) {
                     if (this.sortKey === key) {
                         this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
@@ -1165,6 +1275,8 @@
                     const tableData = this.films.map(f => [
                         f.line,
                         f.film,
+                        f.year || '-',
+                        f.director || '-',
                         `${f.duration} min`,
                         f.platform || '-',
                         f.podcastLink ? '🎧' : '',
@@ -1175,11 +1287,11 @@
                     
                     doc.autoTable({
                         startY: 28,
-                        head: [['#', 'Film', 'Duration', 'Platform', '🎧', 'Date', 'Tags', 'Start Time']],
+                        head: [['#', 'Film', 'Year', 'Director', 'Duration', 'Platform', '🎧', 'Date', 'Tags', 'Start']],
                         body: tableData,
                         styles: { 
-                            fontSize: 8,
-                            cellPadding: 2
+                            fontSize: 7,
+                            cellPadding: 1.5
                         },
                         headStyles: {
                             fillColor: [51, 51, 51],
@@ -1187,14 +1299,16 @@
                             fontStyle: 'bold'
                         },
                         columnStyles: {
-                            0: { cellWidth: 10 },
-                            1: { cellWidth: 60 },
-                            2: { cellWidth: 22 },
-                            3: { cellWidth: 30 },
-                            4: { cellWidth: 12 },
+                            0: { cellWidth: 8 },
+                            1: { cellWidth: 50 },
+                            2: { cellWidth: 15 },
+                            3: { cellWidth: 35 },
+                            4: { cellWidth: 18 },
                             5: { cellWidth: 25 },
-                            6: { cellWidth: 50 },
-                            7: { cellWidth: 25 }
+                            6: { cellWidth: 10 },
+                            7: { cellWidth: 22 },
+                            8: { cellWidth: 40 },
+                            9: { cellWidth: 18 }
                         },
                         margin: { top: 28 }
                     });
@@ -1203,8 +1317,11 @@
                 },
                 openAddModal() {
                     this.editingFilm = null;
+                    this.selectedFormTags = [];
                     this.filmForm = {
                         film: '',
+                        year: '',
+                        director: '',
                         link: '',
                         duration: null,
                         platform: '',
@@ -1217,27 +1334,36 @@
                 },
                 openEditModal(film) {
                     this.editingFilm = film;
+                    this.selectedFormTags = film.tags ? [...film.tags] : [];
                     this.filmForm = {
                         film: film.film,
+                        year: film.year || '',
+                        director: film.director || '',
                         link: film.link || '',
                         duration: film.duration,
                         platform: film.platform || '',
                         platformLink: film.platformLink || '',
                         podcastLink: film.podcastLink || '',
                         date: film.date,
-                        tagsInput: film.tags ? film.tags.join(', ') : ''
+                        tagsInput: ''
                     };
                     this.showFilmModal = true;
                 },
                 closeFilmModal() {
                     this.showFilmModal = false;
                     this.editingFilm = null;
+                    this.selectedFormTags = [];
                 },
                 async saveFilm() {
-                    const tags = this.filmForm.tagsInput
+                    // Combine selected existing tags with new tags from input
+                    const newTags = this.filmForm.tagsInput
                         .split(',')
                         .map(t => t.trim())
                         .filter(t => t.length > 0);
+                    
+                    const allTags = [...new Set([...this.selectedFormTags, ...newTags])].sort((a, b) => 
+                        a.toLowerCase().localeCompare(b.toLowerCase())
+                    );
                     
                     if (this.editingFilm) {
                         const index = this.films.findIndex(f => f.line === this.editingFilm.line);
@@ -1245,13 +1371,15 @@
                             this.films[index] = {
                                 ...this.films[index],
                                 film: this.filmForm.film,
+                                year: this.filmForm.year ? parseInt(this.filmForm.year) : null,
+                                director: this.filmForm.director,
                                 link: this.filmForm.link,
                                 duration: this.filmForm.duration,
                                 platform: this.filmForm.platform,
                                 platformLink: this.filmForm.platformLink,
                                 podcastLink: this.filmForm.podcastLink,
                                 date: this.filmForm.date,
-                                tags: tags
+                                tags: allTags
                             };
                         }
                     } else {
@@ -1262,13 +1390,15 @@
                         this.films.push({
                             line: nextLine,
                             film: this.filmForm.film,
+                            year: this.filmForm.year ? parseInt(this.filmForm.year) : null,
+                            director: this.filmForm.director,
                             link: this.filmForm.link,
                             duration: this.filmForm.duration,
                             platform: this.filmForm.platform,
                             platformLink: this.filmForm.platformLink,
                             podcastLink: this.filmForm.podcastLink,
                             date: this.filmForm.date,
-                            tags: tags
+                            tags: allTags
                         });
                     }
                     
@@ -1353,7 +1483,6 @@
                         try {
                             const csv = e.target.result;
                             const lines = csv.split('\n').filter(line => line.trim());
-                            
                             const dataLines = lines.slice(1);
                             
                             const nextLine = this.films.length > 0 
@@ -1363,16 +1492,18 @@
                             let imported = 0;
                             dataLines.forEach((line, index) => {
                                 const parts = line.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
-                                if (!parts || parts.length < 6) return;
+                                if (!parts || parts.length < 8) return;
                                 
                                 const film = parts[0].replace(/"/g, '').trim();
                                 const link = parts[1] ? parts[1].replace(/"/g, '').trim() : '';
-                                const duration = parseInt(parts[2].replace(/"/g, '').trim());
-                                const platform = parts[3] ? parts[3].replace(/"/g, '').trim() : '';
-                                const platformLink = parts[4] ? parts[4].replace(/"/g, '').trim() : '';
-                                const podcastLink = parts[5] ? parts[5].replace(/"/g, '').trim() : '';
-                                const date = parts[6].replace(/"/g, '').trim();
-                                const tagsStr = parts[7] ? parts[7].replace(/"/g, '').trim() : '';
+                                const year = parts[2] ? parseInt(parts[2].replace(/"/g, '').trim()) : null;
+                                const director = parts[3] ? parts[3].replace(/"/g, '').trim() : '';
+                                const duration = parseInt(parts[4].replace(/"/g, '').trim());
+                                const platform = parts[5] ? parts[5].replace(/"/g, '').trim() : '';
+                                const platformLink = parts[6] ? parts[6].replace(/"/g, '').trim() : '';
+                                const podcastLink = parts[7] ? parts[7].replace(/"/g, '').trim() : '';
+                                const date = parts[8].replace(/"/g, '').trim();
+                                const tagsStr = parts[9] ? parts[9].replace(/"/g, '').trim() : '';
                                 
                                 const tags = tagsStr.split(',').map(t => t.trim()).filter(t => t);
                                 
@@ -1381,6 +1512,8 @@
                                         line: nextLine + imported,
                                         film,
                                         link,
+                                        year,
+                                        director,
                                         duration,
                                         platform,
                                         platformLink,
