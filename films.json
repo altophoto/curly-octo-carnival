@@ -129,5 +129,16 @@
     "podcastLink": "",
     "date": "2025-10-27",
     "tags": []
+  },
+  {
+    "line": 11,
+    "film": "A Star is Born",
+    "link": "https://www.imdb.com/title/tt1517451/?ref_=ext_shr_lnk",
+    "duration": 136,
+    "platform": "Netflix",
+    "platformLink": "https://www.netflix.com/us/title/80221908?s=i&trkid=258593161&vlang=en&trg=cp",
+    "podcastLink": "",
+    "date": "2025-10-27",
+    "tags": []
   }
 ]
