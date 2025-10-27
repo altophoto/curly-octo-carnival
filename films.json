@@ -20,5 +20,16 @@
     "podcastLink": "",
     "date": "2025-10-27",
     "tags": []
+  },
+  {
+    "line": 3,
+    "film": "The Shawshank Redemption",
+    "link": "https://www.imdb.com/title/tt0111161/?ref_=ext_shr_lnk",
+    "duration": 142,
+    "platform": "",
+    "platformLink": "",
+    "podcastLink": "",
+    "date": "2025-10-27",
+    "tags": []
   }
 ]
