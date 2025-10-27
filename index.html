@@ -76,7 +76,7 @@
         .control-row:last-child {
             margin-bottom: 0;
         }
-        input[type="text"], input[type="file"], input[type="number"], select {
+        input[type="text"], input[type="file"], input[type="number"], input[type="password"], select {
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -129,8 +129,6 @@
             background: #c00;
             color: white;
         }
-        
-        /* Mobile-friendly table wrapper */
         .table-wrapper {
             width: 100%;
             overflow-x: auto;
@@ -140,8 +138,6 @@
             border-radius: 8px;
             margin: 20px 0;
         }
-        
-        /* Scroll hint for mobile */
         .table-wrapper::after {
             content: '← Swipe to see more →';
             display: none;
@@ -152,18 +148,16 @@
             font-size: 12px;
             font-style: italic;
         }
-        
         @media (max-width: 768px) {
             .table-wrapper::after {
                 display: block;
             }
         }
-        
         table {
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
-            min-width: 900px; /* Ensures horizontal scroll on small screens */
+            min-width: 900px;
         }
         th {
             background: #333;
@@ -283,6 +277,55 @@
         }
         .delete-btn:hover {
             background: #900;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #333;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .sync-status {
+            padding: 10px 15px;
+            background: #fff3cd;
+            color: #856404;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .sync-status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .sync-status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .setup-required {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            text-align: center;
+        }
+        .setup-required h2 {
+            color: #d32f2f;
+            margin-top: 0;
         }
         .modal {
             position: fixed;
@@ -420,6 +463,20 @@
             gap: 10px;
             flex-wrap: wrap;
         }
+        .token-status {
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .token-status.configured {
+            background: #d4edda;
+            color: #155724;
+        }
+        .token-status.not-configured {
+            background: #fff3cd;
+            color: #856404;
+        }
     </style>
 </head>
 <body>
@@ -431,257 +488,307 @@
             <p><em>Last tinkered: {{ lastTinkered }}</em></p>
         </div>
 
-        <!-- Navigation -->
-        <div class="nav">
-            <button @click="currentView = 'log'" :class="{ active: currentView === 'log' }">
-                Film Log
-            </button>
-            <button @click="currentView = 'stats'" :class="{ active: currentView === 'stats' }">
-                Statistics
-            </button>
-            <button @click="currentView = 'import'" :class="{ active: currentView === 'import' }">
-                Import/Export
-            </button>
-            <button @click="currentView = 'settings'" :class="{ active: currentView === 'settings' }">
-                Settings
-            </button>
+        <div v-if="syncStatus" class="sync-status" :class="syncStatusClass">
+            {{ syncStatus }}
         </div>
 
-        <!-- FILM LOG VIEW -->
-        <div v-if="currentView === 'log'">
-            <div class="controls">
-                <div class="control-row">
-                    <input 
-                        type="text" 
-                        v-model="searchQuery" 
-                        placeholder="Search films..."
-                    />
-                    <button @click="openAddModal">+ Add Film</button>
-                    <button class="secondary" @click="clearSearch" v-if="searchQuery">Clear</button>
+        <!-- Setup Required Notice -->
+        <div v-if="!githubToken && !loading" class="setup-required">
+            <h2>⚙️ Setup Required</h2>
+            <p>To use GitHub as your database, you need to configure your GitHub Personal Access Token.</p>
+            <p>Go to <strong>Settings</strong> → <strong>GitHub Sync</strong> to set it up.</p>
+            <button @click="currentView = 'settings'">Go to Settings</button>
+        </div>
+
+        <div v-if="loading" class="loading">
+            <div class="loading-spinner"></div>
+            <p>Loading your film collection...</p>
+        </div>
+
+        <div v-else-if="githubToken">
+            <!-- Navigation -->
+            <div class="nav">
+                <button @click="currentView = 'log'" :class="{ active: currentView === 'log' }">
+                    Film Log
+                </button>
+                <button @click="currentView = 'stats'" :class="{ active: currentView === 'stats' }">
+                    Statistics
+                </button>
+                <button @click="currentView = 'import'" :class="{ active: currentView === 'import' }">
+                    Import/Export
+                </button>
+                <button @click="currentView = 'settings'" :class="{ active: currentView === 'settings' }">
+                    Settings
+                </button>
+            </div>
+
+            <!-- FILM LOG VIEW -->
+            <div v-if="currentView === 'log'">
+                <div class="controls">
+                    <div class="control-row">
+                        <input 
+                            type="text" 
+                            v-model="searchQuery" 
+                            placeholder="Search films..."
+                        />
+                        <button @click="openAddModal">+ Add Film</button>
+                        <button class="secondary" @click="clearSearch" v-if="searchQuery">Clear</button>
+                    </div>
+                    
+                    <div class="control-row" v-if="allTags.length > 0">
+                        <div class="tag-filters">
+                            <span style="font-weight: bold; margin-right: 10px;">Filter by tag:</span>
+                            <div 
+                                class="tag-chip" 
+                                v-for="tag in allTags" 
+                                :key="tag"
+                                :class="{ active: selectedTags.includes(tag) }"
+                                @click="toggleTag(tag)"
+                            >
+                                {{ tag }}
+                            </div>
+                            <div 
+                                class="tag-chip clear" 
+                                v-if="selectedTags.length > 0"
+                                @click="selectedTags = []"
+                            >
+                                Clear filters
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="table-wrapper" v-if="filteredFilms.length > 0">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th @click="sortBy('line')" :class="sortClass('line')">#</th>
+                                <th @click="sortBy('film')" :class="sortClass('film')">Film</th>
+                                <th @click="sortBy('duration')" :class="sortClass('duration')">Duration</th>
+                                <th @click="sortBy('platform')" :class="sortClass('platform')">Platform</th>
+                                <th class="no-sort center-text">🎧</th>
+                                <th @click="sortBy('date')" :class="sortClass('date')">Date</th>
+                                <th class="no-sort">Tags</th>
+                                <th class="no-sort">Start Time</th>
+                                <th class="no-sort">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="film in filteredFilms" :key="film.line">
+                                <td>{{ film.line }}</td>
+                                <td>
+                                    <a v-if="film.link" :href="film.link" target="_blank">{{ film.film }}</a>
+                                    <span v-else>{{ film.film }}</span>
+                                </td>
+                                <td>{{ film.duration }} min</td>
+                                <td>
+                                    <a v-if="film.platform && film.platformLink" 
+                                       :href="film.platformLink" 
+                                       target="_blank" 
+                                       class="platform-badge">
+                                        {{ film.platform }}
+                                    </a>
+                                    <span v-else-if="film.platform" class="platform-text">
+                                        {{ film.platform }}
+                                    </span>
+                                </td>
+                                <td class="center-text">
+                                    <a v-if="film.podcastLink" 
+                                       :href="film.podcastLink" 
+                                       target="_blank" 
+                                       class="podcast-icon"
+                                       title="Listen to podcast">
+                                        🎧
+                                    </a>
+                                    <span v-else class="podcast-icon inactive">🎧</span>
+                                </td>
+                                <td>{{ formatDate(film.date) }}</td>
+                                <td>
+                                    <div class="tags-cell">
+                                        <span class="tag-badge" v-for="tag in film.tags" :key="tag">{{ tag }}</span>
+                                    </div>
+                                </td>
+                                <td class="start-time">{{ calculateStartTime(film.duration) }}</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="edit-btn" @click="openEditModal(film)">Edit</button>
+                                        <button class="delete-btn" @click="deleteFilm(film.line)">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div v-else class="no-results">
+                    <p>No films found matching your criteria</p>
+                </div>
+            </div>
+
+            <!-- STATISTICS VIEW -->
+            <div v-if="currentView === 'stats'">
+                <h2>Statistics</h2>
                 
-                <div class="control-row" v-if="allTags.length > 0">
-                    <div class="tag-filters">
-                        <span style="font-weight: bold; margin-right: 10px;">Filter by tag:</span>
-                        <div 
-                            class="tag-chip" 
-                            v-for="tag in allTags" 
-                            :key="tag"
-                            :class="{ active: selectedTags.includes(tag) }"
-                            @click="toggleTag(tag)"
-                        >
-                            {{ tag }}
-                        </div>
-                        <div 
-                            class="tag-chip clear" 
-                            v-if="selectedTags.length > 0"
-                            @click="selectedTags = []"
-                        >
-                            Clear filters
-                        </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Films</h3>
+                        <div class="stat-value">{{ films.length }}</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h3>Total Duration</h3>
+                        <div class="stat-value">{{ totalDuration }}</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h3>Average Duration</h3>
+                        <div class="stat-value">{{ averageDuration }}</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h3>Most Recent</h3>
+                        <div class="stat-value" style="font-size: 20px;">{{ mostRecentFilm }}</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Films with Podcasts</h3>
+                        <div class="stat-value">{{ filmsWithPodcasts }}</div>
+                    </div>
+                </div>
+
+                <div class="stat-card" v-if="filmsByPlatform && Object.keys(filmsByPlatform).length > 0">
+                    <h3>Films by Platform</h3>
+                    <ul class="stat-list">
+                        <li v-for="(count, platform) in filmsByPlatform" :key="platform">
+                            <span>{{ platform }}</span>
+                            <strong>{{ count }}</strong>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="stat-card" v-if="filmsByTag && Object.keys(filmsByTag).length > 0">
+                    <h3>Films by Tag</h3>
+                    <ul class="stat-list">
+                        <li v-for="(count, tag) in filmsByTag" :key="tag">
+                            <span>{{ tag }}</span>
+                            <strong>{{ count }}</strong>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Films by Year</h3>
+                    <ul class="stat-list">
+                        <li v-for="(count, year) in filmsByYear" :key="year">
+                            <span>{{ year }}</span>
+                            <strong>{{ count }}</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- IMPORT/EXPORT VIEW -->
+            <div v-if="currentView === 'import'">
+                <div class="import-export">
+                    <h2>Export Data</h2>
+                    <p>Download your film log for backup, sharing, or printing.</p>
+                    <div class="export-buttons">
+                        <button @click="exportJSON">Download JSON</button>
+                        <button @click="exportPDF">Download PDF (Printable)</button>
+                    </div>
+                </div>
+
+                <div class="import-export import-section">
+                    <h2>Import JSON</h2>
+                    <p>Upload a JSON file to merge with your existing data.</p>
+                    <div class="file-input-wrapper">
+                        <input 
+                            type="file" 
+                            accept=".json" 
+                            @change="handleJSONImport"
+                            ref="jsonInput"
+                        />
+                    </div>
+                    <div v-if="importMessage" :class="importSuccess ? 'success-message' : 'error-message'">
+                        {{ importMessage }}
+                    </div>
+                </div>
+
+                <div class="import-export import-section">
+                    <h2>Import CSV</h2>
+                    <p>Upload a CSV file with columns: film, link, duration, platform, platformLink, podcastLink, date, tags</p>
+                    <p><small>Duration should be just the number (e.g., 142). Tags should be comma-separated within quotes if multiple.</small></p>
+                    <div class="file-input-wrapper">
+                        <input 
+                            type="file" 
+                            accept=".csv" 
+                            @change="handleCSVImport"
+                            ref="csvInput"
+                        />
+                    </div>
+                    <div v-if="csvMessage" :class="csvSuccess ? 'success-message' : 'error-message'">
+                        {{ csvMessage }}
                     </div>
                 </div>
             </div>
 
-            <div class="table-wrapper" v-if="filteredFilms.length > 0">
-                <table>
-                    <thead>
-                        <tr>
-                            <th @click="sortBy('line')" :class="sortClass('line')">#</th>
-                            <th @click="sortBy('film')" :class="sortClass('film')">Film</th>
-                            <th @click="sortBy('duration')" :class="sortClass('duration')">Duration</th>
-                            <th @click="sortBy('platform')" :class="sortClass('platform')">Platform</th>
-                            <th class="no-sort center-text">🎧</th>
-                            <th @click="sortBy('date')" :class="sortClass('date')">Date</th>
-                            <th class="no-sort">Tags</th>
-                            <th class="no-sort">Start Time</th>
-                            <th class="no-sort">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="film in filteredFilms" :key="film.line">
-                            <td>{{ film.line }}</td>
-                            <td>
-                                <a v-if="film.link" :href="film.link" target="_blank">{{ film.film }}</a>
-                                <span v-else>{{ film.film }}</span>
-                            </td>
-                            <td>{{ film.duration }} min</td>
-                            <td>
-                                <a v-if="film.platform && film.platformLink" 
-                                   :href="film.platformLink" 
-                                   target="_blank" 
-                                   class="platform-badge">
-                                    {{ film.platform }}
-                                </a>
-                                <span v-else-if="film.platform" class="platform-text">
-                                    {{ film.platform }}
-                                </span>
-                            </td>
-                            <td class="center-text">
-                                <a v-if="film.podcastLink" 
-                                   :href="film.podcastLink" 
-                                   target="_blank" 
-                                   class="podcast-icon"
-                                   title="Listen to podcast">
-                                    🎧
-                                </a>
-                                <span v-else class="podcast-icon inactive">🎧</span>
-                            </td>
-                            <td>{{ formatDate(film.date) }}</td>
-                            <td>
-                                <div class="tags-cell">
-                                    <span class="tag-badge" v-for="tag in film.tags" :key="tag">{{ tag }}</span>
-                                </div>
-                            </td>
-                            <td class="start-time">{{ calculateStartTime(film.duration) }}</td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="edit-btn" @click="openEditModal(film)">Edit</button>
-                                    <button class="delete-btn" @click="deleteFilm(film.line)">Delete</button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div v-else class="no-results">
-                <p>No films found matching your criteria</p>
-            </div>
-        </div>
-
-        <!-- STATISTICS VIEW -->
-        <div v-if="currentView === 'stats'">
-            <h2>Statistics</h2>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>Total Films</h3>
-                    <div class="stat-value">{{ films.length }}</div>
-                </div>
-                
-                <div class="stat-card">
-                    <h3>Total Duration</h3>
-                    <div class="stat-value">{{ totalDuration }}</div>
-                </div>
-                
-                <div class="stat-card">
-                    <h3>Average Duration</h3>
-                    <div class="stat-value">{{ averageDuration }}</div>
-                </div>
-                
-                <div class="stat-card">
-                    <h3>Most Recent</h3>
-                    <div class="stat-value" style="font-size: 20px;">{{ mostRecentFilm }}</div>
+            <!-- SETTINGS VIEW -->
+            <div v-if="currentView === 'settings'">
+                <div class="settings-section">
+                    <h2>Target End Time</h2>
+                    <p>Set the time you want to finish watching by. The "Start Time" column will calculate backwards based on film duration.</p>
+                    <div class="form-group">
+                        <label>Target End Time</label>
+                        <input 
+                            type="time" 
+                            v-model="targetEndTime" 
+                            @change="saveSettings"
+                            class="time-input"
+                        />
+                    </div>
                 </div>
 
-                <div class="stat-card">
-                    <h3>Films with Podcasts</h3>
-                    <div class="stat-value">{{ filmsWithPodcasts }}</div>
+                <div class="settings-section">
+                    <h2>Platform Options</h2>
+                    <p>Available platforms for the dropdown menu. These are just labels - you'll add the specific URL for each film when adding/editing.</p>
+                    <div class="stat-card">
+                        <ul class="stat-list">
+                            <li v-for="platform in platformOptions" :key="platform">
+                                <span>{{ platform }}</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
 
-            <div class="stat-card" v-if="filmsByPlatform && Object.keys(filmsByPlatform).length > 0">
-                <h3>Films by Platform</h3>
-                <ul class="stat-list">
-                    <li v-for="(count, platform) in filmsByPlatform" :key="platform">
-                        <span>{{ platform }}</span>
-                        <strong>{{ count }}</strong>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="stat-card" v-if="filmsByTag && Object.keys(filmsByTag).length > 0">
-                <h3>Films by Tag</h3>
-                <ul class="stat-list">
-                    <li v-for="(count, tag) in filmsByTag" :key="tag">
-                        <span>{{ tag }}</span>
-                        <strong>{{ count }}</strong>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="stat-card">
-                <h3>Films by Year</h3>
-                <ul class="stat-list">
-                    <li v-for="(count, year) in filmsByYear" :key="year">
-                        <span>{{ year }}</span>
-                        <strong>{{ count }}</strong>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- IMPORT/EXPORT VIEW -->
-        <div v-if="currentView === 'import'">
-            <div class="import-export">
-                <h2>Export Data</h2>
-                <p>Download your film log for backup, sharing, or printing.</p>
-                <div class="export-buttons">
-                    <button @click="exportJSON">Download JSON</button>
-                    <button @click="exportPDF">Download PDF (Printable)</button>
-                </div>
-            </div>
-
-            <div class="import-export import-section">
-                <h2>Import JSON</h2>
-                <p>Upload a previously exported JSON file to restore your data.</p>
-                <div class="file-input-wrapper">
-                    <input 
-                        type="file" 
-                        accept=".json" 
-                        @change="handleJSONImport"
-                        ref="jsonInput"
-                    />
-                </div>
-                <div v-if="importMessage" :class="importSuccess ? 'success-message' : 'error-message'">
-                    {{ importMessage }}
-                </div>
-            </div>
-
-            <div class="import-export import-section">
-                <h2>Import CSV</h2>
-                <p>Upload a CSV file with columns: film, link, duration, platform, platformLink, podcastLink, date, tags</p>
-                <p><small>Duration should be just the number (e.g., 142). Tags should be comma-separated within quotes if multiple.</small></p>
-                <div class="file-input-wrapper">
-                    <input 
-                        type="file" 
-                        accept=".csv" 
-                        @change="handleCSVImport"
-                        ref="csvInput"
-                    />
-                </div>
-                <div v-if="csvMessage" :class="csvSuccess ? 'success-message' : 'error-message'">
-                    {{ csvMessage }}
-                </div>
-            </div>
-        </div>
-
-        <!-- SETTINGS VIEW -->
-        <div v-if="currentView === 'settings'">
-            <div class="settings-section">
-                <h2>Target End Time</h2>
-                <p>Set the time you want to finish watching by. The "Start Time" column will calculate backwards based on film duration.</p>
-                <div class="form-group">
-                    <label>Target End Time</label>
-                    <input 
-                        type="time" 
-                        v-model="targetEndTime" 
-                        @change="saveSettings"
-                        class="time-input"
-                    />
-                </div>
-            </div>
-
-            <div class="settings-section">
-                <h2>Platform Options</h2>
-                <p>Available platforms for the dropdown menu. These are just labels - you'll add the specific URL for each film when adding/editing.</p>
-                <div class="stat-card">
-                    <ul class="stat-list">
-                        <li v-for="platform in platformOptions" :key="platform">
-                            <span>{{ platform }}</span>
-                        </li>
-                    </ul>
+                <div class="settings-section">
+                    <h2>GitHub Sync Setup</h2>
+                    <p>Your data is stored in GitHub. Enter your Personal Access Token once to enable syncing.</p>
+                    
+                    <div class="form-group">
+                        <label>GitHub Personal Access Token</label>
+                        <input 
+                            type="password" 
+                            v-model="tokenInput" 
+                            placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                        />
+                        <small>
+                            Create a token at: GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)<br>
+                            Required permission: <strong>repo</strong> (Full control of private repositories)
+                        </small>
+                    </div>
+                    
+                    <button @click="saveToken">Save Token</button>
+                    <button v-if="githubToken" class="secondary" @click="clearToken" style="margin-left: 10px;">Clear Token</button>
+                    
+                    <div v-if="tokenSaved" class="token-status configured">
+                        ✓ Token configured and saved
+                    </div>
+                    <div v-else class="token-status not-configured">
+                        ⚠ Token not configured - GitHub sync disabled
+                    </div>
+                    
+                    <p style="margin-top: 20px;"><strong>Repository:</strong> altophoto/curly-octo-carnival</p>
+                    <p><strong>Data file:</strong> films.json</p>
                 </div>
             </div>
         </div>
@@ -719,13 +826,13 @@
                     <div class="form-group">
                         <label>Platform Link (optional)</label>
                         <input type="url" v-model="filmForm.platformLink" placeholder="https://..." />
-                        <small>Direct link to watch the film (Amazon Prime page, Google Drive file, etc.)</small>
+                        <small>Direct link to watch the film</small>
                     </div>
 
                     <div class="form-group">
                         <label>Podcast Link (optional)</label>
                         <input type="url" v-model="filmForm.podcastLink" placeholder="https://..." />
-                        <small>Link to podcast episode, director commentary, or audio file about this film</small>
+                        <small>Link to podcast episode or audio file</small>
                     </div>
                     
                     <div class="form-group">
@@ -754,6 +861,13 @@
         createApp({
             data() {
                 return {
+                    githubOwner: 'altophoto',
+                    githubRepo: 'curly-octo-carnival',
+                    githubFile: 'films.json',
+                    githubToken: '',
+                    tokenInput: '',
+                    tokenSaved: false,
+                    
                     currentView: 'log',
                     films: [],
                     searchQuery: '',
@@ -792,7 +906,11 @@
                         'Google Drive',
                         'Plex',
                         'Other'
-                    ]
+                    ],
+                    loading: false,
+                    syncStatus: '',
+                    syncStatusClass: '',
+                    fileSha: null
                 };
             },
             computed: {
@@ -824,17 +942,6 @@
                             (f.tags && f.tags.some(t => t.toLowerCase().includes(query)))
                         );
                     }
-                },
-                sortClass(key) {
-                    if (this.sortKey === key) {
-                        return this.sortDirection === 'asc' ? 'sort-asc' : 'sort-desc';
-                    }
-                    return '';
-                },
-                addFilm() {
-                    const nextLine = this.films.length > 0 
-                        ? Math.max(...this.films.map(f => f.line)) + 1 
-                        : 1;
                     
                     return [...filtered].sort((a, b) => {
                         let aVal = a[this.sortKey];
@@ -903,6 +1010,111 @@
                 }
             },
             methods: {
+                loadToken() {
+                    const saved = localStorage.getItem('githubToken');
+                    if (saved) {
+                        this.githubToken = saved;
+                        this.tokenSaved = true;
+                    }
+                },
+                saveToken() {
+                    if (this.tokenInput.trim()) {
+                        this.githubToken = this.tokenInput.trim();
+                        localStorage.setItem('githubToken', this.githubToken);
+                        this.tokenSaved = true;
+                        this.tokenInput = '';
+                        this.showSyncStatus('Token saved! Loading data...', 'success');
+                        this.loadFromGitHub();
+                    }
+                },
+                clearToken() {
+                    if (confirm('Are you sure you want to clear your GitHub token? You will need to re-enter it to sync.')) {
+                        this.githubToken = '';
+                        this.tokenInput = '';
+                        this.tokenSaved = false;
+                        localStorage.removeItem('githubToken');
+                        this.showSyncStatus('Token cleared', 'success');
+                    }
+                },
+                async loadFromGitHub() {
+                    if (!this.githubToken) return;
+                    
+                    this.loading = true;
+                    try {
+                        const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/${this.githubFile}`;
+                        const response = await fetch(url, {
+                            headers: {
+                                'Authorization': `token ${this.githubToken}`,
+                                'Accept': 'application/vnd.github.v3+json'
+                            }
+                        });
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            this.fileSha = data.sha;
+                            const content = atob(data.content);
+                            this.films = JSON.parse(content);
+                        } else if (response.status === 404) {
+                            this.films = [];
+                        } else {
+                            throw new Error(`GitHub API error: ${response.status}`);
+                        }
+                    } catch (error) {
+                        console.error('Error loading from GitHub:', error);
+                        this.showSyncStatus('Failed to load from GitHub. Check your token.', 'error');
+                        this.films = [];
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+                async saveToGitHub() {
+                    if (!this.githubToken) {
+                        this.showSyncStatus('No token configured', 'error');
+                        return;
+                    }
+                    
+                    try {
+                        this.showSyncStatus('Syncing to GitHub...', '');
+                        
+                        const content = btoa(JSON.stringify(this.films, null, 2));
+                        const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/${this.githubFile}`;
+                        
+                        const body = {
+                            message: `Update films: ${new Date().toLocaleString()}`,
+                            content: content,
+                            sha: this.fileSha
+                        };
+                        
+                        const response = await fetch(url, {
+                            method: 'PUT',
+                            headers: {
+                                'Authorization': `token ${this.githubToken}`,
+                                'Accept': 'application/vnd.github.v3+json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(body)
+                        });
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            this.fileSha = data.content.sha;
+                            this.lastTinkered = new Date().toLocaleString();
+                            this.showSyncStatus('✓ Synced to GitHub', 'success');
+                        } else {
+                            throw new Error(`GitHub API error: ${response.status}`);
+                        }
+                    } catch (error) {
+                        console.error('Error saving to GitHub:', error);
+                        this.showSyncStatus('Failed to sync to GitHub', 'error');
+                    }
+                },
+                showSyncStatus(message, type) {
+                    this.syncStatus = message;
+                    this.syncStatusClass = type;
+                    setTimeout(() => {
+                        this.syncStatus = '';
+                    }, 3000);
+                },
                 toggleTag(tag) {
                     const index = this.selectedTags.indexOf(tag);
                     if (index > -1) {
@@ -946,14 +1158,12 @@
                     const { jsPDF } = window.jspdf;
                     const doc = new jsPDF('landscape');
                     
-                    // Title
                     doc.setFontSize(18);
                     doc.text('Family Groovy Night - Film Log', 14, 15);
                     
                     doc.setFontSize(10);
                     doc.text(`Generated: ${new Date().toLocaleDateString()}`, 14, 22);
                     
-                    // Prepare table data
                     const tableData = this.films.map(f => [
                         f.line,
                         f.film,
@@ -965,7 +1175,6 @@
                         this.calculateStartTime(f.duration)
                     ]);
                     
-                    // Generate table
                     doc.autoTable({
                         startY: 28,
                         head: [['#', 'Film', 'Duration', 'Platform', '🎧', 'Date', 'Tags', 'Start Time']],
@@ -992,7 +1201,6 @@
                         margin: { top: 28 }
                     });
                     
-                    // Save
                     doc.save(`family-groovy-night-${new Date().toISOString().split('T')[0]}.pdf`);
                 },
                 openAddModal() {
@@ -1027,7 +1235,7 @@
                     this.showFilmModal = false;
                     this.editingFilm = null;
                 },
-                saveFilm() {
+                async saveFilm() {
                     const tags = this.filmForm.tagsInput
                         .split(',')
                         .map(t => t.trim())
@@ -1066,13 +1274,13 @@
                         });
                     }
                     
-                    this.saveFilms();
+                    await this.saveToGitHub();
                     this.closeFilmModal();
                 },
-                deleteFilm(line) {
+                async deleteFilm(line) {
                     if (confirm('Delete this film?')) {
                         this.films = this.films.filter(f => f.line !== line);
-                        this.saveFilms();
+                        await this.saveToGitHub();
                     }
                 },
                 clearSearch() {
@@ -1084,10 +1292,6 @@
                         month: 'short',
                         day: 'numeric'
                     });
-                },
-                saveFilms() {
-                    localStorage.setItem('filmLog', JSON.stringify(this.films));
-                    this.lastTinkered = new Date().toLocaleString();
                 },
                 saveSettings() {
                     localStorage.setItem('filmLogSettings', JSON.stringify({
@@ -1101,19 +1305,6 @@
                         this.targetEndTime = settings.targetEndTime || '20:00';
                     }
                 },
-                loadFilms() {
-                    const saved = localStorage.getItem('filmLog');
-                    if (saved) {
-                        this.films = JSON.parse(saved);
-                    } else {
-                        this.films = [
-                            { line: 1, film: 'The Shawshank Redemption', link: 'https://www.imdb.com/title/tt0111161/', duration: 142, platform: 'Amazon Prime', platformLink: 'https://www.amazon.com/Shawshank-Redemption-Tim-Robbins/dp/B001UI5APQ', podcastLink: '', date: '2024-01-15', tags: ['drama', 'classic'] },
-                            { line: 2, film: 'The Godfather', link: 'https://www.imdb.com/title/tt0068646/', duration: 175, platform: 'Paramount+', platformLink: '', podcastLink: 'https://example.com/godfather-podcast', date: '2024-02-20', tags: ['drama', 'crime', 'classic'] },
-                            { line: 3, film: 'Citizen Kane', link: '', duration: 119, platform: 'Criterion', platformLink: '', podcastLink: '', date: '2024-03-10', tags: ['classic', 'criterion'] }
-                        ];
-                        this.saveFilms();
-                    }
-                },
                 exportJSON() {
                     const dataStr = JSON.stringify(this.films, null, 2);
                     const dataBlob = new Blob([dataStr], { type: 'application/json' });
@@ -1124,19 +1315,26 @@
                     link.click();
                     URL.revokeObjectURL(url);
                 },
-                handleJSONImport(event) {
+                async handleJSONImport(event) {
                     const file = event.target.files[0];
                     if (!file) return;
                     
                     const reader = new FileReader();
-                    reader.onload = (e) => {
+                    reader.onload = async (e) => {
                         try {
                             const imported = JSON.parse(e.target.result);
                             if (!Array.isArray(imported)) {
                                 throw new Error('Invalid format: expected an array');
                             }
-                            this.films = imported;
-                            this.saveFilms();
+                            
+                            const maxLine = this.films.length > 0 ? Math.max(...this.films.map(f => f.line)) : 0;
+                            imported.forEach((film, index) => {
+                                film.line = maxLine + index + 1;
+                            });
+                            
+                            this.films = [...this.films, ...imported];
+                            await this.saveToGitHub();
+                            
                             this.importMessage = `Successfully imported ${imported.length} films!`;
                             this.importSuccess = true;
                             this.currentView = 'log';
@@ -1148,12 +1346,12 @@
                     };
                     reader.readAsText(file);
                 },
-                handleCSVImport(event) {
+                async handleCSVImport(event) {
                     const file = event.target.files[0];
                     if (!file) return;
                     
                     const reader = new FileReader();
-                    reader.onload = (e) => {
+                    reader.onload = async (e) => {
                         try {
                             const csv = e.target.result;
                             const lines = csv.split('\n').filter(line => line.trim());
@@ -1196,7 +1394,7 @@
                                 }
                             });
                             
-                            this.saveFilms();
+                            await this.saveToGitHub();
                             this.csvMessage = `Successfully imported ${imported} films from CSV!`;
                             this.csvSuccess = true;
                             this.currentView = 'log';
@@ -1209,9 +1407,12 @@
                     reader.readAsText(file);
                 }
             },
-            mounted() {
+            async mounted() {
                 this.loadSettings();
-                this.loadFilms();
+                this.loadToken();
+                if (this.githubToken) {
+                    await this.loadFromGitHub();
+                }
             }
         }).mount('#app');
     </script>
