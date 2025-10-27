@@ -107,5 +107,16 @@
       "Stephen King",
       "Osgood Perkins"
     ]
+  },
+  {
+    "line": 9,
+    "film": "The Substance",
+    "link": "",
+    "duration": 1,
+    "platform": "Google Drive",
+    "platformLink": "https://drive.google.com/file/d/11sodR5dd4U3ESfy7raiqerA6KDAwaRKp/view?usp=drivesdk",
+    "podcastLink": "",
+    "date": "2025-10-27",
+    "tags": []
   }
 ]
