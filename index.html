@@ -88,6 +88,10 @@
             flex: 1;
             min-width: 200px;
         }
+        input[type="date"]:read-only {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+        }
         select {
             cursor: pointer;
         }
@@ -193,7 +197,7 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
-            min-width: 1100px;
+            min-width: 1000px;
         }
         th {
             background: #333;
@@ -247,45 +251,21 @@
             color: #333;
             white-space: nowrap;
         }
-        .platform-badge {
-            padding: 4px 10px;
-            background: #4CAF50;
-            color: white;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-            text-decoration: none;
-            display: inline-block;
-            white-space: nowrap;
-        }
-        .platform-badge:hover {
-            background: #45a049;
-        }
-        .platform-text {
-            padding: 4px 10px;
-            background: #999;
-            color: white;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-            display: inline-block;
-            white-space: nowrap;
-        }
-        .podcast-icon {
+        .stream-icon, .podcast-icon {
             font-size: 20px;
             text-decoration: none;
             display: inline-block;
             cursor: pointer;
             transition: transform 0.2s;
         }
-        .podcast-icon:hover {
+        .stream-icon:hover, .podcast-icon:hover {
             transform: scale(1.2);
         }
-        .podcast-icon.inactive {
+        .stream-icon.inactive, .podcast-icon.inactive {
             opacity: 0.2;
             cursor: default;
         }
-        .podcast-icon.inactive:hover {
+        .stream-icon.inactive:hover, .podcast-icon.inactive:hover {
             transform: none;
         }
         .start-time {
@@ -602,9 +582,9 @@
                             <th @click="sortBy('year')" :class="sortClass('year')">Year</th>
                             <th @click="sortBy('director')" :class="sortClass('director')">Director</th>
                             <th @click="sortBy('duration')" :class="sortClass('duration')">Duration</th>
-                            <th @click="sortBy('platform')" :class="sortClass('platform')">Platform</th>
+                            <th class="no-sort center-text">📺</th>
                             <th class="no-sort center-text">🎧</th>
-                            <th @click="sortBy('date')" :class="sortClass('date')">Date</th>
+                            <th @click="sortBy('dateAdded')" :class="sortClass('dateAdded')">Added</th>
                             <th class="no-sort">Tags</th>
                             <th class="no-sort">Start Time</th>
                             <th class="no-sort">Actions</th>
@@ -620,16 +600,15 @@
                             <td>{{ film.year || '-' }}</td>
                             <td>{{ film.director || '-' }}</td>
                             <td>{{ film.duration }} min</td>
-                            <td>
-                                <a v-if="film.platform && film.platformLink" 
+                            <td class="center-text">
+                                <a v-if="film.platformLink" 
                                    :href="film.platformLink" 
                                    target="_blank" 
-                                   class="platform-badge">
-                                    {{ film.platform }}
+                                   class="stream-icon"
+                                   title="Watch online">
+                                    📺
                                 </a>
-                                <span v-else-if="film.platform" class="platform-text">
-                                    {{ film.platform }}
-                                </span>
+                                <span v-else class="stream-icon inactive">📺</span>
                             </td>
                             <td class="center-text">
                                 <a v-if="film.podcastLink" 
@@ -641,7 +620,7 @@
                                 </a>
                                 <span v-else class="podcast-icon inactive">🎧</span>
                             </td>
-                            <td>{{ formatDate(film.date) }}</td>
+                            <td>{{ formatDate(film.dateAdded) }}</td>
                             <td>
                                 <div class="tags-cell">
                                     <span class="tag-badge" v-for="tag in film.tags" :key="tag">{{ tag }}</span>
@@ -693,16 +672,11 @@
                     <h3>Films with Podcasts</h3>
                     <div class="stat-value">{{ filmsWithPodcasts }}</div>
                 </div>
-            </div>
-
-            <div class="stat-card" v-if="filmsByPlatform && Object.keys(filmsByPlatform).length > 0">
-                <h3>Films by Platform</h3>
-                <ul class="stat-list">
-                    <li v-for="(count, platform) in filmsByPlatform" :key="platform">
-                        <span>{{ platform }}</span>
-                        <strong>{{ count }}</strong>
-                    </li>
-                </ul>
+                
+                <div class="stat-card">
+                    <h3>Films with Streaming Links</h3>
+                    <div class="stat-value">{{ filmsWithStreaming }}</div>
+                </div>
             </div>
 
             <div class="stat-card" v-if="filmsByTag && Object.keys(filmsByTag).length > 0">
@@ -716,9 +690,9 @@
             </div>
 
             <div class="stat-card">
-                <h3>Films by Year Watched</h3>
+                <h3>Films by Year Added</h3>
                 <ul class="stat-list">
-                    <li v-for="(count, year) in filmsByYearWatched" :key="year">
+                    <li v-for="(count, year) in filmsByYearAdded" :key="year">
                         <span>{{ year }}</span>
                         <strong>{{ count }}</strong>
                     </li>
@@ -765,7 +739,7 @@
 
             <div class="import-export import-section">
                 <h2>Import CSV</h2>
-                <p>Upload a CSV file with columns: film, link, year, director, duration, platform, platformLink, podcastLink, date, tags</p>
+                <p>Upload a CSV file with columns: film, link, year, director, duration, platformLink, podcastLink, dateAdded, tags</p>
                 <p><small>Duration and year should be just numbers. Tags should be comma-separated.</small></p>
                 <div class="file-input-wrapper">
                     <input 
@@ -827,18 +801,6 @@
                     />
                 </div>
             </div>
-
-            <div v-if="githubToken" class="settings-section">
-                <h2>Platform Options</h2>
-                <p>Available platforms for the dropdown menu.</p>
-                <div class="stat-card">
-                    <ul class="stat-list">
-                        <li v-for="platform in platformOptions" :key="platform">
-                            <span>{{ platform }}</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
         </div>
 
         <!-- Add/Edit Film Modal -->
@@ -876,17 +838,9 @@
                     </div>
                     
                     <div class="form-group">
-                        <label>Platform</label>
-                        <select v-model="filmForm.platform">
-                            <option value="">-- Select Platform --</option>
-                            <option v-for="platform in platformOptions" :key="platform" :value="platform">{{ platform }}</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Platform Link</label>
+                        <label>Streaming Link</label>
                         <input type="url" v-model="filmForm.platformLink" placeholder="https://..." />
-                        <small>Direct link to watch the film</small>
+                        <small>Direct link to watch the film (Netflix, Amazon, iTunes, etc.)</small>
                     </div>
 
                     <div class="form-group">
@@ -895,9 +849,10 @@
                         <small>Link to podcast episode or audio file</small>
                     </div>
                     
-                    <div class="form-group">
-                        <label>Date Watched *</label>
-                        <input type="date" v-model="filmForm.date" required />
+                    <div class="form-group" v-if="editingFilm">
+                        <label>Date Added</label>
+                        <input type="date" v-model="filmForm.dateAdded" readonly />
+                        <small>This date is locked and shows when the film was originally added</small>
                     </div>
                     
                     <div class="form-group">
@@ -957,10 +912,9 @@
                         director: '',
                         link: '',
                         duration: null,
-                        platform: '',
                         platformLink: '',
                         podcastLink: '',
-                        date: '',
+                        dateAdded: '',
                         tagsInput: ''
                     },
                     importMessage: '',
@@ -969,21 +923,6 @@
                     csvSuccess: false,
                     lastTinkered: new Date().toLocaleString(),
                     targetEndTime: '20:00',
-                    platformOptions: [
-                        'iTunes',
-                        'Amazon Prime',
-                        'Netflix',
-                        'Hulu',
-                        'Disney+',
-                        'HBO Max',
-                        'Tubi',
-                        'Peacock',
-                        'Paramount+',
-                        'Criterion',
-                        'Google Drive',
-                        'Plex',
-                        'Other'
-                    ],
                     loading: false,
                     syncStatus: '',
                     syncStatusClass: '',
@@ -1022,10 +961,9 @@
                         filtered = filtered.filter(f => 
                             f.film.toLowerCase().includes(query) ||
                             String(f.duration).includes(query) ||
-                            f.date.includes(query) ||
+                            (f.dateAdded && f.dateAdded.includes(query)) ||
                             (f.year && String(f.year).includes(query)) ||
                             (f.director && f.director.toLowerCase().includes(query)) ||
-                            (f.platform && f.platform.toLowerCase().includes(query)) ||
                             (f.tags && f.tags.some(t => t.toLowerCase().includes(query)))
                         );
                     }
@@ -1058,12 +996,15 @@
                 mostRecentFilm() {
                     if (this.films.length === 0) return 'N/A';
                     const sorted = [...this.films].sort((a, b) => 
-                        new Date(b.date) - new Date(a.date)
+                        new Date(b.dateAdded || '1900-01-01') - new Date(a.dateAdded || '1900-01-01')
                     );
                     return sorted[0].film;
                 },
                 filmsWithPodcasts() {
                     return this.films.filter(f => f.podcastLink).length;
+                },
+                filmsWithStreaming() {
+                    return this.films.filter(f => f.platformLink).length;
                 },
                 filmsByTag() {
                     const counts = {};
@@ -1076,20 +1017,13 @@
                     });
                     return counts;
                 },
-                filmsByPlatform() {
+                filmsByYearAdded() {
                     const counts = {};
                     this.films.forEach(f => {
-                        if (f.platform) {
-                            counts[f.platform] = (counts[f.platform] || 0) + 1;
+                        if (f.dateAdded) {
+                            const year = new Date(f.dateAdded).getFullYear();
+                            counts[year] = (counts[year] || 0) + 1;
                         }
-                    });
-                    return counts;
-                },
-                filmsByYearWatched() {
-                    const counts = {};
-                    this.films.forEach(f => {
-                        const year = new Date(f.date).getFullYear();
-                        counts[year] = (counts[year] || 0) + 1;
                     });
                     return Object.fromEntries(
                         Object.entries(counts).sort((a, b) => b[0] - a[0])
@@ -1110,6 +1044,13 @@
                 }
             },
             methods: {
+                getTodayDate() {
+                    const today = new Date();
+                    const year = today.getFullYear();
+                    const month = String(today.getMonth() + 1).padStart(2, '0');
+                    const day = String(today.getDate()).padStart(2, '0');
+                    return `${year}-${month}-${day}`;
+                },
                 loadToken() {
                     const saved = localStorage.getItem('githubToken');
                     if (saved) {
@@ -1154,6 +1095,14 @@
                             this.fileSha = data.sha;
                             const content = atob(data.content);
                             this.films = JSON.parse(content);
+                            
+                            // Migrate old data: if films have 'date' but not 'dateAdded', copy it over
+                            this.films.forEach(f => {
+                                if (f.date && !f.dateAdded) {
+                                    f.dateAdded = f.date;
+                                    delete f.date;
+                                }
+                            });
                         } else if (response.status === 404) {
                             this.films = [];
                         } else {
@@ -1278,16 +1227,16 @@
                         f.year || '-',
                         f.director || '-',
                         `${f.duration} min`,
-                        f.platform || '-',
+                        f.platformLink ? '📺' : '',
                         f.podcastLink ? '🎧' : '',
-                        this.formatDate(f.date),
+                        this.formatDate(f.dateAdded),
                         f.tags ? f.tags.join(', ') : '',
                         this.calculateStartTime(f.duration)
                     ]);
                     
                     doc.autoTable({
                         startY: 28,
-                        head: [['#', 'Film', 'Year', 'Director', 'Duration', 'Platform', '🎧', 'Date', 'Tags', 'Start']],
+                        head: [['#', 'Film', 'Year', 'Director', 'Duration', '📺', '🎧', 'Added', 'Tags', 'Start']],
                         body: tableData,
                         styles: { 
                             fontSize: 7,
@@ -1304,7 +1253,7 @@
                             2: { cellWidth: 15 },
                             3: { cellWidth: 35 },
                             4: { cellWidth: 18 },
-                            5: { cellWidth: 25 },
+                            5: { cellWidth: 10 },
                             6: { cellWidth: 10 },
                             7: { cellWidth: 22 },
                             8: { cellWidth: 40 },
@@ -1324,10 +1273,9 @@
                         director: '',
                         link: '',
                         duration: null,
-                        platform: '',
                         platformLink: '',
                         podcastLink: '',
-                        date: '',
+                        dateAdded: this.getTodayDate(),
                         tagsInput: ''
                     };
                     this.showFilmModal = true;
@@ -1341,10 +1289,9 @@
                         director: film.director || '',
                         link: film.link || '',
                         duration: film.duration,
-                        platform: film.platform || '',
                         platformLink: film.platformLink || '',
                         podcastLink: film.podcastLink || '',
-                        date: film.date,
+                        dateAdded: film.dateAdded || this.getTodayDate(),
                         tagsInput: ''
                     };
                     this.showFilmModal = true;
@@ -1355,7 +1302,6 @@
                     this.selectedFormTags = [];
                 },
                 async saveFilm() {
-                    // Combine selected existing tags with new tags from input
                     const newTags = this.filmForm.tagsInput
                         .split(',')
                         .map(t => t.trim())
@@ -1375,10 +1321,9 @@
                                 director: this.filmForm.director,
                                 link: this.filmForm.link,
                                 duration: this.filmForm.duration,
-                                platform: this.filmForm.platform,
                                 platformLink: this.filmForm.platformLink,
                                 podcastLink: this.filmForm.podcastLink,
-                                date: this.filmForm.date,
+                                dateAdded: this.films[index].dateAdded, // Keep original date
                                 tags: allTags
                             };
                         }
@@ -1394,10 +1339,9 @@
                             director: this.filmForm.director,
                             link: this.filmForm.link,
                             duration: this.filmForm.duration,
-                            platform: this.filmForm.platform,
                             platformLink: this.filmForm.platformLink,
                             podcastLink: this.filmForm.podcastLink,
-                            date: this.filmForm.date,
+                            dateAdded: this.getTodayDate(),
                             tags: allTags
                         });
                     }
@@ -1415,6 +1359,7 @@
                     this.searchQuery = '';
                 },
                 formatDate(date) {
+                    if (!date) return '-';
                     return new Date(date + 'T00:00:00').toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'short',
@@ -1458,6 +1403,9 @@
                             const maxLine = this.films.length > 0 ? Math.max(...this.films.map(f => f.line)) : 0;
                             imported.forEach((film, index) => {
                                 film.line = maxLine + index + 1;
+                                if (!film.dateAdded) {
+                                    film.dateAdded = this.getTodayDate();
+                                }
                             });
                             
                             this.films = [...this.films, ...imported];
@@ -1492,22 +1440,21 @@
                             let imported = 0;
                             dataLines.forEach((line, index) => {
                                 const parts = line.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
-                                if (!parts || parts.length < 8) return;
+                                if (!parts || parts.length < 6) return;
                                 
                                 const film = parts[0].replace(/"/g, '').trim();
                                 const link = parts[1] ? parts[1].replace(/"/g, '').trim() : '';
                                 const year = parts[2] ? parseInt(parts[2].replace(/"/g, '').trim()) : null;
                                 const director = parts[3] ? parts[3].replace(/"/g, '').trim() : '';
                                 const duration = parseInt(parts[4].replace(/"/g, '').trim());
-                                const platform = parts[5] ? parts[5].replace(/"/g, '').trim() : '';
-                                const platformLink = parts[6] ? parts[6].replace(/"/g, '').trim() : '';
-                                const podcastLink = parts[7] ? parts[7].replace(/"/g, '').trim() : '';
-                                const date = parts[8].replace(/"/g, '').trim();
-                                const tagsStr = parts[9] ? parts[9].replace(/"/g, '').trim() : '';
+                                const platformLink = parts[5] ? parts[5].replace(/"/g, '').trim() : '';
+                                const podcastLink = parts[6] ? parts[6].replace(/"/g, '').trim() : '';
+                                const dateAdded = parts[7] ? parts[7].replace(/"/g, '').trim() : this.getTodayDate();
+                                const tagsStr = parts[8] ? parts[8].replace(/"/g, '').trim() : '';
                                 
                                 const tags = tagsStr.split(',').map(t => t.trim()).filter(t => t);
                                 
-                                if (film && duration && date) {
+                                if (film && duration) {
                                     this.films.push({
                                         line: nextLine + imported,
                                         film,
@@ -1515,10 +1462,9 @@
                                         year,
                                         director,
                                         duration,
-                                        platform,
                                         platformLink,
                                         podcastLink,
-                                        date,
+                                        dateAdded,
                                         tags
                                     });
                                     imported++;
