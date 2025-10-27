@@ -153,13 +153,15 @@
   {
     "line": 12,
     "film": "Assault on Precinct 13",
-    "year": null,
-    "director": "",
-    "link": "",
-    "duration": 1,
+    "year": 1976,
+    "director": " John Carpenter",
+    "link": "https://www.imdb.com/title/tt0074156/?ref_=ext_shr_lnk",
+    "duration": 91,
     "platformLink": "https://www.lookmovie2.to/movies/view/assault-on-precinct-13-1976",
     "podcastLink": "",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [
+      "John Carpenter"
+    ]
   }
 ]
