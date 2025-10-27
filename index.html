@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Film Log</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
     <style>
         * { box-sizing: border-box; }
         body {
@@ -40,6 +42,7 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
         .nav button {
             padding: 10px 20px;
@@ -126,13 +129,41 @@
             background: #c00;
             color: white;
         }
+        
+        /* Mobile-friendly table wrapper */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        /* Scroll hint for mobile */
+        .table-wrapper::after {
+            content: '← Swipe to see more →';
+            display: none;
+            text-align: center;
+            padding: 10px;
+            background: #f9f9f9;
+            color: #666;
+            font-size: 12px;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .table-wrapper::after {
+                display: block;
+            }
+        }
+        
         table {
             width: 100%;
-            background: white;
             border-collapse: collapse;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin: 20px 0;
             font-size: 14px;
+            min-width: 900px; /* Ensures horizontal scroll on small screens */
         }
         th {
             background: #333;
@@ -141,6 +172,7 @@
             text-align: left;
             cursor: pointer;
             user-select: none;
+            white-space: nowrap;
         }
         th:hover { background: #555; }
         th::after {
@@ -155,6 +187,12 @@
         th.sort-desc::after {
             content: ' ▼';
             opacity: 1;
+        }
+        th.no-sort::after {
+            content: '';
+        }
+        th.no-sort {
+            cursor: default;
         }
         td {
             padding: 10px 8px;
@@ -177,6 +215,7 @@
             border-radius: 12px;
             font-size: 11px;
             color: #333;
+            white-space: nowrap;
         }
         .platform-badge {
             padding: 4px 10px;
@@ -187,6 +226,7 @@
             font-weight: bold;
             text-decoration: none;
             display: inline-block;
+            white-space: nowrap;
         }
         .platform-badge:hover {
             background: #45a049;
@@ -199,14 +239,34 @@
             font-size: 12px;
             font-weight: bold;
             display: inline-block;
+            white-space: nowrap;
+        }
+        .podcast-icon {
+            font-size: 20px;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .podcast-icon:hover {
+            transform: scale(1.2);
+        }
+        .podcast-icon.inactive {
+            opacity: 0.2;
+            cursor: default;
+        }
+        .podcast-icon.inactive:hover {
+            transform: none;
         }
         .start-time {
             font-weight: bold;
             color: #d32f2f;
+            white-space: nowrap;
         }
         .action-buttons {
             display: flex;
             gap: 5px;
+            white-space: nowrap;
         }
         .edit-btn {
             background: #1976d2;
@@ -352,6 +412,14 @@
         .time-input {
             width: 120px;
         }
+        .center-text {
+            text-align: center;
+        }
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
     </style>
 </head>
 <body>
@@ -415,54 +483,67 @@
                 </div>
             </div>
 
-            <table v-if="filteredFilms.length > 0">
-                <thead>
-                    <tr>
-                        <th @click="sortBy('line')" :class="sortClass('line')">#</th>
-                        <th @click="sortBy('film')" :class="sortClass('film')">Film</th>
-                        <th @click="sortBy('duration')" :class="sortClass('duration')">Duration</th>
-                        <th @click="sortBy('platform')" :class="sortClass('platform')">Platform</th>
-                        <th @click="sortBy('date')" :class="sortClass('date')">Date</th>
-                        <th>Tags</th>
-                        <th>Start Time</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="film in filteredFilms" :key="film.line">
-                        <td>{{ film.line }}</td>
-                        <td>
-                            <a v-if="film.link" :href="film.link" target="_blank">{{ film.film }}</a>
-                            <span v-else>{{ film.film }}</span>
-                        </td>
-                        <td>{{ film.duration }} min</td>
-                        <td>
-                            <a v-if="film.platform && film.platformLink" 
-                               :href="film.platformLink" 
-                               target="_blank" 
-                               class="platform-badge">
-                                {{ film.platform }}
-                            </a>
-                            <span v-else-if="film.platform" class="platform-text">
-                                {{ film.platform }}
-                            </span>
-                        </td>
-                        <td>{{ formatDate(film.date) }}</td>
-                        <td>
-                            <div class="tags-cell">
-                                <span class="tag-badge" v-for="tag in film.tags" :key="tag">{{ tag }}</span>
-                            </div>
-                        </td>
-                        <td class="start-time">{{ calculateStartTime(film.duration) }}</td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="edit-btn" @click="openEditModal(film)">Edit</button>
-                                <button class="delete-btn" @click="deleteFilm(film.line)">Delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-wrapper" v-if="filteredFilms.length > 0">
+                <table>
+                    <thead>
+                        <tr>
+                            <th @click="sortBy('line')" :class="sortClass('line')">#</th>
+                            <th @click="sortBy('film')" :class="sortClass('film')">Film</th>
+                            <th @click="sortBy('duration')" :class="sortClass('duration')">Duration</th>
+                            <th @click="sortBy('platform')" :class="sortClass('platform')">Platform</th>
+                            <th class="no-sort center-text">🎧</th>
+                            <th @click="sortBy('date')" :class="sortClass('date')">Date</th>
+                            <th class="no-sort">Tags</th>
+                            <th class="no-sort">Start Time</th>
+                            <th class="no-sort">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="film in filteredFilms" :key="film.line">
+                            <td>{{ film.line }}</td>
+                            <td>
+                                <a v-if="film.link" :href="film.link" target="_blank">{{ film.film }}</a>
+                                <span v-else>{{ film.film }}</span>
+                            </td>
+                            <td>{{ film.duration }} min</td>
+                            <td>
+                                <a v-if="film.platform && film.platformLink" 
+                                   :href="film.platformLink" 
+                                   target="_blank" 
+                                   class="platform-badge">
+                                    {{ film.platform }}
+                                </a>
+                                <span v-else-if="film.platform" class="platform-text">
+                                    {{ film.platform }}
+                                </span>
+                            </td>
+                            <td class="center-text">
+                                <a v-if="film.podcastLink" 
+                                   :href="film.podcastLink" 
+                                   target="_blank" 
+                                   class="podcast-icon"
+                                   title="Listen to podcast">
+                                    🎧
+                                </a>
+                                <span v-else class="podcast-icon inactive">🎧</span>
+                            </td>
+                            <td>{{ formatDate(film.date) }}</td>
+                            <td>
+                                <div class="tags-cell">
+                                    <span class="tag-badge" v-for="tag in film.tags" :key="tag">{{ tag }}</span>
+                                </div>
+                            </td>
+                            <td class="start-time">{{ calculateStartTime(film.duration) }}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="edit-btn" @click="openEditModal(film)">Edit</button>
+                                    <button class="delete-btn" @click="deleteFilm(film.line)">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <div v-else class="no-results">
                 <p>No films found matching your criteria</p>
@@ -492,6 +573,11 @@
                 <div class="stat-card">
                     <h3>Most Recent</h3>
                     <div class="stat-value" style="font-size: 20px;">{{ mostRecentFilm }}</div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Films with Podcasts</h3>
+                    <div class="stat-value">{{ filmsWithPodcasts }}</div>
                 </div>
             </div>
 
@@ -530,8 +616,11 @@
         <div v-if="currentView === 'import'">
             <div class="import-export">
                 <h2>Export Data</h2>
-                <p>Download your film log as a JSON file for backup or to share.</p>
-                <button @click="exportJSON">Download JSON</button>
+                <p>Download your film log for backup, sharing, or printing.</p>
+                <div class="export-buttons">
+                    <button @click="exportJSON">Download JSON</button>
+                    <button @click="exportPDF">Download PDF (Printable)</button>
+                </div>
             </div>
 
             <div class="import-export import-section">
@@ -552,7 +641,7 @@
 
             <div class="import-export import-section">
                 <h2>Import CSV</h2>
-                <p>Upload a CSV file with columns: film, link, duration, platform, platformLink, date, tags</p>
+                <p>Upload a CSV file with columns: film, link, duration, platform, platformLink, podcastLink, date, tags</p>
                 <p><small>Duration should be just the number (e.g., 142). Tags should be comma-separated within quotes if multiple.</small></p>
                 <div class="file-input-wrapper">
                     <input 
@@ -632,6 +721,12 @@
                         <input type="url" v-model="filmForm.platformLink" placeholder="https://..." />
                         <small>Direct link to watch the film (Amazon Prime page, Google Drive file, etc.)</small>
                     </div>
+
+                    <div class="form-group">
+                        <label>Podcast Link (optional)</label>
+                        <input type="url" v-model="filmForm.podcastLink" placeholder="https://..." />
+                        <small>Link to podcast episode, director commentary, or audio file about this film</small>
+                    </div>
                     
                     <div class="form-group">
                         <label>Date</label>
@@ -673,6 +768,7 @@
                         duration: null,
                         platform: '',
                         platformLink: '',
+                        podcastLink: '',
                         date: '',
                         tagsInput: ''
                     },
@@ -761,6 +857,9 @@
                     );
                     return sorted[0].film;
                 },
+                filmsWithPodcasts() {
+                    return this.films.filter(f => f.podcastLink).length;
+                },
                 filmsByTag() {
                     const counts = {};
                     this.films.forEach(f => {
@@ -832,6 +931,59 @@
                     
                     return `${displayHours}:${String(startMins).padStart(2, '0')} ${period}`;
                 },
+                exportPDF() {
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF('landscape');
+                    
+                    // Title
+                    doc.setFontSize(18);
+                    doc.text('Family Groovy Night - Film Log', 14, 15);
+                    
+                    doc.setFontSize(10);
+                    doc.text(`Generated: ${new Date().toLocaleDateString()}`, 14, 22);
+                    
+                    // Prepare table data
+                    const tableData = this.films.map(f => [
+                        f.line,
+                        f.film,
+                        `${f.duration} min`,
+                        f.platform || '-',
+                        f.podcastLink ? '🎧' : '',
+                        this.formatDate(f.date),
+                        f.tags ? f.tags.join(', ') : '',
+                        this.calculateStartTime(f.duration)
+                    ]);
+                    
+                    // Generate table
+                    doc.autoTable({
+                        startY: 28,
+                        head: [['#', 'Film', 'Duration', 'Platform', '🎧', 'Date', 'Tags', 'Start Time']],
+                        body: tableData,
+                        styles: { 
+                            fontSize: 8,
+                            cellPadding: 2
+                        },
+                        headStyles: {
+                            fillColor: [51, 51, 51],
+                            textColor: 255,
+                            fontStyle: 'bold'
+                        },
+                        columnStyles: {
+                            0: { cellWidth: 10 },
+                            1: { cellWidth: 60 },
+                            2: { cellWidth: 22 },
+                            3: { cellWidth: 30 },
+                            4: { cellWidth: 12 },
+                            5: { cellWidth: 25 },
+                            6: { cellWidth: 50 },
+                            7: { cellWidth: 25 }
+                        },
+                        margin: { top: 28 }
+                    });
+                    
+                    // Save
+                    doc.save(`family-groovy-night-${new Date().toISOString().split('T')[0]}.pdf`);
+                },
                 openAddModal() {
                     this.editingFilm = null;
                     this.filmForm = {
@@ -840,6 +992,7 @@
                         duration: null,
                         platform: '',
                         platformLink: '',
+                        podcastLink: '',
                         date: '',
                         tagsInput: ''
                     };
@@ -853,6 +1006,7 @@
                         duration: film.duration,
                         platform: film.platform || '',
                         platformLink: film.platformLink || '',
+                        podcastLink: film.podcastLink || '',
                         date: film.date,
                         tagsInput: film.tags ? film.tags.join(', ') : ''
                     };
@@ -878,6 +1032,7 @@
                                 duration: this.filmForm.duration,
                                 platform: this.filmForm.platform,
                                 platformLink: this.filmForm.platformLink,
+                                podcastLink: this.filmForm.podcastLink,
                                 date: this.filmForm.date,
                                 tags: tags
                             };
@@ -894,6 +1049,7 @@
                             duration: this.filmForm.duration,
                             platform: this.filmForm.platform,
                             platformLink: this.filmForm.platformLink,
+                            podcastLink: this.filmForm.podcastLink,
                             date: this.filmForm.date,
                             tags: tags
                         });
@@ -940,9 +1096,9 @@
                         this.films = JSON.parse(saved);
                     } else {
                         this.films = [
-                            { line: 1, film: 'The Shawshank Redemption', link: 'https://www.imdb.com/title/tt0111161/', duration: 142, platform: 'Amazon Prime', platformLink: 'https://www.amazon.com/Shawshank-Redemption-Tim-Robbins/dp/B001UI5APQ', date: '2024-01-15', tags: ['drama', 'classic'] },
-                            { line: 2, film: 'The Godfather', link: 'https://www.imdb.com/title/tt0068646/', duration: 175, platform: 'Paramount+', platformLink: '', date: '2024-02-20', tags: ['drama', 'crime', 'classic'] },
-                            { line: 3, film: 'Citizen Kane', link: '', duration: 119, platform: 'Criterion', platformLink: '', date: '2024-03-10', tags: ['classic', 'criterion'] }
+                            { line: 1, film: 'The Shawshank Redemption', link: 'https://www.imdb.com/title/tt0111161/', duration: 142, platform: 'Amazon Prime', platformLink: 'https://www.amazon.com/Shawshank-Redemption-Tim-Robbins/dp/B001UI5APQ', podcastLink: '', date: '2024-01-15', tags: ['drama', 'classic'] },
+                            { line: 2, film: 'The Godfather', link: 'https://www.imdb.com/title/tt0068646/', duration: 175, platform: 'Paramount+', platformLink: '', podcastLink: 'https://example.com/godfather-podcast', date: '2024-02-20', tags: ['drama', 'crime', 'classic'] },
+                            { line: 3, film: 'Citizen Kane', link: '', duration: 119, platform: 'Criterion', platformLink: '', podcastLink: '', date: '2024-03-10', tags: ['classic', 'criterion'] }
                         ];
                         this.saveFilms();
                     }
@@ -1000,15 +1156,16 @@
                             let imported = 0;
                             dataLines.forEach((line, index) => {
                                 const parts = line.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
-                                if (!parts || parts.length < 5) return;
+                                if (!parts || parts.length < 6) return;
                                 
                                 const film = parts[0].replace(/"/g, '').trim();
                                 const link = parts[1] ? parts[1].replace(/"/g, '').trim() : '';
                                 const duration = parseInt(parts[2].replace(/"/g, '').trim());
                                 const platform = parts[3] ? parts[3].replace(/"/g, '').trim() : '';
                                 const platformLink = parts[4] ? parts[4].replace(/"/g, '').trim() : '';
-                                const date = parts[5].replace(/"/g, '').trim();
-                                const tagsStr = parts[6] ? parts[6].replace(/"/g, '').trim() : '';
+                                const podcastLink = parts[5] ? parts[5].replace(/"/g, '').trim() : '';
+                                const date = parts[6].replace(/"/g, '').trim();
+                                const tagsStr = parts[7] ? parts[7].replace(/"/g, '').trim() : '';
                                 
                                 const tags = tagsStr.split(',').map(t => t.trim()).filter(t => t);
                                 
@@ -1020,6 +1177,7 @@
                                         duration,
                                         platform,
                                         platformLink,
+                                        podcastLink,
                                         date,
                                         tags
                                     });
