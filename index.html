@@ -14,91 +14,266 @@
             max-width: 1400px;
             margin: 30px auto;
             padding: 20px;
-            background: #f4f4f4;
+            background: #0a0a0a;
         }
         
-        /* Marquee Styling */
+        /* Marquee Theater Styling */
         .marquee-container {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            border-radius: 12px;
-            padding: 30px 20px 20px;
+            background: linear-gradient(180deg, #1a0a0a 0%, #2d1a1a 50%, #1a0a0a 100%);
+            border-radius: 20px;
+            padding: 40px 20px 60px;
             margin-bottom: 30px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-            border: 4px solid #ffd700;
+            box-shadow: 
+                0 20px 60px rgba(0,0,0,0.8),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            border: 3px solid #3a2a2a;
             position: relative;
+            perspective: 1200px;
         }
         
+        /* Sparkly White Lights */
         .marquee-lights {
             position: absolute;
-            top: 8px;
+            top: 15px;
             left: 0;
             right: 0;
             height: 12px;
             display: flex;
             justify-content: space-around;
-            padding: 0 20px;
+            padding: 0 40px;
+            z-index: 10;
         }
         
         .light {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: #ffd700;
-            box-shadow: 0 0 10px #ffd700;
-            animation: twinkle 2s infinite;
+            background: #fff;
+            position: relative;
+            animation: sparkle 3s infinite ease-in-out;
         }
         
-        .light:nth-child(2n) {
-            animation-delay: 0.5s;
+        .light::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+            animation: pulse 3s infinite ease-in-out;
         }
         
-        .light:nth-child(3n) {
-            animation-delay: 1s;
+        .light::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            box-shadow: 
+                0 0 10px 2px rgba(255,255,255,0.6),
+                0 0 20px 4px rgba(255,255,255,0.4),
+                0 0 30px 6px rgba(255,255,255,0.2);
+            animation: glow 3s infinite ease-in-out;
         }
         
-        @keyframes twinkle {
-            0%, 100% { opacity: 1; }
+        .light:nth-child(2n) { animation-delay: 0.5s; }
+        .light:nth-child(2n)::before { animation-delay: 0.5s; }
+        .light:nth-child(2n)::after { animation-delay: 0.5s; }
+        
+        .light:nth-child(3n) { animation-delay: 1s; }
+        .light:nth-child(3n)::before { animation-delay: 1s; }
+        .light:nth-child(3n)::after { animation-delay: 1s; }
+        
+        .light:nth-child(4n) { animation-delay: 1.5s; }
+        .light:nth-child(4n)::before { animation-delay: 1.5s; }
+        .light:nth-child(4n)::after { animation-delay: 1.5s; }
+        
+        @keyframes sparkle {
+            0%, 100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.4;
+                transform: scale(0.8);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; }
             50% { opacity: 0.3; }
         }
         
+        @keyframes glow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 0.2; }
+        }
+        
+        /* Title with Color-Cycling Spotlight Effect */
         .marquee-title {
             text-align: center;
-            color: #ffd700;
-            font-size: 48px;
-            font-weight: bold;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-            margin: 0 0 15px 0;
-            font-family: 'Impact', 'Arial Black', sans-serif;
-            letter-spacing: 3px;
+            font-size: 56px;
+            font-weight: 400;
+            font-family: 'Baskerville', 'Garamond', 'Georgia', serif;
+            margin: 20px 0 10px 0;
+            letter-spacing: 2px;
+            position: relative;
+            animation: colorCycle 12s infinite;
+            text-shadow: 
+                0 0 30px currentColor,
+                0 0 60px currentColor,
+                0 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        @keyframes colorCycle {
+            0% { color: rgba(255, 215, 0, 0.3); }
+            12.5% { color: rgba(255, 215, 0, 1); }
+            25% { color: rgba(255, 215, 0, 0.3); }
+            37.5% { color: rgba(255, 100, 100, 1); }
+            50% { color: rgba(255, 100, 100, 0.3); }
+            62.5% { color: rgba(100, 200, 255, 1); }
+            75% { color: rgba(100, 200, 255, 0.3); }
+            87.5% { color: rgba(200, 100, 255, 1); }
+            100% { color: rgba(255, 215, 0, 0.3); }
         }
         
         .marquee-subtitle {
             text-align: center;
-            color: #fff;
-            font-size: 18px;
-            margin: 0 0 20px 0;
+            color: #ccc;
+            font-size: 16px;
+            margin: 0 0 40px 0;
             font-style: italic;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
         }
         
-        .poster-section {
+        /* 3D Theater Entrance */
+        .theater-entrance {
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 20px;
-            margin-top: 20px;
+            align-items: flex-start;
+            gap: 60px;
+            margin-top: 40px;
+            transform-style: preserve-3d;
+            min-height: 500px;
         }
         
-        .poster-container {
+        /* Ticket Booth in Center */
+        .ticket-booth {
+            background: linear-gradient(180deg, #4a2a2a 0%, #2a1a1a 100%);
+            border: 3px solid #6a4a4a;
+            border-radius: 12px;
+            padding: 30px 40px;
+            box-shadow: 
+                0 10px 30px rgba(0,0,0,0.6),
+                inset 0 1px 0 rgba(255,255,255,0.1);
             position: relative;
-            max-width: 300px;
+            min-width: 280px;
+            align-self: center;
+        }
+        
+        .ticket-booth::before {
+            content: '🎫';
+            font-size: 48px;
+            display: block;
+            text-align: center;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+        }
+        
+        .booth-title {
+            text-align: center;
+            color: #ffd700;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 0 20px 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            font-family: 'Georgia', serif;
+        }
+        
+        .booth-info {
+            text-align: center;
+            color: #fff;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .booth-showing {
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            border: 1px solid rgba(255,215,0,0.3);
+        }
+        
+        .showing-label {
+            color: #ffd700;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        .showing-title {
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        
+        .showing-meta {
+            color: #aaa;
+            font-size: 12px;
+        }
+        
+        /* Poster Frames - 3D Angled */
+        .poster-frame-3d {
+            position: relative;
+            width: 320px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .poster-frame-3d.left {
+            transform: rotateY(25deg);
+        }
+        
+        .poster-frame-3d.right {
+            transform: rotateY(-25deg);
+        }
+        
+        .poster-frame-3d:hover {
+            transform: rotateY(0deg) scale(1.05);
+            z-index: 10;
         }
         
         .poster-frame {
-            background: #000;
-            padding: 8px;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            padding: 12px;
             border-radius: 8px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-            border: 2px solid #ffd700;
+            box-shadow: 
+                0 15px 40px rgba(0,0,0,0.8),
+                inset 0 1px 0 rgba(255,255,255,0.1),
+                0 0 0 2px #3a3a3a;
+            border: 3px solid #4a4a4a;
+            position: relative;
+        }
+        
+        .poster-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 8px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            pointer-events: none;
         }
         
         .poster-image {
@@ -106,15 +281,16 @@
             height: auto;
             display: block;
             border-radius: 4px;
-            max-height: 450px;
+            max-height: 480px;
             object-fit: cover;
         }
         
         .poster-placeholder {
-            width: 300px;
-            height: 450px;
+            width: 100%;
+            height: 480px;
             background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             border-radius: 4px;
@@ -124,48 +300,59 @@
         
         .poster-info {
             text-align: center;
-            color: #fff;
-            margin-top: 10px;
+            margin-top: 12px;
         }
         
         .poster-title {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             margin: 5px 0;
             color: #ffd700;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
         
         .poster-meta {
-            font-size: 14px;
-            color: #ccc;
+            font-size: 13px;
+            color: #aaa;
         }
         
-        .refresh-poster-btn {
-            background: #ffd700;
-            color: #1a1a1a;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.3s;
-            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
-            margin-top: 15px;
+        .poster-hint {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #666;
+            font-size: 11px;
+            font-style: italic;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
         
-        .refresh-poster-btn:hover {
-            background: #ffed4e;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(255, 215, 0, 0.5);
+        .poster-frame-3d:hover .poster-hint {
+            opacity: 1;
+        }
+        
+        @media (max-width: 1024px) {
+            .theater-entrance {
+                flex-direction: column;
+                align-items: center;
+                gap: 40px;
+            }
+            
+            .poster-frame-3d.left,
+            .poster-frame-3d.right {
+                transform: rotateY(0deg);
+            }
+            
+            .marquee-title {
+                font-size: 40px;
+            }
         }
         
         @media (max-width: 768px) {
             .marquee-title {
                 font-size: 32px;
-            }
-            .poster-section {
-                flex-direction: column;
             }
         }
         
@@ -650,7 +837,7 @@
 </head>
 <body>
     <div id="app">
-        <!-- MARQUEE SECTION -->
+        <!-- 3D THEATER MARQUEE -->
         <div class="marquee-container">
             <div class="marquee-lights">
                 <div class="light"></div>
@@ -663,36 +850,69 @@
                 <div class="light"></div>
                 <div class="light"></div>
                 <div class="light"></div>
+                <div class="light"></div>
+                <div class="light"></div>
             </div>
-            <h1 class="marquee-title">FAMILY GROOVY NIGHT</h1>
-            <p class="marquee-subtitle">Now Showing: Curated Cinema from Your Collection</p>
             
-            <div class="poster-section" v-if="currentPoster">
-                <div class="poster-container">
+            <h1 class="marquee-title">Family Groovy Night</h1>
+            <p class="marquee-subtitle">Now showing from your curated collection</p>
+            
+            <div class="theater-entrance" v-if="leftPoster && rightPoster">
+                <!-- Left Poster -->
+                <div class="poster-frame-3d left" @click="loadTwoRandomPosters">
                     <div class="poster-frame">
-                        <img v-if="currentPoster.poster" 
-                             :src="currentPoster.poster" 
-                             :alt="currentPoster.title"
+                        <img v-if="leftPoster.poster" 
+                             :src="leftPoster.poster" 
+                             :alt="leftPoster.title"
                              class="poster-image"
-                             @error="handlePosterError">
+                             @error="handleLeftPosterError">
                         <div v-else class="poster-placeholder">
-                            🎬<br>No Poster Available
+                            🎬<br>{{ leftPoster.title }}
                         </div>
                     </div>
                     <div class="poster-info">
-                        <div class="poster-title">{{ currentPoster.title }}</div>
+                        <div class="poster-title">{{ leftPoster.title }}</div>
                         <div class="poster-meta">
-                            <span v-if="currentPoster.year">{{ currentPoster.year }}</span>
-                            <span v-if="currentPoster.director"> • {{ currentPoster.director }}</span>
+                            <span v-if="leftPoster.year">{{ leftPoster.year }}</span>
+                            <span v-if="leftPoster.director"> • {{ leftPoster.director }}</span>
+                        </div>
+                    </div>
+                    <div class="poster-hint">Click to rotate films</div>
+                </div>
+                
+                <!-- Ticket Booth Center -->
+                <div class="ticket-booth">
+                    <div class="booth-title">Box Office</div>
+                    <div class="booth-info">
+                        <div class="booth-showing">
+                            <div class="showing-label">Now Featuring</div>
+                            <div class="showing-title">{{ films.length }} Films</div>
+                            <div class="showing-meta">{{ totalDuration }} of cinema</div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div style="text-align: center;">
-                <button class="refresh-poster-btn" @click="loadRandomPoster" v-if="films.length > 0">
-                    🎲 Show Another Film
-                </button>
+                
+                <!-- Right Poster -->
+                <div class="poster-frame-3d right" @click="loadTwoRandomPosters">
+                    <div class="poster-frame">
+                        <img v-if="rightPoster.poster" 
+                             :src="rightPoster.poster" 
+                             :alt="rightPoster.title"
+                             class="poster-image"
+                             @error="handleRightPosterError">
+                        <div v-else class="poster-placeholder">
+                            🎬<br>{{ rightPoster.title }}
+                        </div>
+                    </div>
+                    <div class="poster-info">
+                        <div class="poster-title">{{ rightPoster.title }}</div>
+                        <div class="poster-meta">
+                            <span v-if="rightPoster.year">{{ rightPoster.year }}</span>
+                            <span v-if="rightPoster.director"> • {{ rightPoster.director }}</span>
+                        </div>
+                    </div>
+                    <div class="poster-hint">Click to rotate films</div>
+                </div>
             </div>
         </div>
 
@@ -1118,7 +1338,8 @@
                     
                     tmdbApiKey: '',
                     tmdbKeyInput: '',
-                    currentPoster: null,
+                    leftPoster: null,
+                    rightPoster: null,
                     
                     currentView: 'log',
                     films: [],
@@ -1312,60 +1533,66 @@
                         localStorage.setItem('tmdbApiKey', this.tmdbApiKey);
                         this.tmdbKeyInput = '';
                         this.showSyncStatus('TMDb API key saved!', 'success');
-                        this.loadRandomPoster();
+                        this.loadTwoRandomPosters();
                     }
                 },
                 clearTmdbKey() {
                     if (confirm('Clear TMDb API key?')) {
                         this.tmdbApiKey = '';
                         localStorage.removeItem('tmdbApiKey');
-                        this.currentPoster = null;
+                        this.leftPoster = null;
+                        this.rightPoster = null;
                         this.showSyncStatus('TMDb API key cleared', 'success');
                     }
                 },
-                async loadRandomPoster() {
-                    if (!this.tmdbApiKey || this.films.length === 0) return;
-                    
-                    // Pick a random film from collection
-                    const randomFilm = this.films[Math.floor(Math.random() * this.films.length)];
+                async loadPosterForFilm(film) {
+                    if (!this.tmdbApiKey) return null;
                     
                     try {
-                        // Search TMDb for the film
-                        const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${this.tmdbApiKey}&query=${encodeURIComponent(randomFilm.film)}${randomFilm.year ? '&year=' + randomFilm.year : ''}`;
+                        const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${this.tmdbApiKey}&query=${encodeURIComponent(film.film)}${film.year ? '&year=' + film.year : ''}`;
                         const response = await fetch(searchUrl);
                         const data = await response.json();
                         
                         if (data.results && data.results.length > 0) {
                             const movie = data.results[0];
-                            this.currentPoster = {
-                                title: randomFilm.film,
-                                year: randomFilm.year,
-                                director: randomFilm.director,
+                            return {
+                                title: film.film,
+                                year: film.year,
+                                director: film.director,
                                 poster: movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : null
-                            };
-                        } else {
-                            // No poster found, show film without poster
-                            this.currentPoster = {
-                                title: randomFilm.film,
-                                year: randomFilm.year,
-                                director: randomFilm.director,
-                                poster: null
                             };
                         }
                     } catch (error) {
                         console.error('Error fetching poster:', error);
-                        // Show film without poster on error
-                        this.currentPoster = {
-                            title: randomFilm.film,
-                            year: randomFilm.year,
-                            director: randomFilm.director,
-                            poster: null
-                        };
+                    }
+                    
+                    return {
+                        title: film.film,
+                        year: film.year,
+                        director: film.director,
+                        poster: null
+                    };
+                },
+                async loadTwoRandomPosters() {
+                    if (!this.tmdbApiKey || this.films.length < 2) return;
+                    
+                    // Get two different random films
+                    const shuffled = [...this.films].sort(() => 0.5 - Math.random());
+                    const film1 = shuffled[0];
+                    const film2 = shuffled[1];
+                    
+                    // Load both posters
+                    this.leftPoster = await this.loadPosterForFilm(film1);
+                    this.rightPoster = await this.loadPosterForFilm(film2);
+                },
+                handleLeftPosterError() {
+                    if (this.leftPoster) {
+                        this.leftPoster.poster = null;
                     }
                 },
-                handlePosterError() {
-                    if (this.currentPoster) {
-                        this.currentPoster.poster = null;
+                handleRightPosterError() {
+                    if (this.rightPoster) {
+                        this.rightPoster.poster = null;
                     }
                 },
                 async loadFromGitHub() {
@@ -1395,8 +1622,8 @@
                                 }
                             });
                             
-                            // Load a random poster after films are loaded
-                            this.loadRandomPoster();
+                            // Load posters after films are loaded
+                            this.loadTwoRandomPosters();
                         } else if (response.status === 404) {
                             this.films = [];
                         } else {
