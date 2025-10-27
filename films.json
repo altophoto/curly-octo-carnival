@@ -47,5 +47,20 @@
     "podcastLink": "",
     "date": "2025-10-27",
     "tags": []
+  },
+  {
+    "line": 5,
+    "film": "Carrie",
+    "link": "https://www.imdb.com/title/tt0074285/?ref_=ext_shr_lnk",
+    "duration": 97,
+    "platform": "",
+    "platformLink": "",
+    "podcastLink": "",
+    "date": "2025-10-27",
+    "tags": [
+      "De Palma",
+      "Classic",
+      "Horror"
+    ]
   }
 ]
