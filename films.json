@@ -92,5 +92,19 @@
       "Horror",
       "Stephen King"
     ]
+  },
+  {
+    "line": 8,
+    "film": "The Monkey",
+    "link": "https://www.imdb.com/title/tt27714946/?ref_=ext_shr_lnk",
+    "duration": 98,
+    "platform": "",
+    "platformLink": "",
+    "podcastLink": "",
+    "date": "2025-10-27",
+    "tags": [
+      "Stephen King",
+      "Osgood Perkins"
+    ]
   }
 ]
