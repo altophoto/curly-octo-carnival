@@ -79,10 +79,12 @@
     "platformLink": "",
     "podcastLink": "",
     "tags": [
-      "John Carpenter",
-      "Horror"
+      "Horror",
+      "John Carpenter"
     ],
-    "dateAdded": "2025-10-27"
+    "dateAdded": "2025-10-27",
+    "year": null,
+    "director": "John Carpenter"
   },
   {
     "line": 7,
