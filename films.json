@@ -179,5 +179,17 @@
     "tags": [
       "John Carpenter"
     ]
+  },
+  {
+    "line": 13,
+    "film": "Blood Simple",
+    "year": null,
+    "director": "",
+    "link": "",
+    "duration": 1,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-27",
+    "tags": []
   }
 ]
