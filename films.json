@@ -36,5 +36,16 @@
       "Character Development",
       "Drama"
     ]
+  },
+  {
+    "line": 4,
+    "film": "Misery",
+    "link": "https://www.imdb.com/title/tt0100157/?ref_=ext_shr_lnk",
+    "duration": 107,
+    "platform": "",
+    "platformLink": "",
+    "podcastLink": "",
+    "date": "2025-10-27",
+    "tags": []
   }
 ]
