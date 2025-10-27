@@ -9,5 +9,16 @@
     "podcastLink": "",
     "date": "2025-10-27",
     "tags": []
+  },
+  {
+    "line": 2,
+    "film": "The Running Man",
+    "link": "https://www.imdb.com/title/tt0093894/?ref_=ext_shr_lnk",
+    "duration": 111,
+    "platform": "Netflix",
+    "platformLink": "",
+    "podcastLink": "",
+    "date": "2025-10-27",
+    "tags": []
   }
 ]
