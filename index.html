@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Family Groovy Night2</title>
+    <title>Film Log</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style>
         * { box-sizing: border-box; }
@@ -190,6 +190,15 @@
         }
         .platform-badge:hover {
             background: #45a049;
+        }
+        .platform-text {
+            padding: 4px 10px;
+            background: #999;
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
         }
         .start-time {
             font-weight: bold;
@@ -428,12 +437,15 @@
                         </td>
                         <td>{{ film.duration }} min</td>
                         <td>
-                            <a v-if="film.platform" 
-                               :href="getPlatformUrl(film.platform, film.platformLink)" 
+                            <a v-if="film.platform && film.platformLink" 
+                               :href="film.platformLink" 
                                target="_blank" 
                                class="platform-badge">
                                 {{ film.platform }}
                             </a>
+                            <span v-else-if="film.platform" class="platform-text">
+                                {{ film.platform }}
+                            </span>
                         </td>
                         <td>{{ formatDate(film.date) }}</td>
                         <td>
@@ -540,8 +552,8 @@
 
             <div class="import-export import-section">
                 <h2>Import CSV</h2>
-                <p>Upload a CSV file with columns: film, link, duration, platform, date, tags</p>
-                <p><small>Duration should be just the number (e.g., 142). Tags should be comma-separated within quotes if multiple (e.g., "drama, classic")</small></p>
+                <p>Upload a CSV file with columns: film, link, duration, platform, platformLink, date, tags</p>
+                <p><small>Duration should be just the number (e.g., 142). Tags should be comma-separated within quotes if multiple.</small></p>
                 <div class="file-input-wrapper">
                     <input 
                         type="file" 
@@ -573,13 +585,12 @@
             </div>
 
             <div class="settings-section">
-                <h2>Streaming Platforms</h2>
-                <p>Manage your streaming platform links. Click a platform to edit its URL.</p>
+                <h2>Platform Options</h2>
+                <p>Available platforms for the dropdown menu. These are just labels - you'll add the specific URL for each film when adding/editing.</p>
                 <div class="stat-card">
                     <ul class="stat-list">
-                        <li v-for="(url, platform) in platforms" :key="platform">
+                        <li v-for="platform in platformOptions" :key="platform">
                             <span>{{ platform }}</span>
-                            <button class="secondary" style="padding: 5px 10px; font-size: 12px;" @click="editPlatform(platform)">Edit URL</button>
                         </li>
                     </ul>
                 </div>
@@ -595,35 +606,44 @@
                         <label>Film Title</label>
                         <input type="text" v-model="filmForm.film" required />
                     </div>
+                    
                     <div class="form-group">
-                        <label>IMDB Link (optional)</label>
-                        <input type="url" v-model="filmForm.link" placeholder="https://m.imdb.com/title/..." />
+                        <label>Info Link (optional)</label>
+                        <input type="url" v-model="filmForm.link" placeholder="https://www.imdb.com/..." />
+                        <small>Link to IMDB, Wikipedia, etc.</small>
                     </div>
+                    
                     <div class="form-group">
                         <label>Duration (minutes)</label>
                         <input type="number" v-model.number="filmForm.duration" min="1" placeholder="142" required />
                         <small>Enter just the number of minutes</small>
                     </div>
+                    
                     <div class="form-group">
                         <label>Platform (optional)</label>
                         <select v-model="filmForm.platform">
                             <option value="">-- Select Platform --</option>
-                            <option v-for="name in platforms" :key="name" :value="name">{{ name }}</option>
+                            <option v-for="platform in platformOptions" :key="platform" :value="platform">{{ platform }}</option>
                         </select>
                     </div>
+                    
                     <div class="form-group">
                         <label>Platform Link (optional)</label>
                         <input type="url" v-model="filmForm.platformLink" placeholder="https://..." />
+                        <small>Direct link to watch the film (Amazon Prime page, Google Drive file, etc.)</small>
                     </div>
+                    
                     <div class="form-group">
                         <label>Date</label>
                         <input type="date" v-model="filmForm.date" required />
                     </div>
+                    
                     <div class="form-group">
                         <label>Tags (comma-separated, optional)</label>
                         <input type="text" v-model="filmForm.tagsInput" placeholder="drama, classic, criterion" />
                         <small>Separate tags with commas</small>
                     </div>
+                    
                     <div class="form-actions">
                         <button type="button" class="secondary" @click="closeFilmModal">Cancel</button>
                         <button type="submit">{{ editingFilm ? 'Update Film' : 'Add Film' }}</button>
@@ -662,19 +682,21 @@
                     csvSuccess: false,
                     lastTinkered: new Date().toLocaleString(),
                     targetEndTime: '20:00',
-                    platforms: {
-                        'iTunes': 'https://tv.apple.com',
-                        'Amazon Prime': 'https://www.amazon.com/Prime-Video',
-                        'Netflix': 'https://www.netflix.com',
-                        'Hulu': 'https://www.hulu.com',
-                        'Disney+': 'https://www.disneyplus.com',
-                        'HBO Max': 'https://www.max.com',
-                        'lookmovie2': 'https://www.lookmovie2.to',
-                        'Tubi': 'https://tubitv.com',
-                        'Peacock': 'https://www.peacocktv.com',
-                        'Paramount+': 'https://www.paramountplus.com',
-                        'Criterion': 'https://www.criterionchannel.com'
-                    }
+                    platformOptions: [
+                        'iTunes',
+                        'Amazon Prime',
+                        'Netflix',
+                        'Hulu',
+                        'Disney+',
+                        'HBO Max',
+                        'Tubi',
+                        'Peacock',
+                        'Paramount+',
+                        'Criterion',
+                        'Google Drive',
+                        'Plex',
+                        'Other'
+                    ]
                 };
             },
             computed: {
@@ -810,9 +832,6 @@
                     
                     return `${displayHours}:${String(startMins).padStart(2, '0')} ${period}`;
                 },
-                getPlatformUrl(platform, platformLink) {
-                    return platformLink || this.platforms[platform] || '#';
-                },
                 openAddModal() {
                     this.editingFilm = null;
                     this.filmForm = {
@@ -833,7 +852,7 @@
                         link: film.link || '',
                         duration: film.duration,
                         platform: film.platform || '',
-                        platformLink: film.platformLink || ''
+                        platformLink: film.platformLink || '',
                         date: film.date,
                         tagsInput: film.tags ? film.tags.join(', ') : ''
                     };
@@ -850,7 +869,6 @@
                         .filter(t => t.length > 0);
                     
                     if (this.editingFilm) {
-                        // Update existing film
                         const index = this.films.findIndex(f => f.line === this.editingFilm.line);
                         if (index !== -1) {
                             this.films[index] = {
@@ -865,7 +883,6 @@
                             };
                         }
                     } else {
-                        // Add new film
                         const nextLine = this.films.length > 0 
                             ? Math.max(...this.films.map(f => f.line)) + 1 
                             : 1;
@@ -907,8 +924,7 @@
                 },
                 saveSettings() {
                     localStorage.setItem('filmLogSettings', JSON.stringify({
-                        targetEndTime: this.targetEndTime,
-                        platforms: this.platforms
+                        targetEndTime: this.targetEndTime
                     }));
                 },
                 loadSettings() {
@@ -916,16 +932,6 @@
                     if (saved) {
                         const settings = JSON.parse(saved);
                         this.targetEndTime = settings.targetEndTime || '20:00';
-                        if (settings.platforms) {
-                            this.platforms = settings.platforms;
-                        }
-                    }
-                },
-                editPlatform(platform) {
-                    const newUrl = prompt(`Enter URL for ${platform}:`, this.platforms[platform]);
-                    if (newUrl !== null) {
-                        this.platforms[platformLink] = newUrl;
-                        this.saveSettings();
                     }
                 },
                 loadFilms() {
@@ -934,7 +940,7 @@
                         this.films = JSON.parse(saved);
                     } else {
                         this.films = [
-                            { line: 1, film: 'The Shawshank Redemption', link: 'https://www.imdb.com/title/tt0111161/', duration: 142, platform: 'Amazon Prime', platformLink: '', date: '2024-01-15', tags: ['drama', 'classic'] },
+                            { line: 1, film: 'The Shawshank Redemption', link: 'https://www.imdb.com/title/tt0111161/', duration: 142, platform: 'Amazon Prime', platformLink: 'https://www.amazon.com/Shawshank-Redemption-Tim-Robbins/dp/B001UI5APQ', date: '2024-01-15', tags: ['drama', 'classic'] },
                             { line: 2, film: 'The Godfather', link: 'https://www.imdb.com/title/tt0068646/', duration: 175, platform: 'Paramount+', platformLink: '', date: '2024-02-20', tags: ['drama', 'crime', 'classic'] },
                             { line: 3, film: 'Citizen Kane', link: '', duration: 119, platform: 'Criterion', platformLink: '', date: '2024-03-10', tags: ['classic', 'criterion'] }
                         ];
@@ -994,15 +1000,15 @@
                             let imported = 0;
                             dataLines.forEach((line, index) => {
                                 const parts = line.match(/(".*?"|[^,]+)(?=\s*,|\s*$)/g);
-                                if (!parts || parts.length < 6) return;
+                                if (!parts || parts.length < 5) return;
                                 
                                 const film = parts[0].replace(/"/g, '').trim();
                                 const link = parts[1] ? parts[1].replace(/"/g, '').trim() : '';
                                 const duration = parseInt(parts[2].replace(/"/g, '').trim());
                                 const platform = parts[3] ? parts[3].replace(/"/g, '').trim() : '';
-                                const platformLink = parts[4] ? parts[3].replace(/"/g, '').trim() : '';
+                                const platformLink = parts[4] ? parts[4].replace(/"/g, '').trim() : '';
                                 const date = parts[5].replace(/"/g, '').trim();
-                                const tagsStr = parts[6] ? parts[5].replace(/"/g, '').trim() : '';
+                                const tagsStr = parts[6] ? parts[6].replace(/"/g, '').trim() : '';
                                 
                                 const tags = tagsStr.split(',').map(t => t.trim()).filter(t => t);
                                 
