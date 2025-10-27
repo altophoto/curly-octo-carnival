@@ -62,5 +62,19 @@
       "Classic",
       "Horror"
     ]
+  },
+  {
+    "line": 6,
+    "film": "Christine",
+    "link": "https://www.imdb.com/title/tt0085333/?ref_=ext_shr_lnk",
+    "duration": 110,
+    "platform": "",
+    "platformLink": "",
+    "podcastLink": "",
+    "date": "2025-10-27",
+    "tags": [
+      "Carpenter",
+      "Horror"
+    ]
   }
 ]
