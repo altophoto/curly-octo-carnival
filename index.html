@@ -1570,18 +1570,12 @@
                     } else if (diffMins === 1) {
                         return 'Starting in 1 minute';
                     } else if (diffMins < 60) {
+                        // Under 1 hour - show exact minutes
                         return `Starting in ${diffMins} minutes`;
                     } else {
-                        // Format as hours and minutes
-                        const hours = Math.floor(diffMins / 60);
-                        const mins = diffMins % 60;
-                        if (mins === 0) {
-                            return hours === 1 ? 'Starting in 1 hour' : `Starting in ${hours} hours`;
-                        } else {
-                            const hourText = hours === 1 ? '1 hour' : `${hours} hours`;
-                            const minText = mins === 1 ? '1 minute' : `${mins} minutes`;
-                            return `Starting in ${hourText} ${minText}`;
-                        }
+                        // Over 1 hour - round to nearest hour
+                        const hours = Math.round(diffMins / 60);
+                        return hours === 1 ? 'Starting in about 1 hour' : `Starting in about ${hours} hours`;
                     }
                 },
                 getShowtimeClass(poster) {
@@ -1653,6 +1647,43 @@
                         this.tmdbApiKey = saved;
                     }
                 },
+                getPosterCacheKey(filmTitle, year) {
+                    return `poster_${filmTitle}_${year || 'unknown'}`;
+                },
+                loadPosterFromCache(filmTitle, year) {
+                    const cacheKey = this.getPosterCacheKey(filmTitle, year);
+                    const cached = localStorage.getItem(cacheKey);
+                    if (!cached) return null;
+                    
+                    try {
+                        const data = JSON.parse(cached);
+                        const cacheAge = Date.now() - data.timestamp;
+                        const sevenDays = 7 * 24 * 60 * 60 * 1000;
+                        
+                        // Cache expires after 7 days
+                        if (cacheAge > sevenDays) {
+                            localStorage.removeItem(cacheKey);
+                            return null;
+                        }
+                        
+                        return data.posterUrl;
+                    } catch (e) {
+                        return null;
+                    }
+                },
+                savePosterToCache(filmTitle, year, posterUrl) {
+                    const cacheKey = this.getPosterCacheKey(filmTitle, year);
+                    const data = {
+                        posterUrl: posterUrl,
+                        timestamp: Date.now()
+                    };
+                    try {
+                        localStorage.setItem(cacheKey, JSON.stringify(data));
+                    } catch (e) {
+                        // If localStorage is full, silently fail
+                        console.warn('Could not cache poster:', e);
+                    }
+                },
                 saveTmdbKey() {
                     if (this.tmdbKeyInput.trim()) {
                         this.tmdbApiKey = this.tmdbKeyInput.trim();
@@ -1674,6 +1705,18 @@
                 async loadPosterForFilm(film) {
                     if (!this.tmdbApiKey) return null;
                     
+                    // Check cache first
+                    const cachedPosterUrl = this.loadPosterFromCache(film.film, film.year);
+                    if (cachedPosterUrl) {
+                        return {
+                            title: film.film,
+                            year: film.year,
+                            director: film.director,
+                            poster: cachedPosterUrl
+                        };
+                    }
+                    
+                    // If not cached, fetch from TMDb
                     try {
                         const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${this.tmdbApiKey}&query=${encodeURIComponent(film.film)}${film.year ? '&year=' + film.year : ''}`;
                         const response = await fetch(searchUrl);
@@ -1681,11 +1724,18 @@
                         
                         if (data.results && data.results.length > 0) {
                             const movie = data.results[0];
+                            const posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : null;
+                            
+                            // Cache the result
+                            if (posterUrl) {
+                                this.savePosterToCache(film.film, film.year, posterUrl);
+                            }
+                            
                             return {
                                 title: film.film,
                                 year: film.year,
                                 director: film.director,
-                                poster: movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : null
+                                poster: posterUrl
                             };
                         }
                     } catch (error) {
