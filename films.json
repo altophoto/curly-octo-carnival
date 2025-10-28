@@ -605,10 +605,10 @@
   {
     "line": 48,
     "film": "The Thing",
-    "year": null,
+    "year": 1982,
     "director": "John Carpenter",
-    "link": "",
-    "duration": 1,
+    "link": "https://www.imdb.com/title/tt0084787/?ref_=ext_shr_lnk",
+    "duration": 109,
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-10-27",
