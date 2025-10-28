@@ -316,7 +316,7 @@
             color: #aaa;
         }
         
-        /* Showtime Status - Matches poster angle exactly (no additional transform needed) */
+        /* Showtime Status - Angled with poster but tilted toward viewer */
         .showtime-status {
             text-align: center;
             margin-top: 20px;
@@ -325,6 +325,15 @@
             border: 2px solid #4a4a4a;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            transform-style: preserve-3d;
+        }
+        
+        .poster-frame-3d.left .showtime-status {
+            transform: rotateY(8deg);
+        }
+        
+        .poster-frame-3d.right .showtime-status {
+            transform: rotateY(-8deg);
         }
         
         .showtime-label {
@@ -380,6 +389,11 @@
             
             .poster-frame-3d.left,
             .poster-frame-3d.right {
+                transform: rotateY(0deg);
+            }
+            
+            .poster-frame-3d.left .showtime-status,
+            .poster-frame-3d.right .showtime-status {
                 transform: rotateY(0deg);
             }
             
@@ -871,6 +885,28 @@
             background: #fff3cd;
             color: #856404;
         }
+        .cache-info {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #666;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            cursor: pointer;
+        }
+        .checkbox-group label {
+            cursor: pointer;
+            margin: 0;
+        }
     </style>
 </head>
 <body>
@@ -897,7 +933,7 @@
             
             <div class="theater-entrance" v-if="leftPoster && rightPoster">
                 <!-- Left Poster -->
-                <div class="poster-frame-3d left" @click="loadTwoRandomPosters">
+                <div class="poster-frame-3d left" @click="manualRotatePosters">
                     <div class="poster-frame">
                         <img v-if="leftPoster.poster" 
                              :src="leftPoster.poster" 
@@ -937,7 +973,7 @@
                 </div>
                 
                 <!-- Right Poster -->
-                <div class="poster-frame-3d right" @click="loadTwoRandomPosters">
+                <div class="poster-frame-3d right" @click="manualRotatePosters">
                     <div class="poster-frame">
                         <img v-if="rightPoster.poster" 
                              :src="rightPoster.poster" 
@@ -1275,6 +1311,40 @@
                 <div v-else class="token-status not-configured">
                     ⚠ TMDb API key not configured - Posters disabled
                 </div>
+                
+                <div v-if="tmdbApiKey" class="cache-info">
+                    📦 Poster cache: {{ posterCacheSize }} films cached • 
+                    <a href="#" @click.prevent="clearPosterCache" style="color: #c00;">Clear cache</a>
+                </div>
+            </div>
+
+            <div v-if="githubToken && tmdbApiKey" class="settings-section">
+                <h2>Marquee Auto-Rotation</h2>
+                <p>Automatically cycle through different film posters in the marquee display.</p>
+                
+                <div class="checkbox-group">
+                    <input 
+                        type="checkbox" 
+                        id="autoRotate" 
+                        v-model="autoRotateEnabled"
+                        @change="saveSettings"
+                    />
+                    <label for="autoRotate">Enable auto-rotation</label>
+                </div>
+                
+                <div class="form-group" v-if="autoRotateEnabled">
+                    <label>Rotation Interval (seconds)</label>
+                    <input 
+                        type="number" 
+                        v-model.number="rotationInterval" 
+                        @change="saveSettings"
+                        min="10"
+                        max="300"
+                        step="5"
+                        class="time-input"
+                    />
+                    <small>Posters will rotate every {{ rotationInterval }} seconds (between 10-300)</small>
+                </div>
             </div>
 
             <div v-if="githubToken" class="settings-section">
@@ -1388,10 +1458,14 @@
                     
                     tmdbApiKey: '',
                     tmdbKeyInput: '',
+                    posterCache: {},
                     leftPoster: null,
                     rightPoster: null,
                     currentTime: new Date(),
                     timeUpdateInterval: null,
+                    posterRotateInterval: null,
+                    autoRotateEnabled: true,
+                    rotationInterval: 30,
                     
                     currentView: 'log',
                     films: [],
@@ -1426,6 +1500,9 @@
                 };
             },
             computed: {
+                posterCacheSize() {
+                    return Object.keys(this.posterCache).length;
+                },
                 yearOptions() {
                     const currentYear = new Date().getFullYear();
                     const years = [];
@@ -1539,6 +1616,21 @@
                     );
                 }
             },
+            watch: {
+                autoRotateEnabled(newVal) {
+                    if (newVal) {
+                        this.startPosterRotation();
+                    } else {
+                        this.stopPosterRotation();
+                    }
+                },
+                rotationInterval() {
+                    if (this.autoRotateEnabled) {
+                        this.stopPosterRotation();
+                        this.startPosterRotation();
+                    }
+                }
+            },
             methods: {
                 getTodayDate() {
                     const today = new Date();
@@ -1547,18 +1639,75 @@
                     const day = String(today.getDate()).padStart(2, '0');
                     return `${year}-${month}-${day}`;
                 },
+                formatDuration(minutes) {
+                    if (minutes >= 60) {
+                        const hours = Math.floor(minutes / 60);
+                        const mins = minutes % 60;
+                        if (mins === 0) {
+                            return hours === 1 ? '1 hour' : `${hours} hours`;
+                        }
+                        return hours === 1 ? `1 hour ${mins} minutes` : `${hours} hours ${mins} minutes`;
+                    }
+                    return minutes === 1 ? '1 minute' : `${minutes} minutes`;
+                },
+                getCacheKey(film) {
+                    return `${film.film}-${film.year || 'unknown'}`;
+                },
+                loadPosterCache() {
+                    const saved = localStorage.getItem('tmdbPosterCache');
+                    if (saved) {
+                        try {
+                            this.posterCache = JSON.parse(saved);
+                        } catch (e) {
+                            console.error('Failed to load poster cache:', e);
+                            this.posterCache = {};
+                        }
+                    }
+                },
+                savePosterCache() {
+                    try {
+                        localStorage.setItem('tmdbPosterCache', JSON.stringify(this.posterCache));
+                    } catch (e) {
+                        console.error('Failed to save poster cache:', e);
+                    }
+                },
+                clearPosterCache() {
+                    if (confirm('Clear all cached posters? They will be re-fetched from TMDb as needed.')) {
+                        this.posterCache = {};
+                        localStorage.removeItem('tmdbPosterCache');
+                        this.showSyncStatus('Poster cache cleared', 'success');
+                    }
+                },
+                startPosterRotation() {
+                    this.stopPosterRotation();
+                    if (this.autoRotateEnabled && this.tmdbApiKey && this.films.length >= 2) {
+                        this.posterRotateInterval = setInterval(() => {
+                            this.loadTwoRandomPosters();
+                        }, this.rotationInterval * 1000);
+                    }
+                },
+                stopPosterRotation() {
+                    if (this.posterRotateInterval) {
+                        clearInterval(this.posterRotateInterval);
+                        this.posterRotateInterval = null;
+                    }
+                },
+                manualRotatePosters() {
+                    this.loadTwoRandomPosters();
+                    // Reset the auto-rotation timer
+                    if (this.autoRotateEnabled) {
+                        this.startPosterRotation();
+                    }
+                },
                 getShowtimeText(poster) {
                     if (!poster || !poster.title) return '—';
                     
-                    // Find the film in the collection
                     const film = this.films.find(f => f.film === poster.title);
                     if (!film || !film.duration) return '—';
                     
-                    // Calculate start time
                     const startTime = this.getStartTimeAsDate(film.duration);
                     if (!startTime) return '—';
                     
-                    // Calculate minutes until showtime
                     const now = this.currentTime;
                     const diffMs = startTime - now;
                     const diffMins = Math.round(diffMs / 60000);
@@ -1567,15 +1716,8 @@
                         return 'SOLD OUT';
                     } else if (diffMins === 0) {
                         return 'Starting now!';
-                    } else if (diffMins === 1) {
-                        return 'Starting in 1 minute';
-                    } else if (diffMins < 60) {
-                        // Under 1 hour - show exact minutes
-                        return `Starting in ${diffMins} minutes`;
                     } else {
-                        // Over 1 hour - round to nearest hour
-                        const hours = Math.round(diffMins / 60);
-                        return hours === 1 ? 'Starting in ~1 hour' : `Starting in ~${hours} hours`;
+                        return `Starting in ${this.formatDuration(diffMins)}`;
                     }
                 },
                 getShowtimeClass(poster) {
@@ -1647,43 +1789,6 @@
                         this.tmdbApiKey = saved;
                     }
                 },
-                getPosterCacheKey(filmTitle, year) {
-                    return `poster_${filmTitle}_${year || 'unknown'}`;
-                },
-                loadPosterFromCache(filmTitle, year) {
-                    const cacheKey = this.getPosterCacheKey(filmTitle, year);
-                    const cached = localStorage.getItem(cacheKey);
-                    if (!cached) return null;
-                    
-                    try {
-                        const data = JSON.parse(cached);
-                        const cacheAge = Date.now() - data.timestamp;
-                        const sevenDays = 7 * 24 * 60 * 60 * 1000;
-                        
-                        // Cache expires after 7 days
-                        if (cacheAge > sevenDays) {
-                            localStorage.removeItem(cacheKey);
-                            return null;
-                        }
-                        
-                        return data.posterUrl;
-                    } catch (e) {
-                        return null;
-                    }
-                },
-                savePosterToCache(filmTitle, year, posterUrl) {
-                    const cacheKey = this.getPosterCacheKey(filmTitle, year);
-                    const data = {
-                        posterUrl: posterUrl,
-                        timestamp: Date.now()
-                    };
-                    try {
-                        localStorage.setItem(cacheKey, JSON.stringify(data));
-                    } catch (e) {
-                        // If localStorage is full, silently fail
-                        console.warn('Could not cache poster:', e);
-                    }
-                },
                 saveTmdbKey() {
                     if (this.tmdbKeyInput.trim()) {
                         this.tmdbApiKey = this.tmdbKeyInput.trim();
@@ -1691,6 +1796,7 @@
                         this.tmdbKeyInput = '';
                         this.showSyncStatus('TMDb API key saved!', 'success');
                         this.loadTwoRandomPosters();
+                        this.startPosterRotation();
                     }
                 },
                 clearTmdbKey() {
@@ -1699,24 +1805,24 @@
                         localStorage.removeItem('tmdbApiKey');
                         this.leftPoster = null;
                         this.rightPoster = null;
+                        this.stopPosterRotation();
                         this.showSyncStatus('TMDb API key cleared', 'success');
                     }
                 },
                 async loadPosterForFilm(film) {
                     if (!this.tmdbApiKey) return null;
                     
-                    // Check cache first
-                    const cachedPosterUrl = this.loadPosterFromCache(film.film, film.year);
-                    if (cachedPosterUrl) {
+                    const cacheKey = this.getCacheKey(film);
+                    
+                    if (this.posterCache[cacheKey]) {
                         return {
                             title: film.film,
                             year: film.year,
                             director: film.director,
-                            poster: cachedPosterUrl
+                            poster: this.posterCache[cacheKey]
                         };
                     }
                     
-                    // If not cached, fetch from TMDb
                     try {
                         const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${this.tmdbApiKey}&query=${encodeURIComponent(film.film)}${film.year ? '&year=' + film.year : ''}`;
                         const response = await fetch(searchUrl);
@@ -1726,10 +1832,8 @@
                             const movie = data.results[0];
                             const posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : null;
                             
-                            // Cache the result
-                            if (posterUrl) {
-                                this.savePosterToCache(film.film, film.year, posterUrl);
-                            }
+                            this.posterCache[cacheKey] = posterUrl;
+                            this.savePosterCache();
                             
                             return {
                                 title: film.film,
@@ -1742,6 +1846,9 @@
                         console.error('Error fetching poster:', error);
                     }
                     
+                    this.posterCache[cacheKey] = null;
+                    this.savePosterCache();
+                    
                     return {
                         title: film.film,
                         year: film.year,
@@ -1752,12 +1859,10 @@
                 async loadTwoRandomPosters() {
                     if (!this.tmdbApiKey || this.films.length < 2) return;
                     
-                    // Get two different random films
                     const shuffled = [...this.films].sort(() => 0.5 - Math.random());
                     const film1 = shuffled[0];
                     const film2 = shuffled[1];
                     
-                    // Load both posters
                     this.leftPoster = await this.loadPosterForFilm(film1);
                     this.rightPoster = await this.loadPosterForFilm(film2);
                 },
@@ -1790,7 +1895,6 @@
                             const content = atob(data.content);
                             this.films = JSON.parse(content);
                             
-                            // Migrate old data
                             this.films.forEach(f => {
                                 if (f.date && !f.dateAdded) {
                                     f.dateAdded = f.date;
@@ -1798,8 +1902,8 @@
                                 }
                             });
                             
-                            // Load posters after films are loaded
                             this.loadTwoRandomPosters();
+                            this.startPosterRotation();
                         } else if (response.status === 404) {
                             this.films = [];
                         } else {
@@ -2065,7 +2169,9 @@
                 },
                 saveSettings() {
                     localStorage.setItem('filmLogSettings', JSON.stringify({
-                        targetEndTime: this.targetEndTime
+                        targetEndTime: this.targetEndTime,
+                        autoRotateEnabled: this.autoRotateEnabled,
+                        rotationInterval: this.rotationInterval
                     }));
                 },
                 loadSettings() {
@@ -2073,6 +2179,8 @@
                     if (saved) {
                         const settings = JSON.parse(saved);
                         this.targetEndTime = settings.targetEndTime || '20:00';
+                        this.autoRotateEnabled = settings.autoRotateEnabled !== undefined ? settings.autoRotateEnabled : true;
+                        this.rotationInterval = settings.rotationInterval || 30;
                     }
                 },
                 exportJSON() {
@@ -2185,19 +2293,21 @@
                 this.loadSettings();
                 this.loadToken();
                 this.loadTmdbKey();
+                this.loadPosterCache();
+                
                 if (this.githubToken) {
                     await this.loadFromGitHub();
                 }
                 
-                // Update time every minute
                 this.timeUpdateInterval = setInterval(() => {
                     this.updateCurrentTime();
-                }, 60000); // Every 60 seconds
+                }, 60000);
             },
             beforeUnmount() {
                 if (this.timeUpdateInterval) {
                     clearInterval(this.timeUpdateInterval);
                 }
+                this.stopPosterRotation();
             }
         }).mount('#app');
     </script>
