@@ -316,7 +316,7 @@
             color: #aaa;
         }
         
-        /* Showtime Status - Angled with poster */
+        /* Showtime Status - Matches poster angle exactly (no additional transform needed) */
         .showtime-status {
             text-align: center;
             margin-top: 20px;
@@ -325,15 +325,6 @@
             border: 2px solid #4a4a4a;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-            transform-style: preserve-3d;
-        }
-        
-        .poster-frame-3d.left .showtime-status {
-            transform: rotateY(12deg);
-        }
-        
-        .poster-frame-3d.right .showtime-status {
-            transform: rotateY(-12deg);
         }
         
         .showtime-label {
@@ -389,11 +380,6 @@
             
             .poster-frame-3d.left,
             .poster-frame-3d.right {
-                transform: rotateY(0deg);
-            }
-            
-            .poster-frame-3d.left .showtime-status,
-            .poster-frame-3d.right .showtime-status {
                 transform: rotateY(0deg);
             }
             
@@ -1583,8 +1569,19 @@
                         return 'Starting now!';
                     } else if (diffMins === 1) {
                         return 'Starting in 1 minute';
-                    } else {
+                    } else if (diffMins < 60) {
                         return `Starting in ${diffMins} minutes`;
+                    } else {
+                        // Format as hours and minutes
+                        const hours = Math.floor(diffMins / 60);
+                        const mins = diffMins % 60;
+                        if (mins === 0) {
+                            return hours === 1 ? 'Starting in 1 hour' : `Starting in ${hours} hours`;
+                        } else {
+                            const hourText = hours === 1 ? '1 hour' : `${hours} hours`;
+                            const minText = mins === 1 ? '1 minute' : `${mins} minutes`;
+                            return `Starting in ${hourText} ${minText}`;
+                        }
                     }
                 },
                 getShowtimeClass(poster) {
