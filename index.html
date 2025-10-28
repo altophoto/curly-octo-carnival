@@ -230,7 +230,7 @@
             font-size: 12px;
         }
         
-        /* Poster Frames - 3D Angled */
+        /* Poster Frames - 3D Angled (closer to viewer) */
         .poster-frame-3d {
             position: relative;
             width: 320px;
@@ -240,11 +240,11 @@
         }
         
         .poster-frame-3d.left {
-            transform: rotateY(25deg);
+            transform: rotateY(12deg);
         }
         
         .poster-frame-3d.right {
-            transform: rotateY(-25deg);
+            transform: rotateY(-12deg);
         }
         
         .poster-frame-3d:hover {
@@ -316,6 +316,53 @@
             color: #aaa;
         }
         
+        /* Showtime Status - Angled with poster */
+        .showtime-status {
+            text-align: center;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(10, 10, 10, 0.9) 100%);
+            border: 2px solid #4a4a4a;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            transform-style: preserve-3d;
+        }
+        
+        .poster-frame-3d.left .showtime-status {
+            transform: rotateY(12deg);
+        }
+        
+        .poster-frame-3d.right .showtime-status {
+            transform: rotateY(-12deg);
+        }
+        
+        .showtime-label {
+            font-size: 11px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        
+        .showtime-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4CAF50;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+        
+        .showtime-value.sold-out {
+            color: #f44336;
+            text-shadow: 0 0 10px rgba(244, 67, 54, 0.5);
+            font-size: 20px;
+            letter-spacing: 2px;
+        }
+        
+        .showtime-value.no-showtime {
+            color: #666;
+            font-size: 14px;
+        }
+        
         .poster-hint {
             position: absolute;
             bottom: -30px;
@@ -342,6 +389,11 @@
             
             .poster-frame-3d.left,
             .poster-frame-3d.right {
+                transform: rotateY(0deg);
+            }
+            
+            .poster-frame-3d.left .showtime-status,
+            .poster-frame-3d.right .showtime-status {
                 transform: rotateY(0deg);
             }
             
@@ -877,6 +929,12 @@
                             <span v-if="leftPoster.director"> • {{ leftPoster.director }}</span>
                         </div>
                     </div>
+                    <div class="showtime-status">
+                        <div class="showtime-label">Showtime</div>
+                        <div class="showtime-value" :class="getShowtimeClass(leftPoster)">
+                            {{ getShowtimeText(leftPoster) }}
+                        </div>
+                    </div>
                     <div class="poster-hint">Click to rotate films</div>
                 </div>
                 
@@ -909,6 +967,12 @@
                         <div class="poster-meta">
                             <span v-if="rightPoster.year">{{ rightPoster.year }}</span>
                             <span v-if="rightPoster.director"> • {{ rightPoster.director }}</span>
+                        </div>
+                    </div>
+                    <div class="showtime-status">
+                        <div class="showtime-label">Showtime</div>
+                        <div class="showtime-value" :class="getShowtimeClass(rightPoster)">
+                            {{ getShowtimeText(rightPoster) }}
                         </div>
                     </div>
                     <div class="poster-hint">Click to rotate films</div>
@@ -1340,6 +1404,8 @@
                     tmdbKeyInput: '',
                     leftPoster: null,
                     rightPoster: null,
+                    currentTime: new Date(),
+                    timeUpdateInterval: null,
                     
                     currentView: 'log',
                     films: [],
@@ -1494,6 +1560,69 @@
                     const month = String(today.getMonth() + 1).padStart(2, '0');
                     const day = String(today.getDate()).padStart(2, '0');
                     return `${year}-${month}-${day}`;
+                },
+                getShowtimeText(poster) {
+                    if (!poster || !poster.title) return '—';
+                    
+                    // Find the film in the collection
+                    const film = this.films.find(f => f.film === poster.title);
+                    if (!film || !film.duration) return '—';
+                    
+                    // Calculate start time
+                    const startTime = this.getStartTimeAsDate(film.duration);
+                    if (!startTime) return '—';
+                    
+                    // Calculate minutes until showtime
+                    const now = this.currentTime;
+                    const diffMs = startTime - now;
+                    const diffMins = Math.round(diffMs / 60000);
+                    
+                    if (diffMins < 0) {
+                        return 'SOLD OUT';
+                    } else if (diffMins === 0) {
+                        return 'Starting now!';
+                    } else if (diffMins === 1) {
+                        return 'Starting in 1 minute';
+                    } else {
+                        return `Starting in ${diffMins} minutes`;
+                    }
+                },
+                getShowtimeClass(poster) {
+                    if (!poster || !poster.title) return 'no-showtime';
+                    
+                    const film = this.films.find(f => f.film === poster.title);
+                    if (!film || !film.duration) return 'no-showtime';
+                    
+                    const startTime = this.getStartTimeAsDate(film.duration);
+                    if (!startTime) return 'no-showtime';
+                    
+                    const now = this.currentTime;
+                    const diffMs = startTime - now;
+                    const diffMins = Math.round(diffMs / 60000);
+                    
+                    if (diffMins < 0) {
+                        return 'sold-out';
+                    } else {
+                        return '';
+                    }
+                },
+                getStartTimeAsDate(duration) {
+                    const [hours, minutes] = this.targetEndTime.split(':').map(Number);
+                    const endTimeMinutes = hours * 60 + minutes;
+                    const startTimeMinutes = endTimeMinutes - parseInt(duration);
+                    
+                    if (startTimeMinutes < 0) return null;
+                    
+                    const startHours = Math.floor(startTimeMinutes / 60);
+                    const startMins = startTimeMinutes % 60;
+                    
+                    const startTime = new Date(this.currentTime);
+                    startTime.setHours(startHours, startMins, 0, 0);
+                    
+                    return startTime;
+                },
+                updateCurrentTime() {
+                    this.currentTime = new Date();
                 },
                 loadToken() {
                     const saved = localStorage.getItem('githubToken');
@@ -2011,6 +2140,16 @@
                 this.loadTmdbKey();
                 if (this.githubToken) {
                     await this.loadFromGitHub();
+                }
+                
+                // Update time every minute
+                this.timeUpdateInterval = setInterval(() => {
+                    this.updateCurrentTime();
+                }, 60000); // Every 60 seconds
+            },
+            beforeUnmount() {
+                if (this.timeUpdateInterval) {
+                    clearInterval(this.timeUpdateInterval);
                 }
             }
         }).mount('#app');
