@@ -130,7 +130,11 @@
     "platform": "Google Drive",
     "platformLink": "https://drive.google.com/file/d/11sodR5dd4U3ESfy7raiqerA6KDAwaRKp/view?usp=drivesdk",
     "podcastLink": "",
-    "tags": [],
+    "tags": [
+      "Body Horror",
+      "post-apocolytpic",
+      "Stephen King"
+    ],
     "dateAdded": "2025-10-27",
     "year": 2024,
     "director": " Coralie Fargeat"
