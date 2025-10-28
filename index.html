@@ -907,6 +907,39 @@
             cursor: pointer;
             margin: 0;
         }
+        .tag-manager {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin-top: 15px;
+        }
+        .tag-manager input {
+            flex: 1;
+        }
+        .predefined-tags-list {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        .predefined-tag {
+            padding: 6px 12px;
+            background: #333;
+            color: white;
+            border-radius: 15px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .predefined-tag .remove-tag {
+            cursor: pointer;
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+        .predefined-tag .remove-tag:hover {
+            color: #ff4444;
+        }
     </style>
 </head>
 <body>
@@ -1048,12 +1081,12 @@
                     <button class="secondary" @click="clearSearch" v-if="searchQuery">Clear</button>
                 </div>
                 
-                <div class="control-row" v-if="allTags.length > 0">
+                <div class="control-row" v-if="allTagsFromFilms.length > 0">
                     <div class="tag-filters">
                         <span style="font-weight: bold; margin-right: 10px;">Filter by tag:</span>
                         <div 
                             class="tag-chip" 
-                            v-for="tag in allTags" 
+                            v-for="tag in allTagsFromFilms" 
                             :key="tag"
                             :class="{ active: selectedTags.includes(tag) }"
                             @click="toggleTag(tag)"
@@ -1283,7 +1316,33 @@
                 </div>
                 
                 <p style="margin-top: 20px;"><strong>Repository:</strong> altophoto/curly-octo-carnival</p>
-                <p><strong>Data file:</strong> films.json</p>
+                <p><strong>Data files:</strong> films.json, tags.json</p>
+            </div>
+
+            <div v-if="githubToken" class="settings-section">
+                <h2>Tag Management</h2>
+                <p>Manage your predefined tags. These tags will be available as quick-select options when adding or editing films.</p>
+                
+                <div class="tag-manager">
+                    <input 
+                        type="text" 
+                        v-model="newTagInput" 
+                        placeholder="Add new tag (e.g., 'thriller')"
+                        @keyup.enter="addPredefinedTag"
+                    />
+                    <button @click="addPredefinedTag">Add Tag</button>
+                </div>
+                
+                <div class="predefined-tags-list" v-if="predefinedTags.length > 0">
+                    <div class="predefined-tag" v-for="tag in predefinedTags" :key="tag">
+                        {{ tag }}
+                        <span class="remove-tag" @click="removePredefinedTag(tag)">×</span>
+                    </div>
+                </div>
+                
+                <p v-else style="margin-top: 15px; color: #666; font-size: 14px;">
+                    No predefined tags yet. Add some to make tagging easier!
+                </p>
             </div>
 
             <div v-if="githubToken" class="settings-section">
@@ -1415,12 +1474,12 @@
                     </div>
                     
                     <div class="form-group">
-                        <div class="tag-selector" v-if="allTags.length > 0">
-                            <label class="tag-selector-label">Select Existing Tags</label>
+                        <div class="tag-selector" v-if="predefinedTags.length > 0">
+                            <label class="tag-selector-label">Select Tags</label>
                             <div class="tag-options">
                                 <div 
                                     class="tag-option" 
-                                    v-for="tag in allTags" 
+                                    v-for="tag in predefinedTags" 
                                     :key="tag"
                                     :class="{ selected: selectedFormTags.includes(tag) }"
                                     @click="toggleFormTag(tag)"
@@ -1429,9 +1488,9 @@
                                 </div>
                             </div>
                         </div>
-                        <label>Add New Tags</label>
-                        <input type="text" v-model="filmForm.tagsInput" placeholder="drama, classic, criterion" />
-                        <small>Separate new tags with commas. Click existing tags above to select them.</small>
+                        <label>Add Custom Tags</label>
+                        <input type="text" v-model="filmForm.tagsInput" placeholder="documentary, experimental" />
+                        <small>Separate custom tags with commas. Click predefined tags above to select them.</small>
                     </div>
                     
                     <div class="form-actions">
@@ -1452,9 +1511,14 @@
                     githubOwner: 'altophoto',
                     githubRepo: 'curly-octo-carnival',
                     githubFile: 'films.json',
+                    githubTagsFile: 'tags.json',
                     githubToken: '',
                     tokenInput: '',
                     tokenSaved: false,
+                    
+                    predefinedTags: [],
+                    newTagInput: '',
+                    tagsSha: null,
                     
                     tmdbApiKey: '',
                     tmdbKeyInput: '',
@@ -1511,7 +1575,7 @@
                     }
                     return years;
                 },
-                allTags() {
+                allTagsFromFilms() {
                     const tags = new Set();
                     this.films.forEach(f => {
                         if (f.tags) {
@@ -1678,6 +1742,82 @@
                         this.showSyncStatus('Poster cache cleared', 'success');
                     }
                 },
+                async loadTagsFromGitHub() {
+                    if (!this.githubToken) return;
+                    
+                    try {
+                        const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/${this.githubTagsFile}`;
+                        const response = await fetch(url, {
+                            headers: {
+                                'Authorization': `token ${this.githubToken}`,
+                                'Accept': 'application/vnd.github.v3+json'
+                            }
+                        });
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            this.tagsSha = data.sha;
+                            const content = atob(data.content);
+                            this.predefinedTags = JSON.parse(content);
+                        } else if (response.status === 404) {
+                            this.predefinedTags = [];
+                        }
+                    } catch (error) {
+                        console.error('Error loading tags from GitHub:', error);
+                        this.predefinedTags = [];
+                    }
+                },
+                async saveTagsToGitHub() {
+                    if (!this.githubToken) return;
+                    
+                    try {
+                        const content = btoa(JSON.stringify(this.predefinedTags, null, 2));
+                        const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/${this.githubTagsFile}`;
+                        
+                        const body = {
+                            message: `Update tags: ${new Date().toLocaleString()}`,
+                            content: content
+                        };
+                        
+                        if (this.tagsSha) {
+                            body.sha = this.tagsSha;
+                        }
+                        
+                        const response = await fetch(url, {
+                            method: 'PUT',
+                            headers: {
+                                'Authorization': `token ${this.githubToken}`,
+                                'Accept': 'application/vnd.github.v3+json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(body)
+                        });
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            this.tagsSha = data.content.sha;
+                        }
+                    } catch (error) {
+                        console.error('Error saving tags to GitHub:', error);
+                    }
+                },
+                addPredefinedTag() {
+                    const tag = this.newTagInput.trim().toLowerCase();
+                    if (tag && !this.predefinedTags.includes(tag)) {
+                        this.predefinedTags.push(tag);
+                        this.predefinedTags.sort((a, b) => a.localeCompare(b));
+                        this.saveTagsToGitHub();
+                        this.newTagInput = '';
+                        this.showSyncStatus('Tag added', 'success');
+                    }
+                },
+                removePredefinedTag(tag) {
+                    if (confirm(`Remove "${tag}" from predefined tags?`)) {
+                        this.predefinedTags = this.predefinedTags.filter(t => t !== tag);
+                        this.saveTagsToGitHub();
+                        this.showSyncStatus('Tag removed', 'success');
+                    }
+                },
                 startPosterRotation() {
                     this.stopPosterRotation();
                     if (this.autoRotateEnabled && this.tmdbApiKey && this.films.length >= 2) {
@@ -1694,7 +1834,6 @@
                 },
                 manualRotatePosters() {
                     this.loadTwoRandomPosters();
-                    // Reset the auto-rotation timer
                     if (this.autoRotateEnabled) {
                         this.startPosterRotation();
                     }
@@ -1712,26 +1851,12 @@
                     const diffMs = startTime - now;
                     const diffMins = Math.round(diffMs / 60000);
                     
-                    // if (diffMins < 0) {
-                    //     return 'SOLD OUT';
-                    // } else if (diffMins === 0) {
-                    //     return 'Starting now!';
-                    // } else {
-                    //     return `Starting in ${this.formatDuration(diffMins)}`;
-                    // }
                     if (diffMins < 0) {
                         return 'SOLD OUT';
                     } else if (diffMins === 0) {
                         return 'Starting now!';
-                    } else if (diffMins === 1) {
-                        return 'Starting in 1 minute';
-                    } else if (diffMins < 60) {
-                        // Under 1 hour - show exact minutes
-                        return `Starting in ${diffMins} minutes`;
                     } else {
-                        // Over 1 hour - round to nearest hour
-                        const hours = Math.round(diffMins / 60);
-                        return hours === 1 ? 'Starting in ~1 hour' : `Starting in ~${hours} hours`;
+                        return `Starting in ${this.formatDuration(diffMins)}`;
                     }
                 },
                 getShowtimeClass(poster) {
@@ -1786,6 +1911,7 @@
                         this.tokenInput = '';
                         this.showSyncStatus('Token saved! Loading data...', 'success');
                         this.loadFromGitHub();
+                        this.loadTagsFromGitHub();
                     }
                 },
                 clearToken() {
@@ -2119,7 +2245,7 @@
                 async saveFilm() {
                     const newTags = this.filmForm.tagsInput
                         .split(',')
-                        .map(t => t.trim())
+                        .map(t => t.trim().toLowerCase())
                         .filter(t => t.length > 0);
                     
                     const allTags = [...new Set([...this.selectedFormTags, ...newTags])].sort((a, b) => 
@@ -2311,6 +2437,7 @@
                 
                 if (this.githubToken) {
                     await this.loadFromGitHub();
+                    await this.loadTagsFromGitHub();
                 }
                 
                 this.timeUpdateInterval = setInterval(() => {
