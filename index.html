@@ -1712,12 +1712,26 @@
                     const diffMs = startTime - now;
                     const diffMins = Math.round(diffMs / 60000);
                     
+                    // if (diffMins < 0) {
+                    //     return 'SOLD OUT';
+                    // } else if (diffMins === 0) {
+                    //     return 'Starting now!';
+                    // } else {
+                    //     return `Starting in ${this.formatDuration(diffMins)}`;
+                    // }
                     if (diffMins < 0) {
                         return 'SOLD OUT';
                     } else if (diffMins === 0) {
                         return 'Starting now!';
+                    } else if (diffMins === 1) {
+                        return 'Starting in 1 minute';
+                    } else if (diffMins < 60) {
+                        // Under 1 hour - show exact minutes
+                        return `Starting in ${diffMins} minutes`;
                     } else {
-                        return `Starting in ${this.formatDuration(diffMins)}`;
+                        // Over 1 hour - round to nearest hour
+                        const hours = Math.round(diffMins / 60);
+                        return hours === 1 ? 'Starting in ~1 hour' : `Starting in ~${hours} hours`;
                     }
                 },
                 getShowtimeClass(poster) {
