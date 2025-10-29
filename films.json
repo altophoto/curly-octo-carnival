@@ -1376,5 +1376,18 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": []
+  },
+  {
+    "line": 82,
+    "type": "movie",
+    "film": "Prometheus",
+    "year": 2012,
+    "director": "Ridley Scott",
+    "link": "https://www.imdb.com/title/tt1446714/",
+    "duration": 124,
+    "platformLink": "https://tv.apple.com/us/movie/prometheus/umc.cmc.2dhhh41j5fzz9b2ud6gqf9xvf",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": []
   }
 ]
