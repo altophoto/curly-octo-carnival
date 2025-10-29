@@ -870,7 +870,7 @@
   {
     "line": 56,
     "type": "tv",
-    "film": "Woe Is the Loneliest Number",
+    "film": "Wednesday S1E1: Woe is the Loneliest Numb",
     "year": 2022,
     "director": "Tim Burton",
     "link": "https://www.imdb.com/title/tt14077394/?ref_=ext_shr_lnk",
@@ -884,6 +884,10 @@
       "Female Protagonist",
       "Monster",
       "Teen Drama"
-    ]
+    ],
+    "showName": "Wednesday",
+    "season": 1,
+    "episode": 1,
+    "episodeTitle": "Woe is the Loneliest Numb"
   }
 ]
