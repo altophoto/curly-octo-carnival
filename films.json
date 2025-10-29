@@ -104,7 +104,7 @@
   },
   {
     "line": 7,
-    "film": "Pet Semetary",
+    "film": "Pet Sematary",
     "link": "https://www.imdb.com/title/tt0098084/?ref_=ext_shr_lnk",
     "duration": 103,
     "platform": "",
@@ -112,6 +112,8 @@
     "podcastLink": "",
     "tags": [
       "Horror",
+      "Lunacy",
+      "Murder",
       "Stephen King"
     ],
     "dateAdded": "2025-10-27",
