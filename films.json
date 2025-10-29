@@ -1320,5 +1320,21 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": []
+  },
+  {
+    "line": 78,
+    "type": "movie",
+    "film": "Black Phone 2",
+    "year": 2025,
+    "director": "Scott Derrickson",
+    "link": "https://www.imdb.com/title/tt29644189/",
+    "duration": 114,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": [
+      "bgh",
+      "Horror"
+    ]
   }
 ]
