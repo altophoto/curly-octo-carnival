@@ -851,8 +851,8 @@
   {
     "line": 55,
     "type": "tv",
-    "film": "Wednesday's Child Is Full of Woe",
-    "year": null,
+    "film": "Wednesday S1E1: Wednesday's Child Is Full of Woe",
+    "year": 2022,
     "director": "Tim Burton",
     "link": "https://www.imdb.com/title/tt14077386/?ref_=ext_shr_lnk",
     "duration": 57,
@@ -865,7 +865,11 @@
       "Monster",
       "Psychic Powers",
       "Teen Drama"
-    ]
+    ],
+    "showName": "Wednesday",
+    "season": 1,
+    "episode": 1,
+    "episodeTitle": "Wednesday's Child Is Full of Woe"
   },
   {
     "line": 56,
