@@ -453,7 +453,9 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-10-27",
-    "tags": [],
+    "tags": [
+      "hide-poster"
+    ],
     "type": "movie"
   },
   {
