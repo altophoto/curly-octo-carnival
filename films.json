@@ -1265,5 +1265,18 @@
       "historical fiction",
       "racism"
     ]
+  },
+  {
+    "line": 74,
+    "type": "movie",
+    "film": "Weapons",
+    "year": 2025,
+    "director": "Zach Cregger",
+    "link": "https://www.imdb.com/title/tt26581740/",
+    "duration": 129,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": []
   }
 ]
