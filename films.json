@@ -273,11 +273,11 @@
   {
     "line": 17,
     "film": "Fargo",
-    "year": 1991,
+    "year": 1996,
     "director": "Joel and Ethan Coen",
     "link": "https://www.imdb.com/title/tt0116282/?ref_=ext_shr_lnk",
     "duration": 98,
-    "platformLink": "",
+    "platformLink": "https://www.lookmovie2.to/movies/view/fargo-1996",
     "podcastLink": "https://drive.google.com/file/d/1_PxHvRAZqDovB4aqhAdzMuhyWUsQuEdF/view?usp=drive_link",
     "dateAdded": "2025-10-27",
     "tags": [
@@ -285,7 +285,8 @@
       "Female Protagonist",
       "Kidnapping",
       "Loot",
-      "Motel"
+      "Motel",
+      "psychopathy"
     ],
     "type": "movie"
   },
