@@ -916,5 +916,28 @@
     "season": 1,
     "episode": 3,
     "episodeTitle": "Friend or Woe"
+  },
+  {
+    "line": 58,
+    "type": "tv",
+    "film": "Wednesday S1E4: Woe What a Night",
+    "year": 2022,
+    "director": "Tim Burton",
+    "link": "https://www.imdb.com/title/tt14077394/?ref_=ext_shr_lnk",
+    "duration": 48,
+    "platformLink": "https://www.netflix.com/us/title/81231974?s=i&trkid=279491037&vlang=en&trg=cp",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": [
+      "Family",
+      "featured-poster",
+      "Female Protagonist",
+      "Monster",
+      "Teen Drama"
+    ],
+    "showName": "Wednesday",
+    "season": 1,
+    "episode": 4,
+    "episodeTitle": "Woe What a Night"
   }
 ]
