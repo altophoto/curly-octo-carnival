@@ -1552,5 +1552,20 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": []
+  },
+  {
+    "line": 93,
+    "type": "movie",
+    "film": "Alien: Covenant",
+    "year": 2017,
+    "director": "Ridley Scott",
+    "link": "https://www.imdb.com/title/tt2316204/",
+    "duration": 122,
+    "platformLink": "https://tv.apple.com/us/movie/alien-covenant/umc.cmc.fqu5f5pvxiov1xqp3946hsjg",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": [
+      "Alien"
+    ]
   }
 ]
