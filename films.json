@@ -1363,5 +1363,18 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": []
+  },
+  {
+    "line": 81,
+    "type": "movie",
+    "film": "Saving Private Ryan",
+    "year": 1998,
+    "director": "Steven Spielberg",
+    "link": "https://www.imdb.com/title/tt0120815/",
+    "duration": 169,
+    "platformLink": "https://tv.apple.com/us/movie/saving-private-ryan/umc.cmc.42f75umn5z16fkpofphe4re85",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": []
   }
 ]
