@@ -1189,6 +1189,14 @@
         .autofill-btn:hover {
             background: #45a049;
         }
+        @keyframes pulse-new {
+            0%, 100% { background: transparent; }
+            50% { background: rgba(255, 215, 0, 0.1); }
+        }
+
+        .new-entry {
+            animation: pulse-new 2s ease-in-out 3;
+        }
     </style>
 </head>
 <body>
@@ -2005,7 +2013,7 @@
                     selectedTags: [],
                     selectedFormTags: [],
                     sortKey: 'line',
-                    sortDirection: 'asc',
+                    sortDirection: 'desc',
                     showFilmModal: false,
                     editingFilm: null,
                     filmForm: {
