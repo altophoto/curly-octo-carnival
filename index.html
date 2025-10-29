@@ -15,6 +15,7 @@
             margin: 30px auto;
             padding: 20px;
             background: #0a0a0a;
+            color: #e0e0e0;
         }
         
         /* Marquee Theater Styling */
@@ -256,7 +257,7 @@
             font-size: 12px;
         }
         
-        /* Poster Frames - 3D Angled (closer to viewer) */
+        /* Poster Frames - 3D Angled */
         .poster-frame-3d {
             position: relative;
             width: 320px;
@@ -342,7 +343,7 @@
             color: #aaa;
         }
         
-        /* Showtime Status - Angled with poster but tilted toward viewer */
+        /* Showtime Status */
         .showtime-status {
             text-align: center;
             margin-top: 20px;
@@ -429,58 +430,54 @@
         }
         
         h1 {
-            color: #333;
-            border-bottom: 3px solid #333;
+            color: #e0e0e0;
+            border-bottom: 3px solid #555;
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
         h2 {
-            color: #333;
+            color: #e0e0e0;
             margin-top: 30px;
         }
-        .fun-fact {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin: 20px 0;
-            line-height: 1.6;
-        }
+        
         .nav {
-            background: white;
+            background: #1a1a1a;
             padding: 15px 20px;
             margin-bottom: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
+            border: 1px solid #333;
         }
         .nav button {
             padding: 10px 20px;
-            background: #666;
-            color: white;
+            background: #333;
+            color: #e0e0e0;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 14px;
         }
         .nav button.active {
-            background: #333;
+            background: #555;
         }
         .nav button:hover:not(:disabled) {
-            background: #555;
+            background: #444;
         }
         .nav button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
+        
         .controls {
-            background: white;
+            background: #1a1a1a;
             padding: 20px;
             margin-bottom: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid #333;
         }
         .control-row {
             display: flex;
@@ -502,10 +499,11 @@
             user-select: none;
             padding: 10px 0;
             font-weight: bold;
+            color: #e0e0e0;
         }
         
         .tags-collapse-header:hover {
-            color: #555;
+            color: #aaa;
         }
         
         .collapse-icon {
@@ -529,14 +527,16 @@
         
         input[type="text"], input[type="file"], input[type="number"], input[type="password"], select {
             padding: 10px;
-            border: 1px solid #ddd;
+            border: 1px solid #444;
             border-radius: 4px;
             font-size: 14px;
             flex: 1;
             min-width: 200px;
+            background: #2a2a2a;
+            color: #e0e0e0;
         }
         input[type="date"]:read-only {
-            background-color: #f5f5f5;
+            background-color: #222;
             cursor: not-allowed;
         }
         select {
@@ -544,8 +544,8 @@
         }
         button {
             padding: 10px 20px;
-            background: #333;
-            color: white;
+            background: #444;
+            color: #e0e0e0;
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -556,8 +556,16 @@
             background: #555;
         }
         button.secondary {
-            background: #666;
+            background: #333;
         }
+        button.clone-btn {
+            background: #1976d2;
+            margin-left: 10px;
+        }
+        button.clone-btn:hover {
+            background: #1565c0;
+        }
+        
         .tag-filters {
             display: flex;
             gap: 8px;
@@ -565,25 +573,27 @@
         }
         .tag-chip {
             padding: 6px 12px;
-            background: #e0e0e0;
+            background: #333;
             border: 2px solid transparent;
             border-radius: 20px;
             font-size: 13px;
             cursor: pointer;
             transition: all 0.2s;
+            color: #e0e0e0;
         }
         .tag-chip:hover {
-            background: #d0d0d0;
+            background: #444;
         }
         .tag-chip.active {
-            background: #333;
+            background: #555;
             color: white;
-            border-color: #333;
+            border-color: #777;
         }
         .tag-chip.clear {
             background: #c00;
             color: white;
         }
+        
         .tag-selector {
             margin-bottom: 15px;
         }
@@ -591,7 +601,7 @@
             font-weight: bold;
             display: block;
             margin-bottom: 8px;
-            color: #333;
+            color: #e0e0e0;
         }
         .tag-options {
             display: flex;
@@ -601,37 +611,66 @@
         }
         .tag-option {
             padding: 5px 10px;
-            background: #f0f0f0;
-            border: 2px solid #ddd;
+            background: #2a2a2a;
+            border: 2px solid #444;
             border-radius: 15px;
             font-size: 12px;
             cursor: pointer;
             transition: all 0.2s;
+            color: #e0e0e0;
         }
         .tag-option:hover {
-            background: #e0e0e0;
+            background: #333;
         }
         .tag-option.selected {
-            background: #333;
+            background: #555;
             color: white;
-            border-color: #333;
+            border-color: #777;
         }
+        
+        /* Director options - blue, less rounded */
+        .director-options {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .director-option {
+            padding: 5px 12px;
+            background: #1a2a3a;
+            border: 2px solid #2a4a6a;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #a0c0e0;
+        }
+        .director-option:hover {
+            background: #2a3a4a;
+        }
+        .director-option.selected {
+            background: #2a5a8a;
+            color: white;
+            border-color: #4a7aaa;
+        }
+        
         .table-wrapper {
             width: 100%;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: #1a1a1a;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
             border-radius: 8px;
             margin: 20px 0;
+            border: 1px solid #333;
         }
         .table-wrapper::after {
             content: '← Swipe to see more →';
             display: none;
             text-align: center;
             padding: 10px;
-            background: #f9f9f9;
-            color: #666;
+            background: #222;
+            color: #888;
             font-size: 12px;
             font-style: italic;
         }
@@ -647,15 +686,16 @@
             min-width: 1000px;
         }
         th {
-            background: #333;
-            color: white;
+            background: #2a2a2a;
+            color: #e0e0e0;
             padding: 12px 8px;
             text-align: left;
             cursor: pointer;
             user-select: none;
             white-space: nowrap;
+            border-bottom: 2px solid #444;
         }
-        th:hover { background: #555; }
+        th:hover { background: #333; }
         th::after {
             content: ' ⇅';
             opacity: 0.5;
@@ -677,14 +717,16 @@
         }
         td {
             padding: 10px 8px;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #333;
+            color: #d0d0d0;
         }
-        tr:hover { background: #f9f9f9; }
+        tr:hover { background: #222; }
         a {
-            color: #0066cc;
+            color: #5a9fd4;
             text-decoration: none;
         }
         a:hover { text-decoration: underline; }
+        
         .tags-cell {
             display: flex;
             gap: 5px;
@@ -692,16 +734,17 @@
         }
         .tag-badge {
             padding: 3px 8px;
-            background: #e0e0e0;
+            background: #333;
             border-radius: 12px;
             font-size: 11px;
-            color: #333;
+            color: #e0e0e0;
             white-space: nowrap;
         }
         .tag-badge.special-tag {
             background: #9c27b0;
             color: white;
         }
+        
         .stream-icon, .podcast-icon {
             font-size: 20px;
             text-decoration: none;
@@ -719,11 +762,13 @@
         .stream-icon.inactive:hover, .podcast-icon.inactive:hover {
             transform: none;
         }
+        
         .start-time {
             font-weight: bold;
-            color: #d32f2f;
+            color: #ff6b6b;
             white-space: nowrap;
         }
+        
         .action-buttons {
             display: flex;
             gap: 5px;
@@ -745,16 +790,18 @@
         .delete-btn:hover {
             background: #900;
         }
+        
         .loading {
             text-align: center;
             padding: 40px;
-            background: white;
+            background: #1a1a1a;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid #333;
         }
         .loading-spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #333;
+            border: 4px solid #333;
+            border-top: 4px solid #666;
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -765,56 +812,63 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
         .sync-status {
             padding: 10px 15px;
-            background: #fff3cd;
-            color: #856404;
+            background: #3a3a1a;
+            color: #e0d080;
             border-radius: 4px;
             margin-bottom: 20px;
             text-align: center;
             font-size: 14px;
+            border: 1px solid #555;
         }
         .sync-status.success {
-            background: #d4edda;
-            color: #155724;
+            background: #1a3a1a;
+            color: #80e080;
         }
         .sync-status.error {
-            background: #f8d7da;
-            color: #721c24;
+            background: #3a1a1a;
+            color: #e08080;
         }
+        
         .setup-required {
-            background: white;
+            background: #1a1a1a;
             padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
             margin: 20px 0;
             text-align: center;
+            border: 1px solid #333;
         }
         .setup-required h2 {
-            color: #d32f2f;
+            color: #ff6b6b;
             margin-top: 0;
         }
+        
         .modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.8);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
         }
         .modal-content {
-            background: white;
+            background: #1a1a1a;
             padding: 30px;
             border-radius: 8px;
             max-width: 600px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
+            border: 2px solid #444;
         }
+        
         .form-group {
             margin-bottom: 20px;
         }
@@ -822,18 +876,20 @@
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
-            color: #333;
+            color: #e0e0e0;
         }
         .form-group input, .form-group textarea, .form-group select {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ddd;
+            border: 1px solid #444;
             border-radius: 4px;
             font-size: 14px;
             font-family: inherit;
+            background: #2a2a2a;
+            color: #e0e0e0;
         }
         .form-group small {
-            color: #666;
+            color: #aaa;
             font-size: 12px;
             display: block;
             margin-top: 5px;
@@ -852,13 +908,26 @@
         .form-row .form-group {
             margin-bottom: 0;
         }
+        
+        .tv-episode-grid {
+            display: grid;
+            grid-template-columns: 80px 80px 1fr;
+            gap: 10px;
+            align-items: start;
+        }
+        .tv-episode-grid .form-group {
+            margin-bottom: 0;
+        }
+        
         .no-results {
             padding: 40px;
             text-align: center;
-            color: #666;
-            background: white;
+            color: #888;
+            background: #1a1a1a;
             border-radius: 8px;
+            border: 1px solid #333;
         }
+        
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -866,21 +935,22 @@
             margin: 20px 0;
         }
         .stat-card {
-            background: white;
+            background: #1a1a1a;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid #333;
         }
         .stat-card h3 {
             margin: 0 0 10px 0;
-            color: #666;
+            color: #aaa;
             font-size: 14px;
             text-transform: uppercase;
         }
         .stat-card .stat-value {
             font-size: 32px;
             font-weight: bold;
-            color: #333;
+            color: #e0e0e0;
         }
         .stat-list {
             list-style: none;
@@ -889,16 +959,19 @@
         }
         .stat-list li {
             padding: 8px 0;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #333;
             display: flex;
             justify-content: space-between;
+            color: #d0d0d0;
         }
+        
         .import-export {
-            background: white;
+            background: #1a1a1a;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
             margin: 20px 0;
+            border: 1px solid #333;
         }
         .import-section {
             margin-bottom: 30px;
@@ -908,24 +981,28 @@
         }
         .success-message {
             padding: 15px;
-            background: #d4edda;
-            color: #155724;
+            background: #1a3a1a;
+            color: #80e080;
             border-radius: 4px;
             margin: 15px 0;
+            border: 1px solid #2a5a2a;
         }
         .error-message {
             padding: 15px;
-            background: #f8d7da;
-            color: #721c24;
+            background: #3a1a1a;
+            color: #e08080;
             border-radius: 4px;
             margin: 15px 0;
+            border: 1px solid #5a2a2a;
         }
+        
         .settings-section {
-            background: white;
+            background: #1a1a1a;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
             margin: 20px 0;
+            border: 1px solid #333;
         }
         .time-input {
             width: 120px;
@@ -938,6 +1015,7 @@
             gap: 10px;
             flex-wrap: wrap;
         }
+        
         .token-status {
             padding: 10px;
             border-radius: 4px;
@@ -945,21 +1023,26 @@
             font-size: 14px;
         }
         .token-status.configured {
-            background: #d4edda;
-            color: #155724;
+            background: #1a3a1a;
+            color: #80e080;
+            border: 1px solid #2a5a2a;
         }
         .token-status.not-configured {
-            background: #fff3cd;
-            color: #856404;
+            background: #3a3a1a;
+            color: #e0d080;
+            border: 1px solid #555;
         }
+        
         .cache-info {
             margin-top: 15px;
             padding: 10px;
-            background: #f0f0f0;
+            background: #222;
             border-radius: 4px;
             font-size: 12px;
-            color: #666;
+            color: #aaa;
+            border: 1px solid #333;
         }
+        
         .checkbox-group {
             display: flex;
             align-items: center;
@@ -973,7 +1056,9 @@
         .checkbox-group label {
             cursor: pointer;
             margin: 0;
+            color: #e0e0e0;
         }
+        
         .tag-manager {
             display: flex;
             gap: 10px;
@@ -983,7 +1068,8 @@
         .tag-manager input {
             flex: 1;
         }
-        .predefined-tags-list {
+        
+        .predefined-tags-list, .predefined-directors-list {
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
@@ -991,7 +1077,7 @@
         }
         .predefined-tag {
             padding: 6px 12px;
-            background: #333;
+            background: #444;
             color: white;
             border-radius: 15px;
             font-size: 12px;
@@ -999,14 +1085,27 @@
             align-items: center;
             gap: 8px;
         }
-        .predefined-tag .remove-tag {
+        .predefined-director {
+            padding: 6px 12px;
+            background: #2a5a8a;
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .predefined-tag .remove-tag,
+        .predefined-director .remove-tag {
             cursor: pointer;
             color: #ff6b6b;
             font-weight: bold;
         }
-        .predefined-tag .remove-tag:hover {
+        .predefined-tag .remove-tag:hover,
+        .predefined-director .remove-tag:hover {
             color: #ff4444;
         }
+        
         .time-settings-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1018,6 +1117,7 @@
                 grid-template-columns: 1fr;
             }
         }
+        
         .type-badge {
             padding: 3px 8px;
             background: #6a4a9a;
@@ -1027,25 +1127,67 @@
             white-space: nowrap;
             margin-left: 5px;
         }
+        
         .help-text {
-            background: #e3f2fd;
+            background: #1a2a3a;
             padding: 15px;
             border-radius: 4px;
             margin-top: 15px;
             font-size: 13px;
             line-height: 1.6;
+            color: #a0c0e0;
+            border: 1px solid #2a4a6a;
         }
         .help-text strong {
-            color: #1976d2;
+            color: #5a9fd4;
         }
-        .tv-episode-grid {
+        
+        /* TMDb Search Modal */
+        .search-results {
             display: grid;
-            grid-template-columns: 80px 80px 1fr;
-            gap: 10px;
-            align-items: start;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
         }
-        .tv-episode-grid .form-group {
-            margin-bottom: 0;
+        .search-result-item {
+            cursor: pointer;
+            border: 2px solid #444;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+            background: #2a2a2a;
+        }
+        .search-result-item:hover {
+            border-color: #1976d2;
+            transform: scale(1.05);
+        }
+        .search-result-poster {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #333;
+        }
+        .search-result-info {
+            padding: 10px;
+        }
+        .search-result-title {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 4px;
+            color: #e0e0e0;
+        }
+        .search-result-year {
+            font-size: 11px;
+            color: #aaa;
+        }
+        .autofill-btn {
+            background: #4CAF50;
+            margin-right: 10px;
+        }
+        .autofill-btn:hover {
+            background: #45a049;
         }
     </style>
 </head>
@@ -1245,7 +1387,7 @@
                     <tbody>
                         <tr v-for="film in filteredFilms" :key="film.line">
                             <td>{{ film.line }}</td>
-                            <td>{{ film.type || 'movie' }}</td>
+                            <td>{{ getTypeLabel(film.type) }}</td>
                             <td>
                                 <a v-if="film.link" :href="film.link" target="_blank">{{ getDisplayTitle(film) }}</a>
                                 <span v-else>{{ getDisplayTitle(film) }}</span>
@@ -1340,7 +1482,7 @@
                 </div>
                 
                 <div class="stat-card">
-                    <h3>Movies</h3>
+                    <h3>Films</h3>
                     <div class="stat-value">{{ movieCount }}</div>
                 </div>
                 
@@ -1456,7 +1598,7 @@
                 </div>
                 
                 <p style="margin-top: 20px;"><strong>Repository:</strong> altophoto/curly-octo-carnival</p>
-                <p><strong>Data files:</strong> films.json, tags.json</p>
+                <p><strong>Data files:</strong> films.json, tags.json, directors.json</p>
             </div>
 
             <div v-if="githubToken" class="settings-section">
@@ -1484,7 +1626,7 @@
                     </div>
                 </div>
                 
-                <p v-else style="margin-top: 15px; color: #666; font-size: 14px;">
+                <p v-else style="margin-top: 15px; color: #888; font-size: 14px;">
                     No predefined tags yet. Add some to make tagging easier!
                 </p>
                 
@@ -1496,8 +1638,34 @@
             </div>
 
             <div v-if="githubToken" class="settings-section">
+                <h2>Director Management</h2>
+                <p>Manage your predefined directors. These will be available as quick-select options when adding or editing films.</p>
+                
+                <div class="tag-manager">
+                    <input 
+                        type="text" 
+                        v-model="newDirectorInput" 
+                        placeholder="Add director (e.g., 'Steven Spielberg')"
+                        @keyup.enter="addPredefinedDirector"
+                    />
+                    <button @click="addPredefinedDirector">Add Director</button>
+                </div>
+                
+                <div class="predefined-directors-list" v-if="predefinedDirectors.length > 0">
+                    <div class="predefined-director" v-for="director in predefinedDirectors" :key="director">
+                        {{ director }}
+                        <span class="remove-tag" @click="removePredefinedDirector(director)">×</span>
+                    </div>
+                </div>
+                
+                <p v-else style="margin-top: 15px; color: #888; font-size: 14px;">
+                    No predefined directors yet. Add some to make entry easier!
+                </p>
+            </div>
+
+            <div v-if="githubToken" class="settings-section">
                 <h2>TMDb API Setup</h2>
-                <p>Optional: Add your TMDb API key to display movie and TV show posters in the marquee.</p>
+                <p>Optional: Add your TMDb API key to display movie and TV show posters in the marquee and enable auto-fill.</p>
                 
                 <div class="form-group">
                     <label>TMDb API Key</label>
@@ -1515,15 +1683,15 @@
                 <button v-if="tmdbApiKey" class="secondary" @click="clearTmdbKey" style="margin-left: 10px;">Clear Key</button>
                 
                 <div v-if="tmdbApiKey" class="token-status configured">
-                    ✓ TMDb API key configured (supports movies & TV shows)
+                    ✓ TMDb API key configured (supports movies & TV shows + auto-fill)
                 </div>
                 <div v-else class="token-status not-configured">
-                    ⚠ TMDb API key not configured - Posters disabled
+                    ⚠ TMDb API key not configured - Posters and auto-fill disabled
                 </div>
                 
                 <div v-if="tmdbApiKey" class="cache-info">
                     📦 Poster cache: {{ posterCacheSize }} items cached • 
-                    <a href="#" @click.prevent="clearPosterCache" style="color: #c00;">Clear cache</a>
+                    <a href="#" @click.prevent="clearPosterCache" style="color: #ff6b6b;">Clear cache</a>
                 </div>
             </div>
 
@@ -1598,7 +1766,7 @@
                     </div>
                 </div>
                 
-                <p style="margin-top: 10px; color: #666; font-size: 14px;">
+                <p style="margin-top: 10px; color: #888; font-size: 14px;">
                     Currently using: <strong>{{ isWeekendNight ? 'Weekend' : 'School Night' }}</strong> schedule ({{ currentTargetEndTime }})
                 </p>
             </div>
@@ -1608,87 +1776,116 @@
         <div class="modal" v-if="showFilmModal" @click.self="closeFilmModal">
             <div class="modal-content">
                 <h2>{{ editingFilm ? 'Edit Title' : 'Add New Title' }}</h2>
+                
+                <!-- Clone buttons for TV shows when editing -->
+                <div v-if="editingFilm && filmForm.type === 'tv'" style="margin-bottom: 20px;">
+                    <button class="clone-btn" @click="cloneToNextEpisode">📋 Next Episode ({{ filmForm.season }}x{{ (filmForm.episode || 0) + 1 }})</button>
+                    <button class="clone-btn" @click="cloneToNextSeason">📋 Next Season ({{ (filmForm.season || 0) + 1 }}x01)</button>
+                </div>
+                
                 <form @submit.prevent="saveFilm">
                     <div class="form-group">
                         <label>Type *</label>
-                        <select v-model="filmForm.type" required>
-                            <option value="movie">Movie</option>
+                        <select v-model="filmForm.type" required tabindex="1">
+                            <option value="movie">Film</option>
                             <option value="tv">TV Show</option>
                         </select>
+                    </div>
+                    
+                    <!-- Auto-fill button -->
+                    <div class="form-group" v-if="tmdbApiKey">
+                        <button type="button" class="autofill-btn" @click="openSearchModal">
+                            🔍 Search & Auto-Fill from TMDb
+                        </button>
+                        <small>Automatically fill director, year, runtime, and IMDB link</small>
                     </div>
                     
                     <!-- Movie Title -->
                     <div class="form-group" v-if="filmForm.type === 'movie'">
                         <label>Movie Title *</label>
-                        <input type="text" v-model="filmForm.film" required placeholder="e.g., The Matrix" />
+                        <input type="text" v-model="filmForm.film" required placeholder="e.g., The Matrix" tabindex="2" />
                     </div>
                     
                     <!-- TV Show Fields -->
                     <div v-if="filmForm.type === 'tv'">
                         <div class="form-group">
                             <label>Show Name *</label>
-                            <input type="text" v-model="filmForm.showName" required placeholder="e.g., Wednesday" />
+                            <input type="text" v-model="filmForm.showName" required placeholder="e.g., Wednesday" tabindex="2" />
                             <small>Base show title for poster lookups</small>
                         </div>
                         
                         <div class="tv-episode-grid">
                             <div class="form-group">
                                 <label>Season *</label>
-                                <input type="number" v-model.number="filmForm.season" required min="1" placeholder="1" />
+                                <input type="number" v-model.number="filmForm.season" required min="1" placeholder="1" tabindex="3" />
                             </div>
                             
                             <div class="form-group">
                                 <label>Episode *</label>
-                                <input type="number" v-model.number="filmForm.episode" required min="1" placeholder="1" />
+                                <input type="number" v-model.number="filmForm.episode" required min="1" placeholder="1" tabindex="4" />
                             </div>
                             
                             <div class="form-group">
                                 <label>Episode Title (optional)</label>
-                                <input type="text" v-model="filmForm.episodeTitle" placeholder="e.g., Woe Is the Loneliest Number" />
+                                <input type="text" v-model="filmForm.episodeTitle" placeholder="e.g., Woe Is the Loneliest Number" tabindex="5" />
                             </div>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label>Year Released</label>
-                        <select v-model="filmForm.year">
+                        <select v-model="filmForm.year" tabindex="6">
                             <option value="">-- Select Year --</option>
                             <option v-for="year in yearOptions" :key="year" :value="year">{{ year }}</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label>{{ filmForm.type === 'tv' ? 'Creator/Showrunner' : 'Director' }}</label>
-                        <input type="text" v-model="filmForm.director" :placeholder="filmForm.type === 'tv' ? 'e.g., Tim Burton' : 'e.g., Steven Spielberg'" />
+                        <div class="tag-selector" v-if="predefinedDirectors.length > 0">
+                            <label class="tag-selector-label">{{ filmForm.type === 'tv' ? 'Creator/Showrunner' : 'Director' }}</label>
+                            <div class="director-options">
+                                <div 
+                                    class="director-option" 
+                                    v-for="director in predefinedDirectors" 
+                                    :key="director"
+                                    :class="{ selected: filmForm.director === director }"
+                                    @click="filmForm.director = director"
+                                >
+                                    {{ director }}
+                                </div>
+                            </div>
+                        </div>
+                        <label>{{ filmForm.type === 'tv' ? 'Creator/Showrunner' : 'Director' }} (or type custom)</label>
+                        <input type="text" v-model="filmForm.director" :placeholder="filmForm.type === 'tv' ? 'e.g., Tim Burton' : 'e.g., Steven Spielberg'" tabindex="7" />
                     </div>
                     
                     <div class="form-group">
                         <label>Info Link</label>
-                        <input type="url" v-model="filmForm.link" placeholder="https://www.imdb.com/..." />
+                        <input type="url" v-model="filmForm.link" placeholder="https://www.imdb.com/..." tabindex="8" />
                         <small>Link to IMDB, Wikipedia, etc.</small>
                     </div>
                     
                     <div class="form-group">
                         <label>Duration (minutes) *</label>
-                        <input type="number" v-model.number="filmForm.duration" min="1" placeholder="142" required />
+                        <input type="number" v-model.number="filmForm.duration" min="1" placeholder="142" required tabindex="9" />
                         <small v-if="filmForm.type === 'tv'">Episode runtime</small>
                     </div>
                     
                     <div class="form-group">
                         <label>Streaming Link</label>
-                        <input type="url" v-model="filmForm.platformLink" placeholder="https://..." />
+                        <input type="url" v-model="filmForm.platformLink" placeholder="https://..." tabindex="10" />
                         <small>Direct link to watch (Netflix, Amazon, iTunes, etc.)</small>
                     </div>
 
                     <div class="form-group">
                         <label>Podcast Link</label>
-                        <input type="url" v-model="filmForm.podcastLink" placeholder="https://..." />
+                        <input type="url" v-model="filmForm.podcastLink" placeholder="https://..." tabindex="11" />
                         <small>Link to podcast episode or audio file</small>
                     </div>
                     
                     <div class="form-group" v-if="editingFilm">
                         <label>Date Added</label>
-                        <input type="date" v-model="filmForm.dateAdded" readonly />
+                        <input type="date" v-model="filmForm.dateAdded" readonly tabindex="-1" />
                         <small>This date is locked and shows when the title was originally added</small>
                     </div>
                     
@@ -1708,15 +1905,57 @@
                             </div>
                         </div>
                         <label>Add Custom Tags</label>
-                        <input type="text" v-model="filmForm.tagsInput" placeholder="writer-as-god, experimental" />
+                        <input type="text" v-model="filmForm.tagsInput" placeholder="writer-as-god, experimental" tabindex="12" />
                         <small>Separate custom tags with commas. Click predefined tags above to select them.</small>
                     </div>
                     
                     <div class="form-actions">
                         <button type="button" class="secondary" @click="closeFilmModal">Cancel</button>
-                        <button type="submit">{{ editingFilm ? 'Update' : 'Add' }} {{ filmForm.type === 'tv' ? 'Episode' : 'Film' }}</button>
+                        <button type="submit" tabindex="13">{{ editingFilm ? 'Update' : 'Add' }} {{ filmForm.type === 'tv' ? 'Episode' : 'Film' }}</button>
                     </div>
                 </form>
+            </div>
+        </div>
+
+        <!-- TMDb Search Modal -->
+        <div class="modal" v-if="showSearchModal" @click.self="closeSearchModal">
+            <div class="modal-content">
+                <h2>Search TMDb</h2>
+                <div class="form-group">
+                    <input 
+                        type="text" 
+                        v-model="searchQuery" 
+                        @keyup.enter="searchTMDb"
+                        placeholder="Enter movie or TV show title..."
+                    />
+                    <button @click="searchTMDb" style="margin-top: 10px;">Search</button>
+                </div>
+                
+                <div v-if="searchResults.length > 0" class="search-results">
+                    <div 
+                        v-for="result in searchResults" 
+                        :key="result.id"
+                        class="search-result-item"
+                        @click="selectSearchResult(result)"
+                    >
+                        <img 
+                            v-if="result.poster_path" 
+                            :src="`https://image.tmdb.org/t/p/w200${result.poster_path}`"
+                            class="search-result-poster"
+                        />
+                        <div v-else class="search-result-poster" style="display: flex; align-items: center; justify-content: center; background: #333;">
+                            🎬
+                        </div>
+                        <div class="search-result-info">
+                            <div class="search-result-title">{{ result.title || result.name }}</div>
+                            <div class="search-result-year">{{ result.release_date || result.first_air_date | extractYear }}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions" style="margin-top: 20px;">
+                    <button type="button" class="secondary" @click="closeSearchModal">Close</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1731,6 +1970,7 @@
                     githubRepo: 'curly-octo-carnival',
                     githubFile: 'films.json',
                     githubTagsFile: 'tags.json',
+                    githubDirectorsFile: 'directors.json',
                     githubToken: '',
                     tokenInput: '',
                     tokenSaved: false,
@@ -1738,7 +1978,11 @@
                     predefinedTags: [],
                     newTagInput: '',
                     tagsSha: null,
-                    tagsExpanded: true,
+                    tagsExpanded: false,
+                    
+                    predefinedDirectors: [],
+                    newDirectorInput: '',
+                    directorsSha: null,
                     
                     tmdbApiKey: '',
                     tmdbKeyInput: '',
@@ -1777,6 +2021,9 @@
                         dateAdded: '',
                         tagsInput: ''
                     },
+                    showSearchModal: false,
+                    tmdbSearchQuery: '',
+                    searchResults: [],
                     importMessage: '',
                     importSuccess: false,
                     csvMessage: '',
@@ -1839,20 +2086,17 @@
                 availableFilmsCount() {
                     return this.availableFilmsForPosters.length;
                 },
-                // Get unique shows/movies for poster selection
                 uniquePostercandidates() {
                     const candidates = [];
                     const seenShows = new Set();
                     
                     this.availableFilmsForPosters.forEach(f => {
                         if (f.type === 'tv' && f.showName) {
-                            // For TV, only add once per show name
                             if (!seenShows.has(f.showName)) {
                                 seenShows.add(f.showName);
                                 candidates.push(f);
                             }
                         } else {
-                            // For movies, add each one
                             candidates.push(f);
                         }
                     });
@@ -1969,6 +2213,11 @@
                     );
                 }
             },
+            filters: {
+                extractYear(dateStr) {
+                    return dateStr ? dateStr.substring(0, 4) : '';
+                }
+            },
             watch: {
                 autoRotateEnabled(newVal) {
                     if (newVal) {
@@ -1995,6 +2244,11 @@
                 }
             },
             methods: {
+                getTypeLabel(type) {
+                    if (type === 'tv') return 'TV';
+                    if (type === 'movie') return 'Film';
+                    return 'Film';
+                },
                 getDisplayTitle(film) {
                     if (film.type === 'tv' && film.showName) {
                         let title = `${film.showName} S${film.season}E${film.episode}`;
@@ -2006,7 +2260,6 @@
                     return film.film || '';
                 },
                 getPosterLookupName(film) {
-                    // For TV shows, use showName; for movies, use film
                     if (film.type === 'tv' && film.showName) {
                         return film.showName;
                     }
@@ -2141,6 +2394,82 @@
                         this.showSyncStatus('Tag removed', 'success');
                     }
                 },
+                async loadDirectorsFromGitHub() {
+                    if (!this.githubToken) return;
+                    
+                    try {
+                        const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/${this.githubDirectorsFile}`;
+                        const response = await fetch(url, {
+                            headers: {
+                                'Authorization': `token ${this.githubToken}`,
+                                'Accept': 'application/vnd.github.v3+json'
+                            }
+                        });
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            this.directorsSha = data.sha;
+                            const content = atob(data.content);
+                            this.predefinedDirectors = JSON.parse(content);
+                        } else if (response.status === 404) {
+                            this.predefinedDirectors = [];
+                        }
+                    } catch (error) {
+                        console.error('Error loading directors from GitHub:', error);
+                        this.predefinedDirectors = [];
+                    }
+                },
+                async saveDirectorsToGitHub() {
+                    if (!this.githubToken) return;
+                    
+                    try {
+                        const content = btoa(JSON.stringify(this.predefinedDirectors, null, 2));
+                        const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/${this.githubDirectorsFile}`;
+                        
+                        const body = {
+                            message: `Update directors: ${new Date().toLocaleString()}`,
+                            content: content
+                        };
+                        
+                        if (this.directorsSha) {
+                            body.sha = this.directorsSha;
+                        }
+                        
+                        const response = await fetch(url, {
+                            method: 'PUT',
+                            headers: {
+                                'Authorization': `token ${this.githubToken}`,
+                                'Accept': 'application/vnd.github.v3+json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(body)
+                        });
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            this.directorsSha = data.content.sha;
+                        }
+                    } catch (error) {
+                        console.error('Error saving directors to GitHub:', error);
+                    }
+                },
+                addPredefinedDirector() {
+                    const director = this.newDirectorInput.trim();
+                    if (director && !this.predefinedDirectors.includes(director)) {
+                        this.predefinedDirectors.push(director);
+                        this.predefinedDirectors.sort((a, b) => a.localeCompare(b));
+                        this.saveDirectorsToGitHub();
+                        this.newDirectorInput = '';
+                        this.showSyncStatus('Director added', 'success');
+                    }
+                },
+                removePredefinedDirector(director) {
+                    if (confirm(`Remove "${director}" from predefined directors?`)) {
+                        this.predefinedDirectors = this.predefinedDirectors.filter(d => d !== director);
+                        this.saveDirectorsToGitHub();
+                        this.showSyncStatus('Director removed', 'success');
+                    }
+                },
                 startPosterRotation() {
                     this.stopPosterRotation();
                     if (this.autoRotateEnabled && this.tmdbApiKey && this.uniquePostercandidates.length >= 2) {
@@ -2164,7 +2493,6 @@
                 getShowtimeText(poster) {
                     if (!poster || !poster.title) return '—';
                     
-                    // Find the actual episode/film to get timing
                     const film = poster.filmRef || this.films.find(f => this.getDisplayTitle(f) === poster.title);
                     if (!film || !film.duration) return '—';
                     
@@ -2254,6 +2582,7 @@
                         this.showSyncStatus('Token saved! Loading data...', 'success');
                         this.loadFromGitHub();
                         this.loadTagsFromGitHub();
+                        this.loadDirectorsFromGitHub();
                     }
                 },
                 clearToken() {
@@ -2348,7 +2677,6 @@
                 async loadTwoRandomPosters() {
                     if (!this.tmdbApiKey || this.uniquePostercandidates.length < 2) return;
                     
-                    // Build weighted array (featured posters appear 3x)
                     const weightedItems = [];
                     this.uniquePostercandidates.forEach(item => {
                         const weight = this.hasTag(item, 'featured-poster') ? 3 : 1;
@@ -2359,7 +2687,6 @@
                     
                     const shuffled = [...weightedItems].sort(() => 0.5 - Math.random());
                     
-                    // For TV shows, pick a random episode from that show
                     let candidate1 = shuffled[0];
                     if (candidate1.type === 'tv' && candidate1.showName) {
                         const episodes = this.availableFilmsForPosters.filter(f => 
@@ -2408,7 +2735,6 @@
                             const content = atob(data.content);
                             this.films = JSON.parse(content);
                             
-                            // Migrate old data
                             this.films.forEach(f => {
                                 if (f.date && !f.dateAdded) {
                                     f.dateAdded = f.date;
@@ -2417,7 +2743,6 @@
                                 if (!f.type) {
                                     f.type = 'movie';
                                 }
-                                // Construct film title for TV if missing
                                 if (f.type === 'tv' && f.showName && !f.film) {
                                     f.film = this.getDisplayTitle(f);
                                 }
@@ -2545,7 +2870,7 @@
                     
                     const tableData = this.films.map(f => [
                         f.line,
-                        f.type || 'movie',
+                        this.getTypeLabel(f.type),
                         this.getDisplayTitle(f),
                         f.year || '-',
                         f.director || '-',
@@ -2635,13 +2960,25 @@
                     this.editingFilm = null;
                     this.selectedFormTags = [];
                 },
+                cloneToNextEpisode() {
+                    this.editingFilm = null;
+                    this.filmForm.episode = (this.filmForm.episode || 0) + 1;
+                    this.filmForm.episodeTitle = '';
+                    this.filmForm.dateAdded = this.getTodayDate();
+                },
+                cloneToNextSeason() {
+                    this.editingFilm = null;
+                    this.filmForm.season = (this.filmForm.season || 0) + 1;
+                    this.filmForm.episode = 1;
+                    this.filmForm.episodeTitle = '';
+                    this.filmForm.dateAdded = this.getTodayDate();
+                },
                 async saveFilm() {
                     const newTags = this.filmForm.tagsInput
                         .split(',')
                         .map(t => t.trim().toLowerCase())
                         .filter(t => t.length > 0);
                     
-                    // Check for tags not in predefined list
                     const tagsToAdd = newTags.filter(t => !this.predefinedTags.includes(t));
                     
                     if (tagsToAdd.length > 0) {
@@ -2659,11 +2996,17 @@
                         }
                     }
                     
+                    // Auto-add director to predefined list
+                    if (this.filmForm.director && !this.predefinedDirectors.includes(this.filmForm.director)) {
+                        this.predefinedDirectors.push(this.filmForm.director);
+                        this.predefinedDirectors.sort((a, b) => a.localeCompare(b));
+                        await this.saveDirectorsToGitHub();
+                    }
+                    
                     const allTags = [...new Set([...this.selectedFormTags, ...newTags])].sort((a, b) => 
                         a.toLowerCase().localeCompare(b.toLowerCase())
                     );
                     
-                    // Construct the display title
                     let displayTitle;
                     if (this.filmForm.type === 'tv') {
                         displayTitle = `${this.filmForm.showName} S${this.filmForm.season}E${this.filmForm.episode}`;
@@ -2763,7 +3106,7 @@
                         this.autoRotateEnabled = settings.autoRotateEnabled !== undefined ? settings.autoRotateEnabled : true;
                         this.rotationInterval = settings.rotationInterval || 30;
                         this.filterSoldOutPosters = settings.filterSoldOutPosters !== undefined ? settings.filterSoldOutPosters : true;
-                        this.tagsExpanded = settings.tagsExpanded !== undefined ? settings.tagsExpanded : true;
+                        this.tagsExpanded = settings.tagsExpanded !== undefined ? settings.tagsExpanded : false;
                     }
                 },
                 exportJSON() {
@@ -2875,6 +3218,73 @@
                         this.$refs.csvInput.value = '';
                     };
                     reader.readAsText(file);
+                },
+                openSearchModal() {
+                    this.showSearchModal = true;
+                    this.tmdbSearchQuery = '';
+                    this.searchResults = [];
+                },
+                closeSearchModal() {
+                    this.showSearchModal = false;
+                    this.searchResults = [];
+                },
+                async searchTMDb() {
+                    if (!this.tmdbSearchQuery.trim() || !this.tmdbApiKey) return;
+                    
+                    try {
+                        const mediaType = this.filmForm.type === 'tv' ? 'tv' : 'movie';
+                        const searchUrl = `https://api.themoviedb.org/3/search/${mediaType}?api_key=${this.tmdbApiKey}&query=${encodeURIComponent(this.tmdbSearchQuery)}`;
+                        
+                        const response = await fetch(searchUrl);
+                        const data = await response.json();
+                        
+                        this.searchResults = data.results ? data.results.slice(0, 10) : [];
+                    } catch (error) {
+                        console.error('Error searching TMDb:', error);
+                        alert('Error searching TMDb. Please try again.');
+                    }
+                },
+                async selectSearchResult(result) {
+                    try {
+                        const mediaType = this.filmForm.type === 'tv' ? 'tv' : 'movie';
+                        const detailsUrl = `https://api.themoviedb.org/3/${mediaType}/${result.id}?api_key=${this.tmdbApiKey}&append_to_response=credits,external_ids`;
+                        
+                        const response = await fetch(detailsUrl);
+                        const details = await response.json();
+                        
+                        // Fill form
+                        if (this.filmForm.type === 'movie') {
+                            this.filmForm.film = details.title || details.name;
+                        } else {
+                            this.filmForm.showName = details.name || details.title;
+                        }
+                        
+                        this.filmForm.year = details.release_date ? parseInt(details.release_date.substring(0, 4)) : 
+                                             (details.first_air_date ? parseInt(details.first_air_date.substring(0, 4)) : '');
+                        
+                        this.filmForm.duration = details.runtime || (details.episode_run_time && details.episode_run_time[0]) || null;
+                        
+                        // Get director/creator
+                        if (mediaType === 'movie' && details.credits && details.credits.crew) {
+                            const director = details.credits.crew.find(c => c.job === 'Director');
+                            if (director) {
+                                this.filmForm.director = director.name;
+                            }
+                        } else if (mediaType === 'tv' && details.created_by && details.created_by.length > 0) {
+                            this.filmForm.director = details.created_by[0].name;
+                        }
+                        
+                        // Get IMDB link
+                        if (details.external_ids && details.external_ids.imdb_id) {
+                            this.filmForm.link = `https://www.imdb.com/title/${details.external_ids.imdb_id}/`;
+                        }
+                        
+                        this.closeSearchModal();
+                        this.showSyncStatus('Auto-filled from TMDb!', 'success');
+                    } catch (error) {
+                        console.error('Error fetching details:', error);
+                        alert('Error fetching details. Please try again.');
+                    }
                 }
             },
             async mounted() {
@@ -2886,6 +3296,7 @@
                 if (this.githubToken) {
                     await this.loadFromGitHub();
                     await this.loadTagsFromGitHub();
+                    await this.loadDirectorsFromGitHub();
                 }
                 
                 this.timeUpdateInterval = setInterval(() => {
