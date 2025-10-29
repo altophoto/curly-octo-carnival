@@ -1293,5 +1293,18 @@
     "tags": [
       "witchcraft"
     ]
+  },
+  {
+    "line": 76,
+    "type": "movie",
+    "film": "The Money Pit",
+    "year": 1986,
+    "director": "Richard Benjamin",
+    "link": "https://www.imdb.com/title/tt0091541/",
+    "duration": 91,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": []
   }
 ]
