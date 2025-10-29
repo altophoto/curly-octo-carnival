@@ -1140,5 +1140,18 @@
     "season": 1,
     "episode": 1,
     "episodeTitle": "Wheel of Fire"
+  },
+  {
+    "line": 68,
+    "type": "movie",
+    "film": "Inland Empire",
+    "year": 2006,
+    "director": "David Lynch",
+    "link": "https://www.imdb.com/title/tt0460829/",
+    "duration": 180,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": []
   }
 ]
