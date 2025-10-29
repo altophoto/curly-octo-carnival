@@ -1221,5 +1221,23 @@
       "leather",
       "punk"
     ]
+  },
+  {
+    "line": 72,
+    "type": "movie",
+    "film": "Lost Highway",
+    "year": 1997,
+    "director": "David Lynch",
+    "link": "https://www.imdb.com/title/tt0116922/",
+    "duration": 134,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": [
+      "david foster wallace",
+      "head on head",
+      "lou reed",
+      "lynchian"
+    ]
   }
 ]
