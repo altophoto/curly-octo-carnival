@@ -816,5 +816,24 @@
       "Horror",
       "Murder"
     ]
+  },
+  {
+    "line": 54,
+    "type": "movie",
+    "film": "West Side Story",
+    "year": 1961,
+    "director": "Jerome Robbins",
+    "link": "",
+    "duration": 153,
+    "platformLink": "https://www.lookmovie2.to/movies/view/0055614-west-side-story-1961",
+    "podcastLink": "",
+    "dateAdded": "2025-10-28",
+    "tags": [
+      "Class War",
+      "Classic",
+      "Drama",
+      "Musical",
+      "Teen Drama"
+    ]
   }
 ]
