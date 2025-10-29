@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Film Log</title>
+    <title>Screen Log</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
@@ -169,6 +169,23 @@
             margin-top: 40px;
             transform-style: preserve-3d;
             min-height: 500px;
+        }
+        
+        /* Mobile: Single poster centered */
+        @media (max-width: 768px) {
+            .theater-entrance {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+            
+            .poster-frame-3d.right {
+                display: none;
+            }
+            
+            .marquee-title {
+                font-size: 32px;
+            }
         }
         
         /* Ticket Booth in Center */
@@ -411,12 +428,6 @@
             }
         }
         
-        @media (max-width: 768px) {
-            .marquee-title {
-                font-size: 32px;
-            }
-        }
-        
         h1 {
             color: #333;
             border-bottom: 3px solid #333;
@@ -481,6 +492,41 @@
         .control-row:last-child {
             margin-bottom: 0;
         }
+        
+        /* Collapsible Tags Section */
+        .tags-collapse-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+            padding: 10px 0;
+            font-weight: bold;
+        }
+        
+        .tags-collapse-header:hover {
+            color: #555;
+        }
+        
+        .collapse-icon {
+            font-size: 12px;
+            transition: transform 0.3s;
+        }
+        
+        .collapse-icon.collapsed {
+            transform: rotate(-90deg);
+        }
+        
+        .tags-collapse-content {
+            max-height: 500px;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .tags-collapse-content.collapsed {
+            max-height: 0;
+        }
+        
         input[type="text"], input[type="file"], input[type="number"], input[type="password"], select {
             padding: 10px;
             border: 1px solid #ddd;
@@ -651,6 +697,10 @@
             font-size: 11px;
             color: #333;
             white-space: nowrap;
+        }
+        .tag-badge.special-tag {
+            background: #9c27b0;
+            color: white;
         }
         .stream-icon, .podcast-icon {
             font-size: 20px;
@@ -969,6 +1019,17 @@
             white-space: nowrap;
             margin-left: 5px;
         }
+        .help-text {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .help-text strong {
+            color: #1976d2;
+        }
     </style>
 </head>
 <body>
@@ -1039,7 +1100,7 @@
                     </div>
                 </div>
                 
-                <!-- Right Poster -->
+                <!-- Right Poster (hidden on mobile) -->
                 <div class="poster-frame-3d right" @click="manualRotatePosters">
                     <div class="poster-frame">
                         <img v-if="rightPoster.poster" 
@@ -1115,24 +1176,32 @@
                     <button class="secondary" @click="clearSearch" v-if="searchQuery">Clear</button>
                 </div>
                 
-                <div class="control-row" v-if="allTagsFromFilms.length > 0">
-                    <div class="tag-filters">
-                        <span style="font-weight: bold; margin-right: 10px;">Filter by tag:</span>
-                        <div 
-                            class="tag-chip" 
-                            v-for="tag in allTagsFromFilms" 
-                            :key="tag"
-                            :class="{ active: selectedTags.includes(tag) }"
-                            @click="toggleTag(tag)"
-                        >
-                            {{ tag }}
-                        </div>
-                        <div 
-                            class="tag-chip clear" 
-                            v-if="selectedTags.length > 0"
-                            @click="selectedTags = []"
-                        >
-                            Clear filters
+                <!-- Collapsible Tags Section -->
+                <div v-if="allTagsFromFilms.length > 0">
+                    <div class="tags-collapse-header" @click="tagsExpanded = !tagsExpanded">
+                        <span class="collapse-icon" :class="{ collapsed: !tagsExpanded }">▼</span>
+                        <span>Filter by tag ({{ selectedTags.length }} active)</span>
+                    </div>
+                    <div class="tags-collapse-content" :class="{ collapsed: !tagsExpanded }">
+                        <div class="control-row">
+                            <div class="tag-filters">
+                                <div 
+                                    class="tag-chip" 
+                                    v-for="tag in allTagsFromFilms" 
+                                    :key="tag"
+                                    :class="{ active: selectedTags.includes(tag) }"
+                                    @click="toggleTag(tag)"
+                                >
+                                    {{ tag }}
+                                </div>
+                                <div 
+                                    class="tag-chip clear" 
+                                    v-if="selectedTags.length > 0"
+                                    @click="selectedTags = []"
+                                >
+                                    Clear filters
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1191,7 +1260,14 @@
                             <td>{{ formatDate(film.dateAdded) }}</td>
                             <td>
                                 <div class="tags-cell">
-                                    <span class="tag-badge" v-for="tag in film.tags" :key="tag">{{ tag }}</span>
+                                    <span 
+                                        class="tag-badge" 
+                                        :class="{ 'special-tag': isSpecialTag(tag) }"
+                                        v-for="tag in film.tags" 
+                                        :key="tag"
+                                    >
+                                        {{ tag }}
+                                    </span>
                                 </div>
                             </td>
                             <td class="start-time">{{ calculateStartTime(film.duration) }}</td>
@@ -1370,11 +1446,15 @@
                 <h2>Tag Management</h2>
                 <p>Manage your predefined tags. These tags will be available as quick-select options when adding or editing films.</p>
                 
+                <div class="help-text">
+                    <strong>💡 Tip:</strong> When you type a new tag on a film (not already in this list), you'll be asked if you want to add it to your predefined tags.
+                </div>
+                
                 <div class="tag-manager">
                     <input 
                         type="text" 
                         v-model="newTagInput" 
-                        placeholder="Add new tag (e.g., 'thriller')"
+                        placeholder="Add new tag (e.g., 'writer-as-god')"
                         @keyup.enter="addPredefinedTag"
                     />
                     <button @click="addPredefinedTag">Add Tag</button>
@@ -1390,6 +1470,12 @@
                 <p v-else style="margin-top: 15px; color: #666; font-size: 14px;">
                     No predefined tags yet. Add some to make tagging easier!
                 </p>
+                
+                <div class="help-text" style="margin-top: 20px;">
+                    <strong>🎬 Special Poster Tags:</strong><br>
+                    • <strong>hide-poster</strong> - Excludes this film from marquee rotation<br>
+                    • <strong>featured-poster</strong> - Shows this film 3x more often in rotation
+                </div>
             </div>
 
             <div v-if="githubToken" class="settings-section">
@@ -1575,7 +1661,7 @@
                             </div>
                         </div>
                         <label>Add Custom Tags</label>
-                        <input type="text" v-model="filmForm.tagsInput" placeholder="documentary, experimental" />
+                        <input type="text" v-model="filmForm.tagsInput" placeholder="writer-as-god, experimental" />
                         <small>Separate custom tags with commas. Click predefined tags above to select them.</small>
                     </div>
                     
@@ -1605,6 +1691,7 @@
                     predefinedTags: [],
                     newTagInput: '',
                     tagsSha: null,
+                    tagsExpanded: true,
                     
                     tmdbApiKey: '',
                     tmdbKeyInput: '',
@@ -1682,10 +1769,12 @@
                 },
                 availableFilmsForPosters() {
                     if (!this.filterSoldOutPosters) {
-                        return this.films;
+                        return this.films.filter(f => !this.hasTag(f, 'hide-poster'));
                     }
                     
                     return this.films.filter(f => {
+                        if (this.hasTag(f, 'hide-poster')) return false;
+                        
                         const startTime = this.getStartTimeAsDate(f.duration);
                         if (!startTime) return false;
                         
@@ -1831,6 +1920,12 @@
                 }
             },
             methods: {
+                hasTag(film, tag) {
+                    return film.tags && film.tags.includes(tag);
+                },
+                isSpecialTag(tag) {
+                    return tag === 'hide-poster' || tag === 'featured-poster';
+                },
                 getTodayDate() {
                     const today = new Date();
                     const year = today.getFullYear();
@@ -1947,7 +2042,7 @@
                     }
                 },
                 removePredefinedTag(tag) {
-                    if (confirm(`Remove "${tag}" from predefined tags?`)) {
+                    if (confirm(`Remove "${tag}" from predefined tags?\n\nThis won't remove it from films that already use it.`)) {
                         this.predefinedTags = this.predefinedTags.filter(t => t !== tag);
                         this.saveTagsToGitHub();
                         this.showSyncStatus('Tag removed', 'success');
@@ -2025,29 +2120,24 @@
                     const startHours = Math.floor(startTimeMinutes / 60);
                     const startMins = startTimeMinutes % 60;
                     
-                    // Create date for start time
                     const startTime = new Date(this.currentTime);
                     startTime.setHours(startHours, startMins, 0, 0);
                     
-                    // If target end time is early morning (before 6 AM), it means tomorrow
                     if (hours < 6) {
                         startTime.setDate(startTime.getDate() + 1);
                     }
-                    // If start time appears to be in the past but target was for tomorrow, add a day
                     else if (startTime < this.currentTime && hours < 12) {
-                        // This handles edge case where we're late at night but target is early next day
                         startTime.setDate(startTime.getDate() + 1);
                     }
                     
                     return startTime;
                 },
                 getStartTimeInMinutes(duration) {
-                    // For sorting purposes - returns minutes from midnight
                     const [hours, minutes] = this.currentTargetEndTime.split(':').map(Number);
                     const targetEndTimeMinutes = hours * 60 + minutes;
                     const startTimeMinutes = targetEndTimeMinutes - parseInt(duration);
                     
-                    if (startTimeMinutes < 0) return 9999; // Put N/A values at the end
+                    if (startTimeMinutes < 0) return 9999;
                     
                     return startTimeMinutes;
                 },
@@ -2158,10 +2248,19 @@
                 async loadTwoRandomPosters() {
                     if (!this.tmdbApiKey || this.availableFilmsForPosters.length < 2) return;
                     
-                    const moviesOnly = this.availableFilmsForPosters.filter(f => !f.type || f.type === 'movie');
+                    let moviesOnly = this.availableFilmsForPosters.filter(f => !f.type || f.type === 'movie');
                     if (moviesOnly.length < 2) return;
                     
-                    const shuffled = [...moviesOnly].sort(() => 0.5 - Math.random());
+                    // Build weighted array (featured posters appear 3x)
+                    const weightedMovies = [];
+                    moviesOnly.forEach(movie => {
+                        const weight = this.hasTag(movie, 'featured-poster') ? 3 : 1;
+                        for (let i = 0; i < weight; i++) {
+                            weightedMovies.push(movie);
+                        }
+                    });
+                    
+                    const shuffled = [...weightedMovies].sort(() => 0.5 - Math.random());
                     const film1 = shuffled[0];
                     const film2 = shuffled[1];
                     
@@ -2417,6 +2516,24 @@
                         .map(t => t.trim().toLowerCase())
                         .filter(t => t.length > 0);
                     
+                    // Check for tags not in predefined list
+                    const tagsToAdd = newTags.filter(t => !this.predefinedTags.includes(t));
+                    
+                    if (tagsToAdd.length > 0) {
+                        const tagList = tagsToAdd.join(', ');
+                        const shouldAdd = confirm(`Add these new tags to your predefined list?\n\n${tagList}\n\n(This makes them available as quick-select options in the future)`);
+                        
+                        if (shouldAdd) {
+                            tagsToAdd.forEach(tag => {
+                                if (!this.predefinedTags.includes(tag)) {
+                                    this.predefinedTags.push(tag);
+                                }
+                            });
+                            this.predefinedTags.sort((a, b) => a.localeCompare(b));
+                            await this.saveTagsToGitHub();
+                        }
+                    }
+                    
                     const allTags = [...new Set([...this.selectedFormTags, ...newTags])].sort((a, b) => 
                         a.toLowerCase().localeCompare(b.toLowerCase())
                     );
@@ -2484,7 +2601,8 @@
                         weekendNightEndTime: this.weekendNightEndTime,
                         autoRotateEnabled: this.autoRotateEnabled,
                         rotationInterval: this.rotationInterval,
-                        filterSoldOutPosters: this.filterSoldOutPosters
+                        filterSoldOutPosters: this.filterSoldOutPosters,
+                        tagsExpanded: this.tagsExpanded
                     }));
                 },
                 loadSettings() {
@@ -2496,6 +2614,7 @@
                         this.autoRotateEnabled = settings.autoRotateEnabled !== undefined ? settings.autoRotateEnabled : true;
                         this.rotationInterval = settings.rotationInterval || 30;
                         this.filterSoldOutPosters = settings.filterSoldOutPosters !== undefined ? settings.filterSoldOutPosters : true;
+                        this.tagsExpanded = settings.tagsExpanded !== undefined ? settings.tagsExpanded : true;
                     }
                 },
                 exportJSON() {
