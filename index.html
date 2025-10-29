@@ -1152,7 +1152,7 @@
                             <th class="no-sort center-text">🎧</th>
                             <th @click="sortBy('dateAdded')" :class="sortClass('dateAdded')">Added</th>
                             <th class="no-sort">Tags</th>
-                            <th class="no-sort">Start Time</th>
+                            <th @click="sortBy('startTime')" :class="sortClass('startTime')">Start Time</th>
                             <th class="no-sort">Actions</th>
                         </tr>
                     </thead>
@@ -1725,7 +1725,10 @@
                         let aVal = a[this.sortKey];
                         let bVal = b[this.sortKey];
                         
-                        if (this.sortKey === 'line' || this.sortKey === 'duration' || this.sortKey === 'year') {
+                        if (this.sortKey === 'startTime') {
+                            aVal = this.getStartTimeInMinutes(a.duration);
+                            bVal = this.getStartTimeInMinutes(b.duration);
+                        } else if (this.sortKey === 'line' || this.sortKey === 'duration' || this.sortKey === 'year') {
                             aVal = parseInt(aVal) || 0;
                             bVal = parseInt(bVal) || 0;
                         }
@@ -1817,6 +1820,11 @@
                     }
                 },
                 filterSoldOutPosters() {
+                    if (this.tmdbApiKey && this.films.length >= 2) {
+                        this.loadTwoRandomPosters();
+                    }
+                },
+                currentTargetEndTime() {
                     if (this.tmdbApiKey && this.films.length >= 2) {
                         this.loadTwoRandomPosters();
                     }
@@ -2009,18 +2017,39 @@
                 },
                 getStartTimeAsDate(duration) {
                     const [hours, minutes] = this.currentTargetEndTime.split(':').map(Number);
-                    const endTimeMinutes = hours * 60 + minutes;
-                    const startTimeMinutes = endTimeMinutes - parseInt(duration);
+                    const targetEndTimeMinutes = hours * 60 + minutes;
+                    const startTimeMinutes = targetEndTimeMinutes - parseInt(duration);
                     
                     if (startTimeMinutes < 0) return null;
                     
                     const startHours = Math.floor(startTimeMinutes / 60);
                     const startMins = startTimeMinutes % 60;
                     
+                    // Create date for start time
                     const startTime = new Date(this.currentTime);
                     startTime.setHours(startHours, startMins, 0, 0);
                     
+                    // If target end time is early morning (before 6 AM), it means tomorrow
+                    if (hours < 6) {
+                        startTime.setDate(startTime.getDate() + 1);
+                    }
+                    // If start time appears to be in the past but target was for tomorrow, add a day
+                    else if (startTime < this.currentTime && hours < 12) {
+                        // This handles edge case where we're late at night but target is early next day
+                        startTime.setDate(startTime.getDate() + 1);
+                    }
+                    
                     return startTime;
+                },
+                getStartTimeInMinutes(duration) {
+                    // For sorting purposes - returns minutes from midnight
+                    const [hours, minutes] = this.currentTargetEndTime.split(':').map(Number);
+                    const targetEndTimeMinutes = hours * 60 + minutes;
+                    const startTimeMinutes = targetEndTimeMinutes - parseInt(duration);
+                    
+                    if (startTimeMinutes < 0) return 9999; // Put N/A values at the end
+                    
+                    return startTimeMinutes;
                 },
                 updateCurrentTime() {
                     this.currentTime = new Date();
