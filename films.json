@@ -1289,7 +1289,7 @@
     "director": "Robert Eggers",
     "link": "https://www.imdb.com/title/tt4263482/",
     "duration": 92,
-    "platformLink": "",
+    "platformLink": "https://tv.apple.com/us/movie/the-witch/umc.cmc.avhbnh188mvevcmjqmdukeam",
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [
@@ -1347,6 +1347,19 @@
     "link": "https://www.imdb.com/title/tt7144666/",
     "duration": 103,
     "platformLink": "https://www.lookmovie2.to/movies/view/7144666-black-phone-2021",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": []
+  },
+  {
+    "line": 80,
+    "type": "movie",
+    "film": "Snowpiercer",
+    "year": 2013,
+    "director": "Bong Joon Ho",
+    "link": "https://www.imdb.com/title/tt1706620/",
+    "duration": 127,
+    "platformLink": "https://tv.apple.com/us/movie/snowpiercer/umc.cmc.6jhk3jmfqrrh37nb7jxq39l39",
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": []
