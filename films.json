@@ -835,5 +835,23 @@
       "Musical",
       "Teen Drama"
     ]
+  },
+  {
+    "line": 55,
+    "type": "tv",
+    "film": "Wednesday's Child Is Full of Woe S1E1",
+    "year": null,
+    "director": "Tim Burton",
+    "link": "https://www.imdb.com/title/tt14077386/?ref_=ext_shr_lnk",
+    "duration": 57,
+    "platformLink": "https://www.netflix.com/us/title/81231974?s=i&trkid=279491037&vlang=en&trg=cp",
+    "podcastLink": "",
+    "dateAdded": "2025-10-28",
+    "tags": [
+      "Female Protagonist",
+      "Monster",
+      "Psychic Powers",
+      "Teen Drama"
+    ]
   }
 ]
