@@ -1127,11 +1127,11 @@
   {
     "line": 67,
     "type": "tv",
-    "film": "Station Eleven S1E1",
+    "film": "Station Eleven S1E1: Wheel of Fire",
     "year": 2021,
     "director": "Patrick Somerville",
     "link": "https://www.imdb.com/title/tt10574236/",
-    "duration": 46,
+    "duration": 45,
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-10-29",
@@ -1139,6 +1139,6 @@
     "showName": "Station Eleven",
     "season": 1,
     "episode": 1,
-    "episodeTitle": ""
+    "episodeTitle": "Wheel of Fire"
   }
 ]
