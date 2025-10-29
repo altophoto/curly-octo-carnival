@@ -12,7 +12,8 @@
     ],
     "dateAdded": "2025-10-27",
     "year": 1994,
-    "director": " Joel and Ethan Coen"
+    "director": " Joel and Ethan Coen",
+    "type": "movie"
   },
   {
     "line": 2,
@@ -28,7 +29,8 @@
     ],
     "dateAdded": "2025-10-27",
     "year": 1987,
-    "director": " Paul Michael Glaser"
+    "director": " Paul Michael Glaser",
+    "type": "movie"
   },
   {
     "line": 3,
@@ -45,7 +47,8 @@
     ],
     "dateAdded": "2025-10-27",
     "year": 1994,
-    "director": " Frank Darabont"
+    "director": " Frank Darabont",
+    "type": "movie"
   },
   {
     "line": 4,
@@ -60,7 +63,8 @@
     ],
     "dateAdded": "2025-10-27",
     "year": 1990,
-    "director": " Rob Reiner"
+    "director": " Rob Reiner",
+    "type": "movie"
   },
   {
     "line": 5,
@@ -79,7 +83,8 @@
     ],
     "dateAdded": "2025-10-27",
     "year": 1976,
-    "director": " Brian De Palma"
+    "director": " Brian De Palma",
+    "type": "movie"
   },
   {
     "line": 6,
@@ -94,7 +99,8 @@
     ],
     "dateAdded": "2025-10-27",
     "year": 1983,
-    "director": "John Carpenter"
+    "director": "John Carpenter",
+    "type": "movie"
   },
   {
     "line": 7,
@@ -110,7 +116,8 @@
     ],
     "dateAdded": "2025-10-27",
     "year": 1989,
-    "director": "Mary Lambert"
+    "director": "Mary Lambert",
+    "type": "movie"
   },
   {
     "line": 8,
@@ -126,7 +133,8 @@
     ],
     "dateAdded": "2025-10-27",
     "year": 2025,
-    "director": " Osgood Perkins"
+    "director": " Osgood Perkins",
+    "type": "movie"
   },
   {
     "line": 9,
@@ -143,7 +151,8 @@
     ],
     "dateAdded": "2025-10-27",
     "year": 2024,
-    "director": " Coralie Fargeat"
+    "director": " Coralie Fargeat",
+    "type": "movie"
   },
   {
     "line": 10,
@@ -160,7 +169,8 @@
     ],
     "dateAdded": "2025-10-27",
     "year": 2025,
-    "director": " Danny Boyle"
+    "director": " Danny Boyle",
+    "type": "movie"
   },
   {
     "line": 11,
@@ -173,7 +183,8 @@
     "tags": [],
     "dateAdded": "2025-10-27",
     "year": 2018,
-    "director": " Bradley Cooper"
+    "director": " Bradley Cooper",
+    "type": "movie"
   },
   {
     "line": 12,
@@ -185,7 +196,8 @@
     "platformLink": "https://www.lookmovie2.to/movies/view/assault-on-precinct-13-1976",
     "podcastLink": "https://drive.google.com/file/d/1GEb8UVA-7_wQ6jmn9o0grA4TfDNISrVr/view?usp=drive_link",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 13,
@@ -201,7 +213,8 @@
       "Murder",
       "Private Investigator",
       "Texas"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 14,
@@ -220,7 +233,8 @@
       "Private Investigator",
       "Psychic Powers",
       "Western"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 15,
@@ -235,7 +249,8 @@
     "tags": [
       "Murder",
       "Organized Crime"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 16,
@@ -250,7 +265,8 @@
     "tags": [
       "Hollywood",
       "Hotel"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 17,
@@ -268,7 +284,8 @@
       "Kidnapping",
       "Loot",
       "Motel"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 18,
@@ -280,7 +297,8 @@
     "platformLink": "",
     "podcastLink": "https://drive.google.com/file/d/1b6RuHTDZ8R6lW5dnfK3ron6IgCZOKvNj/view?usp=drive_link",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 19,
@@ -292,7 +310,8 @@
     "platformLink": "",
     "podcastLink": "https://drive.google.com/file/d/1Y7G3p3ZMMzFHSoWKvDl6hXsmbCtuMzeY/view?usp=drive_link",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 20,
@@ -304,7 +323,8 @@
     "platformLink": "",
     "podcastLink": "https://drive.google.com/file/d/1PSFryDC0JmdWaf-WJkIRs_WXLL8_en6N/view?usp=drive_link",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 21,
@@ -316,7 +336,8 @@
     "platformLink": "",
     "podcastLink": "https://drive.google.com/file/d/1AxWnAr9YFTI4oIqbqeByn5snIQvguTL1/view?usp=drive_link",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 22,
@@ -328,7 +349,8 @@
     "platformLink": "",
     "podcastLink": "https://drive.google.com/file/d/1Ilsy7CHZLBJMfmNiISC16JtuhzzMeicV/view?usp=drive_link",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 23,
@@ -352,7 +374,8 @@
       "Private Investigator",
       "Texas",
       "Western"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 24,
@@ -364,7 +387,8 @@
     "platformLink": "",
     "podcastLink": "https://drive.google.com/file/d/1t873GnVRfGEMskB_ZV9HNLIUHlyPwcay/view?usp=drive_link",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 25,
@@ -376,7 +400,8 @@
     "platformLink": "https://www.lookmovie2.to/movies/view/1019452-a-serious-man-2009",
     "podcastLink": "https://drive.google.com/file/d/17kaAaKj2xW8AXKKHl-T6bmdaqmuqsvWK/view?usp=drive_link",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 26,
@@ -393,7 +418,8 @@
       "Female Protagonist",
       "Private Investigator",
       "Western"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 27,
@@ -408,7 +434,8 @@
     "tags": [
       "Female Protagonist",
       "Western"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 28,
@@ -420,7 +447,8 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 29,
@@ -432,7 +460,8 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 30,
@@ -444,7 +473,8 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 31,
@@ -458,7 +488,8 @@
     "dateAdded": "2025-10-27",
     "tags": [
       "Garbage"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 32,
@@ -470,7 +501,8 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 33,
@@ -482,7 +514,8 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 34,
@@ -496,7 +529,8 @@
     "dateAdded": "2025-10-27",
     "tags": [
       "Comedy"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 35,
@@ -510,7 +544,8 @@
     "dateAdded": "2025-10-27",
     "tags": [
       "Teen Drama"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 36,
@@ -522,7 +557,8 @@
     "platformLink": "https://www.lookmovie2.to/movies/view/0108052-schindlers-list-1993",
     "podcastLink": "https://drive.google.com/file/d/1bmzUzVc0s_CjDJHkZ6irN7ByE7yelwO1/view?usp=drive_link",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 37,
@@ -538,7 +574,8 @@
       "Cowboy Hats",
       "Dinosaurs",
       "Monster"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 38,
@@ -552,7 +589,8 @@
     "dateAdded": "2025-10-27",
     "tags": [
       "Pirates"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 39,
@@ -564,7 +602,8 @@
     "platformLink": "",
     "podcastLink": "https://drive.google.com/file/d/1DkMqr_TqV2Kk57aBI2ctA6X12GS4HJ-t/view?usp=drive_link",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 40,
@@ -578,7 +617,8 @@
     "dateAdded": "2025-10-27",
     "tags": [
       "Nazis"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 41,
@@ -590,7 +630,8 @@
     "platformLink": "",
     "podcastLink": "https://drive.google.com/file/d/1sihYYBBcEqRd9tEs6EoNRXye_44W5And/view?usp=drive_link",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 42,
@@ -602,7 +643,8 @@
     "platformLink": "",
     "podcastLink": "https://drive.google.com/file/d/1s_goQ8H0EeWpb98mb7Qt1iFG7YzUEIew/view?usp=drive_link",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 43,
@@ -614,7 +656,8 @@
     "platformLink": "",
     "podcastLink": "https://drive.google.com/file/d/1-NacIwPWjZdtfb3kvF8l1UHqIcdSSCjm/view?usp=drive_link",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 44,
@@ -626,7 +669,8 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 45,
@@ -640,7 +684,8 @@
     "dateAdded": "2025-10-27",
     "tags": [
       "Garbage"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 46,
@@ -654,7 +699,8 @@
     "dateAdded": "2025-10-27",
     "tags": [
       "Hollywood"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 47,
@@ -666,7 +712,8 @@
     "platformLink": "https://www.lookmovie2.to/movies/view/32376165-a-house-of-dynamite-2025",
     "podcastLink": "",
     "dateAdded": "2025-10-27",
-    "tags": []
+    "tags": [],
+    "type": "movie"
   },
   {
     "line": 48,
@@ -683,7 +730,8 @@
       "Antarctica",
       "Body Horror",
       "Cowboy Hats"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 49,
@@ -697,7 +745,8 @@
     "dateAdded": "2025-10-27",
     "tags": [
       "Curse"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 50,
@@ -712,7 +761,8 @@
     "tags": [
       "Lunacy",
       "Writer-as-God"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 51,
@@ -727,7 +777,8 @@
     "tags": [
       "Alien",
       "Class War"
-    ]
+    ],
+    "type": "movie"
   },
   {
     "line": 52,
@@ -741,6 +792,24 @@
     "dateAdded": "2025-10-27",
     "tags": [
       "Post-Apocalyptic"
+    ],
+    "type": "movie"
+  },
+  {
+    "line": 53,
+    "type": "movie",
+    "film": "Promising Young Woman",
+    "year": 2020,
+    "director": "Emerald Fennell",
+    "link": "https://www.imdb.com/title/tt9620292/?ref_=ext_shr_lnk",
+    "duration": 113,
+    "platformLink": "https://www.lookmovie2.to/movies/view/9620292-promising-young-woman-2020",
+    "podcastLink": "",
+    "dateAdded": "2025-10-28",
+    "tags": [
+      "Female Protagonist",
+      "Horror",
+      "Murder"
     ]
   }
 ]
