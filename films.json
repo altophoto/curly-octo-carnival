@@ -1411,5 +1411,21 @@
       "can-can dancers",
       "Musical"
     ]
+  },
+  {
+    "line": 84,
+    "type": "movie",
+    "film": "Alien",
+    "year": 1979,
+    "director": "Ridley Scott",
+    "link": "https://www.imdb.com/title/tt0078748/",
+    "duration": 117,
+    "platformLink": "https://tv.apple.com/us/movie/alien/umc.cmc.419tta0vmcu3xnec7v6u44rzs",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": [
+      "Alien",
+      "Body Horror"
+    ]
   }
 ]
