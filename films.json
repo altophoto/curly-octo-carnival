@@ -1453,5 +1453,18 @@
     "tags": [
       "Alien"
     ]
+  },
+  {
+    "line": 94,
+    "type": "movie",
+    "film": "Alien",
+    "year": 1979,
+    "director": "Ridley Scott",
+    "link": "https://www.imdb.com/title/tt0078748/",
+    "duration": 117,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": []
   }
 ]
