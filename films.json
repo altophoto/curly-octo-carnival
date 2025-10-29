@@ -862,9 +862,14 @@
     "director": "Tim Burton",
     "link": "https://www.imdb.com/title/tt14077394/?ref_=ext_shr_lnk",
     "duration": 47,
-    "platformLink": "",
+    "platformLink": "https://www.netflix.com/us/title/81231974?s=i&trkid=279491037&vlang=en&trg=cp",
     "podcastLink": "",
     "dateAdded": "2025-10-28",
-    "tags": []
+    "tags": [
+      "Family",
+      "Female Protagonist",
+      "Monster",
+      "Teen Drama"
+    ]
   }
 ]
