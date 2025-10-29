@@ -851,7 +851,7 @@
   {
     "line": 55,
     "type": "tv",
-    "film": "Wednesday's Child Is Full of Woe S1E1",
+    "film": "Wednesday's Child Is Full of Woe",
     "year": null,
     "director": "Tim Burton",
     "link": "https://www.imdb.com/title/tt14077386/?ref_=ext_shr_lnk",
@@ -860,6 +860,7 @@
     "podcastLink": "",
     "dateAdded": "2025-10-28",
     "tags": [
+      "featured-poster",
       "Female Protagonist",
       "Monster",
       "Psychic Powers",
