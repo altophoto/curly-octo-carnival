@@ -1306,5 +1306,18 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": []
+  },
+  {
+    "line": 77,
+    "type": "movie",
+    "film": "Hereditary",
+    "year": 2018,
+    "director": "Ari Aster",
+    "link": "https://www.imdb.com/title/tt7784604/",
+    "duration": 128,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": []
   }
 ]
