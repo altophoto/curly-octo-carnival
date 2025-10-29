@@ -1199,5 +1199,27 @@
       "revolutionary",
       "set in illinois"
     ]
+  },
+  {
+    "line": 71,
+    "type": "movie",
+    "film": "The Matrix",
+    "year": 1999,
+    "director": "Lana Wachowski",
+    "link": "https://www.imdb.com/title/tt0133093/",
+    "duration": 136,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": [
+      "cinematographically innovative",
+      "Classic",
+      "Fantasy",
+      "foundation of discursivity",
+      "guns",
+      "important",
+      "leather",
+      "punk"
+    ]
   }
 ]
