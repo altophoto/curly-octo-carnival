@@ -1395,5 +1395,21 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": []
+  },
+  {
+    "line": 83,
+    "type": "movie",
+    "film": "Moulin Rouge!",
+    "year": 2001,
+    "director": "Baz Luhrmann",
+    "link": "https://www.imdb.com/title/tt0203009/",
+    "duration": 128,
+    "platformLink": "https://tv.apple.com/us/movie/moulin-rouge/umc.cmc.2nenp9n2rlqb4co33fj4p58gm",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": [
+      "can-can dancers",
+      "Musical"
+    ]
   }
 ]
