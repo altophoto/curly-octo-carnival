@@ -1190,12 +1190,31 @@
             background: #45a049;
         }
         @keyframes pulse-new {
-            0%, 100% { background: transparent; }
-            50% { background: rgba(255, 215, 0, 0.1); }
+            0%, 100% { background: rgba(255, 215, 0, 0.05); }
+            50% { background: rgba(255, 215, 0, 0.15); }
         }
 
         .new-entry {
-            animation: pulse-new 2s ease-in-out 3;
+            animation: pulse-new 3s ease-in-out infinite;
+        }
+
+        .new-entry:hover {
+            background: rgba(255, 215, 0, 0.2) !important;
+        }
+        .tag-style-editor {
+            margin-top: 20px;
+            padding: 20px;
+            background: #2a2a2a;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+
+        .preview-box {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 4px;
+            border: 2px solid #666;
+            font-size: 16px;
         }
     </style>
 </head>
@@ -1393,7 +1412,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="film in filteredFilms" :key="film.line">
+                        <tr v-for="film in filteredFilms"
+                            :key="film.line"
+                            :class="{ 'new-entry': isNewEntry(film) }"
+                            :style="getRowStyle(film)">                  
                             <td>{{ film.line }}</td>
                             <td>{{ getTypeLabel(film.type) }}</td>
                             <td>
@@ -1974,6 +1996,34 @@
         createApp({
             data() {
                 return {
+                    tagStyles: {
+                        'tempered': { 
+                            fontFamily: 'Impact, sans-serif',
+                            fontWeight: 'bold',
+                            color: '#ff4444',
+                            backgroundColor: '#ffe6e6'
+                        },
+                        'laminated': {
+                            fontFamily: 'Georgia, serif',
+                            fontStyle: 'italic',
+                            color: '#4444ff',
+                            backgroundColor: '#e6e6ff'
+                        },
+                        'low-e': {
+                            fontFamily: 'Courier New, monospace',
+                            color: '#44ff44',
+                            backgroundColor: '#e6ffe6'
+                        }
+                        // Add more as needed
+                    },
+                    selectedStyleTag: '',
+                    currentTagStyle: {
+                        fontFamily: "'Georgia', serif",
+                        fontWeight: 'normal',
+                        fontStyle: 'normal',
+                        color: '#000000',
+                        backgroundColor: '#ffffff'
+                    },
                     userSettings: {
                         tagCapitalization: 'proper', // 'proper', 'upper', 'lower'
                     },
@@ -2237,6 +2287,13 @@
                         this.stopPosterRotation();
                     }
                 },
+                selectedStyleTag(newTag) {
+                    if (newTag && this.tagStyles[newTag]) {
+                        this.currentTagStyle = { ...this.tagStyles[newTag] };
+                    } else {
+                        this.resetCurrentTagStyle();
+                    }
+                },
                 rotationInterval() {
                     if (this.autoRotateEnabled) {
                         this.stopPosterRotation();
@@ -2255,6 +2312,55 @@
                 }
             },
             methods: {
+                saveTagStyle() {
+                    if (!this.selectedStyleTag) return;
+                    this.tagStyles[this.selectedStyleTag] = { ...this.currentTagStyle };
+                    this.saveTagStylesToLocalStorage();
+                    this.showSyncStatus('Tag style saved', 'success');
+                },
+
+                clearTagStyle() {
+                    if (!this.selectedStyleTag) return;
+                    delete this.tagStyles[this.selectedStyleTag];
+                    this.saveTagStylesToLocalStorage();
+                    this.resetCurrentTagStyle();
+                    this.showSyncStatus('Tag style cleared', 'success');
+                },
+
+                resetCurrentTagStyle() {
+                    this.currentTagStyle = {
+                        fontFamily: "'Georgia', serif",
+                        fontWeight: 'normal',
+                        fontStyle: 'normal',
+                        color: '#000000',
+                        backgroundColor: '#ffffff'
+                    };
+                },
+
+                saveTagStylesToLocalStorage() {
+                    localStorage.setItem('tagStyles', JSON.stringify(this.tagStyles));
+                },
+
+                loadTagStylesFromLocalStorage() {
+                    const saved = localStorage.getItem('tagStyles');
+                    if (saved) {
+                        this.tagStyles = JSON.parse(saved);
+                    }
+                },
+                getRowStyle(film) {
+                    if (!film.tags || film.tags.length === 0) return {};
+                    
+                    // Priority: Use first tag's style, or combine multiple
+                    const primaryTag = film.tags[0];
+                    return this.tagStyles[primaryTag] || {};
+                },
+                isNewEntry(film) {
+                    if (!film.dateAdded) return false;
+                    const addedDate = new Date(film.dateAdded + 'T00:00:00');
+                    const now = new Date();
+                    const hoursSince = (now - addedDate) / (1000 * 60 * 60);
+                    return hoursSince < 24;
+                },
                 // Tag formatting - CENTRALIZED for future customization
                 formatTag(tag) {
                     const style = this.userSettings.tagCapitalization || 'proper';
@@ -3326,6 +3432,7 @@
                 this.loadToken();
                 this.loadTmdbKey();
                 this.loadPosterCache();
+                this.loadTagStylesFromLocalStorage();
                 
                 if (this.githubToken) {
                     await this.loadFromGitHub();
