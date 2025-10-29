@@ -1461,22 +1461,6 @@
     ]
   },
   {
-    "line": 87,
-    "type": "movie",
-    "film": "Aliens",
-    "year": 1986,
-    "director": "James Cameron",
-    "link": "https://www.imdb.com/title/tt0090605/",
-    "duration": 137,
-    "platformLink": "https://tv.apple.com/us/movie/aliens/umc.cmc.65qmv8mospg448bevgyv8kjgf",
-    "podcastLink": "",
-    "dateAdded": "2025-10-29",
-    "tags": [
-      "Alien",
-      "Guns"
-    ]
-  },
-  {
     "line": 88,
     "type": "movie",
     "film": "Aliens",
