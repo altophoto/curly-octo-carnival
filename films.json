@@ -1054,5 +1054,28 @@
     "season": 2,
     "episode": 1,
     "episodeTitle": "Here We Woe Again"
+  },
+  {
+    "line": 64,
+    "type": "tv",
+    "film": "Wednesday S2E2: The Devil You Woe",
+    "year": 2025,
+    "director": "Tim Burton",
+    "link": "https://www.imdb.com/title/tt14077394/?ref_=ext_shr_lnk",
+    "duration": 61,
+    "platformLink": "https://www.netflix.com/us/title/81231974?s=i&trkid=279491037&vlang=en&trg=cp",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": [
+      "Family",
+      "featured-poster",
+      "Female Protagonist",
+      "Monster",
+      "Teen Drama"
+    ],
+    "showName": "Wednesday",
+    "season": 2,
+    "episode": 2,
+    "episodeTitle": "The Devil You Woe"
   }
 ]
