@@ -341,7 +341,9 @@
     "platformLink": "",
     "podcastLink": "https://drive.google.com/file/d/1AxWnAr9YFTI4oIqbqeByn5snIQvguTL1/view?usp=drive_link",
     "dateAdded": "2025-10-27",
-    "tags": [],
+    "tags": [
+      "hide-poster"
+    ],
     "type": "movie"
   },
   {
