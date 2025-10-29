@@ -1031,5 +1031,28 @@
     "season": 1,
     "episode": 8,
     "episodeTitle": "A Murder of Woes"
+  },
+  {
+    "line": 63,
+    "type": "tv",
+    "film": "Wednesday S2E1: Here We Woe Again",
+    "year": 2025,
+    "director": "Tim Burton",
+    "link": "https://www.imdb.com/title/tt14077394/?ref_=ext_shr_lnk",
+    "duration": 60,
+    "platformLink": "https://www.netflix.com/us/title/81231974?s=i&trkid=279491037&vlang=en&trg=cp",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": [
+      "Family",
+      "featured-poster",
+      "Female Protagonist",
+      "Monster",
+      "Teen Drama"
+    ],
+    "showName": "Wednesday",
+    "season": 2,
+    "episode": 1,
+    "episodeTitle": "Here We Woe Again"
   }
 ]
