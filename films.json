@@ -1160,5 +1160,25 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": []
+  },
+  {
+    "line": 69,
+    "type": "movie",
+    "film": "Mulholland Drive",
+    "year": 2001,
+    "director": "David Lynch",
+    "link": "https://www.imdb.com/title/tt0166924/",
+    "duration": 147,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": [
+      "Fantasy",
+      "Female Protagonist",
+      "Musical",
+      "Nudity",
+      "Romance",
+      "Thriller"
+    ]
   }
 ]
