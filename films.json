@@ -1336,5 +1336,18 @@
       "bgh",
       "Horror"
     ]
+  },
+  {
+    "line": 79,
+    "type": "movie",
+    "film": "The Black Phone",
+    "year": 2022,
+    "director": "Scott Derrickson",
+    "link": "https://www.imdb.com/title/tt7144666/",
+    "duration": 103,
+    "platformLink": "https://www.lookmovie2.to/movies/view/7144666-black-phone-2021",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": []
   }
 ]
