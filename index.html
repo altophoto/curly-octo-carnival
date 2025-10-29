@@ -2198,75 +2198,78 @@
                     }
                 },
                 async loadPosterForFilm(film) {
-                    if (!this.tmdbApiKey) return null;
-                    if (film.type === 'tv') return null;
-                    
-                    const cacheKey = this.getCacheKey(film);
-                    
-                    if (this.posterCache[cacheKey]) {
-                        return {
-                            title: film.film,
-                            year: film.year,
-                            director: film.director,
-                            poster: this.posterCache[cacheKey]
-                        };
-                    }
-                    
-                    try {
-                        const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${this.tmdbApiKey}&query=${encodeURIComponent(film.film)}${film.year ? '&year=' + film.year : ''}`;
-                        const response = await fetch(searchUrl);
-                        const data = await response.json();
-                        
-                        if (data.results && data.results.length > 0) {
-                            const movie = data.results[0];
-                            const posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : null;
-                            
-                            this.posterCache[cacheKey] = posterUrl;
-                            this.savePosterCache();
-                            
-                            return {
-                                title: film.film,
-                                year: film.year,
-                                director: film.director,
-                                poster: posterUrl
-                            };
-                        }
-                    } catch (error) {
-                        console.error('Error fetching poster:', error);
-                    }
-                    
-                    this.posterCache[cacheKey] = null;
-                    this.savePosterCache();
-                    
-                    return {
-                        title: film.film,
-                        year: film.year,
-                        director: film.director,
-                        poster: null
-                    };
-                },
+    if (!this.tmdbApiKey) return null;
+    
+    const cacheKey = this.getCacheKey(film);
+    
+    if (this.posterCache[cacheKey]) {
+        return {
+            title: film.film,
+            year: film.year,
+            director: film.director,
+            poster: this.posterCache[cacheKey]
+        };
+    }
+    
+    try {
+        // Use different endpoint for TV vs movies
+        const mediaType = film.type === 'tv' ? 'tv' : 'movie';
+        const searchUrl = `https://api.themoviedb.org/3/search/${mediaType}?api_key=${this.tmdbApiKey}&query=${encodeURIComponent(film.film)}${film.year ? '&first_air_date_year=' + film.year : ''}`;
+        
+        const response = await fetch(searchUrl);
+        const data = await response.json();
+        
+        if (data.results && data.results.length > 0) {
+            const result = data.results[0];
+            const posterUrl = result.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : null;
+            
+            this.posterCache[cacheKey] = posterUrl;
+            this.savePosterCache();
+            
+            return {
+                title: film.film,
+                year: film.year,
+                director: film.director,
+                poster: posterUrl
+            };
+        }
+    } catch (error) {
+        console.error('Error fetching poster:', error);
+    }
+    
+    this.posterCache[cacheKey] = null;
+    this.savePosterCache();
+    
+    return {
+        title: film.film,
+        year: film.year,
+        director: film.director,
+        poster: null
+    };
+},
                 async loadTwoRandomPosters() {
-                    if (!this.tmdbApiKey || this.availableFilmsForPosters.length < 2) return;
-                    
-                    let moviesOnly = this.availableFilmsForPosters.filter(f => !f.type || f.type === 'movie');
-                    if (moviesOnly.length < 2) return;
-                    
-                    // Build weighted array (featured posters appear 3x)
-                    const weightedMovies = [];
-                    moviesOnly.forEach(movie => {
-                        const weight = this.hasTag(movie, 'featured-poster') ? 3 : 1;
-                        for (let i = 0; i < weight; i++) {
-                            weightedMovies.push(movie);
-                        }
-                    });
-                    
-                    const shuffled = [...weightedMovies].sort(() => 0.5 - Math.random());
-                    const film1 = shuffled[0];
-                    const film2 = shuffled[1];
-                    
-                    this.leftPoster = await this.loadPosterForFilm(film1);
-                    this.rightPoster = await this.loadPosterForFilm(film2);
-                },
+    if (!this.tmdbApiKey || this.availableFilmsForPosters.length < 2) return;
+    
+    // Remove the filter for movies only - allow TV shows too!
+    let eligible = this.availableFilmsForPosters;
+    if (eligible.length < 2) return;
+    
+    // Build weighted array (featured posters appear 3x)
+    const weightedItems = [];
+    eligible.forEach(item => {
+        const weight = this.hasTag(item, 'featured-poster') ? 3 : 1;
+        for (let i = 0; i < weight; i++) {
+            weightedItems.push(item);
+        }
+    });
+    
+    const shuffled = [...weightedItems].sort(() => 0.5 - Math.random());
+    const film1 = shuffled[0];
+    const film2 = shuffled[1];
+    
+    this.leftPoster = await this.loadPosterForFilm(film1);
+    this.rightPoster = await this.loadPosterForFilm(film2);
+},
                 handleLeftPosterError() {
                     if (this.leftPoster) {
                         this.leftPoster.poster = null;
