@@ -1692,7 +1692,74 @@
                     No predefined directors yet. Add some to make entry easier!
                 </p>
             </div>
-
+            <div v-if="githubToken" class="settings-section">
+                <h2>Tag Style Customization</h2>
+                <p>Customize how tags appear in the film log. Perfect for visual differentiation of glass types!</p>
+                
+                <div class="form-group">
+                    <label>Select Tag to Style</label>
+                    <select v-model="selectedStyleTag">
+                        <option value="">-- Choose a tag --</option>
+                        <option v-for="tag in predefinedTags" :key="tag" :value="tag">
+                            {{ formatTag(tag) }}
+                        </option>
+                    </select>
+                </div>
+                
+                <div v-if="selectedStyleTag" class="tag-style-editor">
+                    <h3>Styling: {{ formatTag(selectedStyleTag) }}</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Font Family</label>
+                            <select v-model="currentTagStyle.fontFamily">
+                                <option value="'Georgia', serif">Georgia (Serif)</option>
+                                <option value="'Arial', sans-serif">Arial (Sans-serif)</option>
+                                <option value="'Courier New', monospace">Courier (Monospace)</option>
+                                <option value="'Impact', sans-serif">Impact (Bold)</option>
+                                <option value="'Comic Sans MS', cursive">Comic Sans (Casual)</option>
+                                <option value="'Creepster', cursive">Creepster (Gothic)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Font Weight</label>
+                            <select v-model="currentTagStyle.fontWeight">
+                                <option value="normal">Normal</option>
+                                <option value="bold">Bold</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Text Color</label>
+                            <input type="color" v-model="currentTagStyle.color" />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Background Color</label>
+                            <input type="color" v-model="currentTagStyle.backgroundColor" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Font Style</label>
+                        <select v-model="currentTagStyle.fontStyle">
+                            <option value="normal">Normal</option>
+                            <option value="italic">Italic</option>
+                        </select>
+                    </div>
+                    
+                    <div class="preview-box" :style="currentTagStyle">
+                        Preview: {{ formatTag(selectedStyleTag) }} Film Entry
+                    </div>
+                    
+                    <button @click="saveTagStyle">Save Style</button>
+                    <button class="secondary" @click="clearTagStyle" style="margin-left: 10px;">Clear Style</button>
+                </div>
+            </div>
+            
             <div v-if="githubToken" class="settings-section">
                 <h2>TMDb API Setup</h2>
                 <p>Optional: Add your TMDb API key to display movie and TV show posters in the marquee and enable auto-fill.</p>
