@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Film Log</title>
+    <title>Screen Log</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
@@ -844,14 +844,6 @@
             justify-content: flex-end;
             margin-top: 20px;
         }
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        .form-row .form-group {
-            margin-bottom: 0;
-        }
         .no-results {
             padding: 40px;
             text-align: center;
@@ -1037,15 +1029,6 @@
         }
         .help-text strong {
             color: #1976d2;
-        }
-        .tv-episode-grid {
-            display: grid;
-            grid-template-columns: 80px 80px 1fr;
-            gap: 10px;
-            align-items: start;
-        }
-        .tv-episode-grid .form-group {
-            margin-bottom: 0;
         }
     </style>
 </head>
@@ -1247,8 +1230,8 @@
                             <td>{{ film.line }}</td>
                             <td>{{ film.type || 'movie' }}</td>
                             <td>
-                                <a v-if="film.link" :href="film.link" target="_blank">{{ getDisplayTitle(film) }}</a>
-                                <span v-else>{{ getDisplayTitle(film) }}</span>
+                                <a v-if="film.link" :href="film.link" target="_blank">{{ film.film }}</a>
+                                <span v-else>{{ film.film }}</span>
                                 <span v-if="film.type === 'tv'" class="type-badge">TV</span>
                             </td>
                             <td>{{ film.year || '-' }}</td>
@@ -1497,7 +1480,7 @@
 
             <div v-if="githubToken" class="settings-section">
                 <h2>TMDb API Setup</h2>
-                <p>Optional: Add your TMDb API key to display movie and TV show posters in the marquee.</p>
+                <p>Optional: Add your TMDb API key to display movie posters in the marquee.</p>
                 
                 <div class="form-group">
                     <label>TMDb API Key</label>
@@ -1515,14 +1498,14 @@
                 <button v-if="tmdbApiKey" class="secondary" @click="clearTmdbKey" style="margin-left: 10px;">Clear Key</button>
                 
                 <div v-if="tmdbApiKey" class="token-status configured">
-                    ✓ TMDb API key configured (supports movies & TV shows)
+                    ✓ TMDb API key configured
                 </div>
                 <div v-else class="token-status not-configured">
                     ⚠ TMDb API key not configured - Posters disabled
                 </div>
                 
                 <div v-if="tmdbApiKey" class="cache-info">
-                    📦 Poster cache: {{ posterCacheSize }} items cached • 
+                    📦 Poster cache: {{ posterCacheSize }} films cached • 
                     <a href="#" @click.prevent="clearPosterCache" style="color: #c00;">Clear cache</a>
                 </div>
             </div>
@@ -1563,10 +1546,6 @@
                         @change="saveSettings"
                     />
                     <label for="filterSoldOut">Hide "sold out" films (more than 30 min past start time)</label>
-                </div>
-                
-                <div class="help-text">
-                    <strong>📺 TV Shows & Posters:</strong> Each unique show counts as 1 poster candidate (not once per episode). When selected, the show poster appears with a random episode's showtime.
                 </div>
             </div>
 
@@ -1617,36 +1596,10 @@
                         </select>
                     </div>
                     
-                    <!-- Movie Title -->
-                    <div class="form-group" v-if="filmForm.type === 'movie'">
-                        <label>Movie Title *</label>
-                        <input type="text" v-model="filmForm.film" required placeholder="e.g., The Matrix" />
-                    </div>
-                    
-                    <!-- TV Show Fields -->
-                    <div v-if="filmForm.type === 'tv'">
-                        <div class="form-group">
-                            <label>Show Name *</label>
-                            <input type="text" v-model="filmForm.showName" required placeholder="e.g., Wednesday" />
-                            <small>Base show title for poster lookups</small>
-                        </div>
-                        
-                        <div class="tv-episode-grid">
-                            <div class="form-group">
-                                <label>Season *</label>
-                                <input type="number" v-model.number="filmForm.season" required min="1" placeholder="1" />
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Episode *</label>
-                                <input type="number" v-model.number="filmForm.episode" required min="1" placeholder="1" />
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Episode Title (optional)</label>
-                                <input type="text" v-model="filmForm.episodeTitle" placeholder="e.g., Woe Is the Loneliest Number" />
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label>Title *</label>
+                        <input type="text" v-model="filmForm.film" required />
+                        <small v-if="filmForm.type === 'tv'">For TV shows, include season/episode info (e.g., "Breaking Bad S1E1")</small>
                     </div>
                     
                     <div class="form-group">
@@ -1659,7 +1612,7 @@
                     
                     <div class="form-group">
                         <label>{{ filmForm.type === 'tv' ? 'Creator/Showrunner' : 'Director' }}</label>
-                        <input type="text" v-model="filmForm.director" :placeholder="filmForm.type === 'tv' ? 'e.g., Tim Burton' : 'e.g., Steven Spielberg'" />
+                        <input type="text" v-model="filmForm.director" :placeholder="filmForm.type === 'tv' ? 'e.g., Vince Gilligan' : 'e.g., Steven Spielberg'" />
                     </div>
                     
                     <div class="form-group">
@@ -1671,7 +1624,7 @@
                     <div class="form-group">
                         <label>Duration (minutes) *</label>
                         <input type="number" v-model.number="filmForm.duration" min="1" placeholder="142" required />
-                        <small v-if="filmForm.type === 'tv'">Episode runtime</small>
+                        <small v-if="filmForm.type === 'tv'">For episodes, use the episode runtime</small>
                     </div>
                     
                     <div class="form-group">
@@ -1714,7 +1667,7 @@
                     
                     <div class="form-actions">
                         <button type="button" class="secondary" @click="closeFilmModal">Cancel</button>
-                        <button type="submit">{{ editingFilm ? 'Update' : 'Add' }} {{ filmForm.type === 'tv' ? 'Episode' : 'Film' }}</button>
+                        <button type="submit">{{ editingFilm ? 'Update' : 'Add' }} {{ filmForm.type === 'tv' ? 'Show' : 'Film' }}</button>
                     </div>
                 </form>
             </div>
@@ -1764,10 +1717,6 @@
                     filmForm: {
                         type: 'movie',
                         film: '',
-                        showName: '',
-                        season: null,
-                        episode: null,
-                        episodeTitle: '',
                         year: '',
                         director: '',
                         link: '',
@@ -1839,26 +1788,6 @@
                 availableFilmsCount() {
                     return this.availableFilmsForPosters.length;
                 },
-                // Get unique shows/movies for poster selection
-                uniquePostercandidates() {
-                    const candidates = [];
-                    const seenShows = new Set();
-                    
-                    this.availableFilmsForPosters.forEach(f => {
-                        if (f.type === 'tv' && f.showName) {
-                            // For TV, only add once per show name
-                            if (!seenShows.has(f.showName)) {
-                                seenShows.add(f.showName);
-                                candidates.push(f);
-                            }
-                        } else {
-                            // For movies, add each one
-                            candidates.push(f);
-                        }
-                    });
-                    
-                    return candidates;
-                },
                 filteredFilms() {
                     let filtered = this.films;
                     
@@ -1871,8 +1800,7 @@
                     if (this.searchQuery) {
                         const query = this.searchQuery.toLowerCase();
                         filtered = filtered.filter(f => 
-                            this.getDisplayTitle(f).toLowerCase().includes(query) ||
-                            (f.showName && f.showName.toLowerCase().includes(query)) ||
+                            f.film.toLowerCase().includes(query) ||
                             String(f.duration).includes(query) ||
                             (f.dateAdded && f.dateAdded.includes(query)) ||
                             (f.year && String(f.year).includes(query)) ||
@@ -1886,10 +1814,7 @@
                         let aVal = a[this.sortKey];
                         let bVal = b[this.sortKey];
                         
-                        if (this.sortKey === 'film') {
-                            aVal = this.getDisplayTitle(a);
-                            bVal = this.getDisplayTitle(b);
-                        } else if (this.sortKey === 'startTime') {
+                        if (this.sortKey === 'startTime') {
                             aVal = this.getStartTimeInMinutes(a.duration);
                             bVal = this.getStartTimeInMinutes(b.duration);
                         } else if (this.sortKey === 'line' || this.sortKey === 'duration' || this.sortKey === 'year') {
@@ -1918,7 +1843,7 @@
                     const sorted = [...this.films].sort((a, b) => 
                         new Date(b.dateAdded || '1900-01-01') - new Date(a.dateAdded || '1900-01-01')
                     );
-                    return this.getDisplayTitle(sorted[0]);
+                    return sorted[0].film;
                 },
                 filmsWithPodcasts() {
                     return this.films.filter(f => f.podcastLink).length;
@@ -1995,23 +1920,6 @@
                 }
             },
             methods: {
-                getDisplayTitle(film) {
-                    if (film.type === 'tv' && film.showName) {
-                        let title = `${film.showName} S${film.season}E${film.episode}`;
-                        if (film.episodeTitle) {
-                            title += `: ${film.episodeTitle}`;
-                        }
-                        return title;
-                    }
-                    return film.film || '';
-                },
-                getPosterLookupName(film) {
-                    // For TV shows, use showName; for movies, use film
-                    if (film.type === 'tv' && film.showName) {
-                        return film.showName;
-                    }
-                    return film.film;
-                },
                 hasTag(film, tag) {
                     return film.tags && film.tags.includes(tag);
                 },
@@ -2037,8 +1945,7 @@
                     return minutes === 1 ? '1 minute' : `${minutes} minutes`;
                 },
                 getCacheKey(film) {
-                    const name = this.getPosterLookupName(film);
-                    return `${name}-${film.year || 'unknown'}-${film.type || 'movie'}`;
+                    return `${film.film}-${film.year || 'unknown'}`;
                 },
                 loadPosterCache() {
                     const saved = localStorage.getItem('tmdbPosterCache');
@@ -2143,7 +2050,7 @@
                 },
                 startPosterRotation() {
                     this.stopPosterRotation();
-                    if (this.autoRotateEnabled && this.tmdbApiKey && this.uniquePostercandidates.length >= 2) {
+                    if (this.autoRotateEnabled && this.tmdbApiKey && this.availableFilmsForPosters.length >= 2) {
                         this.posterRotateInterval = setInterval(() => {
                             this.loadTwoRandomPosters();
                         }, this.rotationInterval * 1000);
@@ -2164,8 +2071,7 @@
                 getShowtimeText(poster) {
                     if (!poster || !poster.title) return '—';
                     
-                    // Find the actual episode/film to get timing
-                    const film = poster.filmRef || this.films.find(f => this.getDisplayTitle(f) === poster.title);
+                    const film = this.films.find(f => f.film === poster.title);
                     if (!film || !film.duration) return '—';
                     
                     const startTime = this.getStartTimeAsDate(film.duration);
@@ -2188,7 +2094,7 @@
                 getShowtimeClass(poster) {
                     if (!poster || !poster.title) return 'no-showtime';
                     
-                    const film = poster.filmRef || this.films.find(f => this.getDisplayTitle(f) === poster.title);
+                    const film = this.films.find(f => f.film === poster.title);
                     if (!film || !film.duration) return 'no-showtime';
                     
                     const startTime = this.getStartTimeAsDate(film.duration);
@@ -2292,93 +2198,78 @@
                     }
                 },
                 async loadPosterForFilm(film) {
-                    if (!this.tmdbApiKey) return null;
-                    
-                    const cacheKey = this.getCacheKey(film);
-                    
-                    if (this.posterCache[cacheKey]) {
-                        return {
-                            title: this.getDisplayTitle(film),
-                            year: film.year,
-                            director: film.director,
-                            poster: this.posterCache[cacheKey],
-                            filmRef: film
-                        };
-                    }
-                    
-                    try {
-                        const mediaType = film.type === 'tv' ? 'tv' : 'movie';
-                        const searchName = this.getPosterLookupName(film);
-                        const yearParam = film.year ? (mediaType === 'tv' ? `&first_air_date_year=${film.year}` : `&year=${film.year}`) : '';
-                        const searchUrl = `https://api.themoviedb.org/3/search/${mediaType}?api_key=${this.tmdbApiKey}&query=${encodeURIComponent(searchName)}${yearParam}`;
-                        
-                        const response = await fetch(searchUrl);
-                        const data = await response.json();
-                        
-                        if (data.results && data.results.length > 0) {
-                            const result = data.results[0];
-                            const posterUrl = result.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : null;
-                            
-                            this.posterCache[cacheKey] = posterUrl;
-                            this.savePosterCache();
-                            
-                            return {
-                                title: this.getDisplayTitle(film),
-                                year: film.year,
-                                director: film.director,
-                                poster: posterUrl,
-                                filmRef: film
-                            };
-                        }
-                    } catch (error) {
-                        console.error('Error fetching poster:', error);
-                    }
-                    
-                    this.posterCache[cacheKey] = null;
-                    this.savePosterCache();
-                    
-                    return {
-                        title: this.getDisplayTitle(film),
-                        year: film.year,
-                        director: film.director,
-                        poster: null,
-                        filmRef: film
-                    };
-                },
+    if (!this.tmdbApiKey) return null;
+    
+    const cacheKey = this.getCacheKey(film);
+    
+    if (this.posterCache[cacheKey]) {
+        return {
+            title: film.film,
+            year: film.year,
+            director: film.director,
+            poster: this.posterCache[cacheKey]
+        };
+    }
+    
+    try {
+        // Use different endpoint for TV vs movies
+        const mediaType = film.type === 'tv' ? 'tv' : 'movie';
+        const searchUrl = `https://api.themoviedb.org/3/search/${mediaType}?api_key=${this.tmdbApiKey}&query=${encodeURIComponent(film.film)}${film.year ? '&first_air_date_year=' + film.year : ''}`;
+        
+        const response = await fetch(searchUrl);
+        const data = await response.json();
+        
+        if (data.results && data.results.length > 0) {
+            const result = data.results[0];
+            const posterUrl = result.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : null;
+            
+            this.posterCache[cacheKey] = posterUrl;
+            this.savePosterCache();
+            
+            return {
+                title: film.film,
+                year: film.year,
+                director: film.director,
+                poster: posterUrl
+            };
+        }
+    } catch (error) {
+        console.error('Error fetching poster:', error);
+    }
+    
+    this.posterCache[cacheKey] = null;
+    this.savePosterCache();
+    
+    return {
+        title: film.film,
+        year: film.year,
+        director: film.director,
+        poster: null
+    };
+},
                 async loadTwoRandomPosters() {
-                    if (!this.tmdbApiKey || this.uniquePostercandidates.length < 2) return;
-                    
-                    // Build weighted array (featured posters appear 3x)
-                    const weightedItems = [];
-                    this.uniquePostercandidates.forEach(item => {
-                        const weight = this.hasTag(item, 'featured-poster') ? 3 : 1;
-                        for (let i = 0; i < weight; i++) {
-                            weightedItems.push(item);
-                        }
-                    });
-                    
-                    const shuffled = [...weightedItems].sort(() => 0.5 - Math.random());
-                    
-                    // For TV shows, pick a random episode from that show
-                    let candidate1 = shuffled[0];
-                    if (candidate1.type === 'tv' && candidate1.showName) {
-                        const episodes = this.availableFilmsForPosters.filter(f => 
-                            f.type === 'tv' && f.showName === candidate1.showName
-                        );
-                        candidate1 = episodes[Math.floor(Math.random() * episodes.length)];
-                    }
-                    
-                    let candidate2 = shuffled[1];
-                    if (candidate2.type === 'tv' && candidate2.showName) {
-                        const episodes = this.availableFilmsForPosters.filter(f => 
-                            f.type === 'tv' && f.showName === candidate2.showName
-                        );
-                        candidate2 = episodes[Math.floor(Math.random() * episodes.length)];
-                    }
-                    
-                    this.leftPoster = await this.loadPosterForFilm(candidate1);
-                    this.rightPoster = await this.loadPosterForFilm(candidate2);
-                },
+    if (!this.tmdbApiKey || this.availableFilmsForPosters.length < 2) return;
+    
+    // Remove the filter for movies only - allow TV shows too!
+    let eligible = this.availableFilmsForPosters;
+    if (eligible.length < 2) return;
+    
+    // Build weighted array (featured posters appear 3x)
+    const weightedItems = [];
+    eligible.forEach(item => {
+        const weight = this.hasTag(item, 'featured-poster') ? 3 : 1;
+        for (let i = 0; i < weight; i++) {
+            weightedItems.push(item);
+        }
+    });
+    
+    const shuffled = [...weightedItems].sort(() => 0.5 - Math.random());
+    const film1 = shuffled[0];
+    const film2 = shuffled[1];
+    
+    this.leftPoster = await this.loadPosterForFilm(film1);
+    this.rightPoster = await this.loadPosterForFilm(film2);
+},
                 handleLeftPosterError() {
                     if (this.leftPoster) {
                         this.leftPoster.poster = null;
@@ -2408,7 +2299,6 @@
                             const content = atob(data.content);
                             this.films = JSON.parse(content);
                             
-                            // Migrate old data
                             this.films.forEach(f => {
                                 if (f.date && !f.dateAdded) {
                                     f.dateAdded = f.date;
@@ -2416,10 +2306,6 @@
                                 }
                                 if (!f.type) {
                                     f.type = 'movie';
-                                }
-                                // Construct film title for TV if missing
-                                if (f.type === 'tv' && f.showName && !f.film) {
-                                    f.film = this.getDisplayTitle(f);
                                 }
                             });
                             
@@ -2546,7 +2432,7 @@
                     const tableData = this.films.map(f => [
                         f.line,
                         f.type || 'movie',
-                        this.getDisplayTitle(f),
+                        f.film,
                         f.year || '-',
                         f.director || '-',
                         `${f.duration} min`,
@@ -2594,10 +2480,6 @@
                     this.filmForm = {
                         type: 'movie',
                         film: '',
-                        showName: '',
-                        season: null,
-                        episode: null,
-                        episodeTitle: '',
                         year: '',
                         director: '',
                         link: '',
@@ -2614,11 +2496,7 @@
                     this.selectedFormTags = film.tags ? [...film.tags] : [];
                     this.filmForm = {
                         type: film.type || 'movie',
-                        film: film.film || '',
-                        showName: film.showName || '',
-                        season: film.season || null,
-                        episode: film.episode || null,
-                        episodeTitle: film.episodeTitle || '',
+                        film: film.film,
                         year: film.year || '',
                         director: film.director || '',
                         link: film.link || '',
@@ -2663,28 +2541,13 @@
                         a.toLowerCase().localeCompare(b.toLowerCase())
                     );
                     
-                    // Construct the display title
-                    let displayTitle;
-                    if (this.filmForm.type === 'tv') {
-                        displayTitle = `${this.filmForm.showName} S${this.filmForm.season}E${this.filmForm.episode}`;
-                        if (this.filmForm.episodeTitle) {
-                            displayTitle += `: ${this.filmForm.episodeTitle}`;
-                        }
-                    } else {
-                        displayTitle = this.filmForm.film;
-                    }
-                    
                     if (this.editingFilm) {
                         const index = this.films.findIndex(f => f.line === this.editingFilm.line);
                         if (index !== -1) {
                             this.films[index] = {
                                 ...this.films[index],
                                 type: this.filmForm.type,
-                                film: displayTitle,
-                                showName: this.filmForm.type === 'tv' ? this.filmForm.showName : undefined,
-                                season: this.filmForm.type === 'tv' ? this.filmForm.season : undefined,
-                                episode: this.filmForm.type === 'tv' ? this.filmForm.episode : undefined,
-                                episodeTitle: this.filmForm.type === 'tv' ? this.filmForm.episodeTitle : undefined,
+                                film: this.filmForm.film,
                                 year: this.filmForm.year ? parseInt(this.filmForm.year) : null,
                                 director: this.filmForm.director,
                                 link: this.filmForm.link,
@@ -2700,10 +2563,10 @@
                             ? Math.max(...this.films.map(f => f.line)) + 1 
                             : 1;
                         
-                        const newFilm = {
+                        this.films.push({
                             line: nextLine,
                             type: this.filmForm.type,
-                            film: displayTitle,
+                            film: this.filmForm.film,
                             year: this.filmForm.year ? parseInt(this.filmForm.year) : null,
                             director: this.filmForm.director,
                             link: this.filmForm.link,
@@ -2712,16 +2575,7 @@
                             podcastLink: this.filmForm.podcastLink,
                             dateAdded: this.getTodayDate(),
                             tags: allTags
-                        };
-                        
-                        if (this.filmForm.type === 'tv') {
-                            newFilm.showName = this.filmForm.showName;
-                            newFilm.season = this.filmForm.season;
-                            newFilm.episode = this.filmForm.episode;
-                            newFilm.episodeTitle = this.filmForm.episodeTitle;
-                        }
-                        
-                        this.films.push(newFilm);
+                        });
                     }
                     
                     await this.saveToGitHub();
