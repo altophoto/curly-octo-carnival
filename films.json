@@ -1180,5 +1180,23 @@
       "Romance",
       "Thriller"
     ]
+  },
+  {
+    "line": 70,
+    "type": "movie",
+    "film": "Halloween",
+    "year": 1978,
+    "director": "John Carpenter",
+    "link": "https://www.imdb.com/title/tt0077651/",
+    "duration": 91,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": [
+      "best in class",
+      "foundation of discursivity",
+      "important",
+      "revolutionary"
+    ]
   }
 ]
