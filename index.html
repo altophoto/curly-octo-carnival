@@ -2426,7 +2426,7 @@
                     const addedDate = new Date(film.dateAdded + 'T00:00:00');
                     const now = new Date();
                     const hoursSince = (now - addedDate) / (1000 * 60 * 60);
-                    return hoursSince < 24;
+                    return hoursSince < 6;
                 },
                 // Tag formatting - CENTRALIZED for future customization
                 formatTag(tag) {
@@ -2449,7 +2449,7 @@
                 
                 // Normalize tag input (always store lowercase internally)
                 normalizeTag(tag) {
-                    return tag.trim().toLowerCase();
+                    return tag.trim().toUpperCase();
                 },
                 getTypeLabel(type) {
                     if (type === 'tv') return 'TV';
@@ -3190,7 +3190,7 @@
                     
                     if (tagsToAdd.length > 0) {
                         const tagList = tagsToAdd.join(', ');
-                        const shouldAdd = confirm(`Add these new tags to your predefined list?\n\n${tagList}\n\n(This makes them available as quick-select options in the future)`);
+                        const shouldAdd = confirm(`Add these new tags to your list?\n\n${tagList}\n\n(This makes them available as quick-select options in the future)`);
                         
                         if (shouldAdd) {
                             tagsToAdd.forEach(tag => {
@@ -3211,7 +3211,7 @@
                     }
                     
                     const allTags = [...new Set([...this.selectedFormTags, ...newTags])].sort((a, b) => 
-                        a.toLowerCase().localeCompare(b.toLowerCase())
+                        a.toUpperCase().localeCompare(b.toUpperCase())
                     );
                     
                     let displayTitle;
