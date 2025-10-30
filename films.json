@@ -1528,5 +1528,25 @@
     "podcastLink": "",
     "dateAdded": "2025-10-30",
     "tags": []
+  },
+  {
+    "line": 99,
+    "type": "movie",
+    "film": "Twin Peaks",
+    "year": 1989,
+    "director": "David Lynch",
+    "link": "https://www.imdb.com/title/tt27449259/",
+    "duration": 116,
+    "platformLink": "https://www.lookmovie2.to/shows/view/0098936-twin-peaks-1990",
+    "podcastLink": "",
+    "dateAdded": "2025-10-30",
+    "tags": [
+      "Detective",
+      "Gooblin",
+      "Lynchian",
+      "Murder",
+      "Noir",
+      "Thriller"
+    ]
   }
 ]
