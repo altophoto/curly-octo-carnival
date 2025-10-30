@@ -1470,5 +1470,20 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": []
+  },
+  {
+    "line": 95,
+    "type": "movie",
+    "film": "The Ugly Stepsister",
+    "year": 2025,
+    "director": "Emilie Blichfeldt",
+    "link": "https://www.imdb.com/title/tt29344903/",
+    "duration": 109,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": [
+      "bgh"
+    ]
   }
 ]
