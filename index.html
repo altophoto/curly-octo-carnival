@@ -2002,7 +2002,7 @@
                             </div>
                         </div>
                         <label>Add Custom Tags</label>
-                        <input type="text" v-model="filmForm.tagsInput" placeholder="writer-as-god, experimental" tabindex="12" />
+                        <input type="text" v-model="filmForm.tagsInput" placeholder="Writer-as-God, Experimental" tabindex="12" />
                         <small>Separate custom tags with commas. Click predefined tags above to select them.</small>
                     </div>
                     
@@ -2064,19 +2064,19 @@
             data() {
                 return {
                     tagStyles: {
-                        'tempered': { 
+                        'featured-poster': { 
                             fontFamily: 'Impact, sans-serif',
                             fontWeight: 'bold',
                             color: '#ff4444',
                             backgroundColor: '#ffe6e6'
                         },
-                        'laminated': {
+                        'Hollywood': {
                             fontFamily: 'Georgia, serif',
                             fontStyle: 'italic',
                             color: '#4444ff',
                             backgroundColor: '#e6e6ff'
                         },
-                        'low-e': {
+                        'Horror': {
                             fontFamily: 'Courier New, monospace',
                             color: '#44ff44',
                             backgroundColor: '#e6ffe6'
@@ -2092,7 +2092,7 @@
                         backgroundColor: '#ffffff'
                     },
                     userSettings: {
-                        tagCapitalization: 'proper', // 'proper', 'upper', 'lower'
+                        tagCapitalization: 'as typed', // 'proper', 'upper', 'lower'
                     },
                     githubOwner: 'altophoto',
                     githubRepo: 'curly-octo-carnival',
@@ -2430,7 +2430,7 @@
                 },
                 // Tag formatting - CENTRALIZED for future customization
                 formatTag(tag) {
-                    const style = this.userSettings.tagCapitalization || 'proper';
+                    const style = this.userSettings.tagCapitalization || 'as typed';
                     
                     switch(style) {
                         case 'proper':
