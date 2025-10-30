@@ -1502,5 +1502,18 @@
       "Nudity",
       "Roger Ebert 4 Stars"
     ]
+  },
+  {
+    "line": 97,
+    "type": "movie",
+    "film": "Return to 'Twin Peaks'",
+    "year": 2007,
+    "director": "Charles de Lauzirika",
+    "link": "https://www.imdb.com/title/tt1441869/",
+    "duration": 20,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-30",
+    "tags": []
   }
 ]
