@@ -1515,5 +1515,18 @@
     "podcastLink": "",
     "dateAdded": "2025-10-30",
     "tags": []
+  },
+  {
+    "line": 98,
+    "type": "movie",
+    "film": "Twin Peaks: The Phenomenon",
+    "year": 2017,
+    "director": "",
+    "link": "https://www.imdb.com/title/tt13706330/",
+    "duration": 25,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-30",
+    "tags": []
   }
 ]
