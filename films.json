@@ -1485,5 +1485,18 @@
     "tags": [
       "bgh"
     ]
+  },
+  {
+    "line": 96,
+    "type": "movie",
+    "film": "Midsommar",
+    "year": 2019,
+    "director": "Ari Aster",
+    "link": "https://www.imdb.com/title/tt8772262/",
+    "duration": 147,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-29",
+    "tags": []
   }
 ]
