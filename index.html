@@ -1679,19 +1679,12 @@
                 
                 <div class="predefined-tags-list" v-if="predefinedTags.length > 0">
                     <div class="predefined-tag" v-for="tag in predefinedTags" :key="getTagName(tag)">
-                        <span class="tag-name">{{ formatTag(tag) }}</span>
+                        <span class="tag-name" :style="getTagBadgeStyle(getTagName(tag))">{{ formatTag(tag) }}</span>
                         <input
                             type="color"
                             :value="typeof tag === 'object' ? tag.bgColor : '#333333'"
                             @change="updateTagColor(tag, 'bg', $event.target.value)"
-                            title="Background color"
-                            class="color-picker"
-                        />
-                        <input
-                            type="color"
-                            :value="typeof tag === 'object' ? tag.textColor : '#e0e0e0'"
-                            @change="updateTagColor(tag, 'text', $event.target.value)"
-                            title="Text color"
+                            title="Background color (text color auto-adjusts for readability)"
                             class="color-picker"
                         />
                         <span class="remove-tag" @click="removePredefinedTag(tag)">×</span>
@@ -2382,12 +2375,33 @@
                         typeof t === 'object' ? t.tag === tagName : t === tagName
                     );
                 },
+                getContrastingTextColor(bgColor) {
+                    // Calculate relative luminance to determine if we need light or dark text
+                    // Returns either black or white for optimal contrast
+                    if (!bgColor) return '#ffffff';
+
+                    // Remove # if present
+                    const hex = bgColor.replace('#', '');
+
+                    // Convert to RGB
+                    const r = parseInt(hex.substr(0, 2), 16);
+                    const g = parseInt(hex.substr(2, 2), 16);
+                    const b = parseInt(hex.substr(4, 2), 16);
+
+                    // Calculate relative luminance using ITU-R BT.709 coefficients
+                    // This accounts for human perception of color brightness
+                    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+                    // Use white text on dark backgrounds, black text on light backgrounds
+                    return luminance > 0.5 ? '#000000' : '#ffffff';
+                },
                 getTagBadgeStyle(tagName) {
                     const tagObj = this.getTagObject(tagName);
-                    if (tagObj && typeof tagObj === 'object' && tagObj.bgColor && tagObj.textColor) {
+                    if (tagObj && typeof tagObj === 'object' && tagObj.bgColor) {
                         return {
                             backgroundColor: tagObj.bgColor,
-                            color: tagObj.textColor
+                            // Auto-calculate text color for optimal contrast
+                            color: this.getContrastingTextColor(tagObj.bgColor)
                         };
                     }
                     // Fallback to default if no custom colors
@@ -2529,11 +2543,11 @@
                         );
 
                         if (!exists) {
-                            // Create new tag object with default colors
+                            // Create new tag object with default background color
+                            // Text color is auto-calculated for optimal contrast
                             const newTag = {
                                 tag: tagName,
-                                bgColor: '#333333',
-                                textColor: '#e0e0e0'
+                                bgColor: '#333333'
                             };
                             this.predefinedTags.push(newTag);
                             this.predefinedTags.sort((a, b) =>
@@ -2560,14 +2574,11 @@
                         this.getTagName(t) === this.getTagName(tag)
                     );
 
-                    if (tagObj && typeof tagObj === 'object') {
-                        if (colorType === 'bg') {
-                            tagObj.bgColor = newColor;
-                        } else if (colorType === 'text') {
-                            tagObj.textColor = newColor;
-                        }
+                    if (tagObj && typeof tagObj === 'object' && colorType === 'bg') {
+                        tagObj.bgColor = newColor;
+                        // Text color is auto-calculated based on background luminance
                         this.saveTagsToGitHub();
-                        this.showSyncStatus('Tag color updated', 'success');
+                        this.showSyncStatus('Tag color updated (text auto-adjusted)', 'success');
                     }
                 },
                 async loadDirectorsFromGitHub() {
