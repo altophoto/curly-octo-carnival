@@ -1440,8 +1440,7 @@
                     <tbody>
                         <tr v-for="film in filteredFilms"
                             :key="film.line"
-                            :class="{ 'new-entry': isNewEntry(film) }"
-                            :style="getRowStyle(film)">                  
+                            :class="{ 'new-entry': isNewEntry(film) }">                  
                             <td>{{ film.line }}</td>
                             <td>{{ getTypeLabel(film.type) }}</td>
                             <td>
