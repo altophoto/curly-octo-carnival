@@ -2060,7 +2060,7 @@
     <script>
         const { createApp } = Vue;
 
-        createApp({
+        const app = createApp({
             data() {
                 return {
                     tagStyles: {
@@ -2123,6 +2123,11 @@
                     autoRotateEnabled: true,
                     rotationInterval: 30,
                     filterSoldOutPosters: true,
+
+                    // Rate limiting for TMDb API
+                    tmdbRequestQueue: [],
+                    tmdbLastRequestTime: 0,
+                    tmdbMinRequestInterval: 250, // 250ms between requests (max 4 req/sec)
                     
                     currentView: 'log',
                     films: [],
@@ -2515,7 +2520,28 @@
                     try {
                         localStorage.setItem('tmdbPosterCache', JSON.stringify(this.posterCache));
                     } catch (e) {
-                        console.error('Failed to save poster cache:', e);
+                        // Handle quota exceeded error
+                        if (e.name === 'QuotaExceededError' || e.code === 22) {
+                            // Cache is too large, clear oldest entries
+                            const keys = Object.keys(this.posterCache);
+                            if (keys.length > 50) {
+                                // Keep only the most recent 50 entries
+                                const newCache = {};
+                                keys.slice(-50).forEach(key => {
+                                    newCache[key] = this.posterCache[key];
+                                });
+                                this.posterCache = newCache;
+
+                                // Try saving again
+                                try {
+                                    localStorage.setItem('tmdbPosterCache', JSON.stringify(this.posterCache));
+                                } catch (retryError) {
+                                    // If it still fails, just clear the cache
+                                    this.posterCache = {};
+                                    localStorage.removeItem('tmdbPosterCache');
+                                }
+                            }
+                        }
                     }
                 },
                 clearPosterCache() {
@@ -2827,6 +2853,35 @@
                         this.showSyncStatus('TMDb API key cleared', 'success');
                     }
                 },
+                async rateLimitedFetch(url, options = {}, retries = 3) {
+                    // Wait if needed to respect rate limit
+                    const now = Date.now();
+                    const timeSinceLastRequest = now - this.tmdbLastRequestTime;
+                    if (timeSinceLastRequest < this.tmdbMinRequestInterval) {
+                        await new Promise(resolve => setTimeout(resolve, this.tmdbMinRequestInterval - timeSinceLastRequest));
+                    }
+                    this.tmdbLastRequestTime = Date.now();
+
+                    // Make request with retry logic
+                    for (let i = 0; i < retries; i++) {
+                        try {
+                            const response = await fetch(url, options);
+
+                            // Handle rate limit errors (429)
+                            if (response.status === 429) {
+                                const retryAfter = response.headers.get('Retry-After') || 1;
+                                await new Promise(resolve => setTimeout(resolve, retryAfter * 1000));
+                                continue;
+                            }
+
+                            return response;
+                        } catch (error) {
+                            if (i === retries - 1) throw error;
+                            // Exponential backoff: 2^i seconds
+                            await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+                        }
+                    }
+                },
                 async loadPosterForFilm(film) {
                     if (!this.tmdbApiKey) return null;
                     
@@ -2847,8 +2902,8 @@
                         const searchName = this.getPosterLookupName(film);
                         const yearParam = film.year ? (mediaType === 'tv' ? `&first_air_date_year=${film.year}` : `&year=${film.year}`) : '';
                         const searchUrl = `https://api.themoviedb.org/3/search/${mediaType}?api_key=${this.tmdbApiKey}&query=${encodeURIComponent(searchName)}${yearParam}`;
-                        
-                        const response = await fetch(searchUrl);
+
+                        const response = await this.rateLimitedFetch(searchUrl);
                         const data = await response.json();
                         
                         if (data.results && data.results.length > 0) {
@@ -3437,17 +3492,16 @@
                 },
                 async searchTMDb() {
                     if (!this.tmdbSearchQuery.trim() || !this.tmdbApiKey) return;
-                    
+
                     try {
                         const mediaType = this.filmForm.type === 'tv' ? 'tv' : 'movie';
                         const searchUrl = `https://api.themoviedb.org/3/search/${mediaType}?api_key=${this.tmdbApiKey}&query=${encodeURIComponent(this.tmdbSearchQuery)}`;
-                        
-                        const response = await fetch(searchUrl);
+
+                        const response = await this.rateLimitedFetch(searchUrl);
                         const data = await response.json();
-                        
+
                         this.searchResults = data.results ? data.results.slice(0, 10) : [];
                     } catch (error) {
-                        console.error('Error searching TMDb:', error);
                         alert('Error searching TMDb. Please try again.');
                     }
                 },
@@ -3455,8 +3509,8 @@
                     try {
                         const mediaType = this.filmForm.type === 'tv' ? 'tv' : 'movie';
                         const detailsUrl = `https://api.themoviedb.org/3/${mediaType}/${result.id}?api_key=${this.tmdbApiKey}&append_to_response=credits,external_ids`;
-                        
-                        const response = await fetch(detailsUrl);
+
+                        const response = await this.rateLimitedFetch(detailsUrl);
                         const details = await response.json();
                         
                         // Fill form
@@ -3500,16 +3554,26 @@
                 this.loadTmdbKey();
                 this.loadPosterCache();
                 this.loadTagStylesFromLocalStorage();
-                
+
                 if (this.githubToken) {
                     await this.loadFromGitHub();
                     await this.loadTagsFromGitHub();
                     await this.loadDirectorsFromGitHub();
                 }
-                
+
                 this.timeUpdateInterval = setInterval(() => {
                     this.updateCurrentTime();
                 }, 60000);
+
+                // Page Visibility API - pause rotation when tab is hidden
+                document.addEventListener('visibilitychange', () => {
+                    if (document.hidden) {
+                        this.stopPosterRotation();
+                    } else {
+                        // Resume rotation when tab becomes visible
+                        this.startPosterRotation();
+                    }
+                });
             },
             beforeUnmount() {
                 if (this.timeUpdateInterval) {
@@ -3517,7 +3581,19 @@
                 }
                 this.stopPosterRotation();
             }
-        }).mount('#app');
+        });
+
+        // Add global error handler
+        app.config.errorHandler = (err, instance, info) => {
+            console.error('Vue error:', err);
+            console.error('Error info:', info);
+            // Optionally show user-friendly error message
+            if (instance && instance.showSyncStatus) {
+                instance.showSyncStatus('An error occurred. Please refresh the page.', 'error');
+            }
+        };
+
+        app.mount('#app');
     </script>
 </body>
 </html>
