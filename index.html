@@ -3235,7 +3235,51 @@
                     this.filmForm.episodeTitle = '';
                     this.filmForm.dateAdded = this.getTodayDate();
                 },
+                checkForDuplicate() {
+                    // When editing, exclude the current film from duplicate check
+                    const filmsToCheck = this.editingFilm
+                        ? this.films.filter(f => f.line !== this.editingFilm.line)
+                        : this.films;
+
+                    if (this.filmForm.type === 'tv') {
+                        // For TV shows: check showName + season + episode
+                        return filmsToCheck.find(f =>
+                            f.type === 'tv' &&
+                            f.showName && this.filmForm.showName &&
+                            f.showName.toLowerCase().trim() === this.filmForm.showName.toLowerCase().trim() &&
+                            f.season === this.filmForm.season &&
+                            f.episode === this.filmForm.episode
+                        );
+                    } else {
+                        // For movies: check title + year (if year exists)
+                        return filmsToCheck.find(f =>
+                            f.type === 'movie' &&
+                            f.film && this.filmForm.film &&
+                            f.film.toLowerCase().trim() === this.filmForm.film.toLowerCase().trim() &&
+                            (this.filmForm.year ? f.year === parseInt(this.filmForm.year) : true)
+                        );
+                    }
+                },
                 async saveFilm() {
+                    // Check for duplicates before saving
+                    const duplicate = this.checkForDuplicate();
+                    if (duplicate) {
+                        const duplicateInfo = this.filmForm.type === 'tv'
+                            ? `${duplicate.showName} S${duplicate.season}E${duplicate.episode}${duplicate.episodeTitle ? ': ' + duplicate.episodeTitle : ''}`
+                            : `${duplicate.film} (${duplicate.year || 'no year'})`;
+
+                        const message = `⚠️ Potential duplicate detected!\n\n` +
+                                      `Existing entry:\n` +
+                                      `  ${duplicateInfo}\n` +
+                                      `  Director: ${duplicate.director || 'none'}\n` +
+                                      `  Added: ${duplicate.dateAdded || 'unknown'}\n\n` +
+                                      `Continue saving anyway?`;
+
+                        if (!confirm(message)) {
+                            return; // User canceled, don't save
+                        }
+                    }
+
                     const newTags = this.filmForm.tagsInput
                         .split(',')
                         .map(t => this.normalizeTag(t))  // ← Use normalizeTag
