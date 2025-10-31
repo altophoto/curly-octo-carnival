@@ -33,7 +33,6 @@ curly-octo-carnival/
 ├── tags.json            # Tag definitions and styling
 ├── directors.json       # Director information
 ├── README.md            # Project roadmap
-└── CLAUDE.md            # This file
 ```
 
 ## Architecture
@@ -113,8 +112,8 @@ Each film entry:
   "link": "https://www.imdb.com/title/tt0110074/",
   "duration": 111,
   "platform": "Other",
-  "platformLink": "https://www.lookmovie2.to/...",
-  "podcastLink": "https://drive.google.com/file/d/...",
+  "platformLink": "...",
+  "podcastLink": "...",
   "tags": ["Workplace"],
   "dateAdded": "2025-10-27",
   "year": 1994,
@@ -128,7 +127,6 @@ Each film entry:
 - `film` - Title (searchable)
 - `director` - Full director name (searchable, filterable)
 - `tags` - Array of tag strings (must match tags.json)
-- `platform` - Netflix, Amazon, Disney+, Other, or empty string
 - `year` - Release year (used for sorting and statistics)
 - `duration` - Runtime in minutes
 - `type` - "movie" or "show" (for future TV series support)
