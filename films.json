@@ -1604,5 +1604,20 @@
       "Thriller"
     ],
     "platform": ""
+  },
+  {
+    "line": 91,
+    "type": "movie",
+    "film": "Beware the Slenderman",
+    "year": 2016,
+    "director": "Irene Taylor",
+    "link": "https://www.imdb.com/title/tt5329376/",
+    "duration": 115,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-31",
+    "tags": [
+      "Garbage"
+    ]
   }
 ]
