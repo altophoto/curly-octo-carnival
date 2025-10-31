@@ -1820,14 +1820,18 @@
                     <small>Posters will rotate every {{ rotationInterval }} seconds (between 10-300)</small>
                 </div>
                 
-                <div class="checkbox-group">
-                    <input 
-                        type="checkbox" 
-                        id="filterSoldOut" 
-                        v-model="filterSoldOutPosters"
-                        @change="saveSettings"
-                    />
-                    <label for="filterSoldOut">Hide "sold out" films (more than 30 min past start time)</label>
+                <div class="form-group">
+                    <label>Poster Weighting Preference</label>
+                    <select v-model.number="availableFilmWeighting" @change="saveSettings">
+                        <option :value="1">All films equally (pure variety)</option>
+                        <option :value="2">Prefer available films (2x more often)</option>
+                        <option :value="3">Strong preference (3x more often)</option>
+                        <option :value="5">Very strong preference (5x more often)</option>
+                    </select>
+                    <small>
+                        How often should "available tonight" films appear vs "sold out" films?<br>
+                        This doesn't hide sold-out films—they can still appear, just less frequently.
+                    </small>
                 </div>
                 
                 <div class="help-text">
@@ -2122,12 +2126,20 @@
                     posterRotateInterval: null,
                     autoRotateEnabled: true,
                     rotationInterval: 30,
-                    filterSoldOutPosters: true,
+
+                    // Poster rotation weighting (higher = more frequent for available films)
+                    availableFilmWeighting: 3, // 1=all equal, 2=2x more, 3=3x more, etc.
 
                     // Rate limiting for TMDb API
                     tmdbRequestQueue: [],
                     tmdbLastRequestTime: 0,
                     tmdbMinRequestInterval: 250, // 250ms between requests (max 4 req/sec)
+
+                    // Magic numbers as named constants
+                    SOLD_OUT_THRESHOLD_MINUTES: 30, // Films this many minutes past start are "sold out"
+                    DEFAULT_ROTATION_SECONDS: 30,
+                    MIN_ROTATION_SECONDS: 10,
+                    MAX_ROTATION_SECONDS: 300,
                     
                     currentView: 'log',
                     films: [],
@@ -2199,22 +2211,9 @@
                     return Array.from(tags).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
                 },
                 availableFilmsForPosters() {
-                    if (!this.filterSoldOutPosters) {
-                        return this.films.filter(f => !this.hasTag(f, 'hide-poster'));
-                    }
-                    
-                    return this.films.filter(f => {
-                        if (this.hasTag(f, 'hide-poster')) return false;
-                        
-                        const startTime = this.getStartTimeAsDate(f.duration);
-                        if (!startTime) return false;
-                        
-                        const now = this.currentTime;
-                        const diffMs = startTime - now;
-                        const diffMins = Math.round(diffMs / 60000);
-                        
-                        return diffMins >= -30;
-                    });
+                    // Return all films except those explicitly hidden
+                    // Weighting is handled in loadTwoRandomPosters instead of filtering here
+                    return this.films.filter(f => !this.hasTag(f, 'hide-poster'));
                 },
                 availableFilmsCount() {
                     return this.availableFilmsForPosters.length;
@@ -2372,7 +2371,8 @@
                         this.startPosterRotation();
                     }
                 },
-                filterSoldOutPosters() {
+                availableFilmWeighting() {
+                    // When weighting preference changes, reload posters with new weights
                     if (this.tmdbApiKey && this.films.length >= 2) {
                         this.loadTwoRandomPosters();
                     }
@@ -2735,8 +2735,8 @@
                     const now = this.currentTime;
                     const diffMs = startTime - now;
                     const diffMins = Math.round(diffMs / 60000);
-                    
-                    if (diffMins < -30) {
+
+                    if (diffMins < -this.SOLD_OUT_THRESHOLD_MINUTES) {
                         return 'SOLD OUT';
                     } else if (diffMins < 0) {
                         return `Started ${Math.abs(diffMins)} min ago`;
@@ -2758,8 +2758,8 @@
                     const now = this.currentTime;
                     const diffMs = startTime - now;
                     const diffMins = Math.round(diffMs / 60000);
-                    
-                    if (diffMins < -30) {
+
+                    if (diffMins < -this.SOLD_OUT_THRESHOLD_MINUTES) {
                         return 'sold-out';
                     } else {
                         return '';
@@ -2936,17 +2936,43 @@
                         filmRef: film
                     };
                 },
+                isFilmAvailableTonight(film) {
+                    // Check if film can still be watched tonight (not "sold out")
+                    if (!film.duration) return false;
+
+                    const startTime = this.getStartTimeAsDate(film.duration);
+                    if (!startTime) return false;
+
+                    const diffMs = startTime - this.currentTime;
+                    const diffMins = Math.round(diffMs / 60000);
+
+                    // Available if start time is not more than threshold minutes in the past
+                    return diffMins >= -this.SOLD_OUT_THRESHOLD_MINUTES;
+                },
                 async loadTwoRandomPosters() {
                     if (!this.tmdbApiKey || this.uniquePostercandidates.length < 2) return;
-                    
+
                     const weightedItems = [];
                     this.uniquePostercandidates.forEach(item => {
-                        const weight = this.hasTag(item, 'featured-poster') ? 3 : 1;
+                        // Start with base weight of 1
+                        let weight = 1;
+
+                        // Apply featured poster multiplier (3x)
+                        if (this.hasTag(item, 'featured-poster')) {
+                            weight *= 3;
+                        }
+
+                        // Apply "available tonight" multiplier (configurable)
+                        if (this.isFilmAvailableTonight(item)) {
+                            weight *= this.availableFilmWeighting;
+                        }
+
+                        // Add item to weighted pool
                         for (let i = 0; i < weight; i++) {
                             weightedItems.push(item);
                         }
                     });
-                    
+
                     const shuffled = [...weightedItems].sort(() => 0.5 - Math.random());
                     
                     let candidate1 = shuffled[0];
@@ -3399,7 +3425,7 @@
                         weekendNightEndTime: this.weekendNightEndTime,
                         autoRotateEnabled: this.autoRotateEnabled,
                         rotationInterval: this.rotationInterval,
-                        filterSoldOutPosters: this.filterSoldOutPosters,
+                        availableFilmWeighting: this.availableFilmWeighting,
                         tagsExpanded: this.tagsExpanded
                     }));
                 },
@@ -3410,8 +3436,8 @@
                         this.schoolNightEndTime = settings.schoolNightEndTime || '20:00';
                         this.weekendNightEndTime = settings.weekendNightEndTime || '22:00';
                         this.autoRotateEnabled = settings.autoRotateEnabled !== undefined ? settings.autoRotateEnabled : true;
-                        this.rotationInterval = settings.rotationInterval || 30;
-                        this.filterSoldOutPosters = settings.filterSoldOutPosters !== undefined ? settings.filterSoldOutPosters : true;
+                        this.rotationInterval = settings.rotationInterval || this.DEFAULT_ROTATION_SECONDS;
+                        this.availableFilmWeighting = settings.availableFilmWeighting !== undefined ? settings.availableFilmWeighting : 3;
                         this.tagsExpanded = settings.tagsExpanded !== undefined ? settings.tagsExpanded : false;
                     }
                 },
