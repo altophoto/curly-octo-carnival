@@ -200,7 +200,8 @@
     "podcastLink": "https://drive.google.com/file/d/1GEb8UVA-7_wQ6jmn9o0grA4TfDNISrVr/view?usp=drive_link",
     "dateAdded": "2025-10-27",
     "tags": [],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 13,
@@ -218,7 +219,8 @@
       "Private Investigator",
       "Texas"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 14,
@@ -239,7 +241,8 @@
       "Psychic Powers",
       "Western"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 15,
@@ -255,7 +258,8 @@
       "Murder",
       "Organized Crime"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 16,
@@ -271,7 +275,8 @@
       "Hollywood",
       "Hotel"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 17,
@@ -291,7 +296,8 @@
       "Motel",
       "psychopathy"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 18,
@@ -307,9 +313,10 @@
       "hide-poster",
       "Kidnapping",
       "Loot",
-      "nihilism"
+      "Nihilism"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 19,
@@ -322,7 +329,8 @@
     "podcastLink": "https://drive.google.com/file/d/1Y7G3p3ZMMzFHSoWKvDl6hXsmbCtuMzeY/view?usp=drive_link",
     "dateAdded": "2025-10-27",
     "tags": [],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 20,
@@ -335,7 +343,8 @@
     "podcastLink": "https://drive.google.com/file/d/1PSFryDC0JmdWaf-WJkIRs_WXLL8_en6N/view?usp=drive_link",
     "dateAdded": "2025-10-27",
     "tags": [],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 21,
@@ -350,7 +359,8 @@
     "tags": [
       "hide-poster"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 22,
@@ -363,7 +373,8 @@
     "podcastLink": "https://drive.google.com/file/d/1Ilsy7CHZLBJMfmNiISC16JtuhzzMeicV/view?usp=drive_link",
     "dateAdded": "2025-10-27",
     "tags": [],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 23,
@@ -389,7 +400,8 @@
       "Texas",
       "Western"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 24,
@@ -402,7 +414,8 @@
     "podcastLink": "https://drive.google.com/file/d/1t873GnVRfGEMskB_ZV9HNLIUHlyPwcay/view?usp=drive_link",
     "dateAdded": "2025-10-27",
     "tags": [],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 25,
@@ -415,7 +428,8 @@
     "podcastLink": "https://drive.google.com/file/d/17kaAaKj2xW8AXKKHl-T6bmdaqmuqsvWK/view?usp=drive_link",
     "dateAdded": "2025-10-27",
     "tags": [],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 26,
@@ -434,7 +448,8 @@
       "Private Investigator",
       "Western"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 27,
@@ -451,7 +466,8 @@
       "hide-poster",
       "Western"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 28,
@@ -466,7 +482,8 @@
     "tags": [
       "hide-poster"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 29,
@@ -479,7 +496,8 @@
     "podcastLink": "",
     "dateAdded": "2025-10-27",
     "tags": [],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 30,
@@ -492,7 +510,8 @@
     "podcastLink": "",
     "dateAdded": "2025-10-27",
     "tags": [],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 31,
@@ -508,7 +527,8 @@
       "Garbage",
       "hide-poster"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 32,
@@ -521,7 +541,8 @@
     "podcastLink": "",
     "dateAdded": "2025-10-27",
     "tags": [],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 33,
@@ -534,7 +555,8 @@
     "podcastLink": "",
     "dateAdded": "2025-10-27",
     "tags": [],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 34,
@@ -549,7 +571,8 @@
     "tags": [
       "Comedy"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 35,
@@ -565,7 +588,8 @@
       "Nudity",
       "Teen Drama"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 36,
@@ -578,7 +602,8 @@
     "podcastLink": "https://drive.google.com/file/d/1bmzUzVc0s_CjDJHkZ6irN7ByE7yelwO1/view?usp=drive_link",
     "dateAdded": "2025-10-27",
     "tags": [],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 37,
@@ -595,7 +620,8 @@
       "Dinosaurs",
       "Monster"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 38,
@@ -610,7 +636,8 @@
     "tags": [
       "Pirates"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 39,
@@ -625,7 +652,8 @@
     "tags": [
       "hide-poster"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 40,
@@ -640,7 +668,8 @@
     "tags": [
       "Nazis"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 41,
@@ -653,7 +682,8 @@
     "podcastLink": "https://drive.google.com/file/d/1sihYYBBcEqRd9tEs6EoNRXye_44W5And/view?usp=drive_link",
     "dateAdded": "2025-10-27",
     "tags": [],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 42,
@@ -668,7 +698,8 @@
     "tags": [
       "hide-poster"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 43,
@@ -681,7 +712,8 @@
     "podcastLink": "https://drive.google.com/file/d/1-NacIwPWjZdtfb3kvF8l1UHqIcdSSCjm/view?usp=drive_link",
     "dateAdded": "2025-10-27",
     "tags": [],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 44,
@@ -694,7 +726,8 @@
     "podcastLink": "",
     "dateAdded": "2025-10-27",
     "tags": [],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 45,
@@ -709,7 +742,8 @@
     "tags": [
       "Garbage"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 46,
@@ -724,7 +758,8 @@
     "tags": [
       "Hollywood"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 47,
@@ -737,7 +772,8 @@
     "podcastLink": "",
     "dateAdded": "2025-10-27",
     "tags": [],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 48,
@@ -755,7 +791,8 @@
       "Body Horror",
       "Cowboy Hats"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 49,
@@ -769,10 +806,11 @@
     "dateAdded": "2025-10-27",
     "tags": [
       "Curse",
-      "hitchhiking",
+      "Hitchhiking",
       "Pirates"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 50,
@@ -788,7 +826,8 @@
       "Lunacy",
       "Writer-as-God"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 51,
@@ -804,7 +843,8 @@
       "Alien",
       "Class War"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 52,
@@ -819,7 +859,8 @@
     "tags": [
       "Post-Apocalyptic"
     ],
-    "type": "movie"
+    "type": "movie",
+    "platform": ""
   },
   {
     "line": 53,
@@ -836,7 +877,8 @@
       "Female Protagonist",
       "Horror",
       "Murder"
-    ]
+    ],
+    "platform": ""
   },
   {
     "line": 54,
@@ -855,7 +897,8 @@
       "Drama",
       "Musical",
       "Teen Drama"
-    ]
+    ],
+    "platform": ""
   },
   {
     "line": 55,
@@ -878,7 +921,8 @@
     "showName": "Wednesday",
     "season": 1,
     "episode": 1,
-    "episodeTitle": "Wednesday's Child Is Full of Woe"
+    "episodeTitle": "Wednesday's Child Is Full of Woe",
+    "platform": ""
   },
   {
     "line": 56,
@@ -901,7 +945,8 @@
     "showName": "Wednesday",
     "season": 1,
     "episode": 2,
-    "episodeTitle": "Woe is the Loneliest Numb"
+    "episodeTitle": "Woe is the Loneliest Numb",
+    "platform": ""
   },
   {
     "line": 57,
@@ -924,7 +969,8 @@
     "showName": "Wednesday",
     "season": 1,
     "episode": 3,
-    "episodeTitle": "Friend or Woe"
+    "episodeTitle": "Friend or Woe",
+    "platform": ""
   },
   {
     "line": 58,
@@ -947,7 +993,8 @@
     "showName": "Wednesday",
     "season": 1,
     "episode": 4,
-    "episodeTitle": "Woe What a Night"
+    "episodeTitle": "Woe What a Night",
+    "platform": ""
   },
   {
     "line": 59,
@@ -970,7 +1017,8 @@
     "showName": "Wednesday",
     "season": 1,
     "episode": 5,
-    "episodeTitle": "You Reap What You Woe"
+    "episodeTitle": "You Reap What You Woe",
+    "platform": ""
   },
   {
     "line": 60,
@@ -993,7 +1041,8 @@
     "showName": "Wednesday",
     "season": 1,
     "episode": 6,
-    "episodeTitle": "Quid Pro Woe"
+    "episodeTitle": "Quid Pro Woe",
+    "platform": ""
   },
   {
     "line": 61,
@@ -1016,7 +1065,8 @@
     "showName": "Wednesday",
     "season": 1,
     "episode": 7,
-    "episodeTitle": "If You Don't Woe Me by Now"
+    "episodeTitle": "If You Don't Woe Me by Now",
+    "platform": ""
   },
   {
     "line": 62,
@@ -1039,7 +1089,8 @@
     "showName": "Wednesday",
     "season": 1,
     "episode": 8,
-    "episodeTitle": "A Murder of Woes"
+    "episodeTitle": "A Murder of Woes",
+    "platform": ""
   },
   {
     "line": 63,
@@ -1062,7 +1113,8 @@
     "showName": "Wednesday",
     "season": 2,
     "episode": 1,
-    "episodeTitle": "Here We Woe Again"
+    "episodeTitle": "Here We Woe Again",
+    "platform": ""
   },
   {
     "line": 64,
@@ -1085,33 +1137,11 @@
     "showName": "Wednesday",
     "season": 2,
     "episode": 2,
-    "episodeTitle": "The Devil You Woe"
+    "episodeTitle": "The Devil You Woe",
+    "platform": ""
   },
   {
     "line": 65,
-    "type": "tv",
-    "film": "Wednesday S2E2: The Devil You Woe",
-    "year": 2025,
-    "director": "Tim Burton",
-    "link": "https://www.imdb.com/title/tt14077394/?ref_=ext_shr_lnk",
-    "duration": 61,
-    "platformLink": "https://www.netflix.com/us/title/81231974?s=i&trkid=279491037&vlang=en&trg=cp",
-    "podcastLink": "",
-    "dateAdded": "2025-10-29",
-    "tags": [
-      "Family",
-      "featured-poster",
-      "Female Protagonist",
-      "Monster",
-      "Teen Drama"
-    ],
-    "showName": "Wednesday",
-    "season": 2,
-    "episode": 2,
-    "episodeTitle": "The Devil You Woe"
-  },
-  {
-    "line": 66,
     "type": "tv",
     "film": "Wednesday S2E3: Call of the Woe",
     "year": 2025,
@@ -1131,10 +1161,11 @@
     "showName": "Wednesday",
     "season": 2,
     "episode": 3,
-    "episodeTitle": "Call of the Woe"
+    "episodeTitle": "Call of the Woe",
+    "platform": ""
   },
   {
-    "line": 67,
+    "line": 66,
     "type": "tv",
     "film": "Station Eleven S1E1: Wheel of Fire",
     "year": 2021,
@@ -1147,15 +1178,16 @@
     "tags": [
       "Character Development",
       "Post-Apocalyptic",
-      "shakespeare"
+      "Shakespeare"
     ],
     "showName": "Station Eleven",
     "season": 1,
     "episode": 1,
-    "episodeTitle": "Wheel of Fire"
+    "episodeTitle": "Wheel of Fire",
+    "platform": ""
   },
   {
-    "line": 68,
+    "line": 67,
     "type": "movie",
     "film": "Inland Empire",
     "year": 2006,
@@ -1165,10 +1197,11 @@
     "platformLink": "https://www.lookmovie2.to/movies/view/inland-empire-2006",
     "podcastLink": "",
     "dateAdded": "2025-10-29",
-    "tags": []
+    "tags": [],
+    "platform": ""
   },
   {
-    "line": 69,
+    "line": 68,
     "type": "movie",
     "film": "Mulholland Drive",
     "year": 2001,
@@ -1180,23 +1213,24 @@
     "dateAdded": "2025-10-29",
     "tags": [
       "crack heads",
-      "dreams",
+      "Dreams",
       "Fantasy",
       "Female Protagonist",
-      "gooblin",
+      "Gooblin",
       "hit man",
       "Hollywood",
-      "lesbianism",
-      "los angeles",
-      "lynchian",
+      "Lesbianism",
+      "Los Angeles",
+      "Lynchian",
       "Musical",
       "Nudity",
       "Romance",
       "Thriller"
-    ]
+    ],
+    "platform": ""
   },
   {
-    "line": 70,
+    "line": 69,
     "type": "movie",
     "film": "Halloween",
     "year": 1978,
@@ -1213,13 +1247,14 @@
       "Horror",
       "important",
       "Murder",
-      "revolutionary",
       "Revolutionary",
-      "set in illinois"
-    ]
+      "Revolutionary",
+      "Set in Illinois"
+    ],
+    "platform": ""
   },
   {
-    "line": 71,
+    "line": 70,
     "type": "movie",
     "film": "The Matrix",
     "year": 1999,
@@ -1236,14 +1271,15 @@
       "Classic",
       "Fantasy",
       "foundation of discursivity",
-      "guns",
+      "Guns",
       "important",
-      "leather",
+      "Leather",
       "punk"
-    ]
+    ],
+    "platform": ""
   },
   {
-    "line": 72,
+    "line": 71,
     "type": "movie",
     "film": "Lost Highway",
     "year": 1997,
@@ -1258,11 +1294,12 @@
       "head on head",
       "Head on Head",
       "lou reed",
-      "lynchian"
-    ]
+      "Lynchian"
+    ],
+    "platform": ""
   },
   {
-    "line": 73,
+    "line": 72,
     "type": "movie",
     "film": "Forrest Gump",
     "year": 1994,
@@ -1273,15 +1310,16 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [
-      "aids",
-      "banger soundtrack",
+      "AIDS",
       "Banger Soundtrack",
-      "historical fiction",
-      "racism"
-    ]
+      "Banger Soundtrack",
+      "Historical Fiction",
+      "Racism"
+    ],
+    "platform": ""
   },
   {
-    "line": 74,
+    "line": 73,
     "type": "movie",
     "film": "Weapons",
     "year": 2025,
@@ -1297,10 +1335,11 @@
       "Kidnapping",
       "Murder",
       "witchcraft"
-    ]
+    ],
+    "platform": ""
   },
   {
-    "line": 75,
+    "line": 74,
     "type": "movie",
     "film": "The Witch",
     "year": 2016,
@@ -1312,10 +1351,11 @@
     "dateAdded": "2025-10-29",
     "tags": [
       "witchcraft"
-    ]
+    ],
+    "platform": ""
   },
   {
-    "line": 76,
+    "line": 75,
     "type": "movie",
     "film": "The Money Pit",
     "year": 1986,
@@ -1328,10 +1368,11 @@
     "tags": [
       "Family",
       "Lunacy"
-    ]
+    ],
+    "platform": ""
   },
   {
-    "line": 77,
+    "line": 76,
     "type": "movie",
     "film": "Hereditary",
     "year": 2018,
@@ -1341,10 +1382,11 @@
     "platformLink": "https://tv.apple.com/us/movie/hereditary/umc.cmc.1p8skf72cqba9t91v2rqjbeyv",
     "podcastLink": "",
     "dateAdded": "2025-10-29",
-    "tags": []
+    "tags": [],
+    "platform": ""
   },
   {
-    "line": 78,
+    "line": 77,
     "type": "movie",
     "film": "Black Phone 2",
     "year": 2025,
@@ -1355,12 +1397,13 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [
-      "bgh",
+      "BGH",
       "Horror"
-    ]
+    ],
+    "platform": ""
   },
   {
-    "line": 79,
+    "line": 78,
     "type": "movie",
     "film": "The Black Phone",
     "year": 2022,
@@ -1370,10 +1413,11 @@
     "platformLink": "https://www.lookmovie2.to/movies/view/7144666-black-phone-2021",
     "podcastLink": "",
     "dateAdded": "2025-10-29",
-    "tags": []
+    "tags": [],
+    "platform": ""
   },
   {
-    "line": 80,
+    "line": 79,
     "type": "movie",
     "film": "Snowpiercer",
     "year": 2013,
@@ -1383,10 +1427,11 @@
     "platformLink": "https://tv.apple.com/us/movie/snowpiercer/umc.cmc.6jhk3jmfqrrh37nb7jxq39l39",
     "podcastLink": "",
     "dateAdded": "2025-10-29",
-    "tags": []
+    "tags": [],
+    "platform": ""
   },
   {
-    "line": 81,
+    "line": 80,
     "type": "movie",
     "film": "Saving Private Ryan",
     "year": 1998,
@@ -1396,10 +1441,11 @@
     "platformLink": "https://tv.apple.com/us/movie/saving-private-ryan/umc.cmc.42f75umn5z16fkpofphe4re85",
     "podcastLink": "",
     "dateAdded": "2025-10-29",
-    "tags": []
+    "tags": [],
+    "platform": ""
   },
   {
-    "line": 82,
+    "line": 81,
     "type": "movie",
     "film": "Prometheus",
     "year": 2012,
@@ -1409,10 +1455,11 @@
     "platformLink": "https://tv.apple.com/us/movie/prometheus/umc.cmc.2dhhh41j5fzz9b2ud6gqf9xvf",
     "podcastLink": "",
     "dateAdded": "2025-10-29",
-    "tags": []
+    "tags": [],
+    "platform": ""
   },
   {
-    "line": 83,
+    "line": 82,
     "type": "movie",
     "film": "Moulin Rouge!",
     "year": 2001,
@@ -1425,10 +1472,11 @@
     "tags": [
       "can-can dancers",
       "Musical"
-    ]
+    ],
+    "platform": ""
   },
   {
-    "line": 85,
+    "line": 83,
     "type": "movie",
     "film": "Aliens",
     "year": 1986,
@@ -1441,10 +1489,11 @@
     "tags": [
       "Alien",
       "Guns"
-    ]
+    ],
+    "platform": ""
   },
   {
-    "line": 93,
+    "line": 84,
     "type": "movie",
     "film": "Alien: Covenant",
     "year": 2017,
@@ -1456,10 +1505,11 @@
     "dateAdded": "2025-10-29",
     "tags": [
       "Alien"
-    ]
+    ],
+    "platform": ""
   },
   {
-    "line": 94,
+    "line": 85,
     "type": "movie",
     "film": "Alien",
     "year": 1979,
@@ -1469,10 +1519,11 @@
     "platformLink": "https://www.lookmovie2.to/movies/view/alien-1979",
     "podcastLink": "",
     "dateAdded": "2025-10-29",
-    "tags": []
+    "tags": [],
+    "platform": ""
   },
   {
-    "line": 95,
+    "line": 86,
     "type": "movie",
     "film": "The Ugly Stepsister",
     "year": 2025,
@@ -1483,11 +1534,12 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [
-      "bgh"
-    ]
+      "BGH"
+    ],
+    "platform": ""
   },
   {
-    "line": 96,
+    "line": 87,
     "type": "movie",
     "film": "Midsommar",
     "year": 2019,
@@ -1501,10 +1553,11 @@
       "Horror",
       "Nudity",
       "Roger Ebert 4 Stars"
-    ]
+    ],
+    "platform": ""
   },
   {
-    "line": 97,
+    "line": 88,
     "type": "movie",
     "film": "Return to 'Twin Peaks'",
     "year": 2007,
@@ -1514,10 +1567,11 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-10-30",
-    "tags": []
+    "tags": [],
+    "platform": ""
   },
   {
-    "line": 98,
+    "line": 89,
     "type": "movie",
     "film": "Twin Peaks: The Phenomenon",
     "year": 2017,
@@ -1527,10 +1581,11 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-10-30",
-    "tags": []
+    "tags": [],
+    "platform": ""
   },
   {
-    "line": 99,
+    "line": 90,
     "type": "movie",
     "film": "Twin Peaks",
     "year": 1989,
@@ -1547,6 +1602,7 @@
       "Murder",
       "Noir",
       "Thriller"
-    ]
+    ],
+    "platform": ""
   }
 ]
