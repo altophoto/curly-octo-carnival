@@ -1269,10 +1269,10 @@
             
             <div class="theater-entrance" v-if="leftPoster && rightPoster">
                 <!-- Left Poster -->
-                <div class="poster-frame-3d left" @click="manualRotatePosters">
+                <div class="poster-frame-3d left" @click="openPosterLink(leftPoster)">
                     <div class="poster-frame">
-                        <img v-if="leftPoster.poster" 
-                             :src="leftPoster.poster" 
+                        <img v-if="leftPoster.poster"
+                             :src="leftPoster.poster"
                              :alt="leftPoster.title"
                              class="poster-image"
                              @error="handleLeftPosterError">
@@ -1293,7 +1293,7 @@
                             {{ getShowtimeText(leftPoster) }}
                         </div>
                     </div>
-                    <div class="poster-hint">Click to rotate films</div>
+                    <div class="poster-hint">Click to watch</div>
                 </div>
                 
                 <!-- Ticket Booth Center -->
@@ -1313,10 +1313,10 @@
                 </div>
                 
                 <!-- Right Poster (hidden on mobile) -->
-                <div class="poster-frame-3d right" @click="manualRotatePosters">
+                <div class="poster-frame-3d right" @click="openPosterLink(rightPoster)">
                     <div class="poster-frame">
-                        <img v-if="rightPoster.poster" 
-                             :src="rightPoster.poster" 
+                        <img v-if="rightPoster.poster"
+                             :src="rightPoster.poster"
                              :alt="rightPoster.title"
                              class="poster-image"
                              @error="handleRightPosterError">
@@ -1337,7 +1337,7 @@
                             {{ getShowtimeText(rightPoster) }}
                         </div>
                     </div>
-                    <div class="poster-hint">Click to rotate films</div>
+                    <div class="poster-hint">Click to watch</div>
                 </div>
             </div>
         </div>
@@ -2676,6 +2676,17 @@
                     this.loadTwoRandomPosters();
                     if (this.autoRotateEnabled) {
                         this.startPosterRotation();
+                    }
+                },
+                openPosterLink(poster) {
+                    if (!poster || !poster.filmRef) return;
+
+                    const film = poster.filmRef;
+                    // Prioritize platformLink (streaming) over link (IMDB)
+                    const url = film.platformLink || film.link;
+
+                    if (url) {
+                        window.open(url, '_blank');
                     }
                 },
                 async rotateLeftPoster() {
