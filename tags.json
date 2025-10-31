@@ -1,107 +1,527 @@
 [
-  "Academy Award Winner",
-  "Action",
-  "AIDS",
-  "Aliens",
-  "Animation",
-  "Antarctica",
-  "Banger Soundtrack",
-  "BGH",
-  "BGH Eric's Top 10",
-  "BGH Rachel's Top 10",
-  "BGH Jon's Top 10",
-  "BGH Casey's Top 10",
-  "BGH Eric Recommends",
-  "BGH Eric Does Not Recommend",
-  "BGH Rachel Recommends",
-  "BGH Rachel Does Not Recommend",
-  "BGH Jon Recommends",
-  "BGH Jon Does Not Recommend",
-  "BGH Casey Recommends",
-  "BGH Casey Does Not Recommend",
-  "Body Horror",
-  "Class War",
-  "Classic",
-  "Comedy",
-  "Cowboy Hats",
-  "Drugs",
-  "Criterion",
-  "Curse",
-  "Detective",
-  "Dinosaurs",
-  "Documentary",
-  "Drama",
-  "Dreams",
-  "Exploding Cars",
-  "Exploding Heads",
-  "Family",
-  "Fantasy",
-  "Father (relentless)",
-  "featured-poster",
-  "Female Protagonist",
-  "Foreign",
-  "Gangs",
-  "Garbage",
-  "Gooblin",
-  "Guns",
-  "Heist",
-  "hide-poster",
-  "Historical Fiction",
-  "Hit Men",
-  "Hitchhiking",
-  "Hollywood",
-  "Horror",
-  "Hotel",
-  "Kidnapping",
-  "Leather",
-  "Lesbianism",
-  "Loot",
-  "Los Angeles",
-  "Lou Reed on Soundtrack",
-  "Lunacy",
-  "Lynchian",
-  "Melodrama",
-  "Monster",
-  "Motel",
-  "Murder",
-  "Musical",
-  "Nazis",
-  "Nihilism",
-  "Noir",
-  "Nudity",
-  "Organized Crime",
-  "Pirates",
-  "Post-Apocalyptic",
-  "Prison",
-  "Prison Break",
-  "Private Investigator",
-  "Psychic Powers",
-  "Psychopaths",
-  "Punks",
-  "Racism",
-  "Rats",
-  "Revolutionary",
-  "Roger Ebert 4 Stars",
-  "Roger Ebert 3-1/2 Stars",
-  "Roger Ebert 3 Stars",
-  "Roger Ebert 2-1/2 Stars",
-  "Roger Ebert 2 Stars",
-  "Roger Ebert 1-1/2 Stars",
-  "Roger Ebert 1 Star",
-  "Roger Ebert 1/2 Star",
-  "Roger Ebert 0 Stars",
-  "Romance",
-  "Sci-fi",
-  "Set in Illinois",
-  "Shakespeare",
-  "Snakes",
-  "Stephen King",
-  "Teen Drama",
-  "Texas",
-  "Thriller",
-  "Western",
-  "Witches",
-  "Workplace",
-  "Writer-as-God",
-  "Zombies"
+  {
+    "tag": "Academy Award Winner",
+    "bgColor": "#e74c3c",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Action",
+    "bgColor": "#3498db",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "AIDS",
+    "bgColor": "#2ecc71",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Aliens",
+    "bgColor": "#f39c12",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Animation",
+    "bgColor": "#9b59b6",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Antarctica",
+    "bgColor": "#1abc9c",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Banger Soundtrack",
+    "bgColor": "#e67e22",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "BGH",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Eric's Top 10",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Rachel's Top 10",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Jon's Top 10",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Casey's Top 10",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Eric Recommends",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Eric Does Not Recommend",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Rachel Recommends",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Rachel Does Not Recommend",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Jon Recommends",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Jon Does Not Recommend",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Casey Recommends",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Casey Does Not Recommend",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "Body Horror",
+    "bgColor": "#8b0000",
+    "textColor": "#ffcccc"
+  },
+  {
+    "tag": "Class War",
+    "bgColor": "#34495e",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Classic",
+    "bgColor": "#16a085",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Comedy",
+    "bgColor": "#ffd700",
+    "textColor": "#000000"
+  },
+  {
+    "tag": "Cowboy Hats",
+    "bgColor": "#2980b9",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Drugs",
+    "bgColor": "#8e44ad",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Criterion",
+    "bgColor": "#c0392b",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Curse",
+    "bgColor": "#d35400",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Detective",
+    "bgColor": "#e74c3c",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Dinosaurs",
+    "bgColor": "#3498db",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Documentary",
+    "bgColor": "#2ecc71",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Drama",
+    "bgColor": "#f39c12",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Dreams",
+    "bgColor": "#9b59b6",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Exploding Cars",
+    "bgColor": "#1abc9c",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Exploding Heads",
+    "bgColor": "#e67e22",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Family",
+    "bgColor": "#34495e",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Fantasy",
+    "bgColor": "#16a085",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Father (relentless)",
+    "bgColor": "#27ae60",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "featured-poster",
+    "bgColor": "#95a5a6",
+    "textColor": "#2c3e50"
+  },
+  {
+    "tag": "Female Protagonist",
+    "bgColor": "#8e44ad",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Foreign",
+    "bgColor": "#c0392b",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Gangs",
+    "bgColor": "#d35400",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Garbage",
+    "bgColor": "#e74c3c",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Gooblin",
+    "bgColor": "#3498db",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Guns",
+    "bgColor": "#2ecc71",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Heist",
+    "bgColor": "#f39c12",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "hide-poster",
+    "bgColor": "#95a5a6",
+    "textColor": "#2c3e50"
+  },
+  {
+    "tag": "Historical Fiction",
+    "bgColor": "#1abc9c",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Hit Men",
+    "bgColor": "#e67e22",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Hitchhiking",
+    "bgColor": "#34495e",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Hollywood",
+    "bgColor": "#16a085",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Horror",
+    "bgColor": "#8b0000",
+    "textColor": "#ffcccc"
+  },
+  {
+    "tag": "Hotel",
+    "bgColor": "#2980b9",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Kidnapping",
+    "bgColor": "#8e44ad",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Leather",
+    "bgColor": "#c0392b",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Lesbianism",
+    "bgColor": "#d35400",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Loot",
+    "bgColor": "#e74c3c",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Los Angeles",
+    "bgColor": "#3498db",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Lou Reed on Soundtrack",
+    "bgColor": "#2ecc71",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Lunacy",
+    "bgColor": "#f39c12",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Lynchian",
+    "bgColor": "#9b59b6",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Melodrama",
+    "bgColor": "#1abc9c",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Monster",
+    "bgColor": "#e67e22",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Motel",
+    "bgColor": "#34495e",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Murder",
+    "bgColor": "#16a085",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Musical",
+    "bgColor": "#27ae60",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Nazis",
+    "bgColor": "#2980b9",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Nihilism",
+    "bgColor": "#8e44ad",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Noir",
+    "bgColor": "#c0392b",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Nudity",
+    "bgColor": "#d35400",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Organized Crime",
+    "bgColor": "#e74c3c",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Pirates",
+    "bgColor": "#3498db",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Post-Apocalyptic",
+    "bgColor": "#2ecc71",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Prison",
+    "bgColor": "#f39c12",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Prison Break",
+    "bgColor": "#9b59b6",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Private Investigator",
+    "bgColor": "#1abc9c",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Psychic Powers",
+    "bgColor": "#e67e22",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Psychopaths",
+    "bgColor": "#34495e",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Punks",
+    "bgColor": "#16a085",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Racism",
+    "bgColor": "#27ae60",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Rats",
+    "bgColor": "#2980b9",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Revolutionary",
+    "bgColor": "#8e44ad",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Roger Ebert 4 Stars",
+    "bgColor": "#c0392b",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Roger Ebert 3-1/2 Stars",
+    "bgColor": "#d35400",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Roger Ebert 3 Stars",
+    "bgColor": "#e74c3c",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Roger Ebert 2-1/2 Stars",
+    "bgColor": "#3498db",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Roger Ebert 2 Stars",
+    "bgColor": "#2ecc71",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Roger Ebert 1-1/2 Stars",
+    "bgColor": "#f39c12",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Roger Ebert 1 Star",
+    "bgColor": "#9b59b6",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Roger Ebert 1/2 Star",
+    "bgColor": "#1abc9c",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Roger Ebert 0 Stars",
+    "bgColor": "#e67e22",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Romance",
+    "bgColor": "#34495e",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Sci-fi",
+    "bgColor": "#16a085",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Set in Illinois",
+    "bgColor": "#27ae60",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Shakespeare",
+    "bgColor": "#2980b9",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Snakes",
+    "bgColor": "#8e44ad",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Stephen King",
+    "bgColor": "#2c2c2c",
+    "textColor": "#ff6b6b"
+  },
+  {
+    "tag": "Teen Drama",
+    "bgColor": "#d35400",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Texas",
+    "bgColor": "#e74c3c",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Thriller",
+    "bgColor": "#3498db",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Western",
+    "bgColor": "#2ecc71",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Witches",
+    "bgColor": "#f39c12",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Workplace",
+    "bgColor": "#9b59b6",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Writer-as-God",
+    "bgColor": "#1abc9c",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Zombies",
+    "bgColor": "#e67e22",
+    "textColor": "#ffffff"
+  }
 ]

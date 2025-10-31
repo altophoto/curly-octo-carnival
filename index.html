@@ -1093,6 +1093,24 @@
             align-items: center;
             gap: 8px;
         }
+        .predefined-tag .tag-name {
+            margin-right: 8px;
+        }
+        .predefined-tag .color-picker {
+            width: 30px;
+            height: 24px;
+            border: 1px solid #666;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 0;
+        }
+        .predefined-tag .color-picker::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+        .predefined-tag .color-picker::-webkit-color-swatch {
+            border: none;
+            border-radius: 3px;
+        }
         .predefined-director {
             padding: 6px 12px;
             background: #2a5a8a;
@@ -1457,15 +1475,17 @@
                             <td>{{ formatDate(film.dateAdded) }}</td>
                             <td>
                                 <div class="tags-cell">
-                                    <span 
-                                        class="tag-badge" 
+                                    <span
+                                        class="tag-badge"
                                         :class="{ 'special-tag': isSpecialTag(tag) }"
-                                        v-for="tag in film.tags" 
+                                        v-for="tag in film.tags"
                                         :key="tag"
+                                        :style="getTagBadgeStyle(tag)"
                                     >
                                         {{ formatTag(tag) }}
                                     </span>
                                 </div>
+                            </td>
                             </td>
                             <td class="start-time">{{ calculateStartTime(film.duration) }}</td>
                             <td>
@@ -1640,11 +1660,11 @@
             </div>
 
             <div v-if="githubToken" class="settings-section">
-                <h2>Tag Management</h2>
-                <p>Manage your predefined tags. These tags will be available as quick-select options when adding or editing films.</p>
-                
+                <h2>Tag Management & Badge Styling</h2>
+                <p>Manage your predefined tags with custom colors (like GitHub labels). Each tag appears as a styled badge with colors you choose.</p>
+
                 <div class="help-text">
-                    <strong>💡 Tip:</strong> When you type a new tag on a film (not already in this list), you'll be asked if you want to add it to your predefined tags.
+                    <strong>💡 Tip:</strong> Click the color pickers next to each tag to customize background and text colors. When you type a new tag on a film, you'll be asked if you want to add it to this list.
                 </div>
                 
                 <div class="tag-manager">
@@ -1658,8 +1678,22 @@
                 </div>
                 
                 <div class="predefined-tags-list" v-if="predefinedTags.length > 0">
-                    <div class="predefined-tag" v-for="tag in predefinedTags" :key="tag">
-                        {{ formatTag(tag) }}
+                    <div class="predefined-tag" v-for="tag in predefinedTags" :key="getTagName(tag)">
+                        <span class="tag-name">{{ formatTag(tag) }}</span>
+                        <input
+                            type="color"
+                            :value="typeof tag === 'object' ? tag.bgColor : '#333333'"
+                            @change="updateTagColor(tag, 'bg', $event.target.value)"
+                            title="Background color"
+                            class="color-picker"
+                        />
+                        <input
+                            type="color"
+                            :value="typeof tag === 'object' ? tag.textColor : '#e0e0e0'"
+                            @change="updateTagColor(tag, 'text', $event.target.value)"
+                            title="Text color"
+                            class="color-picker"
+                        />
                         <span class="remove-tag" @click="removePredefinedTag(tag)">×</span>
                     </div>
                 </div>
@@ -1700,74 +1734,6 @@
                     No predefined directors yet. Add some to make entry easier!
                 </p>
             </div>
-            <div v-if="githubToken" class="settings-section">
-                <h2>Tag Style Customization</h2>
-                <p>Customize how tags appear in the film log. Perfect for visual differentiation of glass types!</p>
-                
-                <div class="form-group">
-                    <label>Select Tag to Style</label>
-                    <select v-model="selectedStyleTag">
-                        <option value="">-- Choose a tag --</option>
-                        <option v-for="tag in predefinedTags" :key="tag" :value="tag">
-                            {{ formatTag(tag) }}
-                        </option>
-                    </select>
-                </div>
-                
-                <div v-if="selectedStyleTag" class="tag-style-editor">
-                    <h3>Styling: {{ formatTag(selectedStyleTag) }}</h3>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Font Family</label>
-                            <select v-model="currentTagStyle.fontFamily">
-                                <option value="'Georgia', serif">Georgia (Serif)</option>
-                                <option value="'Arial', sans-serif">Arial (Sans-serif)</option>
-                                <option value="'Courier New', monospace">Courier (Monospace)</option>
-                                <option value="'Impact', sans-serif">Impact (Bold)</option>
-                                <option value="'Comic Sans MS', cursive">Comic Sans (Casual)</option>
-                                <option value="'Creepster', cursive">Creepster (Gothic)</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Font Weight</label>
-                            <select v-model="currentTagStyle.fontWeight">
-                                <option value="normal">Normal</option>
-                                <option value="bold">Bold</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Text Color</label>
-                            <input type="color" v-model="currentTagStyle.color" />
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Background Color</label>
-                            <input type="color" v-model="currentTagStyle.backgroundColor" />
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Font Style</label>
-                        <select v-model="currentTagStyle.fontStyle">
-                            <option value="normal">Normal</option>
-                            <option value="italic">Italic</option>
-                        </select>
-                    </div>
-                    
-                    <div class="preview-box" :style="currentTagStyle">
-                        Preview: {{ formatTag(selectedStyleTag) }} Film Entry
-                    </div>
-                    
-                    <button @click="saveTagStyle">Save Style</button>
-                    <button class="secondary" @click="clearTagStyle" style="margin-left: 10px;">Clear Style</button>
-                </div>
-            </div>
-            
             <div v-if="githubToken" class="settings-section">
                 <h2>TMDb API Setup</h2>
                 <p>Optional: Add your TMDb API key to display movie and TV show posters in the marquee and enable auto-fill.</p>
@@ -1994,14 +1960,15 @@
                         <div class="tag-selector" v-if="predefinedTags.length > 0">
                             <label class="tag-selector-label">Select Tags</label>
                             <div class="tag-options">
-                                <div 
-                                    class="tag-option" 
-                                    v-for="tag in predefinedTags" 
-                                    :key="tag"
-                                    :class="{ selected: selectedFormTags.includes(tag) }"
-                                    @click="toggleFormTag(tag)"
+                                <div
+                                    class="tag-option"
+                                    v-for="tag in predefinedTags"
+                                    :key="getTagName(tag)"
+                                    :class="{ selected: selectedFormTags.includes(getTagName(tag)) }"
+                                    @click="toggleFormTag(getTagName(tag))"
+                                    :style="getTagBadgeStyle(getTagName(tag))"
                                 >
-                                    {{ tag }}
+                                    {{ formatTag(tag) }}
                                 </div>
                             </div>
                         </div>
@@ -2067,34 +2034,6 @@
         const app = createApp({
             data() {
                 return {
-                    tagStyles: {
-                        'featured-poster': { 
-                            fontFamily: 'Impact, sans-serif',
-                            fontWeight: 'bold',
-                            color: '#ff4444',
-                            backgroundColor: '#ffe6e6'
-                        },
-                        'Hollywood': {
-                            fontFamily: 'Georgia, serif',
-                            fontStyle: 'italic',
-                            color: '#4444ff',
-                            backgroundColor: '#e6e6ff'
-                        },
-                        'Horror': {
-                            fontFamily: 'Courier New, monospace',
-                            color: '#44ff44',
-                            backgroundColor: '#e6ffe6'
-                        }
-                        // Add more as needed
-                    },
-                    selectedStyleTag: '',
-                    currentTagStyle: {
-                        fontFamily: "'Georgia', serif",
-                        fontWeight: 'normal',
-                        fontStyle: 'normal',
-                        color: '#000000',
-                        backgroundColor: '#ffffff'
-                    },
                     userSettings: {
                         tagCapitalization: 'as typed', // 'proper', 'upper', 'lower'
                     },
@@ -2362,13 +2301,6 @@
                         this.stopPosterRotation();
                     }
                 },
-                selectedStyleTag(newTag) {
-                    if (newTag && this.tagStyles[newTag]) {
-                        this.currentTagStyle = { ...this.tagStyles[newTag] };
-                    } else {
-                        this.resetCurrentTagStyle();
-                    }
-                },
                 availableFilmWeighting() {
                     // When weighting preference changes, reload posters with new weights
                     if (this.tmdbApiKey && this.films.length >= 2) {
@@ -2382,48 +2314,6 @@
                 }
             },
             methods: {
-                saveTagStyle() {
-                    if (!this.selectedStyleTag) return;
-                    this.tagStyles[this.selectedStyleTag] = { ...this.currentTagStyle };
-                    this.saveTagStylesToLocalStorage();
-                    this.showSyncStatus('Tag style saved', 'success');
-                },
-
-                clearTagStyle() {
-                    if (!this.selectedStyleTag) return;
-                    delete this.tagStyles[this.selectedStyleTag];
-                    this.saveTagStylesToLocalStorage();
-                    this.resetCurrentTagStyle();
-                    this.showSyncStatus('Tag style cleared', 'success');
-                },
-
-                resetCurrentTagStyle() {
-                    this.currentTagStyle = {
-                        fontFamily: "'Georgia', serif",
-                        fontWeight: 'normal',
-                        fontStyle: 'normal',
-                        color: '#000000',
-                        backgroundColor: '#ffffff'
-                    };
-                },
-
-                saveTagStylesToLocalStorage() {
-                    localStorage.setItem('tagStyles', JSON.stringify(this.tagStyles));
-                },
-
-                loadTagStylesFromLocalStorage() {
-                    const saved = localStorage.getItem('tagStyles');
-                    if (saved) {
-                        this.tagStyles = JSON.parse(saved);
-                    }
-                },
-                getRowStyle(film) {
-                    if (!film.tags || film.tags.length === 0) return {};
-                    
-                    // Priority: Use first tag's style, or combine multiple
-                    const primaryTag = film.tags[0];
-                    return this.tagStyles[primaryTag] || {};
-                },
                 isNewEntry(film) {
                     if (!film.dateAdded) return false;
                     const addedDate = new Date(film.dateAdded + 'T00:00:00');
@@ -2431,22 +2321,27 @@
                     const hoursSince = (now - addedDate) / (1000 * 60 * 60);
                     return hoursSince < 6;
                 },
+                // Get tag name (handles both string and object formats)
+                getTagName(tag) {
+                    return typeof tag === 'object' ? tag.tag : tag;
+                },
                 // Tag formatting - CENTRALIZED for future customization
                 formatTag(tag) {
+                    const tagName = this.getTagName(tag);
                     const style = this.userSettings.tagCapitalization || 'as typed';
-                    
+
                     switch(style) {
                         case 'proper':
                             // Capitalize first letter of each word
-                            return tag.split(' ').map(word => 
+                            return tagName.split(' ').map(word =>
                                 word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
                             ).join(' ');
                         case 'upper':
-                            return tag.toUpperCase();
+                            return tagName.toUpperCase();
                         case 'lower':
-                            return tag.toLowerCase();
+                            return tagName.toLowerCase();
                         default:
-                            return tag;
+                            return tagName;
                     }
                 },
                 
@@ -2480,6 +2375,23 @@
                 },
                 isSpecialTag(tag) {
                     return tag === 'hide-poster' || tag === 'featured-poster';
+                },
+                getTagObject(tagName) {
+                    // Find tag object by name
+                    return this.predefinedTags.find(t =>
+                        typeof t === 'object' ? t.tag === tagName : t === tagName
+                    );
+                },
+                getTagBadgeStyle(tagName) {
+                    const tagObj = this.getTagObject(tagName);
+                    if (tagObj && typeof tagObj === 'object' && tagObj.bgColor && tagObj.textColor) {
+                        return {
+                            backgroundColor: tagObj.bgColor,
+                            color: tagObj.textColor
+                        };
+                    }
+                    // Fallback to default if no custom colors
+                    return {};
                 },
                 getTodayDate() {
                     const today = new Date();
@@ -2609,20 +2521,53 @@
                     }
                 },
                 addPredefinedTag() {
-                    const tag = this.normalizeTag(this.newTagInput);
-                    if (tag && !this.predefinedTags.includes(tag)) {
-                        this.predefinedTags.push(tag);
-                        this.predefinedTags.sort((a, b) => a.localeCompare(b));
-                        this.saveTagsToGitHub();
-                        this.newTagInput = '';
-                        this.showSyncStatus('Tag added', 'success');
+                    const tagName = this.normalizeTag(this.newTagInput);
+                    if (tagName) {
+                        // Check if tag already exists
+                        const exists = this.predefinedTags.some(t =>
+                            this.getTagName(t) === tagName
+                        );
+
+                        if (!exists) {
+                            // Create new tag object with default colors
+                            const newTag = {
+                                tag: tagName,
+                                bgColor: '#333333',
+                                textColor: '#e0e0e0'
+                            };
+                            this.predefinedTags.push(newTag);
+                            this.predefinedTags.sort((a, b) =>
+                                this.getTagName(a).localeCompare(this.getTagName(b))
+                            );
+                            this.saveTagsToGitHub();
+                            this.newTagInput = '';
+                            this.showSyncStatus('Tag added', 'success');
+                        }
                     }
                 },
                 removePredefinedTag(tag) {
-                    if (confirm(`Remove "${tag}" from predefined tags?\n\nThis won't remove it from films that already use it.`)) {
-                        this.predefinedTags = this.predefinedTags.filter(t => t !== tag);
+                    const tagName = this.getTagName(tag);
+                    if (confirm(`Remove "${tagName}" from predefined tags?\n\nThis won't remove it from films that already use it.`)) {
+                        this.predefinedTags = this.predefinedTags.filter(t =>
+                            this.getTagName(t) !== tagName
+                        );
                         this.saveTagsToGitHub();
                         this.showSyncStatus('Tag removed', 'success');
+                    }
+                },
+                updateTagColor(tag, colorType, newColor) {
+                    const tagObj = this.predefinedTags.find(t =>
+                        this.getTagName(t) === this.getTagName(tag)
+                    );
+
+                    if (tagObj && typeof tagObj === 'object') {
+                        if (colorType === 'bg') {
+                            tagObj.bgColor = newColor;
+                        } else if (colorType === 'text') {
+                            tagObj.textColor = newColor;
+                        }
+                        this.saveTagsToGitHub();
+                        this.showSyncStatus('Tag color updated', 'success');
                     }
                 },
                 async loadDirectorsFromGitHub() {
@@ -3678,7 +3623,6 @@
                 this.loadToken();
                 this.loadTmdbKey();
                 this.loadPosterCache();
-                this.loadTagStylesFromLocalStorage();
 
                 if (this.githubToken) {
                     await this.loadFromGitHub();
