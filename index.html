@@ -1423,16 +1423,16 @@
                 <table>
                     <thead>
                         <tr>
-                            <th @click="sortBy('line')" :class="sortClass('line')">#</th>
-                            <th @click="sortBy('type')" :class="sortClass('type')">Type</th>
+                            <!--th @click="sortBy('line')" :class="sortClass('line')">#</th-->
+                            <!--th @click="sortBy('type')" :class="sortClass('type')">Type</th-->
                             <th @click="sortBy('film')" :class="sortClass('film')">Title</th>
+                             <th class="no-sort">Tags</th>
                             <th @click="sortBy('year')" :class="sortClass('year')">Year</th>
                             <th @click="sortBy('director')" :class="sortClass('director')">Director</th>
                             <th @click="sortBy('duration')" :class="sortClass('duration')">Duration</th>
                             <th class="no-sort center-text">📺</th>
                             <th class="no-sort center-text">🎧</th>
-                            <th @click="sortBy('dateAdded')" :class="sortClass('dateAdded')">Added</th>
-                            <th class="no-sort">Tags</th>
+                            <!--th @click="sortBy('dateAdded')" :class="sortClass('dateAdded')">Added</th-->
                             <th @click="sortBy('startTime')" :class="sortClass('startTime')">Start Time</th>
                             <th class="no-sort">Actions</th>
                         </tr>
@@ -1441,12 +1441,25 @@
                         <tr v-for="film in filteredFilms"
                             :key="film.line"
                             :class="{ 'new-entry': isNewEntry(film) }">                  
-                            <td>{{ film.line }}</td>
-                            <td>{{ getTypeLabel(film.type) }}</td>
+                            <!--td>{{ film.line }}</td-->
+                            <!--td>{{ getTypeLabel(film.type) }}</td-->
                             <td>
                                 <a v-if="film.link" :href="film.link" target="_blank">{{ getDisplayTitle(film) }}</a>
                                 <span v-else>{{ getDisplayTitle(film) }}</span>
                                 <span v-if="film.type === 'tv'" class="type-badge">TV</span>
+                            </td>
+                            <td>
+                                <div class="tags-cell">
+                                    <span
+                                        class="tag-badge"
+                                        :class="{ 'special-tag': isSpecialTag(tag) }"
+                                        v-for="tag in film.tags"
+                                        :key="tag"
+                                        :style="getTagBadgeStyle(tag)"
+                                    >
+                                        {{ formatTag(tag) }}
+                                    </span>
+                                </div>
                             </td>
                             <td>{{ film.year || '-' }}</td>
                             <td>{{ film.director || '-' }}</td>
@@ -1472,20 +1485,8 @@
                                 <span v-else class="podcast-icon inactive">🎧</span>
                             </td>
                             <td>{{ formatDate(film.dateAdded) }}</td>
-                            <td>
-                                <div class="tags-cell">
-                                    <span
-                                        class="tag-badge"
-                                        :class="{ 'special-tag': isSpecialTag(tag) }"
-                                        v-for="tag in film.tags"
-                                        :key="tag"
-                                        :style="getTagBadgeStyle(tag)"
-                                    >
-                                        {{ formatTag(tag) }}
-                                    </span>
-                                </div>
-                            </td>
-                            </td>
+                            
+                            <!--/td-->
                             <td class="start-time">{{ calculateStartTime(film.duration) }}</td>
                             <td>
                                 <div class="action-buttons">
