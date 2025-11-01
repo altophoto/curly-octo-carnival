@@ -2362,5 +2362,32 @@
     "revenue": 255407969,
     "budget": 4500000,
     "tmdbId": 419430
+  },
+  {
+    "line": 88,
+    "type": "movie",
+    "film": "Longlegs",
+    "year": 2024,
+    "director": "Osgood Perkins",
+    "link": "https://www.imdb.com/title/tt23468450/",
+    "duration": 101,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [
+      "featured-poster"
+    ],
+    "tagline": "Say your prayers.",
+    "directorofPhotography": "Andres Arochi",
+    "executiveProducer": "Fred Berger",
+    "editor": "Graham Fortin",
+    "producer": "Chris Ferguson",
+    "screenplay": "",
+    "originalMusicComposer": "Elvis Perkins",
+    "productionDesign": "Danny Vermette",
+    "costumeDesign": "Mica Kayde",
+    "revenue": 127961936,
+    "budget": 10000000,
+    "tmdbId": 1226578
   }
 ]
