@@ -100,7 +100,7 @@
         }
 
         .light:nth-child(2n) {
-            animation-delay: 0.5s;
+            animation-delay: 0.4s;
         }
 
         .light:nth-child(2n)::before {
@@ -108,11 +108,11 @@
         }
 
         .light:nth-child(2n)::after {
-            animation-delay: 0.5s;
+            animation-delay: 0.3s;
         }
 
         .light:nth-child(3n) {
-            animation-delay: 1s;
+            animation-delay: 0/9s;
         }
 
         .light:nth-child(3n)::before {
@@ -120,7 +120,7 @@
         }
 
         .light:nth-child(3n)::after {
-            animation-delay: 1s;
+            animation-delay: 1.3s;
         }
 
         .light:nth-child(4n) {
@@ -128,7 +128,7 @@
         }
 
         .light:nth-child(4n)::before {
-            animation-delay: 1.5s;
+            animation-delay: 0.5s;
         }
 
         .light:nth-child(4n)::after {
@@ -1620,6 +1620,7 @@
                             <th class="no-sort center-text">📺</th>
                             <th class="no-sort center-text">🎧</th>
                             <th @click="sortBy('dateAdded')" :class="sortClass('dateAdded')">Added</th>
+                            <!-- <th @click="sortBy('budget')" :class="sortClass('budget')">Budget</th> -->
                             <th @click="sortBy('startTime')" :class="sortClass('startTime')">Start Time</th>
                             <th class="no-sort">Actions</th>
                         </tr>
@@ -2315,6 +2316,7 @@
                             this.getDisplayTitle(f).toLowerCase().includes(query) ||
                             (f.showName && f.showName.toLowerCase().includes(query)) ||
                             String(f.duration).includes(query) ||
+                            // String(f.budget).includes(query) ||
                             (f.dateAdded && f.dateAdded.includes(query)) ||
                             (f.year && String(f.year).includes(query)) ||
                             (f.director && f.director.toLowerCase().includes(query)) ||
@@ -3955,7 +3957,7 @@
                 this.loadSettings();
                 this.loadTmdbKey();
                 this.loadPosterCache();
-                console.log("removed tv shows from film.json");
+                console.log("ACTIVATING NEW DATA")
                 // Load data unconditionally on startup
                 await this.loadFromGitHub();
                 await this.loadTagsFromGitHub();
