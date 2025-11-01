@@ -2517,5 +2517,30 @@
     "revenue": 272742922,
     "budget": 19000000,
     "tmdbId": 274
+  },
+  {
+    "line": 94,
+    "type": "movie",
+    "film": "Let the Right One In",
+    "year": 2008,
+    "director": "Tomas Alfredson",
+    "link": "https://www.imdb.com/title/tt1139797/",
+    "duration": 115,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "Eli is 12 years old. She's been 12 for over 200 years, and she just moved in next door.",
+    "directorofPhotography": "Hoyte van Hoytema",
+    "executiveProducer": "",
+    "editor": "Tomas Alfredson",
+    "producer": "John Nordling",
+    "screenplay": "",
+    "originalMusicComposer": "Johan Söderqvist",
+    "productionDesign": "Eva Norén",
+    "costumeDesign": "Maria Strid",
+    "revenue": 10785801,
+    "budget": 4000000,
+    "tmdbId": 13310
   }
 ]
