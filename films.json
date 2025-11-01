@@ -1664,5 +1664,21 @@
     "tagline": "Welcome to your worst nightmare.",
     "revenue": 81979826,
     "budget": 4800000
+  },
+  {
+    "line": 97,
+    "type": "movie",
+    "film": "The Cabin in the Woods",
+    "year": 2012,
+    "director": "Drew Goddard",
+    "link": "https://www.imdb.com/title/tt1259521/",
+    "duration": 95,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "You think you know the story.",
+    "revenue": 71038838,
+    "budget": 30000000
   }
 ]
