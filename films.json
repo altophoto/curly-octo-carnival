@@ -2769,5 +2769,30 @@
     "revenue": 34400000,
     "budget": 30000000,
     "tmdbId": 321697
+  },
+  {
+    "line": 105,
+    "type": "movie",
+    "film": "Experimenter",
+    "year": 2015,
+    "director": "Michael Almereyda",
+    "link": "https://www.imdb.com/title/tt3726704/",
+    "duration": 97,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "Illusion sets the stage. Deception reveals the truth.",
+    "directorofPhotography": "Ryan Samul",
+    "executiveProducer": "",
+    "editor": "Kathryn J. Schubert",
+    "producer": "Danny A. Abeckaser",
+    "screenplay": "",
+    "originalMusicComposer": "Bryan Senti",
+    "productionDesign": "Deana Sidney",
+    "costumeDesign": "Kama K. Royz",
+    "revenue": 224145,
+    "budget": "",
+    "tmdbId": 309299
   }
 ]
