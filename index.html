@@ -1361,7 +1361,8 @@
 
         <!-- Navigation -->
         <!--div v-if="githubToken || currentView === 'settings'" class="nav"-->
-        <div v-if="currentView === 'settings'" class="nav">
+        <!--div v-if="currentView === 'settings'" class="nav"-->
+        <div class="nav">
 
             <button @click="currentView = 'log'" :class="{ active: currentView === 'log' }" :disabled="!githubToken">
                 Film Log
