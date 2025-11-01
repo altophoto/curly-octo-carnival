@@ -2592,5 +2592,30 @@
     "revenue": 24145613,
     "budget": 20000000,
     "tmdbId": 41402
+  },
+  {
+    "line": 97,
+    "type": "movie",
+    "film": "Ready or Not",
+    "year": 2019,
+    "director": "Tyler Gillett",
+    "link": "https://www.imdb.com/title/tt7798634/",
+    "duration": 95,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "A killer game of hide and seek.",
+    "directorofPhotography": "Brett Jutkiewicz",
+    "executiveProducer": "Tracey Nyberg",
+    "editor": "Terel Gibson",
+    "producer": "James Vanderbilt",
+    "screenplay": "",
+    "originalMusicComposer": "Brian Tyler",
+    "productionDesign": "Andrew M. Stearn",
+    "costumeDesign": "Avery Plewes",
+    "revenue": 57600000,
+    "budget": 6000000,
+    "tmdbId": 567609
   }
 ]
