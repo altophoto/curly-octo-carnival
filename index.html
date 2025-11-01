@@ -1476,7 +1476,7 @@
                 <div class="light"></div>
             </div>
 
-            <h1 class="marquee-title raleway-dots-regular">Family Groovy Night, Welcome Miriam</h1>
+            <h1 class="marquee-title raleway-dots-regular">Family Groovy Night, Happy Birthday Amanda</h1>
             <p class="marquee-subtitle">Now showing from your curated collection</p>
             <p class="night-indicator">{{ isWeekendNight ? '🎉 Weekend Night 🎉' : '📚 School Night 📚' }} • Target End:
                 {{ currentTargetEndTime }}</p>
@@ -1962,13 +1962,7 @@
         <!-- Add/Edit Film Modal -->
         <div class="modal" v-if="showFilmModal" @click.self="closeFilmModal">
             <div class="modal-content">
-                <div class="form-actions">
-                        <button type="button" class="secondary" @click="closeFilmModal">Cancel</button>
-                        <button type="submit" tabindex="13">{{ editingFilm ? 'Update' : 'Add' }} {{ filmForm.type ===
-                            'tv' ? 'Episode' : 'Film' }}</button>
-                    </div>
                 <h2>{{ editingFilm ? 'Edit Title' : 'Add New Title' }}</h2>
-
                 <!-- Clone buttons for TV shows when editing -->
                 <div v-if="editingFilm && filmForm.type === 'tv'" style="margin-bottom: 20px;">
                     <button class="clone-btn" @click="cloneToNextEpisode">📋 Next Episode ({{ filmForm.season }}x{{
@@ -1993,34 +1987,6 @@
                         </button>
                         <small>Automatically fill director, year, runtime, and IMDB link</small>
                     </div>
-                <!-- <div class="modal-content">
-                    <h2>Search TMDb</h2>
-                    <div class="form-group">
-                        <input type="text" v-model="tmdbSearchQuery" @keyup.enter="searchTMDb"
-                            placeholder="Enter movie or TV show title..." />
-                        <button @click="searchTMDb" style="margin-top: 10px;">Search</button>
-                    </div>
-    
-                    <div v-if="searchResults.length > 0" class="search-results">
-                        <div v-for="result in searchResults" :key="result.id" class="search-result-item"
-                            @click="selectSearchResult(result)">
-                            <img v-if="result.poster_path" :src="`https://image.tmdb.org/t/p/w200${result.poster_path}`"
-                                class="search-result-poster" />
-                            <div v-else class="search-result-poster"
-                                style="display: flex; align-items: center; justify-content: center; background: #333;">
-                                🎬
-                            </div>
-                            <div class="search-result-info">
-                                <div class="search-result-title">{{ result.title || result.name }}</div>
-                                <div class="search-result-year">{{ extractYear(result.release_date || result.first_air_date) }}</div>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div class="form-actions" style="margin-top: 20px;">
-                        <button type="button" class="secondary" @click="closeSearchModal">Close</button>
-                    </div>
-                </div> -->
             
                     <!-- Movie Title -->
                     <div class="form-group" v-if="filmForm.type === 'movie'">
@@ -2110,14 +2076,15 @@
                         <small>Link to podcast episode or audio file</small>
                     </div>
 
-                    <div class="form-group" v-if="editingFilm">
+                    <!-- <div class="form-group" v-if="editingFilm">
                         <label>Date Added</label>
                         <input type="date" v-model="filmForm.dateAdded" readonly tabindex="-1" />
                         <small>This date is locked and shows when the title was originally added</small>
-                    </div>
+                    </div> -->
 
                     <div class="form-group">
-                        <div class="tag-selector" v-if="predefinedTags.length > 0">
+                        <button type="button" class="autofill-btn" @click="showTags = !showTags">
+                        <div class="tag-selector" v-if="showTags && predefinedTags.length > 0">
                             <label class="tag-selector-label">Select Tags</label>
                             <div class="tag-options">
                                 <div class="tag-option" v-for="tag in predefinedTags" :key="getTagName(tag)"
@@ -2236,6 +2203,7 @@
                     sortKey: 'line',
                     sortDirection: 'desc',
                     showFilmModal: false,
+                    showTags: false,
                     editingFilm: null,
                     filmForm: {
                         type: 'movie',
