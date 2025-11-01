@@ -2323,7 +2323,9 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-11-01",
-    "tags": [],
+    "tags": [
+      "featured-poster"
+    ],
     "tagline": "Hell, any of them could have done it.",
     "directorofPhotography": "Steve Yedlin",
     "executiveProducer": "Tom Karnowski",
@@ -2334,7 +2336,6 @@
     "productionDesign": "David Crank",
     "costumeDesign": "Jenny Eagan",
     "revenue": 312897920,
-    "budget": 40000000,
-    "tmdbId": 546554
+    "budget": 40000000
   }
 ]
