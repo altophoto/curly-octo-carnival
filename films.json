@@ -2744,5 +2744,30 @@
     "revenue": 171181400,
     "budget": 1400000,
     "tmdbId": 36685
+  },
+  {
+    "line": 104,
+    "type": "movie",
+    "film": "Steve Jobs",
+    "year": 2015,
+    "director": "Danny Boyle",
+    "link": "https://www.imdb.com/title/tt2080374/",
+    "duration": 122,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "Can a great man be a good man?",
+    "directorofPhotography": "Alwin H. Küchler",
+    "executiveProducer": "Bernard Bellew",
+    "editor": "Elliot Graham",
+    "producer": "Danny Boyle",
+    "screenplay": "",
+    "originalMusicComposer": "Daniel Pemberton",
+    "productionDesign": "Guy Hendrix Dyas",
+    "costumeDesign": "Suttirat Anne Larlarb",
+    "revenue": 34400000,
+    "budget": 30000000,
+    "tmdbId": 321697
   }
 ]
