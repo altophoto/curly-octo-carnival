@@ -2692,5 +2692,30 @@
     "revenue": 24946533,
     "budget": 3500000,
     "tmdbId": 11850
+  },
+  {
+    "line": 101,
+    "type": "movie",
+    "film": "It",
+    "year": 2017,
+    "director": "Andy Muschietti",
+    "link": "https://www.imdb.com/title/tt1396484/",
+    "duration": 135,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "You'll float too.",
+    "directorofPhotography": "Chung Chung-hoon",
+    "executiveProducer": "Jon Silk",
+    "editor": "Jason Ballantine",
+    "producer": "Seth Grahame-Smith",
+    "screenplay": "Cary Joji Fukunaga",
+    "originalMusicComposer": "Benjamin Wallfisch",
+    "productionDesign": "Claude Paré",
+    "costumeDesign": "Janie Bryant",
+    "revenue": 704242888,
+    "budget": 35000000,
+    "tmdbId": 346364
   }
 ]
