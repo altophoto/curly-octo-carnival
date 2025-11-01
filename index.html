@@ -1628,7 +1628,7 @@
 
         <!-- SETTINGS VIEW -->
         <div v-if="currentView === 'settings'">
-            <div class="settings-section">
+            <!--div class="settings-section">
                 <h2>GitHub Sync Setup</h2>
                 <p>Your data is stored in GitHub. Enter your Personal Access Token to enable syncing.</p>
                 
@@ -1657,7 +1657,7 @@
                 
                 <p style="margin-top: 20px;"><strong>Repository:</strong> altophoto/curly-octo-carnival</p>
                 <p><strong>Data files:</strong> films.json, tags.json, directors.json</p>
-            </div>
+            </div--> 
 
             <div v-if="githubToken" class="settings-section">
                 <h2>Tag Management & Badge Styling</h2>
@@ -2041,7 +2041,7 @@
                     // githubTagsFile: 'tags.json',
                     // githubDirectorsFile: 'directors.json',
                     // githubToken: '',
-                    tokenInput: '',
+                    // tokenInput: '',
                     tokenSaved: false,
                     
                     predefinedTags: [],
@@ -2870,7 +2870,7 @@
                 updateCurrentTime() {
                     this.currentTime = new Date();
                 },
-                loadToken() {
+                /* loadToken() {
                     const saved = localStorage.getItem('githubToken');
                     if (saved) {
                         this.githubToken = saved;
@@ -2889,7 +2889,7 @@
                         this.loadDirectorsFromGitHub();
                     }
                 },
-                clearToken() {
+                // clearToken() {
                     if (confirm('Are you sure you want to clear your GitHub token?')) {
                         this.githubToken = '';
                         this.tokenInput = '';
@@ -2897,7 +2897,7 @@
                         localStorage.removeItem('githubToken');
                         this.showSyncStatus('Token cleared', 'success');
                     }
-                },
+                },*/
                 loadTmdbKey() {
                     const saved = localStorage.getItem('tmdbApiKey');
                     if (saved) {
@@ -3042,13 +3042,17 @@
                     
                     this.loading = true;
                     try {
-                        const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/${this.githubFile}`;
-                        const response = await fetch(url, {
-                            headers: {
-                                'Authorization': `token ${this.githubToken}`,
-                                'Accept': 'application/vnd.github.v3+json'
-                            }
-                        });
+                        // const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/${this.githubFile}`;
+                        const url = this.githubFile; // It will use /api/films.json
+                        // Inside loadFromGitHub()
+                        const response = await fetch(url); // No headers needed!
+
+                        // const response = await fetch(url, {
+                            // headers: {
+                                // 'Authorization': `token ${this.githubToken}`,
+                                // 'Accept': 'application/vnd.github.v3+json'
+                            // }
+                        // });
                         
                         if (response.ok) {
                             const data = await response.json();
@@ -3094,23 +3098,33 @@
                         this.showSyncStatus('Syncing to GitHub...', '');
                         
                         const content = btoa(JSON.stringify(this.films, null, 2));
-                        const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/${this.githubFile}`;
+                        const url = this.githubFile;
+                        // const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/${this.githubFile}`;
                         
                         const body = {
                             message: `Update films: ${new Date().toLocaleString()}`,
                             content: content,
                             sha: this.fileSha
                         };
-                        
+
+                        // Inside saveToGitHub()
                         const response = await fetch(url, {
                             method: 'PUT',
                             headers: {
-                                'Authorization': `token ${this.githubToken}`,
-                                'Accept': 'application/vnd.github.v3+json',
-                                'Content-Type': 'application/json'
+                                'Content-Type': 'application/json' // This is the only header needed
                             },
                             body: JSON.stringify(body)
                         });
+
+                        // const response = await fetch(url, {
+                            // method: 'PUT',
+                            // headers: {
+                                // 'Authorization': `token ${this.githubToken}`,
+                                // 'Accept': 'application/vnd.github.v3+json',
+                                // 'Content-Type': 'application/json'
+                            // },
+                            // body: JSON.stringify(body)
+                        // });
                         
                         if (response.ok) {
                             const data = await response.json();
@@ -3651,7 +3665,7 @@
             },
             async mounted() {
                 this.loadSettings();
-                this.loadToken();
+                // this.loadToken();
                 this.loadTmdbKey();
                 this.loadPosterCache();
 
