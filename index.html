@@ -1347,12 +1347,12 @@
         </div>
 
         <!-- Setup Required Notice -->
-        <div v-if="!githubToken && !loading && currentView !== 'settings'" class="setup-required">
+        <!--div v-if="!githubToken && !loading && currentView !== 'settings'" class="setup-required">
             <h2>⚙️ Setup Required</h2>
             <p>To use GitHub as your database, you need to configure your GitHub Personal Access Token.</p>
             <p>Go to <strong>Settings</strong> to set it up.</p>
             <button @click="currentView = 'settings'">Go to Settings</button>
-        </div>
+    </div-->
 
         <div v-if="loading" class="loading">
             <div class="loading-spinner"></div>
@@ -1360,7 +1360,8 @@
         </div>
 
         <!-- Navigation -->
-        <div v-if="githubToken || currentView === 'settings'" class="nav">
+        <!--div v-if="githubToken || currentView === 'settings'" class="nav"-->
+        <div class="nav">
             <button @click="currentView = 'log'" :class="{ active: currentView === 'log' }" :disabled="!githubToken">
                 Film Log
             </button>
@@ -1376,7 +1377,7 @@
         </div>
 
         <!-- FILM LOG VIEW -->
-        <div v-if="currentView === 'log' && githubToken">
+        <div v-if="currentView === 'log'>
             <div class="controls">
                 <div class="control-row">
                     <input 
@@ -1505,7 +1506,7 @@
         </div>
 
         <!-- STATISTICS VIEW -->
-        <div v-if="currentView === 'stats' && githubToken">
+        <div v-if="currentView === 'stats'>
             <h2>Statistics</h2>
             
             <div class="stats-grid">
@@ -1582,7 +1583,7 @@
         </div>
 
         <!-- IMPORT/EXPORT VIEW -->
-        <div v-if="currentView === 'import' && githubToken">
+        <div v-if="currentView === 'import'>
             <div class="import-export">
                 <h2>Export Data</h2>
                 <p>Download your film log for backup, sharing, or printing.</p>
@@ -1659,7 +1660,7 @@
                 <p><strong>Data files:</strong> films.json, tags.json, directors.json</p>
             </div--> 
 
-            <div v-if="githubToken" class="settings-section">
+            <div class="settings-section">
                 <h2>Tag Management & Badge Styling</h2>
                 <p>Manage your predefined tags with custom colors (like GitHub labels). Each tag appears as a styled badge with colors you choose.</p>
 
@@ -1702,7 +1703,7 @@
                 </div>
             </div>
 
-            <div v-if="githubToken" class="settings-section">
+            <div class="settings-section">
                 <h2>Director Management</h2>
                 <p>Manage your predefined directors. These will be available as quick-select options when adding or editing films.</p>
                 
@@ -1727,7 +1728,7 @@
                     No predefined directors yet. Add some to make entry easier!
                 </p>
             </div>
-            <div v-if="githubToken" class="settings-section">
+            <div class="settings-section">
                 <h2>TMDb API Setup</h2>
                 <p>Optional: Add your TMDb API key to display movie and TV show posters in the marquee and enable auto-fill.</p>
                 
@@ -1759,7 +1760,7 @@
                 </div>
             </div>
 
-            <div v-if="githubToken && tmdbApiKey" class="settings-section">
+            <div tmdbApiKey" class="settings-section">
                 <h2>Marquee Auto-Rotation</h2>
                 <p>Automatically cycle through different film posters in the marquee display.</p>
                 
@@ -1798,7 +1799,7 @@
                 </div>
             </div>
 
-            <div v-if="githubToken" class="settings-section">
+            <div class="settings-section">
                 <h2>Target End Times</h2>
                 <p>Set different target end times for school nights and weekends. The "Start Time" column will calculate backwards based on film duration.</p>
                 
@@ -2510,7 +2511,7 @@
                     }
                 },
                 async saveTagsToGitHub() {
-                    if (!this.githubToken) return;
+                    // if (!this.githubToken) return;
                     
                     try {
                         const content = btoa(JSON.stringify(this.predefinedTags, null, 2));
@@ -2616,7 +2617,7 @@
                     }
                 },
                 async saveDirectorsToGitHub() {
-                    if (!this.githubToken) return;
+                    // if (!this.githubToken) return;
                     
                     try {
                         const content = btoa(JSON.stringify(this.predefinedDirectors, null, 2));
@@ -3038,7 +3039,7 @@
                     }
                 },
                 async loadFromGitHub() {
-                    if (!this.githubToken) return;
+                    // if (!this.githubToken) return;
                     
                     this.loading = true;
                     try {
@@ -3089,7 +3090,7 @@
                     }
                 },
                 async saveToGitHub() {
-                    if (!this.githubToken) {
+                    // if (!this.githubToken) {
                         this.showSyncStatus('No token configured', 'error');
                         return;
                     }
@@ -3669,11 +3670,17 @@
                 this.loadTmdbKey();
                 this.loadPosterCache();
 
-                if (this.githubToken) {
+                                // Load data unconditionally on startup
+                await this.loadFromGitHub();
+                await this.loadTagsFromGitHub();
+                await this.loadDirectorsFromGitHub();
+
+
+                /* if (this.githubToken) {
                     await this.loadFromGitHub();
                     await this.loadTagsFromGitHub();
                     await this.loadDirectorsFromGitHub();
-                }
+                } */
 
                 this.timeUpdateInterval = setInterval(() => {
                     this.updateCurrentTime();
