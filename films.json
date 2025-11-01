@@ -2642,5 +2642,30 @@
     "revenue": 443807,
     "budget": 100000,
     "tmdbId": 723072
+  },
+  {
+    "line": 99,
+    "type": "movie",
+    "film": "Jiro Dreams of Sushi",
+    "year": 2011,
+    "director": "David Gelb",
+    "link": "https://www.imdb.com/title/tt1772925/",
+    "duration": 82,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "Fall in love with your work",
+    "directorofPhotography": "David Gelb",
+    "executiveProducer": "Stefan Nowicki",
+    "editor": "Brandon Driscoll-Luttringer",
+    "producer": "Tom Pellegrini",
+    "screenplay": "",
+    "originalMusicComposer": "",
+    "productionDesign": "",
+    "costumeDesign": "",
+    "revenue": 2550508,
+    "budget": "",
+    "tmdbId": 80767
   }
 ]
