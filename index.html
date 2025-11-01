@@ -2056,33 +2056,35 @@
                         <input type="url" v-model="filmForm.link" placeholder="https://www.imdb.com/..." tabindex="8" />
                         <small>Link to IMDB, Wikipedia, etc.</small>
                     </div>
-
                     <div class="form-group">
+                        <button type="button" class="autofill-btn" @click="showDetailsOptions = !showDetailsOptions">
+                    </div>
+                    <div class="form-group" v-if="showDetailsOptions">
                         <label>Duration (minutes) *</label>
                         <input type="number" v-model.number="filmForm.duration" min="1" placeholder="142" required
                             tabindex="9" />
                         <small v-if="filmForm.type === 'tv'">Episode runtime</small>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" v-if="showDetailsOptions">
                         <label>Streaming Link</label>
                         <input type="url" v-model="filmForm.platformLink" placeholder="https://..." tabindex="10" />
                         <small>Direct link to watch (Netflix, Amazon, iTunes, etc.)</small>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" v-if="showDetailsOptions">
                         <label>Podcast Link</label>
                         <input type="url" v-model="filmForm.podcastLink" placeholder="https://..." tabindex="11" />
                         <small>Link to podcast episode or audio file</small>
                     </div>
 
-                    <!-- <div class="form-group" v-if="editingFilm">
+                    <div class="form-group" v-if="editingFilm && showDetailsOptions">
                         <label>Date Added</label>
                         <input type="date" v-model="filmForm.dateAdded" readonly tabindex="-1" />
                         <small>This date is locked and shows when the title was originally added</small>
-                    </div> -->
+                    </div>
 
-                    <div class="form-group">
+                    <div class="form-group" v-if="showDetailsOptions">
                         <button type="button" class="autofill-btn" @click="showTags = !showTags">
                         <div class="tag-selector" v-if="showTags && predefinedTags.length > 0">
                             <label class="tag-selector-label">Select Tags</label>
@@ -2234,6 +2236,7 @@
                         tmdbId: null
                     },
                     showSearchModal: false,
+                    showDetailsOptions: false,
                     tmdbSearchQuery: '',
                     searchResults: [],
                     importMessage: '',
