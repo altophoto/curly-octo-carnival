@@ -2617,5 +2617,30 @@
     "revenue": 57600000,
     "budget": 6000000,
     "tmdbId": 567609
+  },
+  {
+    "line": 98,
+    "type": "movie",
+    "film": "Host",
+    "year": 2020,
+    "director": "Rob Savage",
+    "link": "https://www.imdb.com/title/tt12749596/",
+    "duration": 56,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "Someone new has joined the meeting.",
+    "directorofPhotography": "",
+    "executiveProducer": "Craig Engler",
+    "editor": "Brenna Rangott",
+    "producer": "Douglas Cox",
+    "screenplay": "",
+    "originalMusicComposer": "",
+    "productionDesign": "",
+    "costumeDesign": "Alexi Kotkowska",
+    "revenue": 443807,
+    "budget": 100000,
+    "tmdbId": 723072
   }
 ]
