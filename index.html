@@ -2105,8 +2105,7 @@
                         </div>
                         <div class="search-result-info">
                             <div class="search-result-title">{{ result.title || result.name }}</div>
-                            <div class="search-result-year">{{ result.release_date || result.first_air_date |
-                                extractYear }}</div>
+                            <div class="search-result-year">{{ extractYear(result.release_date || result.first_air_date) }}</div>
                         </div>
                     </div>
                 </div>
@@ -2221,7 +2220,6 @@
                     syncStatus: '',
                     syncStatusClass: '',
                     fileSha: null
-                    console.log(                    fileSha: nullfileSha)
                 };
             },
             computed: {
@@ -2386,11 +2384,6 @@
                     return Object.fromEntries(
                         Object.entries(counts).sort((a, b) => b[0].localeCompare(a[0]))
                     );
-                }
-            },
-            filters: {
-                extractYear(dateStr) {
-                    return dateStr ? dateStr.substring(0, 4) : '';
                 }
             },
             watch: {
@@ -3135,13 +3128,12 @@
                     try {
                         this.showSyncStatus('Syncing to GitHub...', '');
 
-                        const content = btoa(JSON.stringify(this.films, null, 2));
+                        const content = btoa(unescape(encodeURIComponent(JSON.stringify(this.films, null, 2))));
                         const url = this.githubFile;
                         const body = {
                             message: `Update films: ${new Date().toLocaleString()}`,
                             content: content,
                             sha: this.fileSha
-                            console.log(sha: this.fileSha)
                         };
 
                         // Inside saveToGitHub()
@@ -3156,7 +3148,6 @@
                         if (response.ok) {
                             const data = await response.json();
                             this.fileSha = data.content.sha;
-                            console.log(this.fileSha)
                             this.lastTinkered = new Date().toLocaleString();
                             this.showSyncStatus('✓ Synced to GitHub', 'success');
                         } else {
@@ -3275,6 +3266,9 @@
                     });
 
                     doc.save(`family-groovy-night-${new Date().toISOString().split('T')[0]}.pdf`);
+                },
+                extractYear(dateStr) {
+                    return dateStr ? dateStr.substring(0, 4) : '';
                 },
                 openAddModal() {
                     this.editingFilm = null;
@@ -3709,8 +3703,9 @@
                         const data = await response.json();
 
                         this.searchResults = data.results ? data.results.slice(0, 10) : [];
-                        console.log('11/1/2025', searchResults)
+                        
                     } catch (error) {
+                        console.error('TMDb Search Error:', error);
                         alert('Error searching TMDb. Please try again.');
                     }
                 },
