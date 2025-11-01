@@ -2603,7 +2603,7 @@
 
                         if (response.ok) {
                             const data = await response.json();
-                            this.tagsSha = data.content.sha;
+                            this.tagsSha = data.sha;
                         }
                     } catch (error) {
                         console.error('Error saving tags to GitHub:', error);
@@ -2716,7 +2716,7 @@
 
                         if (response.ok) {
                             const data = await response.json();
-                            this.directorsSha = data.content.sha;
+                            this.directorsSha = data.sha;
                         }
                     } catch (error) {
                         console.error('Error saving directors to GitHub:', error);
@@ -3147,7 +3147,7 @@
 
                         if (response.ok) {
                             const data = await response.json();
-                            this.fileSha = data.content.sha;
+                            this.fileSha = data.sha;
                             this.lastTinkered = new Date().toLocaleString();
                             this.showSyncStatus('✓ Synced to GitHub', 'success');
                         } else {
