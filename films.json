@@ -2567,5 +2567,30 @@
     "revenue": 23374076,
     "budget": 2300000,
     "tmdbId": 270303
+  },
+  {
+    "line": 96,
+    "type": "movie",
+    "film": "Let Me In",
+    "year": 2010,
+    "director": "Matt Reeves",
+    "link": "https://www.imdb.com/title/tt1228987/",
+    "duration": 116,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "Innocence dies. Abby doesn't.",
+    "directorofPhotography": "Greig Fraser",
+    "executiveProducer": "Fredrik Malmberg",
+    "editor": "Stan Salfas",
+    "producer": "John Nordling",
+    "screenplay": "Matt Reeves",
+    "originalMusicComposer": "Michael Giacchino",
+    "productionDesign": "Ford Wheeler",
+    "costumeDesign": "",
+    "revenue": 24145613,
+    "budget": 20000000,
+    "tmdbId": 41402
   }
 ]
