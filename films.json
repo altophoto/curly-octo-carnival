@@ -2492,5 +2492,30 @@
     "revenue": 144492724,
     "budget": 7000000,
     "tmdbId": 570670
+  },
+  {
+    "line": 93,
+    "type": "movie",
+    "film": "The Silence of the Lambs",
+    "year": 1991,
+    "director": "Jonathan Demme",
+    "link": "https://www.imdb.com/title/tt0102926/",
+    "duration": 119,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "To enter the mind of a killer she must challenge the mind of a madman.",
+    "directorofPhotography": "Tak Fujimoto",
+    "executiveProducer": "Gary Goetzman",
+    "editor": "Craig McKay",
+    "producer": "Ron Bozman",
+    "screenplay": "Ted Tally",
+    "originalMusicComposer": "Howard Shore",
+    "productionDesign": "Kristi Zea",
+    "costumeDesign": "Colleen Atwood",
+    "revenue": 272742922,
+    "budget": 19000000,
+    "tmdbId": 274
   }
 ]
