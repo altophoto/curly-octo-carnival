@@ -2389,5 +2389,30 @@
     "revenue": 127961936,
     "budget": 10000000,
     "tmdbId": 1226578
+  },
+  {
+    "line": 89,
+    "type": "movie",
+    "film": "Us",
+    "year": 2019,
+    "director": "Jordan Peele",
+    "link": "https://www.imdb.com/title/tt6857112/",
+    "duration": 116,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "Watch yourself.",
+    "directorofPhotography": "Mike Gioulakis",
+    "executiveProducer": "Daniel Lupi",
+    "editor": "Nicholas Monsour",
+    "producer": "Jordan Peele",
+    "screenplay": "",
+    "originalMusicComposer": "Michael Abels",
+    "productionDesign": "Ruth De Jong",
+    "costumeDesign": "Kym Barrett",
+    "revenue": 256067149,
+    "budget": 20000000,
+    "tmdbId": 458723
   }
 ]
