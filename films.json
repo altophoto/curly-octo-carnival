@@ -1600,5 +1600,21 @@
     "podcastLink": "",
     "dateAdded": "2025-11-01",
     "tags": []
+  },
+  {
+    "line": 93,
+    "type": "movie",
+    "film": "The Matrix Reloaded",
+    "year": 2003,
+    "director": "Lana Wachowski",
+    "link": "https://www.imdb.com/title/tt0234215/",
+    "duration": 138,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "Free your mind.",
+    "revenue": 738599701,
+    "budget": 150000000
   }
 ]
