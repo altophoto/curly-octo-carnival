@@ -1797,7 +1797,18 @@
       "BGH",
       "Horror"
     ],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 1197137,
+    "tagline": "Dead is just a word.",
+    "revenue": 87839213,
+    "budget": 30000000,
+    "directorofPhotography": "Pär M. Ekberg",
+    "executiveProducer": "Ryan Turek",
+    "editor": "Louise Ford",
+    "producer": "Jason Blum",
+    "originalMusicComposer": "Atticus Derrickson",
+    "productionDesign": "Patti Podesta",
+    "costumeDesign": "Amelia 'Amy' Andrews"
   },
   {
     "line": 66,
@@ -1811,7 +1822,19 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 756999,
+    "tagline": "Never talk to strangers.",
+    "revenue": 161441914,
+    "budget": 16000000,
+    "directorofPhotography": "Brett Jutkiewicz",
+    "executiveProducer": "Joe Hill",
+    "editor": "Frédéric Thoraval",
+    "producer": "Jason Blum",
+    "screenplay": "Scott Derrickson",
+    "originalMusicComposer": "Mark Korven",
+    "productionDesign": "Patti Podesta",
+    "costumeDesign": "Amelia 'Amy' Andrews"
   },
   {
     "line": 67,
@@ -1825,7 +1848,19 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 110415,
+    "tagline": "Fight your way to the front.",
+    "revenue": 86758912,
+    "budget": 39200000,
+    "directorofPhotography": "Hong Kyung-pyo",
+    "executiveProducer": "Park Chan-wook",
+    "editor": "Steve M. Choe",
+    "producer": "Jeong Tae-sung",
+    "screenplay": "Bong Joon Ho",
+    "originalMusicComposer": "Marco Beltrami",
+    "productionDesign": "Ondřej Nekvasil",
+    "costumeDesign": "Catherine George"
   },
   {
     "line": 68,
@@ -1839,7 +1874,17 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 857,
+    "tagline": "The mission is a man.",
+    "revenue": 481840909,
+    "budget": 70000000,
+    "directorofPhotography": "Janusz Kamiński",
+    "editor": "Michael Kahn",
+    "producer": "Mark Gordon",
+    "originalMusicComposer": "John Williams",
+    "productionDesign": "Thomas E. Sanders",
+    "costumeDesign": "Joanna Johnston"
   },
   {
     "line": 69,
@@ -1853,7 +1898,18 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 70981,
+    "tagline": "The search for our beginning could lead to our end.",
+    "revenue": 403354469,
+    "budget": 130000000,
+    "directorofPhotography": "Dariusz Wolski",
+    "executiveProducer": "Mark Huffam",
+    "editor": "Pietro Scalia",
+    "producer": "Ridley Scott",
+    "originalMusicComposer": "Marc Streitenfeld",
+    "productionDesign": "Arthur Max",
+    "costumeDesign": "Janty Yates"
   },
   {
     "line": 70,
@@ -1869,7 +1925,18 @@
     "tags": [
       "Musical"
     ],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 824,
+    "tagline": "No laws. No limits. One rule. Never fall in love.",
+    "revenue": 179213434,
+    "budget": 52500000,
+    "directorofPhotography": "Donald McAlpine",
+    "editor": "Jill Bilcock",
+    "producer": "Baz Luhrmann",
+    "screenplay": "Baz Luhrmann",
+    "originalMusicComposer": "Craig Armstrong",
+    "productionDesign": "Catherine Martin",
+    "costumeDesign": "Catherine Martin"
   },
   {
     "line": 71,
@@ -1885,7 +1952,19 @@
     "tags": [
       "Guns"
     ],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 679,
+    "tagline": "This time it's war.",
+    "revenue": 183316455,
+    "budget": 18500000,
+    "directorofPhotography": "Adrian Biddle",
+    "executiveProducer": "Walter Hill",
+    "editor": "Ray Lovejoy",
+    "producer": "Gale Anne Hurd",
+    "screenplay": "James Cameron",
+    "originalMusicComposer": "James Horner",
+    "productionDesign": "Peter Lamont",
+    "costumeDesign": "Emma Porteous"
   },
   {
     "line": 72,
@@ -1899,7 +1978,18 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 126889,
+    "tagline": "The path to paradise begins in hell.",
+    "revenue": 240891763,
+    "budget": 97000000,
+    "directorofPhotography": "Dariusz Wolski",
+    "editor": "Pietro Scalia",
+    "producer": "David Giler",
+    "screenplay": "Dante Harper",
+    "originalMusicComposer": "Jed Kurzel",
+    "productionDesign": "Chris Seagers",
+    "costumeDesign": "Janty Yates"
   },
   {
     "line": 73,
@@ -1913,7 +2003,19 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 348,
+    "tagline": "In space no one can hear you scream.",
+    "revenue": 104931801,
+    "budget": 11000000,
+    "directorofPhotography": "Derek Vanlint",
+    "executiveProducer": "Ronald Shusett",
+    "editor": "Terry Rawlings",
+    "producer": "Walter Hill",
+    "screenplay": "Dan O'Bannon",
+    "originalMusicComposer": "Jerry Goldsmith",
+    "productionDesign": "Michael Seymour",
+    "costumeDesign": "John Mollo"
   },
   {
     "line": 74,
@@ -1929,7 +2031,18 @@
     "tags": [
       "BGH"
     ],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 1284120,
+    "tagline": "If the shoe doesn't fit...",
+    "revenue": 4601915,
+    "budget": 4250000,
+    "directorofPhotography": "Marcel Zyskind",
+    "executiveProducer": "Jesper Morthorst",
+    "editor": "Marcel Zyskind",
+    "producer": "Maria Ekerhovd",
+    "originalMusicComposer": "John Erik Kaada",
+    "productionDesign": "Sabine Hviid",
+    "costumeDesign": "Manon Rasmussen"
   },
   {
     "line": 75,
