@@ -1510,7 +1510,16 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 1730,
+    "tagline": "A woman in trouble",
+    "revenue": 4304157,
+    "budget": 15000000,
+    "directorofPhotography": "David Lynch",
+    "executiveProducer": "Marek Żydowicz",
+    "editor": "David Lynch",
+    "producer": "Mary Sweeney",
+    "costumeDesign": "Karen Baird"
   },
   {
     "line": 56,
@@ -1537,7 +1546,18 @@
       "Romance",
       "Thriller"
     ],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 1018,
+    "tagline": "A love story in the city of dreams.",
+    "revenue": 20289986,
+    "budget": 15000000,
+    "directorofPhotography": "Peter Deming",
+    "executiveProducer": "Pierre Edelman",
+    "editor": "Mary Sweeney",
+    "producer": "Tony Krantz",
+    "originalMusicComposer": "Angelo Badalamenti",
+    "productionDesign": "Jack Fisk",
+    "costumeDesign": "Amy Stofsky"
   },
   {
     "line": 57,
@@ -1555,7 +1575,18 @@
       "Murder",
       "Set in Illinois"
     ],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 948,
+    "tagline": "The night he came home!",
+    "revenue": 70260597,
+    "budget": 325000,
+    "directorofPhotography": "Dean Cundey",
+    "executiveProducer": "Irwin Yablans",
+    "editor": "Charles Bornstein",
+    "producer": "Debra Hill",
+    "screenplay": "Debra Hill",
+    "originalMusicComposer": "John Carpenter",
+    "productionDesign": "Tommy Lee Wallace"
   },
   {
     "line": 58,
@@ -1574,7 +1605,18 @@
       "Guns",
       "Leather"
     ],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 603,
+    "tagline": "Believe the unbelievable.",
+    "revenue": 463517383,
+    "budget": 63000000,
+    "directorofPhotography": "Bill Pope",
+    "executiveProducer": "Andrew Mason",
+    "editor": "Zach Staenberg",
+    "producer": "Joel Silver",
+    "originalMusicComposer": "Don Davis",
+    "productionDesign": "Owen Paterson",
+    "costumeDesign": "Kym Barrett"
   },
   {
     "line": 59,
@@ -1591,7 +1633,17 @@
       "Head on Head",
       "Lynchian"
     ],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 638,
+    "tagline": "I like to remember things my own way. Not necessarily the way that happened.",
+    "revenue": 3836866,
+    "budget": 15000000,
+    "directorofPhotography": "Peter Deming",
+    "editor": "Mary Sweeney",
+    "producer": "Deepak Nayar",
+    "originalMusicComposer": "Angelo Badalamenti",
+    "productionDesign": "Patricia Norris",
+    "costumeDesign": "Patricia Norris"
   },
   {
     "line": 60,
@@ -1610,7 +1662,18 @@
       "Historical Fiction",
       "Racism"
     ],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 13,
+    "tagline": "The world will never be the same once you've seen it through the eyes of Forrest Gump.",
+    "revenue": 677387716,
+    "budget": 55000000,
+    "directorofPhotography": "Don Burgess",
+    "editor": "Arthur Schmidt",
+    "producer": "Wendy Finerman",
+    "screenplay": "Eric Roth",
+    "originalMusicComposer": "Alan Silvestri",
+    "productionDesign": "Rick Carter",
+    "costumeDesign": "Joanna Johnston"
   },
   {
     "line": 61,
@@ -1628,7 +1691,18 @@
       "Kidnapping",
       "Murder"
     ],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 1078605,
+    "tagline": "Last night at 2:17 AM, every child from Mrs. Gandy's class woke up, got out of bed, went downstairs, opened the front door, walked into the dark ...and they never came back.",
+    "revenue": 265894217,
+    "budget": 38000000,
+    "directorofPhotography": "Larkin Seiple",
+    "executiveProducer": "Richard Brener",
+    "editor": "Joe Murphy",
+    "producer": "Zach Cregger",
+    "originalMusicComposer": "Zach Cregger",
+    "productionDesign": "Tom Hammock",
+    "costumeDesign": "Trish Summerville"
   },
   {
     "line": 62,
@@ -1642,7 +1716,18 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 310131,
+    "tagline": "Evil takes many forms.",
+    "revenue": 40423945,
+    "budget": 4000000,
+    "directorofPhotography": "Jarin Blaschke",
+    "executiveProducer": "Sophie Mas",
+    "editor": "Louise Ford",
+    "producer": "Daniel Bekerman",
+    "originalMusicComposer": "Mark Korven",
+    "productionDesign": "Craig Lathrop",
+    "costumeDesign": "Linda Muir"
   },
   {
     "line": 63,
@@ -1658,7 +1743,19 @@
     "tags": [
       "Family"
     ],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 10466,
+    "tagline": "For everyone who's ever been deeply in love or deeply in debt.",
+    "revenue": 54999651,
+    "budget": 10000000,
+    "directorofPhotography": "Gordon Willis",
+    "executiveProducer": "David Giler",
+    "editor": "Jacqueline Cambas",
+    "producer": "Art Levinson",
+    "screenplay": "David Giler",
+    "originalMusicComposer": "Michel Colombier",
+    "productionDesign": "Patrizia von Brandenstein",
+    "costumeDesign": "Ruth Morley"
   },
   {
     "line": 64,
@@ -1672,7 +1769,18 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 493922,
+    "tagline": "Every family tree hides a secret.",
+    "revenue": 87796204,
+    "budget": 10000000,
+    "directorofPhotography": "Pawel Pogorzelski",
+    "executiveProducer": "Jonathan Gardner",
+    "editor": "Lucian Johnston",
+    "producer": "Buddy Patrick",
+    "originalMusicComposer": "Colin Stetson",
+    "productionDesign": "Grace Yun",
+    "costumeDesign": "Olga Mill"
   },
   {
     "line": 65,
