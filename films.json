@@ -2717,5 +2717,30 @@
     "revenue": 704242888,
     "budget": 35000000,
     "tmdbId": 346364
+  },
+  {
+    "line": 102,
+    "type": "movie",
+    "film": "Making 'The Shining'",
+    "year": 1980,
+    "director": "Vivian Kubrick",
+    "link": "https://www.imdb.com/title/tt0203667/",
+    "duration": 35,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "",
+    "directorofPhotography": "John Alcott",
+    "executiveProducer": "Jan Harlan",
+    "editor": "Vivian Kubrick",
+    "producer": "Stanley Kubrick",
+    "screenplay": "Diane Johnson",
+    "originalMusicComposer": "Wendy Carlos",
+    "productionDesign": "Roy Walker",
+    "costumeDesign": "Milena Canonero",
+    "revenue": "",
+    "budget": "",
+    "tmdbId": 18875
   }
 ]
