@@ -2467,5 +2467,30 @@
     "revenue": 10550350,
     "budget": 14000000,
     "tmdbId": 514847
+  },
+  {
+    "line": 92,
+    "type": "movie",
+    "film": "The Invisible Man",
+    "year": 2020,
+    "director": "Leigh Whannell",
+    "link": "https://www.imdb.com/title/tt1051906/",
+    "duration": 124,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "What you can't see can hurt you.",
+    "directorofPhotography": "Stefan Duscio",
+    "executiveProducer": "Rosemary Blight",
+    "editor": "Andy Canny",
+    "producer": "Jason Blum",
+    "screenplay": "Leigh Whannell",
+    "originalMusicComposer": "Benjamin Wallfisch",
+    "productionDesign": "Alex Holmes",
+    "costumeDesign": "Emily Seresin",
+    "revenue": 144492724,
+    "budget": 7000000,
+    "tmdbId": 570670
   }
 ]
