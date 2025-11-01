@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Film Log</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway+Dots&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
@@ -47,6 +50,11 @@
             justify-content: space-around;
             padding: 0 40px;
             z-index: 10;
+        }
+        .raleway-dots-regular {
+            font-family: "Raleway Dots", sans-serif;
+            font-weight: 400;
+            font-style: normal;
         }
 
         .light {
@@ -165,7 +173,7 @@
             text-align: center;
             font-size: 56px;
             font-weight: 400;
-            font-family: 'Baskerville', 'Garamond', 'Georgia', serif;
+            font-family: 'Raleway Dots', 'Baskerville', 'Garamond', 'Georgia', serif;
             margin: 20px 0 10px 0;
             letter-spacing: 2px;
             position: relative;
@@ -1463,8 +1471,8 @@
                 <div class="light"></div>
             </div>
 
-            <h1 class="marquee-title">Family Groovy Night</h1>
-            <p class="marquee-subtitle">Now! showing from your curated collection</p>
+            <h1 class="marquee-title raleway-dots-regular">Family Groovy Night</h1>
+            <p class="marquee-subtitle raleway-dots-regular">Now showing from your curated collection</p>
             <p class="night-indicator">{{ isWeekendNight ? '🎉 Weekend Night 🎉' : '📚 School Night 📚' }} • Target End:
                 {{ currentTargetEndTime }}</p>
 
@@ -1870,6 +1878,17 @@
                     📦 Poster cache: {{ posterCacheSize }} items cached •
                     <a href="#" @click.prevent="clearPosterCache" style="color: #ff6b6b;">Clear cache</a>
                 </div>
+
+                <div class="settings-section">
+                    <h2>Backfill Film Data</h2>
+                    <p>Finds films missing new TMDb data (tagline, budget, etc.) and updates them in safe batches of 10.</p>
+                    <button @click="batchUpdateFromTMDb" class="autofill-btn">
+                        🚀 Start Batch Update
+                    </button>
+                    <small style="margin-top: 10px; display: block;">
+                        (Click, wait 10 seconds for it to finish, then click again for the next batch.)
+                    </small>
+                </div>
             </div>
 
             <div v-if="tmdbApiKey" class="settings-section">
@@ -2204,7 +2223,8 @@
                         productionDesign: '',
                         costumeDesign: '',
                         revenue: '',
-                        budget: ''
+                        budget: '',
+                        tmdbId: null
                     },
                     showSearchModal: false,
                     tmdbSearchQuery: '',
@@ -3297,7 +3317,8 @@
                         productionDesign: '',
                         costumeDesign: '',
                         revenue: '',
-                        budget: ''
+                        budget: '',
+                        tmdbId: null
                     };
                     this.showFilmModal = true;
                 },
@@ -3468,7 +3489,8 @@
                                 productionDesign: this.filmForm.productionDesign,
                                 costumeDesign: this.filmForm.costumeDesign,
                                 revenue: this.filmForm.revenue,
-                                budget: this.filmForm.budget
+                                budget: this.filmForm.budget,
+                                tmdbId: this.filmForm.tmdbId
                             };
                         }
                     } else {
@@ -3498,7 +3520,8 @@
                             productionDesign: this.filmForm.productionDesign,
                             costumeDesign: this.filmForm.costumeDesign,
                             revenue: this.filmForm.revenue,
-                            budget: this.filmForm.budget
+                            budget: this.filmForm.budget,
+                            tmdbId: this.filmForm.tmdbId
                         };
 
                         if (this.filmForm.type === 'tv') {
@@ -3715,6 +3738,8 @@
 
                         const response = await this.rateLimitedFetch(detailsUrl);
                         const details = await response.json();
+                        
+                        this.filmForm.tmdbId = details.id;
 
                         // Fill form
                         if (this.filmForm.type === 'movie') {
@@ -3832,13 +3857,100 @@
                         console.error('Error fetching details:', error);
                         alert('Error fetching details. Please try again.');
                     }
+                },        
+        async batchUpdateFromTMDb() {
+            this.showSyncStatus('Starting batch update...', '');
+            
+            // 1. Find all films that DON'T have a tmdbId
+            const filmsToUpdate = this.films.filter(f => !f.tmdbId);
+
+            if (filmsToUpdate.length === 0) {
+                alert('All films are up-to-date!');
+                return;
+            }
+
+            // 2. Get the first 10 films
+            const batch = filmsToUpdate.slice(0, 10);
+            
+            try {
+                // 3. Loop through the batch, respecting the rate limit
+                for (const film of batch) {
+                    await this.fetchAndUpdateFilm(film);
+                    // Wait 250ms between each request to be safe
+                    await new Promise(resolve => setTimeout(resolve, 250));
                 }
+
+                // 4. Save the entire updated list to GitHub
+                await this.saveToGitHub();
+                
+                const remaining = filmsToUpdate.length - batch.length;
+                alert(`Batch complete! Updated ${batch.length} films. ${remaining} films remaining.`);
+
+            } catch (error) {
+                console.error('Batch Update Error:', error);
+                alert('An error occurred during the batch update. Check the console.');
+            }
+        },
+
+        async fetchAndUpdateFilm(film) {
+            // This helper function finds a single film on TMDb and updates it
+            if (!film.film || !this.tmdbApiKey) return;
+            
+            try {
+                // 1. Search for the film by title and year to get its ID
+                const mediaType = film.type === 'tv' ? 'tv' : 'movie';
+                const yearParam = film.year ? (mediaType === 'tv' ? `&first_air_date_year=${film.year}` : `&year=${film.year}`) : '';
+                const searchUrl = `https://api.themoviedb.org/3/search/${mediaType}?api_key=${this.tmdbApiKey}&query=${encodeURIComponent(film.film)}${yearParam}`;
+
+                const searchResponse = await this.rateLimitedFetch(searchUrl);
+                const searchData = await searchResponse.json();
+
+                if (!searchData.results || searchData.results.length === 0) {
+                    console.warn(`No TMDb result found for: ${film.film}`);
+                    return;
+                }
+
+                const result = searchData.results[0];
+                const tmdbId = result.id;
+
+                // 2. Fetch the full details using the ID
+                const detailsUrl = `https://api.themoviedb.org/3/${mediaType}/${tmdbId}?api_key=${this.tmdbApiKey}&append_to_response=credits,external_ids`;
+                const detailsResponse = await this.rateLimitedFetch(detailsUrl);
+                const details = await detailsResponse.json();
+
+                // 3. Find the film in your main 'films' array by its unique line number
+                const filmToUpdate = this.films.find(f => f.line === film.line);
+                if (!filmToUpdate) return;
+                
+                // 4. Merge all the new data into the existing film object
+                const crew = details.credits ? details.credits.crew : [];
+                Object.assign(filmToUpdate, {
+                    tmdbId: details.id,
+                    tagline: details.tagline,
+                    revenue: details.revenue,
+                    budget: details.budget,
+                    link: (details.external_ids && details.external_ids.imdb_id) ? `https://www.imdb.com/title/${details.external_ids.imdb_id}/` : filmToUpdate.link,
+                    director: (crew.find(c => c.job === 'Director') || {}).name || filmToUpdate.director,
+                    directorofPhotography: (crew.find(c => c.job === 'Director of Photography') || {}).name,
+                    executiveProducer: (crew.find(c => c.job === 'Executive Producer') || {}).name,
+                    editor: (crew.find(c => c.job === 'Editor') || {}).name,
+                    producer: (crew.find(c => c.job === 'Producer') || {}).name,
+                    screenplay: (crew.find(c => c.job === 'Screenplay') || {}).name,
+                    originalMusicComposer: (crew.find(c => c.job === 'Original Music Composer') || {}).name,
+                    productionDesign: (crew.find(c => c.job === 'Production Design') || {}).name,
+                    costumeDesign: (crew.find(c => c.job === 'Costume Design') || {}).name
+                });
+                
+            } catch (error) {
+                console.error(`Failed to update ${film.film}:`, error);
+            }
+        },
             },
             async mounted() {
                 this.loadSettings();
                 this.loadTmdbKey();
                 this.loadPosterCache();
-                console.log("AMATUER NIGHT")
+                console.log("batchUpdateFromTMDb");
                 // Load data unconditionally on startup
                 await this.loadFromGitHub();
                 await this.loadTagsFromGitHub();
