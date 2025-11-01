@@ -2667,5 +2667,30 @@
     "revenue": 2550508,
     "budget": "",
     "tmdbId": 80767
+  },
+  {
+    "line": 100,
+    "type": "movie",
+    "film": "Invasion of the Body Snatchers",
+    "year": 1978,
+    "director": "Philip Kaufman",
+    "link": "https://www.imdb.com/title/tt0077745/",
+    "duration": 116,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "The seed is planted... terror grows.",
+    "directorofPhotography": "Michael Chapman",
+    "executiveProducer": "",
+    "editor": "Douglas Stewart",
+    "producer": "Robert H. Solo",
+    "screenplay": "W.D. Richter",
+    "originalMusicComposer": "Denny Zeitlin",
+    "productionDesign": "Charles Rosen",
+    "costumeDesign": "Agnes Anne Rogers",
+    "revenue": 24946533,
+    "budget": 3500000,
+    "tmdbId": 11850
   }
 ]
