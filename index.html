@@ -2221,6 +2221,7 @@
                     syncStatus: '',
                     syncStatusClass: '',
                     fileSha: null
+                    console.log(                    fileSha: nullfileSha)
                 };
             },
             computed: {
@@ -3098,6 +3099,7 @@
                         if (response.ok) {
                             const data = await response.json();
                             this.fileSha = data.sha;
+                            console.log(this.fileSha)
                             const content = atob(data.content);
                             this.films = JSON.parse(content);
 
@@ -3139,6 +3141,7 @@
                             message: `Update films: ${new Date().toLocaleString()}`,
                             content: content,
                             sha: this.fileSha
+                            console.log(sha: this.fileSha)
                         };
 
                         // Inside saveToGitHub()
@@ -3153,6 +3156,7 @@
                         if (response.ok) {
                             const data = await response.json();
                             this.fileSha = data.content.sha;
+                            console.log(this.fileSha)
                             this.lastTinkered = new Date().toLocaleString();
                             this.showSyncStatus('✓ Synced to GitHub', 'success');
                         } else {
