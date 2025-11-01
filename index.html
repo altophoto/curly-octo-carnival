@@ -3289,7 +3289,18 @@
                         platformLink: '',
                         podcastLink: '',
                         dateAdded: this.getTodayDate(),
-                        tagsInput: ''
+                        tagsInput: '',
+                        tagline: '',
+                        directorofPhotography: '',
+                        executiveProducer: '',
+                        editor: '',
+                        producer: '',
+                        screenplay: '',
+                        originalMusicComposer: '',
+                        productionDesign: '',
+                        costumeDesign: '',
+                        revenue: '',
+                        budget: ''
                     };
                     this.showFilmModal = true;
                 },
@@ -3694,6 +3705,7 @@
                         const data = await response.json();
 
                         this.searchResults = data.results ? data.results.slice(0, 10) : [];
+                        console.log('11/1/2025', searchResults)
                     } catch (error) {
                         alert('Error searching TMDb. Please try again.');
                     }
