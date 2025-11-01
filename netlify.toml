@@ -1,0 +1,14 @@
+# This is the netlify.toml file
+
+[build]
+  # This tells Netlify your site is just static files in the root.
+  publish = "."
+  # This tells Netlify where your serverless functions live.
+  functions = "netlify/functions"
+
+[[redirects]]
+  # This is the "proxy" part.
+  # It forwards any request from /api/* to your function.
+  from = "/api/*"
+  to = "/.netlify/functions/proxy"
+  status = 200
