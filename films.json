@@ -2794,5 +2794,30 @@
     "revenue": 224145,
     "budget": "",
     "tmdbId": 309299
+  },
+  {
+    "line": 106,
+    "type": "movie",
+    "film": "Creed",
+    "year": 2015,
+    "director": "Ryan Coogler",
+    "link": "https://www.imdb.com/title/tt3076658/",
+    "duration": 133,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "Your legacy is more than a name.",
+    "directorofPhotography": "Maryse Alberti",
+    "executiveProducer": "Nicolas Stern",
+    "editor": "Claudia Castello",
+    "producer": "David Winkler",
+    "screenplay": "Aaron Covington",
+    "originalMusicComposer": "Ludwig Göransson",
+    "productionDesign": "Hannah Beachler",
+    "costumeDesign": "Antoinette Messam",
+    "revenue": 173600000,
+    "budget": 37000000,
+    "tmdbId": 312221
   }
 ]
