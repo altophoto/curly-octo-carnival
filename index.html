@@ -2535,6 +2535,55 @@
                         console.error('Error saving tags to GitHub:', error);
                     }
                 },
+                async loadTagsFromGitHub() {
+                    try {
+                        const url = this.githubTagsFile; // Uses /api/tags.json
+                        const response = await fetch(url); // No headers
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            this.tagsSha = data.sha;
+                            const content = atob(data.content);
+                            this.predefinedTags = JSON.parse(content);
+                        } else if (response.status === 404) {
+                            this.predefinedTags = [];
+                        }
+                    } catch (error) {
+                        console.error('Error loading tags from GitHub:', error);
+                        this.predefinedTags = [];
+                    }
+                },
+                async saveTagsToGitHub() {
+                    try {
+                        const content = btoa(JSON.stringify(this.predefinedTags, null, 2));
+                        const url = this.githubTagsFile; // Uses /api/tags.json
+                        
+                        const body = {
+                            message: `Update tags: ${new Date().toLocaleString()}`,
+                            content: content
+                        };
+                        
+                        if (this.tagsSha) {
+                            body.sha = this.tagsSha;
+                        }
+                        
+                        const response = await fetch(url, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json' // Only header needed
+                            },
+                            body: JSON.stringify(body)
+                        });
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            this.tagsSha = data.content.sha;
+                        }
+                    } catch (error) {
+                        console.error('Error saving tags to GitHub:', error);
+                    }
+                },
+                
                 /* async loadTagsFromGitHub() {
                     // if (!this.githubToken) return;
                     
