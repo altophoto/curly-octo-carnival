@@ -2593,7 +2593,26 @@
                         this.showSyncStatus('Tag color updated (text auto-adjusted)', 'success');
                     }
                 },
-                async loadDirectorsFromGitHub() {
+                                async loadDirectorsFromGitHub() {
+                    try {
+                        const url = this.githubDirectorsFile; // Uses /api/directors.json
+                        const response = await fetch(url); // No headers
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            this.directorsSha = data.sha;
+                            const content = atob(data.content);
+                            this.predefinedDirectors = JSON.parse(content);
+                        } else if (response.status === 404) {
+                            this.predefinedDirectors = [];
+                        }
+                    } catch (error) {
+                        console.error('Error loading directors from GitHub:', error);
+                        this.predefinedDirectors = [];
+                    }
+                },
+
+                /* async loadDirectorsFromGitHub() {
                     if (!this.githubToken) return;
                     
                     try {
@@ -2617,8 +2636,38 @@
                         console.error('Error loading directors from GitHub:', error);
                         this.predefinedDirectors = [];
                     }
+                },*/
+                                async saveDirectorsToGitHub() {
+                    try {
+                        const content = btoa(JSON.stringify(this.predefinedDirectors, null, 2));
+                        const url = this.githubDirectorsFile; // Uses /api/directors.json
+                        
+                        const body = {
+                            message: `Update directors: ${new Date().toLocaleString()}`,
+                            content: content
+                        };
+                        
+                        if (this.directorsSha) {
+                            body.sha = this.directorsSha;
+                        }
+                        
+                        const response = await fetch(url, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json' // Only header needed
+                            },
+                            body: JSON.stringify(body)
+                        });
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            this.directorsSha = data.content.sha;
+                        }
+                    } catch (error) {
+                        console.error('Error saving directors to GitHub:', error);
+                    }
                 },
-                async saveDirectorsToGitHub() {
+                /* async saveDirectorsToGitHub() {
                     // if (!this.githubToken) return;
                     
                     try {
@@ -2652,6 +2701,7 @@
                         console.error('Error saving directors to GitHub:', error);
                     }
                 },
+                */
                 addPredefinedDirector() {
                     const director = this.newDirectorInput.trim();
                     if (director && !this.predefinedDirectors.includes(director)) {
