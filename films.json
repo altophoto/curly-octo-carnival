@@ -1632,5 +1632,21 @@
     "tagline": "Keeping secrets, are ye?",
     "revenue": 18262464,
     "budget": 11000000
+  },
+  {
+    "line": 95,
+    "type": "movie",
+    "film": "Cabin Fever",
+    "year": 2003,
+    "director": "Eli Roth",
+    "link": "https://www.imdb.com/title/tt0303816/",
+    "duration": 98,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "Terror… in the flesh.",
+    "revenue": 30600000,
+    "budget": 1500000
   }
 ]
