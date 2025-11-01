@@ -1,8 +1,8 @@
 [
   {
     "tag": "Academy Award Winner",
-    "bgColor": "#e74c3c",
-    "textColor": "#ffffff"
+    "bgColor": "#fefb41",
+    "textColor": "#000000"
   },
   {
     "tag": "Action",
@@ -176,12 +176,12 @@
   },
   {
     "tag": "Family",
-    "bgColor": "#34495e",
+    "bgColor": "#ffa57d",
     "textColor": "#ffffff"
   },
   {
     "tag": "Fantasy",
-    "bgColor": "#16a085",
+    "bgColor": "#74a7ff",
     "textColor": "#ffffff"
   },
   {
@@ -211,7 +211,7 @@
   },
   {
     "tag": "Garbage",
-    "bgColor": "#e74c3c",
+    "bgColor": "#583300",
     "textColor": "#ffffff"
   },
   {
@@ -251,7 +251,7 @@
   },
   {
     "tag": "Hollywood",
-    "bgColor": "#16a085",
+    "bgColor": "#32c759",
     "textColor": "#ffffff"
   },
   {

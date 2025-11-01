@@ -1236,8 +1236,6 @@
     "tags": [
       "Horror",
       "Murder",
-      "Revolutionary",
-      "Revolutionary",
       "Set in Illinois"
     ],
     "platform": ""
@@ -1273,6 +1271,7 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [
+      "Head on Head",
       "Lynchian"
     ],
     "platform": ""
@@ -1290,7 +1289,6 @@
     "dateAdded": "2025-10-29",
     "tags": [
       "AIDS",
-      "Banger Soundtrack",
       "Banger Soundtrack",
       "Historical Fiction",
       "Racism"
@@ -1327,6 +1325,9 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [],
+    "tags": [
+      "Witches"
+    ],
     "platform": ""
   },
   {
@@ -1341,8 +1342,7 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [
-      "Family",
-      "Lunacy"
+      "Family",l
     ],
     "platform": ""
   },
@@ -1575,5 +1575,20 @@
       "Thriller"
     ],
     "platform": ""
+  },
+  {
+    "line": 91,
+    "type": "movie",
+    "film": "Beware the Slenderman",
+    "year": 2016,
+    "director": "Irene Taylor",
+    "link": "https://www.imdb.com/title/tt5329376/",
+    "duration": 115,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-10-31",
+    "tags": [
+      "Garbage"
+    ]
   }
 ]
