@@ -1472,7 +1472,7 @@
     "film": "West Side Story",
     "year": 1961,
     "director": "Jerome Robbins",
-    "link": "https://www.imdb.com/title/tt0055614/?ref_=ext_shr_lnk",
+    "link": "https://www.imdb.com/title/tt0055614/",
     "duration": 153,
     "platformLink": "https://www.lookmovie2.to/movies/view/0055614-west-side-story-1961",
     "podcastLink": "",
@@ -1484,7 +1484,19 @@
       "Musical",
       "Teen Drama"
     ],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 1725,
+    "tagline": "The screen achieves one of the great entertainments in the history of motion pictures.",
+    "revenue": 43700000,
+    "budget": 6000000,
+    "directorofPhotography": "Daniel L. Fapp",
+    "executiveProducer": "Walter Mirisch",
+    "editor": "Thomas Stanford",
+    "producer": "Robert Wise",
+    "screenplay": "Ernest Lehman",
+    "originalMusicComposer": "Leonard Bernstein",
+    "productionDesign": "Boris Leven",
+    "costumeDesign": "Irene Sharaff"
   },
   {
     "line": 55,
