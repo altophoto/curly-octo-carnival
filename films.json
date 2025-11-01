@@ -804,20 +804,22 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-10-27",
-    "tags": [],
+    "tags": [
+      "hide-poster"
+    ],
     "type": "movie",
     "platform": "",
-    "tmdbId": 10642,
     "tagline": "Dare to be different.",
-    "revenue": 0,
-    "budget": 0,
+    "revenue": "",
+    "budget": "",
     "directorofPhotography": "Rob Hahn",
     "executiveProducer": "John M. Eckert",
     "editor": "Debra Chiate",
     "producer": "Twink Caplan",
     "originalMusicComposer": "David Kitay",
     "productionDesign": "Steven J. Jordan",
-    "costumeDesign": "Mona May"
+    "costumeDesign": "Mona May",
+    "screenplay": ""
   },
   {
     "line": 30,
