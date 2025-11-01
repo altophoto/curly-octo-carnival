@@ -2337,5 +2337,30 @@
     "costumeDesign": "Jenny Eagan",
     "revenue": 312897920,
     "budget": 40000000
+  },
+  {
+    "line": 87,
+    "type": "movie",
+    "film": "Get Out",
+    "year": 2017,
+    "director": "Jordan Peele",
+    "link": "https://www.imdb.com/title/tt5052448/",
+    "duration": 104,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "Just because you're invited, doesn't mean you're welcome.",
+    "directorofPhotography": "Toby Oliver",
+    "executiveProducer": "Raymond Mansfield",
+    "editor": "Gregory Plotkin",
+    "producer": "Jason Blum",
+    "screenplay": "",
+    "originalMusicComposer": "Michael Abels",
+    "productionDesign": "Rusty Smith",
+    "costumeDesign": "Nadine Haders",
+    "revenue": 255407969,
+    "budget": 4500000,
+    "tmdbId": 419430
   }
 ]
