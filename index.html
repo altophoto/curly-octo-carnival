@@ -1476,7 +1476,7 @@
                 <div class="light"></div>
             </div>
 
-            <h1 class="marquee-title raleway-dots-regular">Family Groovy Night</h1>
+            <h1 class="marquee-title raleway-dots-regular">Family Groovy Night, Welcome Miriam</h1>
             <p class="marquee-subtitle">Now showing from your curated collection</p>
             <p class="night-indicator">{{ isWeekendNight ? '🎉 Weekend Night 🎉' : '📚 School Night 📚' }} • Target End:
                 {{ currentTargetEndTime }}</p>
@@ -1987,13 +1987,13 @@
                     </div>
 
                     <!-- Auto-fill button -->
-                    <!-- <div class="form-group" v-if="tmdbApiKey">
+                    <div class="form-group" v-if="tmdbApiKey">
                         <button type="button" class="autofill-btn" @click="openSearchModal">
                             🔍 Search & Auto-Fill from TMDb
                         </button>
                         <small>Automatically fill director, year, runtime, and IMDB link</small>
-                    </div> -->
-                <div class="modal-content">
+                    </div>
+                <!-- <div class="modal-content">
                     <h2>Search TMDb</h2>
                     <div class="form-group">
                         <input type="text" v-model="tmdbSearchQuery" @keyup.enter="searchTMDb"
@@ -2020,7 +2020,7 @@
                     <div class="form-actions" style="margin-top: 20px;">
                         <button type="button" class="secondary" @click="closeSearchModal">Close</button>
                     </div>
-                </div>
+                </div> -->
             
                     <!-- Movie Title -->
                     <div class="form-group" v-if="filmForm.type === 'movie'">
@@ -2133,17 +2133,17 @@
                         <small>Separate custom tags with commas. Click predefined tags above to select them.</small>
                     </div>
 
-                    <!-- <div class="form-actions">
+                    <div class="form-actions">
                         <button type="button" class="secondary" @click="closeFilmModal">Cancel</button>
                         <button type="submit" tabindex="13">{{ editingFilm ? 'Update' : 'Add' }} {{ filmForm.type ===
                             'tv' ? 'Episode' : 'Film' }}</button>
-                    </div> -->
+                    </div>
                 </form>
             </div>
         </div>
 
         <!-- TMDb Search Modal -->
-        <!-- <div class="modal" v-if="showSearchModal" @click.self="closeSearchModal">
+        <div class="modal" v-if="showSearchModal" @click.self="closeSearchModal">
             <div class="modal-content">
                 <h2>Search TMDb</h2>
                 <div class="form-group">
@@ -2173,7 +2173,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <script>
         const { createApp } = Vue;
