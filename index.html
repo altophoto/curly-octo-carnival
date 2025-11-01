@@ -1781,36 +1781,6 @@
 
         <!-- SETTINGS VIEW -->
         <div v-if="currentView === 'settings'">
-            <!--div class="settings-section">
-                <h2>GitHub Sync Setup</h2>
-                <p>Your data is stored in GitHub. Enter your Personal Access Token to enable syncing.</p>
-                
-                <div class="form-group">
-                    <label>GitHub Personal Access Token</label>
-                    <input 
-                        type="password" 
-                        v-model="tokenInput" 
-                        placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                    />
-                    <small>
-                        Create a token at: GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)<br>
-                        Required permission: <strong>repo</strong> (Full control of private repositories)
-                    </small>
-                </div>
-                
-                <button @click="saveToken">Save Token</button>
-                <button v-if="githubToken" class="secondary" @click="clearToken" style="margin-left: 10px;">Clear Token</button>
-                
-                <div v-if="tokenSaved" class="token-status configured">
-                    ✓ Token configured and saved
-                </div>
-                <div v-else class="token-status not-configured">
-                    ⚠ Token not configured - GitHub sync disabled
-                </div>
-                
-                <p style="margin-top: 20px;"><strong>Repository:</strong> altophoto/curly-octo-carnival</p>
-                <p><strong>Data files:</strong> films.json, tags.json, directors.json</p>
-            </div-->
 
             <div class="settings-section">
                 <h2>Tag Management & Badge Styling</h2>
@@ -2224,7 +2194,18 @@
                         platformLink: '',
                         podcastLink: '',
                         dateAdded: '',
-                        tagsInput: ''
+                        tagsInput: '',
+                        tagline: '',
+                        directorofPhotography: '',
+                        executiveProducer: '',
+                        editor: '',
+                        producer: '',
+                        screenplay: '',
+                        originalMusicComposer: '',
+                        productionDesign: '',
+                        costumeDesign: '',
+                        revenue: '',
+                        budget: ''
                     },
                     showSearchModal: false,
                     tmdbSearchQuery: '',
@@ -2315,6 +2296,7 @@
                             (f.director && f.director.toLowerCase().includes(query)) ||
                             (f.type && f.type.toLowerCase().includes(query)) ||
                             (f.tags && f.tags.some(t => t.toLowerCase().includes(query)))
+                            // to do: add new fields
                         );
                     }
 
@@ -3107,12 +3089,9 @@
                     }
                 },
                 async loadFromGitHub() {
-                    // if (!this.githubToken) return;
-
                     this.loading = true;
                     try {
-                        // const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/${this.githubFile}`;
-                        const url = this.githubFile; // It will use /api/films.json
+                        const url = this.githubFile; 
                         // Inside loadFromGitHub()
                         const response = await fetch(url); // No headers needed!
 
@@ -3156,8 +3135,6 @@
 
                         const content = btoa(JSON.stringify(this.films, null, 2));
                         const url = this.githubFile;
-                        // const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/${this.githubFile}`;
-
                         const body = {
                             message: `Update films: ${new Date().toLocaleString()}`,
                             content: content,
@@ -3168,7 +3145,7 @@
                         const response = await fetch(url, {
                             method: 'PUT',
                             headers: {
-                                'Content-Type': 'application/json' // This is the only header needed
+                                'Content-Type': 'application/json' 
                             },
                             body: JSON.stringify(body)
                         });
@@ -3249,7 +3226,7 @@
 
                     doc.setFontSize(10);
                     doc.text(`Generated: ${new Date().toLocaleDateString()}`, 14, 22);
-
+                    // subject to future enhancements
                     const tableData = this.films.map(f => [
                         f.line,
                         this.getTypeLabel(f.type),
@@ -3333,7 +3310,18 @@
                         platformLink: film.platformLink || '',
                         podcastLink: film.podcastLink || '',
                         dateAdded: film.dateAdded || this.getTodayDate(),
-                        tagsInput: ''
+                        tagsInput: film.tagsInput || '',
+                        tagline: film.tagline || '',
+                        directorofPhotography: film.directorofPhotography || '',
+                        executiveProducer: film.executiveProducer || '',
+                        editor: film.editor || '',
+                        producer: film.producer || '',
+                        screenplay: film.screenplay || '',
+                        originalMusicComposer: film.originalMusicComposer || '',
+                        productionDesign: film.productionDesign || '',
+                        costumeDesign: film.costumeDesign || '',
+                        revenue: film.revenue || '',
+                        budget: film.budget || ''
                     };
                     this.showFilmModal = true;
                 },
@@ -3461,7 +3449,18 @@
                                 platformLink: this.filmForm.platformLink,
                                 podcastLink: this.filmForm.podcastLink,
                                 dateAdded: this.films[index].dateAdded,
-                                tags: allTags
+                                tags: allTags,
+                                tagline: this.filmForm.tagline,
+                                directorofPhotography: this.filmForm.DirectorofPhotography,
+                                executiveProducer: this.filmForm.ExecutiveProducer,
+                                editor: this.filmForm.Editor,
+                                producer: this.filmForm.Producer,
+                                screenplay: this.filmForm.Screenplay,
+                                originalMusicComposer: this.filmForm.OriginalMusicComposer,
+                                productionDesign: this.filmForm.ProductionDesign,
+                                costumeDesign: this.filmForm.CostumeDesign,
+                                revenue: this.filmForm.revenue,
+                                budget: this.filmForm.budget
                             };
                         }
                     } else {
@@ -3480,7 +3479,18 @@
                             platformLink: this.filmForm.platformLink,
                             podcastLink: this.filmForm.podcastLink,
                             dateAdded: this.getTodayDate(),
-                            tags: allTags
+                            tags: allTags,
+                            tagline: this.filmForm.tagline,
+                            directorofPhotography: this.filmForm.DirectorofPhotography,
+                            executiveProducer: this.filmForm.ExecutiveProducer,
+                            editor: this.filmForm.Editor,
+                            producer: this.filmForm.Producer,
+                            screenplay: this.filmForm.Screenplay,
+                            originalMusicComposer: this.filmForm.OriginalMusicComposer,
+                            productionDesign: this.filmForm.ProductionDesign,
+                            costumeDesign: this.filmForm.CostumeDesign,
+                            revenue: this.filmForm.revenue,
+                            budget: this.filmForm.budget
                         };
 
                         if (this.filmForm.type === 'tv') {
@@ -3610,8 +3620,18 @@
                                 const podcastLink = parts[7] ? parts[7].replace(/"/g, '').trim() : '';
                                 const dateAdded = parts[8] ? parts[8].replace(/"/g, '').trim() : this.getTodayDate();
                                 const tagsStr = parts[9] ? parts[9].replace(/"/g, '').trim() : '';
-
                                 const tags = tagsStr.split(',').map(t => t.trim()).filter(t => t);
+                                const tagline = parts[10] ? parts[10].replace(/"/g, '').trim() : '';
+                                const directorofPhotography = parts[11] ? parts[11].replace(/"/g, '').trim() : '';
+                                const executiveProducer = parts[12] ? parts[12].replace(/"/g, '').trim() : '';
+                                const editor = parts[13] ? parts[13].replace(/"/g, '').trim() : '';
+                                const producer = parts[14] ? parts[14].replace(/"/g, '').trim() : '';
+                                const screenplay = parts[15] ? parts[15].replace(/"/g, '').trim() : '';
+                                const originalMusicComposer = parts[16] ? parts[16].replace(/"/g, '').trim() : '';
+                                const productionDesign = parts[17] ? parts[17].replace(/"/g, '').trim() : '';
+                                const costumeDesign = parts[18] ? parts[18].replace(/"/g, '').trim() : '';
+                                const revenue = parts[19] ? parts[19].replace(/"/g, '').trim() : '';
+                                const budget = parts[20] ? parts[20].replace(/"/g, '').trim() : '';
 
                                 if (film && duration) {
                                     this.films.push({
@@ -3625,7 +3645,18 @@
                                         platformLink,
                                         podcastLink,
                                         dateAdded,
-                                        tags
+                                        tags,
+                                        tagline,
+                                        directorofPhotography,
+                                        executiveProducer,
+                                        editor,
+                                        producer,
+                                        screenplay,
+                                        originalMusicComposer,
+                                        productionDesign,
+                                        costumeDesign,
+                                        revenue,
+                                        budget
                                     });
                                     imported++;
                                 }
@@ -3674,11 +3705,14 @@
 
                         const response = await this.rateLimitedFetch(detailsUrl);
                         const details = await response.json();
-                        console.log(details)
+                        // console.log(details)
 
                         // Fill form
                         if (this.filmForm.type === 'movie') {
                             this.filmForm.film = details.title || details.name;
+                            this.filmForm.tagline = details.tagline || '';
+                            this.filmForm.revenue = details.revenue || '';
+                            this.filmForm.budget = details.budget || '';
                         } else {
                             this.filmForm.showName = details.name || details.title;
                         }
@@ -3697,6 +3731,86 @@
                         } else if (mediaType === 'tv' && details.created_by && details.created_by.length > 0) {
                             this.filmForm.director = details.created_by[0].name;
                         }
+
+                        // Get Director of Photography
+                        if (mediaType === 'movie' && details.credits && details.credits.crew) {
+                            const directorofPhotography = details.credits.crew.find(c => c.job === 'Director of Photography');
+                            if (directorofPhotography) {
+                                this.filmForm.directorofPhotography = directorofPhotography.name;
+                            }
+                        } /* else if (mediaType === 'tv' && details.created_by && details.created_by.length > 0) {
+                            this.filmForm.director = details.created_by[0].name;
+                        } */
+
+                        // Get Executive Producer
+                        if (mediaType === 'movie' && details.credits && details.credits.crew) {
+                            const executiveProducer = details.credits.crew.find(c => c.job === 'Executive Producer');
+                            if (executiveProducer) {
+                                this.filmForm.executiveProducer = executiveProducer.name;
+                            }
+                        } /* else if (mediaType === 'tv' && details.created_by && details.created_by.length > 0) {
+                            this.filmForm.director = details.created_by[0].name;
+                        } */
+
+                        // Get Editor
+                        if (mediaType === 'movie' && details.credits && details.credits.crew) {
+                            const editor = details.credits.crew.find(c => c.job === 'Editor');
+                            if (editor) {
+                                this.filmForm.editor = editor.name;
+                            }
+                        } /* else if (mediaType === 'tv' && details.created_by && details.created_by.length > 0) {
+                            this.filmForm.director = details.created_by[0].name;
+                        } */
+
+                        // Get Producer
+                        if (mediaType === 'movie' && details.credits && details.credits.crew) {
+                            const producer = details.credits.crew.find(c => c.job === 'Producer');
+                            if (producer) {
+                                this.filmForm.producer = producer.name;
+                            }
+                        } /* else if (mediaType === 'tv' && details.created_by && details.created_by.length > 0) {
+                            this.filmForm.director = details.created_by[0].name;
+                        } */
+
+                        // Get Screenplay
+                        if (mediaType === 'movie' && details.credits && details.credits.crew) {
+                            const screenplay = details.credits.crew.find(c => c.job === 'Screenplay');
+                            if (screenplay) {
+                                this.filmForm.screenplay = screenplay.name;
+                            }
+                        } /* else if (mediaType === 'tv' && details.created_by && details.created_by.length > 0) {
+                            this.filmForm.director = details.created_by[0].name;
+                        } */
+
+                        // Get Original Music Composer
+                        if (mediaType === 'movie' && details.credits && details.credits.crew) {
+                            const originalMusicComposer = details.credits.crew.find(c => c.job === 'Original Music Composer');
+                            if (originalMusicComposer) {
+                                this.filmForm.originalMusicComposer = originalMusicComposer.name;
+                            }
+                        } /* else if (mediaType === 'tv' && details.created_by && details.created_by.length > 0) {
+                            this.filmForm.director = details.created_by[0].name;
+                        } */
+
+                        // Get Production Design
+                        if (mediaType === 'movie' && details.credits && details.credits.crew) {
+                            const productionDesign = details.credits.crew.find(c => c.job === 'Production Design');
+                            if (productionDesign) {
+                                this.filmForm.productionDesign = productionDesign.name;
+                            }
+                        } /* else if (mediaType === 'tv' && details.created_by && details.created_by.length > 0) {
+                            this.filmForm.director = details.created_by[0].name;
+                        } */
+
+                        // Get Costume Design
+                        if (mediaType === 'movie' && details.credits && details.credits.crew) {
+                            const costumeDesign = details.credits.crew.find(c => c.job === 'Costume Design');
+                            if (costumeDesign) {
+                                this.filmForm.costumeDesign = costumeDesign.name;
+                            }
+                        } /* else if (mediaType === 'tv' && details.created_by && details.created_by.length > 0) {
+                            this.filmForm.director = details.created_by[0].name;
+                        } */
 
                         // Get IMDB link
                         if (details.external_ids && details.external_ids.imdb_id) {
