@@ -2617,7 +2617,7 @@
                         if (response.ok) {
                             const data = await response.json();
                             this.tagsSha = data.sha;
-                            const content = atob(data.content);
+                            const content = decodeURIComponent(escape(atob(data.content)));
                             this.predefinedTags = JSON.parse(content);
                         } else if (response.status === 404) {
                             this.predefinedTags = [];
@@ -2682,7 +2682,7 @@
                         if (response.ok) {
                             const data = await response.json();
                             this.directorsSha = data.sha;
-                            const content = atob(data.content);
+                            const content = decodeURIComponent(escape(atob(data.content)));
                             this.predefinedDirectors = JSON.parse(content);
                         } else if (response.status === 404) {
                             this.predefinedDirectors = [];
@@ -3092,8 +3092,7 @@
                         if (response.ok) {
                             const data = await response.json();
                             this.fileSha = data.sha;
-                            console.log(this.fileSha)
-                            const content = atob(data.content);
+                            const content = decodeURIComponent(escape(atob(data.content)));
                             this.films = JSON.parse(content);
 
                             this.films.forEach(f => {
@@ -3716,7 +3715,6 @@
 
                         const response = await this.rateLimitedFetch(detailsUrl);
                         const details = await response.json();
-                        // console.log(details)
 
                         // Fill form
                         if (this.filmForm.type === 'movie') {
@@ -3840,7 +3838,7 @@
                 this.loadSettings();
                 this.loadTmdbKey();
                 this.loadPosterCache();
-
+                console.log("Update the atob mechanism")
                 // Load data unconditionally on startup
                 await this.loadFromGitHub();
                 await this.loadTagsFromGitHub();
