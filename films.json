@@ -1587,5 +1587,18 @@
     "tags": [
       "Garbage"
     ]
+  },
+  {
+    "line": 92,
+    "type": "movie",
+    "film": "The Witches",
+    "year": 1990,
+    "director": "Nicolas Roeg",
+    "link": "https://www.imdb.com/title/tt0100944/",
+    "duration": 91,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": []
   }
 ]
