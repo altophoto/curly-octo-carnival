@@ -2311,5 +2311,30 @@
     "originalMusicComposer": "David Julyan",
     "productionDesign": "Martin Whist",
     "costumeDesign": "Shawna Trpcic"
+  },
+  {
+    "line": 86,
+    "type": "movie",
+    "film": "Knives Out",
+    "year": 2019,
+    "director": "Rian Johnson",
+    "link": "https://www.imdb.com/title/tt8946378/",
+    "duration": 131,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "Hell, any of them could have done it.",
+    "directorofPhotography": "Steve Yedlin",
+    "executiveProducer": "Tom Karnowski",
+    "editor": "Bob Ducsay",
+    "producer": "Rian Johnson",
+    "screenplay": "",
+    "originalMusicComposer": "Nathan Johnson",
+    "productionDesign": "David Crank",
+    "costumeDesign": "Jenny Eagan",
+    "revenue": 312897920,
+    "budget": 40000000,
+    "tmdbId": 546554
   }
 ]
