@@ -2442,5 +2442,30 @@
     "revenue": 170823080,
     "budget": 68000000,
     "tmdbId": 762504
+  },
+  {
+    "line": 91,
+    "type": "movie",
+    "film": "The Hunt",
+    "year": 2020,
+    "director": "Craig Zobel",
+    "link": "https://www.imdb.com/title/tt8244784/",
+    "duration": 90,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "Only designated people may be hunted at the manor.",
+    "directorofPhotography": "Darran Tiernan",
+    "executiveProducer": "Couper Samuelson",
+    "editor": "Jane Rizzo",
+    "producer": "Jason Blum",
+    "screenplay": "",
+    "originalMusicComposer": "Nathan Barr",
+    "productionDesign": "Matthew Munn",
+    "costumeDesign": "David Tabbert",
+    "revenue": 10550350,
+    "budget": 14000000,
+    "tmdbId": 514847
   }
 ]
