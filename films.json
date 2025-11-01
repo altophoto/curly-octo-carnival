@@ -2744,5 +2744,30 @@
     "revenue": "",
     "budget": "",
     "tmdbId": 18875
+  },
+  {
+    "line": 103,
+    "type": "movie",
+    "film": "The Rocky Horror Picture Show",
+    "year": 1975,
+    "director": "Jim Sharman",
+    "link": "https://www.imdb.com/title/tt0073629/",
+    "duration": 100,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "A different set of jaws.",
+    "directorofPhotography": "Peter Suschitzky",
+    "executiveProducer": "Lou Adler",
+    "editor": "Graeme Clifford",
+    "producer": "Michael White",
+    "screenplay": "Richard O'Brien",
+    "originalMusicComposer": "Richard Hartley",
+    "productionDesign": "Brian Thomson",
+    "costumeDesign": "Sue Blane",
+    "revenue": 171181400,
+    "budget": 1400000,
+    "tmdbId": 36685
   }
 ]
