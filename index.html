@@ -3687,7 +3687,7 @@
                 },
                 openSearchModal() {
                     this.showSearchModal = true;
-                    this.tmdbSearchQuery = '';
+                    this.tmdbSearchQuery = this.filmForm.film !== '' ? this.filmForm.film : ''
                     this.searchResults = [];
                 },
                 closeSearchModal() {
