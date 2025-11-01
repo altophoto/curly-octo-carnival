@@ -2414,5 +2414,33 @@
     "revenue": 256067149,
     "budget": 20000000,
     "tmdbId": 458723
+  },
+  {
+    "line": 90,
+    "type": "movie",
+    "film": "Nope",
+    "year": 2022,
+    "director": "Jordan Peele",
+    "link": "https://www.imdb.com/title/tt10954984/",
+    "duration": 130,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [
+      "HUMANS AS FOOD",
+      "Sci-fi"
+    ],
+    "tagline": "What’s a bad miracle?",
+    "directorofPhotography": "Hoyte van Hoytema",
+    "executiveProducer": "Robert Graf",
+    "editor": "Nicholas Monsour",
+    "producer": "Jordan Peele",
+    "screenplay": "",
+    "originalMusicComposer": "Michael Abels",
+    "productionDesign": "Ruth De Jong",
+    "costumeDesign": "Alex Bovaird",
+    "revenue": 170823080,
+    "budget": 68000000,
+    "tmdbId": 762504
   }
 ]
