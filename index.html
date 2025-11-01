@@ -7,7 +7,7 @@
     <title>Film Log</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway+Dots&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway+Dots&family=Zen+Tokyo+Zoo&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
@@ -23,6 +23,11 @@
             padding: 20px;
             background: #0a0a0a;
             color: #e0e0e0;
+        }
+        .zen-tokyo-zoo-regular {
+            font-family: "Zen Tokyo Zoo", system-ui;
+            font-weight: 400;
+            font-style: normal;
         }
 
         /* Marquee Theater Styling */
@@ -173,7 +178,7 @@
             text-align: center;
             font-size: 56px;
             font-weight: 400;
-            font-family: 'Raleway Dots', 'Baskerville', 'Garamond', 'Georgia', serif;
+            font-family: 'Zen Tokyo Zoo', 'Raleway Dots', 'Baskerville', 'Garamond', 'Georgia', serif;
             margin: 20px 0 10px 0;
             letter-spacing: 2px;
             position: relative;
@@ -3950,7 +3955,7 @@
                 this.loadSettings();
                 this.loadTmdbKey();
                 this.loadPosterCache();
-                console.log("batchUpdateFromTMDb");
+                console.log("Zen Tokyo Zoo");
                 // Load data unconditionally on startup
                 await this.loadFromGitHub();
                 await this.loadTagsFromGitHub();
