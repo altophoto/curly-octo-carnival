@@ -2542,5 +2542,30 @@
     "revenue": 10785801,
     "budget": 4000000,
     "tmdbId": 13310
+  },
+  {
+    "line": 95,
+    "type": "movie",
+    "film": "It Follows",
+    "year": 2015,
+    "director": "David Robert Mitchell",
+    "link": "https://www.imdb.com/title/tt3235888/",
+    "duration": 101,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "It doesn't think, it doesn't feel, it doesn't give up.",
+    "directorofPhotography": "Mike Gioulakis",
+    "executiveProducer": "Frederick W. Green",
+    "editor": "Julio Perez IV",
+    "producer": "Rebecca Green",
+    "screenplay": "David Robert Mitchell",
+    "originalMusicComposer": "Rich Vreeland",
+    "productionDesign": "Michael Perry",
+    "costumeDesign": "Kimberly Leitz",
+    "revenue": 23374076,
+    "budget": 2300000,
+    "tmdbId": 270303
   }
 ]
