@@ -41,7 +41,6 @@
     "platformLink": "https://www.lookmovie2.to/movies/view/the-shawshank-redemption-1994",
     "podcastLink": "",
     "tags": [
-      "Character Development",
       "Drama",
       "Stephen King"
     ],
@@ -785,7 +784,6 @@
     "podcastLink": "https://drive.google.com/file/d/1MMCaOP8xOxphcUkvUwcnIsZPnti6uGlG/view?usp=drive_link",
     "dateAdded": "2025-10-27",
     "tags": [
-      "Alien",
       "Antarctica",
       "Body Horror",
       "Cowboy Hats"
@@ -839,7 +837,6 @@
     "podcastLink": "https://drive.google.com/file/d/1jyg-elmovUv0FNcjwUNIj32srRuAs5yc/view?usp=drive_link",
     "dateAdded": "2025-10-27",
     "tags": [
-      "Alien",
       "Class War"
     ],
     "type": "movie",
@@ -1175,7 +1172,6 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [
-      "Character Development",
       "Post-Apocalyptic",
       "Shakespeare"
     ],
@@ -1328,6 +1324,7 @@
     "platformLink": "https://tv.apple.com/us/movie/the-witch/umc.cmc.avhbnh188mvevcmjqmdukeam",
     "podcastLink": "",
     "dateAdded": "2025-10-29",
+    "tags": [],
     "tags": [
       "Witches"
     ],
@@ -1464,7 +1461,6 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [
-      "Alien",
       "Guns"
     ],
     "platform": ""

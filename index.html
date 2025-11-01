@@ -2380,13 +2380,17 @@
                     // Returns either black or white for optimal contrast
                     if (!bgColor) return '#ffffff';
 
-                    // Remove # if present
+                    // Remove # if present and validate
                     const hex = bgColor.replace('#', '');
+                    if (hex.length !== 6) return '#ffffff';
 
-                    // Convert to RGB
-                    const r = parseInt(hex.substr(0, 2), 16);
-                    const g = parseInt(hex.substr(2, 2), 16);
-                    const b = parseInt(hex.substr(4, 2), 16);
+                    // Convert to RGB using substring (not deprecated substr)
+                    const r = parseInt(hex.substring(0, 2), 16);
+                    const g = parseInt(hex.substring(2, 4), 16);
+                    const b = parseInt(hex.substring(4, 6), 16);
+
+                    // Validate RGB values
+                    if (isNaN(r) || isNaN(g) || isNaN(b)) return '#ffffff';
 
                     // Calculate relative luminance using ITU-R BT.709 coefficients
                     // This accounts for human perception of color brightness
