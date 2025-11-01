@@ -1616,5 +1616,21 @@
     "tagline": "Free your mind.",
     "revenue": 738599701,
     "budget": 150000000
+  },
+  {
+    "line": 94,
+    "type": "movie",
+    "film": "The Lighthouse",
+    "year": 2019,
+    "director": "Robert Eggers",
+    "link": "https://www.imdb.com/title/tt7984734/",
+    "duration": 109,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "Keeping secrets, are ye?",
+    "revenue": 18262464,
+    "budget": 11000000
   }
 ]
