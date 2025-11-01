@@ -3674,6 +3674,7 @@
 
                         const response = await this.rateLimitedFetch(detailsUrl);
                         const details = await response.json();
+                        console.log(details)
 
                         // Fill form
                         if (this.filmForm.type === 'movie') {
