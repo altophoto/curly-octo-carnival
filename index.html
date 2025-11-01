@@ -1962,6 +1962,11 @@
         <!-- Add/Edit Film Modal -->
         <div class="modal" v-if="showFilmModal" @click.self="closeFilmModal">
             <div class="modal-content">
+                <div class="form-actions">
+                        <button type="button" class="secondary" @click="closeFilmModal">Cancel</button>
+                        <button type="submit" tabindex="13">{{ editingFilm ? 'Update' : 'Add' }} {{ filmForm.type ===
+                            'tv' ? 'Episode' : 'Film' }}</button>
+                    </div>
                 <h2>{{ editingFilm ? 'Edit Title' : 'Add New Title' }}</h2>
 
                 <!-- Clone buttons for TV shows when editing -->
@@ -1982,13 +1987,41 @@
                     </div>
 
                     <!-- Auto-fill button -->
-                    <div class="form-group" v-if="tmdbApiKey">
+                    <!-- <div class="form-group" v-if="tmdbApiKey">
                         <button type="button" class="autofill-btn" @click="openSearchModal">
                             🔍 Search & Auto-Fill from TMDb
                         </button>
                         <small>Automatically fill director, year, runtime, and IMDB link</small>
+                    </div> -->
+                <div class="modal-content">
+                    <h2>Search TMDb</h2>
+                    <div class="form-group">
+                        <input type="text" v-model="tmdbSearchQuery" @keyup.enter="searchTMDb"
+                            placeholder="Enter movie or TV show title..." />
+                        <button @click="searchTMDb" style="margin-top: 10px;">Search</button>
                     </div>
-
+    
+                    <div v-if="searchResults.length > 0" class="search-results">
+                        <div v-for="result in searchResults" :key="result.id" class="search-result-item"
+                            @click="selectSearchResult(result)">
+                            <img v-if="result.poster_path" :src="`https://image.tmdb.org/t/p/w200${result.poster_path}`"
+                                class="search-result-poster" />
+                            <div v-else class="search-result-poster"
+                                style="display: flex; align-items: center; justify-content: center; background: #333;">
+                                🎬
+                            </div>
+                            <div class="search-result-info">
+                                <div class="search-result-title">{{ result.title || result.name }}</div>
+                                <div class="search-result-year">{{ extractYear(result.release_date || result.first_air_date) }}</div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="form-actions" style="margin-top: 20px;">
+                        <button type="button" class="secondary" @click="closeSearchModal">Close</button>
+                    </div>
+                </div>
+            
                     <!-- Movie Title -->
                     <div class="form-group" v-if="filmForm.type === 'movie'">
                         <label>Movie Title *</label>
@@ -2100,17 +2133,17 @@
                         <small>Separate custom tags with commas. Click predefined tags above to select them.</small>
                     </div>
 
-                    <div class="form-actions">
+                    <!-- <div class="form-actions">
                         <button type="button" class="secondary" @click="closeFilmModal">Cancel</button>
                         <button type="submit" tabindex="13">{{ editingFilm ? 'Update' : 'Add' }} {{ filmForm.type ===
                             'tv' ? 'Episode' : 'Film' }}</button>
-                    </div>
+                    </div> -->
                 </form>
             </div>
         </div>
 
         <!-- TMDb Search Modal -->
-        <div class="modal" v-if="showSearchModal" @click.self="closeSearchModal">
+        <!-- <div class="modal" v-if="showSearchModal" @click.self="closeSearchModal">
             <div class="modal-content">
                 <h2>Search TMDb</h2>
                 <div class="form-group">
@@ -2140,7 +2173,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <script>
         const { createApp } = Vue;
