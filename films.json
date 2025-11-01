@@ -2060,7 +2060,17 @@
       "Nudity",
       "Roger Ebert 4 Stars"
     ],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 530385,
+    "tagline": "Let the festivities begin.",
+    "revenue": 48498408,
+    "budget": 9000000,
+    "directorofPhotography": "Pawel Pogorzelski",
+    "executiveProducer": "Fredrik Heinig",
+    "editor": "Lucian Johnston",
+    "producer": "Lars Knudsen",
+    "originalMusicComposer": "Bobby Krlic",
+    "productionDesign": "Henrik Svensson"
   },
   {
     "line": 76,
@@ -2074,7 +2084,13 @@
     "podcastLink": "",
     "dateAdded": "2025-10-30",
     "tags": [],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 569865,
+    "tagline": "",
+    "revenue": 0,
+    "budget": 0,
+    "editor": "Emily Simon",
+    "producer": "Charles de Lauzirika"
   },
   {
     "line": 77,
@@ -2088,7 +2104,11 @@
     "podcastLink": "",
     "dateAdded": "2025-10-30",
     "tags": [],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 1001005,
+    "tagline": "",
+    "revenue": 0,
+    "budget": 0
   },
   {
     "line": 78,
@@ -2109,7 +2129,18 @@
       "Noir",
       "Thriller"
     ],
-    "platform": ""
+    "platform": "",
+    "tmdbId": 452522,
+    "tagline": "Who killed Laura Palmer?",
+    "revenue": 0,
+    "budget": 3800000,
+    "directorofPhotography": "Ronald Víctor García",
+    "executiveProducer": "David Lynch",
+    "editor": "Duwayne Dunham",
+    "producer": "David Latt",
+    "originalMusicComposer": "Angelo Badalamenti",
+    "productionDesign": "Patricia Norris",
+    "costumeDesign": "Patricia Norris"
   },
   {
     "line": 79,
@@ -2124,7 +2155,15 @@
     "dateAdded": "2025-10-31",
     "tags": [
       "Garbage"
-    ]
+    ],
+    "tmdbId": 376424,
+    "tagline": "On May 31st, 2014, in the woods outside of Waukesha, Wisconsin, two 12-year old girls stabbed their classmate 19 times. This is the true story of what drove them to do it.",
+    "revenue": 0,
+    "budget": 0,
+    "directorofPhotography": "Nick Midwig",
+    "editor": "Gladys Murphy",
+    "producer": "Sophie Harris",
+    "originalMusicComposer": "Benoît Charest"
   },
   {
     "line": 80,
@@ -2137,7 +2176,19 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-11-01",
-    "tags": []
+    "tags": [],
+    "tmdbId": 10166,
+    "tagline": "Saving the world from witches is a tall order for a boy they've turned into a mouse!",
+    "revenue": 15400000,
+    "budget": 11000000,
+    "directorofPhotography": "Harvey Harrison",
+    "executiveProducer": "Jim Henson",
+    "editor": "Tony Lawson",
+    "producer": "Mark Shivas",
+    "screenplay": "Allan Scott",
+    "originalMusicComposer": "Stanley Myers",
+    "productionDesign": "Andrew Sanders",
+    "costumeDesign": "Marit Allen"
   },
   {
     "line": 81,
@@ -2153,7 +2204,15 @@
     "tags": [],
     "tagline": "Free your mind.",
     "revenue": 738599701,
-    "budget": 150000000
+    "budget": 150000000,
+    "tmdbId": 604,
+    "directorofPhotography": "Bill Pope",
+    "executiveProducer": "Lilly Wachowski",
+    "editor": "Zach Staenberg",
+    "producer": "Joel Silver",
+    "originalMusicComposer": "Don Davis",
+    "productionDesign": "Owen Paterson",
+    "costumeDesign": "Kym Barrett"
   },
   {
     "line": 82,
@@ -2169,7 +2228,15 @@
     "tags": [],
     "tagline": "Keeping secrets, are ye?",
     "revenue": 18262464,
-    "budget": 11000000
+    "budget": 11000000,
+    "tmdbId": 503919,
+    "directorofPhotography": "Jarin Blaschke",
+    "executiveProducer": "Arnon Milchan",
+    "editor": "Louise Ford",
+    "producer": "Youree Henley",
+    "originalMusicComposer": "Mark Korven",
+    "productionDesign": "Craig Lathrop",
+    "costumeDesign": "Linda Muir"
   },
   {
     "line": 83,
@@ -2183,9 +2250,18 @@
     "podcastLink": "",
     "dateAdded": "2025-11-01",
     "tags": [],
-    "tagline": "Terrorâ¦ in the flesh.",
+    "tagline": "Terror… in the flesh.",
     "revenue": 30600000,
-    "budget": 1500000
+    "budget": 1500000,
+    "tmdbId": 11547,
+    "directorofPhotography": "Scott Kevan",
+    "executiveProducer": "Susan Jackson",
+    "editor": "Ryan Folsey",
+    "producer": "Sam Froelich",
+    "screenplay": "Eli Roth",
+    "originalMusicComposer": "Angelo Badalamenti",
+    "productionDesign": "Franco-Giacomo Carbone",
+    "costumeDesign": "Paloma Soledad"
   },
   {
     "line": 84,
@@ -2201,7 +2277,15 @@
     "tags": [],
     "tagline": "Welcome to your worst nightmare.",
     "revenue": 81979826,
-    "budget": 4800000
+    "budget": 4800000,
+    "tmdbId": 1690,
+    "directorofPhotography": "Milan Chadima",
+    "executiveProducer": "Boaz Yakin",
+    "editor": "George Folsey Jr.",
+    "producer": "Eli Roth",
+    "originalMusicComposer": "Nathan Barr",
+    "productionDesign": "Franco-Giacomo Carbone",
+    "costumeDesign": "Franco-Giacomo Carbone"
   },
   {
     "line": 85,
