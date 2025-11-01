@@ -1541,22 +1541,11 @@
             {{ syncStatus }}
         </div>
 
-        <!-- Setup Required Notice -->
-        <!--div v-if="!githubToken && !loading && currentView !== 'settings'" class="setup-required">
-            <h2>⚙️ Setup Required</h2>
-            <p>To use GitHub as your database, you need to configure your GitHub Personal Access Token.</p>
-            <p>Go to <strong>Settings</strong> to set it up.</p>
-            <button @click="currentView = 'settings'">Go to Settings</button>
-    </div-->
-
         <div v-if="loading" class="loading">
             <div class="loading-spinner"></div>
             <p>Loading your film collection...</p>
         </div>
 
-        <!-- Navigation -->
-        <!--div v-if="githubToken || currentView === 'settings'" class="nav"-->
-        <!--div v-if="currentView === 'settings'" class="nav"-->
         <div class="nav">
 
             <button @click="currentView = 'log'" :class="{ active: currentView === 'log' }">
@@ -1617,7 +1606,7 @@
                             <th @click="sortBy('duration')" :class="sortClass('duration')">Duration</th>
                             <th class="no-sort center-text">📺</th>
                             <th class="no-sort center-text">🎧</th>
-                            <!--th @click="sortBy('dateAdded')" :class="sortClass('dateAdded')">Added</th-->
+                            <th @click="sortBy('dateAdded')" :class="sortClass('dateAdded')">Added</th>
                             <th @click="sortBy('startTime')" :class="sortClass('startTime')">Start Time</th>
                             <th class="no-sort">Actions</th>
                         </tr>
