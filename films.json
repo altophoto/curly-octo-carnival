@@ -1645,8 +1645,24 @@
     "podcastLink": "",
     "dateAdded": "2025-11-01",
     "tags": [],
-    "tagline": "Terror… in the flesh.",
+    "tagline": "Terrorâ¦ in the flesh.",
     "revenue": 30600000,
     "budget": 1500000
+  },
+  {
+    "line": 96,
+    "type": "movie",
+    "film": "Hostel",
+    "year": 2006,
+    "director": "Eli Roth",
+    "link": "https://www.imdb.com/title/tt0450278/",
+    "duration": 94,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "Welcome to your worst nightmare.",
+    "revenue": 81979826,
+    "budget": 4800000
   }
 ]
