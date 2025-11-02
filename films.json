@@ -3362,5 +3362,30 @@
     "revenue": 23300000,
     "budget": 6000000,
     "tmdbId": 629
+  },
+  {
+    "line": 127,
+    "type": "movie",
+    "film": "Pulp Fiction",
+    "year": 1994,
+    "director": "Quentin Tarantino",
+    "link": "https://www.imdb.com/title/tt0110912/",
+    "duration": 154,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "From the creator of 'True Romance' & 'Reservoir Dogs'",
+    "directorofPhotography": "Andrzej Sekula",
+    "executiveProducer": "Danny DeVito",
+    "editor": "Sally Menke",
+    "producer": "Lawrence Bender",
+    "screenplay": "",
+    "originalMusicComposer": "",
+    "productionDesign": "David Wasco",
+    "costumeDesign": "Betsy Heimann",
+    "revenue": 213928762,
+    "budget": 8000000,
+    "tmdbId": 680
   }
 ]
