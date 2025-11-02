@@ -3312,5 +3312,30 @@
     "revenue": 162100000,
     "budget": 65000000,
     "tmdbId": 345
+  },
+  {
+    "line": 125,
+    "type": "movie",
+    "film": "Trainspotting",
+    "year": 1996,
+    "director": "Danny Boyle",
+    "link": "https://www.imdb.com/title/tt0117951/",
+    "duration": 94,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "Choose life.",
+    "directorofPhotography": "Brian Tufano",
+    "executiveProducer": "",
+    "editor": "Masahiro Hirakubo",
+    "producer": "Andrew Macdonald",
+    "screenplay": "John Hodge",
+    "originalMusicComposer": "",
+    "productionDesign": "Kave Quinn",
+    "costumeDesign": "Rachael Fleming",
+    "revenue": 71981823,
+    "budget": 4000000,
+    "tmdbId": 627
   }
 ]
