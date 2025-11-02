@@ -2889,5 +2889,30 @@
     "costumeDesign": "Milena Canonero",
     "revenue": 44781695,
     "budget": 19000000
+  },
+  {
+    "line": 108,
+    "type": "movie",
+    "film": "The Social Network",
+    "year": 2010,
+    "director": "David Fincher",
+    "link": "https://www.imdb.com/title/tt1285016/",
+    "duration": 121,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "You don't get to 500 million friends without making a few enemies.",
+    "directorofPhotography": "Jeff Cronenweth",
+    "executiveProducer": "Kevin Spacey",
+    "editor": "Kirk Baxter",
+    "producer": "Scott Rudin",
+    "screenplay": "Aaron Sorkin",
+    "originalMusicComposer": "Trent Reznor",
+    "productionDesign": "Donald Graham Burt",
+    "costumeDesign": "Jacqueline West",
+    "revenue": 224920315,
+    "budget": 40000000,
+    "tmdbId": 37799
   }
 ]
