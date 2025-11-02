@@ -3337,5 +3337,30 @@
     "revenue": 71981823,
     "budget": 4000000,
     "tmdbId": 627
+  },
+  {
+    "line": 126,
+    "type": "movie",
+    "film": "The Usual Suspects",
+    "year": 1995,
+    "director": "Bryan Singer",
+    "link": "https://www.imdb.com/title/tt0114814/",
+    "duration": 106,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "Five criminals. One line up. No coincidence.",
+    "directorofPhotography": "Newton Thomas Sigel",
+    "executiveProducer": "Robert Jones",
+    "editor": "Peter S. Elliot",
+    "producer": "Bryan Singer",
+    "screenplay": "",
+    "originalMusicComposer": "John Ottman",
+    "productionDesign": "Howard Cummings",
+    "costumeDesign": "Louise Mingenbach",
+    "revenue": 23300000,
+    "budget": 6000000,
+    "tmdbId": 629
   }
 ]
