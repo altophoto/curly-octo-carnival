@@ -3462,5 +3462,30 @@
     "revenue": 7808900,
     "budget": 2479000,
     "tmdbId": 426
+  },
+  {
+    "line": 131,
+    "type": "movie",
+    "film": "Psycho",
+    "year": 1960,
+    "director": "Alfred Hitchcock",
+    "link": "https://www.imdb.com/title/tt0054215/",
+    "duration": 109,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "A new and altogether different screen excitement!",
+    "directorofPhotography": "John L. Russell",
+    "executiveProducer": "",
+    "editor": "George Tomasini",
+    "producer": "Alfred Hitchcock",
+    "screenplay": "Joseph Stefano",
+    "originalMusicComposer": "Bernard Herrmann",
+    "productionDesign": "",
+    "costumeDesign": "",
+    "revenue": 50048065,
+    "budget": 806947,
+    "tmdbId": 539
   }
 ]
