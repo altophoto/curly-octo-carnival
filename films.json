@@ -2964,5 +2964,30 @@
     "revenue": 9760104,
     "budget": 5000000,
     "tmdbId": 17431
+  },
+  {
+    "line": 111,
+    "type": "movie",
+    "film": "Rosemary's Baby",
+    "year": 1968,
+    "director": "Roman Polanski",
+    "link": "https://www.imdb.com/title/tt0063522/",
+    "duration": 138,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "Pray for Rosemary's Baby.",
+    "directorofPhotography": "William A. Fraker",
+    "executiveProducer": "",
+    "editor": "Bob Wyman",
+    "producer": "William Castle",
+    "screenplay": "Roman Polanski",
+    "originalMusicComposer": "Krzysztof Komeda",
+    "productionDesign": "Richard Sylbert",
+    "costumeDesign": "",
+    "revenue": 33395426,
+    "budget": 3200000,
+    "tmdbId": 805
   }
 ]
