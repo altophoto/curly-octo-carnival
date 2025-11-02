@@ -3437,5 +3437,30 @@
     "revenue": 30000000,
     "budget": 6000000,
     "tmdbId": 829
+  },
+  {
+    "line": 130,
+    "type": "movie",
+    "film": "Vertigo",
+    "year": 1958,
+    "director": "Alfred Hitchcock",
+    "link": "https://www.imdb.com/title/tt0052357/",
+    "duration": 128,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "Alfred Hitchcock engulfs you in a whirlpool of terror and tension!",
+    "directorofPhotography": "Robert Burks",
+    "executiveProducer": "",
+    "editor": "George Tomasini",
+    "producer": "Alfred Hitchcock",
+    "screenplay": "Alec Coppel",
+    "originalMusicComposer": "Bernard Herrmann",
+    "productionDesign": "",
+    "costumeDesign": "Edith Head",
+    "revenue": 7808900,
+    "budget": 2479000,
+    "tmdbId": 426
   }
 ]
