@@ -2731,7 +2731,9 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-11-01",
-    "tags": [],
+    "tags": [
+      "Roger Ebert 2-1/2 Stars"
+    ],
     "tagline": "A different set of jaws.",
     "directorofPhotography": "Peter Suschitzky",
     "executiveProducer": "Lou Adler",
@@ -2742,8 +2744,7 @@
     "productionDesign": "Brian Thomson",
     "costumeDesign": "Sue Blane",
     "revenue": 171181400,
-    "budget": 1400000,
-    "tmdbId": 36685
+    "budget": 1400000
   },
   {
     "line": 104,
