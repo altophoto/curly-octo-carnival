@@ -3091,5 +3091,30 @@
     "revenue": 80035402,
     "budget": 8200000,
     "tmdbId": 1788
+  },
+  {
+    "line": 116,
+    "type": "movie",
+    "film": "Full Metal Jacket",
+    "year": 1987,
+    "director": "Stanley Kubrick",
+    "link": "https://www.imdb.com/title/tt0093058/",
+    "duration": 117,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "In Vietnam, the wind doesn't blow. It sucks.",
+    "directorofPhotography": "Douglas Milsome",
+    "executiveProducer": "Jan Harlan",
+    "editor": "Martin Hunter",
+    "producer": "Stanley Kubrick",
+    "screenplay": "Michael Herr",
+    "originalMusicComposer": "Vivian Kubrick",
+    "productionDesign": "Anton Furst",
+    "costumeDesign": "Keith Denny",
+    "revenue": 46357676,
+    "budget": 30000000,
+    "tmdbId": 600
   }
 ]
