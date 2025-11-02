@@ -2515,7 +2515,10 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-11-01",
-    "tags": [],
+    "tags": [
+      "OSCAR [WINNER] (1992) BEST PICTURE",
+      "SATURN AWARD [WINNER] (2021) BEST HORROR FILM"
+    ],
     "tagline": "To enter the mind of a killer she must challenge the mind of a madman.",
     "directorofPhotography": "Tak Fujimoto",
     "executiveProducer": "Gary Goetzman",
@@ -2526,8 +2529,7 @@
     "productionDesign": "Kristi Zea",
     "costumeDesign": "Colleen Atwood",
     "revenue": 272742922,
-    "budget": 19000000,
-    "tmdbId": 274
+    "budget": 19000000
   },
   {
     "line": 94,
