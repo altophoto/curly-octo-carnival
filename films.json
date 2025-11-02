@@ -2606,7 +2606,9 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-11-01",
-    "tags": [],
+    "tags": [
+      "SATURN AWARD [NOMINEE] (2021) BEST HORROR FILM"
+    ],
     "tagline": "A killer game of hide and seek.",
     "directorofPhotography": "Brett Jutkiewicz",
     "executiveProducer": "Tracey Nyberg",
@@ -2617,8 +2619,7 @@
     "productionDesign": "Andrew M. Stearn",
     "costumeDesign": "Avery Plewes",
     "revenue": 57600000,
-    "budget": 6000000,
-    "tmdbId": 567609
+    "budget": 6000000
   },
   {
     "line": 98,
