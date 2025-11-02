@@ -2028,10 +2028,10 @@
     "podcastLink": "",
     "dateAdded": "2025-10-29",
     "tags": [
-      "BGH"
+      "BGH",
+      "Roger Ebert 3 Stars"
     ],
     "platform": "",
-    "tmdbId": 1284120,
     "tagline": "If the shoe doesn't fit...",
     "revenue": 4601915,
     "budget": 4250000,
@@ -2041,7 +2041,8 @@
     "producer": "Maria Ekerhovd",
     "originalMusicComposer": "John Erik Kaada",
     "productionDesign": "Sabine Hviid",
-    "costumeDesign": "Manon Rasmussen"
+    "costumeDesign": "Manon Rasmussen",
+    "screenplay": ""
   },
   {
     "line": 75,
