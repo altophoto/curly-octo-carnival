@@ -3266,5 +3266,30 @@
     "revenue": "",
     "budget": 320000,
     "tmdbId": 247
+  },
+  {
+    "line": 123,
+    "type": "movie",
+    "film": "A Clockwork Orange",
+    "year": 1971,
+    "director": "Stanley Kubrick",
+    "link": "https://www.imdb.com/title/tt0066921/",
+    "duration": 137,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "Being the adventures of a young man whose principal interests are rape, ultra-violence and Beethoven.",
+    "directorofPhotography": "John Alcott",
+    "executiveProducer": "Si Litvinoff",
+    "editor": "Bill Butler",
+    "producer": "Stanley Kubrick",
+    "screenplay": "Stanley Kubrick",
+    "originalMusicComposer": "Wendy Carlos",
+    "productionDesign": "John Barry",
+    "costumeDesign": "Milena Canonero",
+    "revenue": 27033812,
+    "budget": 2200000,
+    "tmdbId": 185
   }
 ]
