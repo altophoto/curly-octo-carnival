@@ -3191,5 +3191,30 @@
     "revenue": 69649283,
     "budget": 19000000,
     "tmdbId": 9340
+  },
+  {
+    "line": 120,
+    "type": "movie",
+    "film": "Bring Her Back",
+    "year": 2025,
+    "director": "Danny Philippou",
+    "link": "https://www.imdb.com/title/tt32246771/",
+    "duration": 104,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "Family requires sacrifices.",
+    "directorofPhotography": "Aaron McLisky",
+    "executiveProducer": "Danny Philippou",
+    "editor": "Geoff Lamb",
+    "producer": "Samantha Jennings",
+    "screenplay": "",
+    "originalMusicComposer": "Cornel Wilczek",
+    "productionDesign": "Vanessa Cerne",
+    "costumeDesign": "",
+    "revenue": 39123752,
+    "budget": 15000000,
+    "tmdbId": 1151031
   }
 ]
