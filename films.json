@@ -3387,5 +3387,30 @@
     "revenue": 213928762,
     "budget": 8000000,
     "tmdbId": 680
+  },
+  {
+    "line": 128,
+    "type": "movie",
+    "film": "The Godfather",
+    "year": 1972,
+    "director": "Francis Ford Coppola",
+    "link": "https://www.imdb.com/title/tt0068646/",
+    "duration": 175,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "An offer you can't refuse.",
+    "directorofPhotography": "Gordon Willis",
+    "executiveProducer": "",
+    "editor": "William Reynolds",
+    "producer": "Albert S. Ruddy",
+    "screenplay": "Mario Puzo",
+    "originalMusicComposer": "Nino Rota",
+    "productionDesign": "Dean Tavoularis",
+    "costumeDesign": "Anna Hill Johnstone",
+    "revenue": 245066411,
+    "budget": 6000000,
+    "tmdbId": 238
   }
 ]
