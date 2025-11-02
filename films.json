@@ -2227,18 +2227,21 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-11-01",
-    "tags": [],
+    "tags": [
+      "OSCAR [NOMINEE] (2020) BEST ACHIEVEMENT IN CINEMATOGRAPHY",
+      "Roger Ebert 3 Stars"
+    ],
     "tagline": "Keeping secrets, are ye?",
     "revenue": 18262464,
     "budget": 11000000,
-    "tmdbId": 503919,
     "directorofPhotography": "Jarin Blaschke",
     "executiveProducer": "Arnon Milchan",
     "editor": "Louise Ford",
     "producer": "Youree Henley",
     "originalMusicComposer": "Mark Korven",
     "productionDesign": "Craig Lathrop",
-    "costumeDesign": "Linda Muir"
+    "costumeDesign": "Linda Muir",
+    "screenplay": ""
   },
   {
     "line": 83,
