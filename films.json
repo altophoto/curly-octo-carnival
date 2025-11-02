@@ -3064,5 +3064,32 @@
     "revenue": 138530565,
     "budget": 6000000,
     "tmdbId": 792
+  },
+  {
+    "line": 115,
+    "type": "movie",
+    "film": "Footloose",
+    "year": 1984,
+    "director": "Herbert Ross",
+    "link": "https://www.imdb.com/title/tt0087277/",
+    "duration": 107,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [
+      "featured-poster"
+    ],
+    "tagline": "The music is on his side.",
+    "directorofPhotography": "Ric Waite",
+    "executiveProducer": "Daniel Melnick",
+    "editor": "Paul Hirsch",
+    "producer": "Lewis J. Rachmil",
+    "screenplay": "Dean Pitchford",
+    "originalMusicComposer": "",
+    "productionDesign": "Ron Hobbs",
+    "costumeDesign": "Gloria Gresham",
+    "revenue": 80035402,
+    "budget": 8200000,
+    "tmdbId": 1788
   }
 ]
