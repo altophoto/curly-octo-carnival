@@ -1976,9 +1976,11 @@
     "platformLink": "https://tv.apple.com/us/movie/alien-covenant/umc.cmc.fqu5f5pvxiov1xqp3946hsjg",
     "podcastLink": "",
     "dateAdded": "2025-10-29",
-    "tags": [],
+    "tags": [
+      "Roger Ebert 4 Stars",
+      "SATURN AWARD [NOMINEE] (2018) BEST SCIENCE FICTION FILM"
+    ],
     "platform": "",
-    "tmdbId": 126889,
     "tagline": "The path to paradise begins in hell.",
     "revenue": 240891763,
     "budget": 97000000,
@@ -1988,7 +1990,8 @@
     "screenplay": "Dante Harper",
     "originalMusicComposer": "Jed Kurzel",
     "productionDesign": "Chris Seagers",
-    "costumeDesign": "Janty Yates"
+    "costumeDesign": "Janty Yates",
+    "executiveProducer": ""
   },
   {
     "line": 73,
