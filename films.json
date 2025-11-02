@@ -2832,7 +2832,9 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-11-01",
-    "tags": [],
+    "tags": [
+      "Roger Ebert 4 Stars"
+    ],
     "tagline": "A masterpiece of modern horror.",
     "directorofPhotography": "John Alcott",
     "executiveProducer": "Jan Harlan",
@@ -2843,7 +2845,6 @@
     "productionDesign": "Roy Walker",
     "costumeDesign": "Milena Canonero",
     "revenue": 44781695,
-    "budget": 19000000,
-    "tmdbId": 694
+    "budget": 19000000
   }
 ]
