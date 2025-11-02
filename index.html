@@ -2024,8 +2024,12 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="form-group">
+                        <button type="button" class="autofill-btn" @click="showDetailsOptions = !showDetailsOptions">Show Details</button>
+                    </div>
+
+                    <div class="form-group" v-if="showDetailsOptions">
                         <label>Year Released</label>
                         <select v-model="filmForm.year" tabindex="6">
                             <option value="">-- Select Year --</option>
@@ -2033,7 +2037,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" v-if="showDetailsOptions">
                         <div class="tag-selector" v-if="predefinedDirectors.length > 0">
                             <label class="tag-selector-label">{{ filmForm.type === 'tv' ? 'Creator/Showrunner' :
                                 'Director' }}</label>
@@ -2051,13 +2055,10 @@
                             tabindex="7" />
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" v-if="showDetailsOptions">
                         <label>Info Link</label>
                         <input type="url" v-model="filmForm.link" placeholder="https://www.imdb.com/..." tabindex="8" />
                         <small>Link to IMDB, Wikipedia, etc.</small>
-                    </div>
-                    <div class="form-group">
-                        <button type="button" class="autofill-btn" @click="showDetailsOptions = !showDetailsOptions">
                     </div>
                     <div class="form-group" v-if="showDetailsOptions">
                         <label>Duration (minutes) *</label>
