@@ -3544,5 +3544,30 @@
     "revenue": "",
     "budget": "",
     "tmdbId": 25983
+  },
+  {
+    "line": 134,
+    "type": "movie",
+    "film": "Ex Machina",
+    "year": 2015,
+    "director": "Alex Garland",
+    "link": "https://www.imdb.com/title/tt0470752/",
+    "duration": 108,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "There is nothing more human than the will to survive.",
+    "directorofPhotography": "Rob Hardy",
+    "executiveProducer": "Eli Bush",
+    "editor": "Mark Day",
+    "producer": "Andrew Macdonald",
+    "screenplay": "",
+    "originalMusicComposer": "Geoff Barrow",
+    "productionDesign": "Mark Digby",
+    "costumeDesign": "Sammy Sheldon",
+    "revenue": 36869414,
+    "budget": 15000000,
+    "tmdbId": 264660
   }
 ]
