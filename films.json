@@ -3241,5 +3241,30 @@
     "revenue": 9500000,
     "budget": 1800000,
     "tmdbId": 935
+  },
+  {
+    "line": 122,
+    "type": "movie",
+    "film": "The Killing",
+    "year": 1956,
+    "director": "Stanley Kubrick",
+    "link": "https://www.imdb.com/title/tt0049406/",
+    "duration": 85,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "In all its fury and violence...",
+    "directorofPhotography": "Lucien Ballard",
+    "executiveProducer": "",
+    "editor": "Betty Steinberg",
+    "producer": "James B. Harris",
+    "screenplay": "Stanley Kubrick",
+    "originalMusicComposer": "Gerald Fried",
+    "productionDesign": "",
+    "costumeDesign": "",
+    "revenue": "",
+    "budget": 320000,
+    "tmdbId": 247
   }
 ]
