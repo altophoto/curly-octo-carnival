@@ -3141,5 +3141,30 @@
     "revenue": 71923560,
     "budget": 12000000,
     "tmdbId": 62
+  },
+  {
+    "line": 118,
+    "type": "movie",
+    "film": "Star Wars",
+    "year": 1977,
+    "director": "George Lucas",
+    "link": "https://www.imdb.com/title/tt0076759/",
+    "duration": 121,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "A long time ago in a galaxy far, far away...",
+    "directorofPhotography": "Gilbert Taylor",
+    "executiveProducer": "George Lucas",
+    "editor": "Richard Chew",
+    "producer": "Gary Kurtz",
+    "screenplay": "",
+    "originalMusicComposer": "John Williams",
+    "productionDesign": "John Barry",
+    "costumeDesign": "John Mollo",
+    "revenue": 775398007,
+    "budget": 11000000,
+    "tmdbId": 11
   }
 ]
