@@ -2989,5 +2989,30 @@
     "revenue": 33395426,
     "budget": 3200000,
     "tmdbId": 805
+  },
+  {
+    "line": 112,
+    "type": "movie",
+    "film": "Apocalypse Now",
+    "year": 1979,
+    "director": "Francis Ford Coppola",
+    "link": "https://www.imdb.com/title/tt0078788/",
+    "duration": 147,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "This is the end...",
+    "directorofPhotography": "Vittorio Storaro",
+    "executiveProducer": "",
+    "editor": "Lisa Fruchtman",
+    "producer": "Francis Ford Coppola",
+    "screenplay": "",
+    "originalMusicComposer": "Carmine Coppola",
+    "productionDesign": "Dean Tavoularis",
+    "costumeDesign": "",
+    "revenue": 150000000,
+    "budget": 31500000,
+    "tmdbId": 28
   }
 ]
