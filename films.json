@@ -2549,7 +2549,9 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-11-01",
-    "tags": [],
+    "tags": [
+      "Roger Ebert 3-1/2 Stars"
+    ],
     "tagline": "Eli is 12 years old. She's been 12 for over 200 years, and she just moved in next door.",
     "directorofPhotography": "Hoyte van Hoytema",
     "executiveProducer": "",
@@ -2560,8 +2562,7 @@
     "productionDesign": "Eva Norén",
     "costumeDesign": "Maria Strid",
     "revenue": 10785801,
-    "budget": 4000000,
-    "tmdbId": 13310
+    "budget": 4000000
   },
   {
     "line": 95,
