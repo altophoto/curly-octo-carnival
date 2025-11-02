@@ -3291,5 +3291,30 @@
     "revenue": 27033812,
     "budget": 2200000,
     "tmdbId": 185
+  },
+  {
+    "line": 124,
+    "type": "movie",
+    "film": "Eyes Wide Shut",
+    "year": 1999,
+    "director": "Stanley Kubrick",
+    "link": "https://www.imdb.com/title/tt0120663/",
+    "duration": 159,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "Cruise. Kidman. Kubrick.",
+    "directorofPhotography": "Larry Smith",
+    "executiveProducer": "Jan Harlan",
+    "editor": "Nigel Galt",
+    "producer": "Stanley Kubrick",
+    "screenplay": "Stanley Kubrick",
+    "originalMusicComposer": "Jocelyn Pook",
+    "productionDesign": "Leslie Tomkins",
+    "costumeDesign": "Marit Allen",
+    "revenue": 162100000,
+    "budget": 65000000,
+    "tmdbId": 345
   }
 ]
