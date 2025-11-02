@@ -3039,5 +3039,30 @@
     "revenue": 441306145,
     "budget": 12000000,
     "tmdbId": 9552
+  },
+  {
+    "line": 114,
+    "type": "movie",
+    "film": "Platoon",
+    "year": 1986,
+    "director": "Oliver Stone",
+    "link": "https://www.imdb.com/title/tt0091763/",
+    "duration": 120,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "The first casualty of war is innocence.",
+    "directorofPhotography": "Robert Richardson",
+    "executiveProducer": "John Daly",
+    "editor": "Claire Simpson",
+    "producer": "Arnold Kopelson",
+    "screenplay": "Oliver Stone",
+    "originalMusicComposer": "Georges Delerue",
+    "productionDesign": "Bruno Rubeo",
+    "costumeDesign": "",
+    "revenue": 138530565,
+    "budget": 6000000,
+    "tmdbId": 792
   }
 ]
