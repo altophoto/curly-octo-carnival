@@ -3412,5 +3412,30 @@
     "revenue": 245066411,
     "budget": 6000000,
     "tmdbId": 238
+  },
+  {
+    "line": 129,
+    "type": "movie",
+    "film": "Chinatown",
+    "year": 1974,
+    "director": "Roman Polanski",
+    "link": "https://www.imdb.com/title/tt0071315/",
+    "duration": 130,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "You get tough. You get tender. You get close to each other. Maybe you even get close to the truth.",
+    "directorofPhotography": "John A. Alonzo",
+    "executiveProducer": "",
+    "editor": "Sam O'Steen",
+    "producer": "Robert Evans",
+    "screenplay": "",
+    "originalMusicComposer": "Jerry Goldsmith",
+    "productionDesign": "Richard Sylbert",
+    "costumeDesign": "Anthea Sylbert",
+    "revenue": 30000000,
+    "budget": 6000000,
+    "tmdbId": 829
   }
 ]
