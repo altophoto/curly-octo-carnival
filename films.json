@@ -2819,5 +2819,30 @@
     "revenue": 173600000,
     "budget": 37000000,
     "tmdbId": 312221
+  },
+  {
+    "line": 107,
+    "type": "movie",
+    "film": "The Shining",
+    "year": 1980,
+    "director": "Stanley Kubrick",
+    "link": "https://www.imdb.com/title/tt0081505/",
+    "duration": 144,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-01",
+    "tags": [],
+    "tagline": "A masterpiece of modern horror.",
+    "directorofPhotography": "John Alcott",
+    "executiveProducer": "Jan Harlan",
+    "editor": "Ray Lovejoy",
+    "producer": "Stanley Kubrick",
+    "screenplay": "Diane Johnson",
+    "originalMusicComposer": "Wendy Carlos",
+    "productionDesign": "Roy Walker",
+    "costumeDesign": "Milena Canonero",
+    "revenue": 44781695,
+    "budget": 19000000,
+    "tmdbId": 694
   }
 ]
