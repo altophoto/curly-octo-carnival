@@ -3116,5 +3116,30 @@
     "revenue": 46357676,
     "budget": 30000000,
     "tmdbId": 600
+  },
+  {
+    "line": 117,
+    "type": "movie",
+    "film": "2001: A Space Odyssey",
+    "year": 1968,
+    "director": "Stanley Kubrick",
+    "link": "https://www.imdb.com/title/tt0062622/",
+    "duration": 149,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "An epic drama of adventure and exploration.",
+    "directorofPhotography": "Geoffrey Unsworth",
+    "executiveProducer": "",
+    "editor": "Ray Lovejoy",
+    "producer": "Victor Lyndon",
+    "screenplay": "Arthur C. Clarke",
+    "originalMusicComposer": "",
+    "productionDesign": "Anthony Masters",
+    "costumeDesign": "",
+    "revenue": 71923560,
+    "budget": 12000000,
+    "tmdbId": 62
   }
 ]
