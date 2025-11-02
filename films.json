@@ -3512,5 +3512,30 @@
     "revenue": 143545,
     "budget": "",
     "tmdbId": 334536
+  },
+  {
+    "line": 133,
+    "type": "movie",
+    "film": "The House of the Devil",
+    "year": 2009,
+    "director": "Ti West",
+    "link": "https://www.imdb.com/title/tt1172994/",
+    "duration": 95,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "Talk on the phone. Finish your homework. Watch TV. Die.",
+    "directorofPhotography": "Eliot Rockett",
+    "executiveProducer": "Hamza Ali",
+    "editor": "Ti West",
+    "producer": "Larry Fessenden",
+    "screenplay": "",
+    "originalMusicComposer": "Jeff Grace",
+    "productionDesign": "Jade Healy",
+    "costumeDesign": "Robin Fitzgerald",
+    "revenue": "",
+    "budget": "",
+    "tmdbId": 25983
   }
 ]
