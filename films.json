@@ -2703,7 +2703,9 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-11-01",
-    "tags": [],
+    "tags": [
+      "SATURN AWARD [WINNER] (1979) BEST DIRECTOR"
+    ],
     "tagline": "The seed is planted... terror grows.",
     "directorofPhotography": "Michael Chapman",
     "executiveProducer": "",
@@ -2714,8 +2716,7 @@
     "productionDesign": "Charles Rosen",
     "costumeDesign": "Agnes Anne Rogers",
     "revenue": 24946533,
-    "budget": 3500000,
-    "tmdbId": 11850
+    "budget": 3500000
   },
   {
     "line": 101,
