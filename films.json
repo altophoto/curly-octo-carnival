@@ -3166,5 +3166,30 @@
     "revenue": 775398007,
     "budget": 11000000,
     "tmdbId": 11
+  },
+  {
+    "line": 119,
+    "type": "movie",
+    "film": "The Goonies",
+    "year": 1985,
+    "director": "Richard Donner",
+    "link": "https://www.imdb.com/title/tt0089218/",
+    "duration": 114,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "They call themselves \"The Goonies.\" The secret caves. The old lighthouse. The lost map. The treacherous traps. The hidden adventure. And Sloth… Join the adventure.",
+    "directorofPhotography": "Nick McLean",
+    "executiveProducer": "Kathleen Kennedy",
+    "editor": "Michael Kahn",
+    "producer": "Harvey Bernhard",
+    "screenplay": "Chris Columbus",
+    "originalMusicComposer": "Dave Grusin",
+    "productionDesign": "J. Michael Riva",
+    "costumeDesign": "Richard La Motte",
+    "revenue": 69649283,
+    "budget": 19000000,
+    "tmdbId": 9340
   }
 ]
