@@ -1476,7 +1476,7 @@
                 <div class="light"></div>
             </div>
 
-            <h1 class="marquee-title raleway-dots-regular">Family Groovy Night, Happy Birthday Amanda</h1>
+            <h1 class="marquee-title raleway-dots-regular">Happy Birthday Amanda</h1>
             <p class="marquee-subtitle">Now showing from your curated collection</p>
             <p class="night-indicator">{{ isWeekendNight ? '🎉 Weekend Night 🎉' : '📚 School Night 📚' }} • Target End:
                 {{ currentTargetEndTime }}</p>
@@ -1565,10 +1565,10 @@
                 Film Log
             </button>
             <button @click="currentView = 'stats'" :class="{ active: currentView === 'stats' }">
-                Statistics
+                Stats
             </button>
             <button @click="currentView = 'import'" :class="{ active: currentView === 'import' }">
-                Import/Export
+                Export
             </button>
             <button @click="currentView = 'settings'" :class="{ active: currentView === 'settings' }">
                 Settings
@@ -1795,8 +1795,10 @@
 
         <!-- SETTINGS VIEW -->
         <div v-if="currentView === 'settings'">
-
-            <div class="settings-section">
+            <div class="form-group">
+                <button type="button" class="autofill-btn" @click="showTagSettings = !showTagSettings">Show Tags</button>
+            </div>
+            <div v-if="showTagSettings" class="settings-section">
                 <h2>Tag Management & Badge Styling</h2>
                 <p>Manage your predefined tags with custom colors (like GitHub labels). Each tag appears as a styled
                     badge with colors you choose.</p>
@@ -1832,8 +1834,11 @@
                     • <strong>featured-poster</strong> - Shows this film 3x more often in rotation
                 </div>
             </div>
+            <div class="form-group">
+                <button type="button" class="autofill-btn" @click="showDirectors = !showDirectors">Show Directors</button>
+            </div>
 
-            <div class="settings-section">
+            <div v-if="showDirectors" class="settings-section">
                 <h2>Director Management</h2>
                 <p>Manage your predefined directors. These will be available as quick-select options when adding or
                     editing films.</p>
@@ -2238,6 +2243,8 @@
                     },
                     showSearchModal: false,
                     showDetailsOptions: false,
+                    showDirectors: false,
+                    showTagSettings: false,
                     tmdbSearchQuery: '',
                     searchResults: [],
                     importMessage: '',
