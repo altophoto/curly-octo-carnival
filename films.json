@@ -2756,7 +2756,9 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-11-01",
-    "tags": [],
+    "tags": [
+      "OSCAR [NOMINEE] (2016) BEST PERFORMANCE BY AN ACTOR IN A LEADING ROLE"
+    ],
     "tagline": "Can a great man be a good man?",
     "directorofPhotography": "Alwin H. Küchler",
     "executiveProducer": "Bernard Bellew",
@@ -2767,8 +2769,7 @@
     "productionDesign": "Guy Hendrix Dyas",
     "costumeDesign": "Suttirat Anne Larlarb",
     "revenue": 34400000,
-    "budget": 30000000,
-    "tmdbId": 321697
+    "budget": 30000000
   },
   {
     "line": 105,
