@@ -828,10 +828,11 @@
     "platformLink": "https://www.lookmovie2.to/movies/view/clueless-1995",
     "podcastLink": "",
     "dateAdded": "2025-10-27",
-    "tags": [],
+    "tags": [
+      "hide-poster"
+    ],
     "type": "movie",
     "platform": "",
-    "tmdbId": 9603,
     "tagline": "Sex. Clothes. Popularity. Is there a problem here?",
     "revenue": 56631572,
     "budget": 12000000,
@@ -840,7 +841,9 @@
     "producer": "Scott Rudin",
     "originalMusicComposer": "David Kitay",
     "productionDesign": "Steven J. Jordan",
-    "costumeDesign": "Mona May"
+    "costumeDesign": "Mona May",
+    "executiveProducer": "",
+    "screenplay": ""
   },
   {
     "line": 31,
