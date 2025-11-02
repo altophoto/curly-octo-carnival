@@ -2276,18 +2276,20 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-11-01",
-    "tags": [],
+    "tags": [
+      "SCREAM AWARD [WINNER] (2006) THE \"HOLY SH%T!/JUMP FROM YOUR SEAT\" AWARD"
+    ],
     "tagline": "Welcome to your worst nightmare.",
     "revenue": 81979826,
     "budget": 4800000,
-    "tmdbId": 1690,
     "directorofPhotography": "Milan Chadima",
     "executiveProducer": "Boaz Yakin",
     "editor": "George Folsey Jr.",
     "producer": "Eli Roth",
     "originalMusicComposer": "Nathan Barr",
     "productionDesign": "Franco-Giacomo Carbone",
-    "costumeDesign": "Franco-Giacomo Carbone"
+    "costumeDesign": "Franco-Giacomo Carbone",
+    "screenplay": ""
   },
   {
     "line": 85,
