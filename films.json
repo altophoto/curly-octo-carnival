@@ -3014,5 +3014,30 @@
     "revenue": 150000000,
     "budget": 31500000,
     "tmdbId": 28
+  },
+  {
+    "line": 113,
+    "type": "movie",
+    "film": "The Exorcist",
+    "year": 1973,
+    "director": "William Friedkin",
+    "link": "https://www.imdb.com/title/tt0070047/",
+    "duration": 122,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "Something almost beyond comprehension is happening to a girl on this street, in this house…And a man has been sent for as a last resort. This man is The Exorcist.",
+    "directorofPhotography": "Owen Roizman",
+    "executiveProducer": "Noel Marshall",
+    "editor": "Norman Gay",
+    "producer": "William Peter Blatty",
+    "screenplay": "William Peter Blatty",
+    "originalMusicComposer": "Jack Nitzsche",
+    "productionDesign": "Bill Malley",
+    "costumeDesign": "Joe Fretwell",
+    "revenue": 441306145,
+    "budget": 12000000,
+    "tmdbId": 9552
   }
 ]
