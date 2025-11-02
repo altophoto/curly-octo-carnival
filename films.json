@@ -879,10 +879,11 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-10-27",
-    "tags": [],
+    "tags": [
+      "hide-poster"
+    ],
     "type": "movie",
     "platform": "",
-    "tmdbId": 9494,
     "tagline": "He's hip, he's cool, and he's only 3 months old.",
     "revenue": 296999813,
     "budget": 7500000,
@@ -891,7 +892,9 @@
     "producer": "Jonathan D. Krane",
     "originalMusicComposer": "David Kitay",
     "productionDesign": "Reuben Freed",
-    "costumeDesign": "Molly Maginnis"
+    "costumeDesign": "Molly Maginnis",
+    "executiveProducer": "",
+    "screenplay": ""
   },
   {
     "line": 33,
