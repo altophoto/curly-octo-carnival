@@ -524,15 +524,43 @@
     "bgColor": "#e67e22",
     "textColor": "#ffffff"
   },
-  "OSCAR [NOMINEE] (2020) BEST ORIGINAL SCREENPLAY",
-  "OSCAR [WINNER] (2018) BEST ORIGINAL SCREENPLAY",
-  "SATURN AWARD [WINNER] (2022) BEST SCIENCE FICTION FILM",
-  "SATURN AWARD [WINNER] (2021) BEST ACTRESS",
-  "SATURN AWARD [WINNER] (2021) BEST HORROR FILM",
-  "OSCAR [WINNER] (1992) BEST PICTURE",
-  "OSCAR [WINNER] (1992) BEST ACTOR IN A LEADING ROLE",
-  "OSCAR [WINNER] (1992) BEST ACTRESS IN A LEADING ROLE",
-  "OSCAR [WINNER] (1992) BEST DIRECTOR",
-  "OSCAR [WINNER] (1992) BEST WRITING",
-  "OSCAR [WINNER] (1980) BEST EFFECTS"
+  "OSCAR [NOMINEE] BEST ORIGINAL SCREENPLAY",
+  {
+    "tag": "OSCAR [WINNER] BEST ORIGINAL SCREENPLAY",
+    "bgColor": "#fefb41",
+    "textColor": "#000000"
+  },
+  "SATURN AWARD [WINNER] BEST SCIENCE FICTION FILM",
+  "SATURN AWARD [WINNER] BEST ACTRESS",
+  "SATURN AWARD [WINNER] BEST HORROR FILM",
+  {
+    "tags": "OSCAR [WINNER] BEST PICTURE",
+    "bgColor": "#fefb41",
+    "textColor": "#000000"
+  },
+  {
+    "tags": "OSCAR [WINNER] BEST ACTOR IN A LEADING ROLE",
+    "bgColor": "#fefb41",
+    "textColor": "#000000"
+  },
+  {
+    "tags": "OSCAR [WINNER] BEST ACTRESS IN A LEADING ROLE",
+    "bgColor": "#fefb41",
+    "textColor": "#000000"
+  },
+  {
+    "tags": "OSCAR [WINNER] BEST DIRECTOR",
+    "bgColor": "#fefb41",
+    "textColor": "#000000"
+  },
+  {
+    "tags": "OSCAR [WINNER] BEST WRITING",
+    "bgColor": "#fefb41",
+    "textColor": "#000000"
+  },
+  {
+    "tags": "OSCAR [WINNER] BEST EFFECTS SOUND EFFECTS EDITING",
+    "bgColor": "#fefb41",
+    "textColor": "#000000"
+  }
 ]
