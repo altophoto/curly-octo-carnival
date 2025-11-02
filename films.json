@@ -2601,7 +2601,9 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-11-01",
-    "tags": [],
+    "tags": [
+      "SATURN AWARD [WINNER] (2011) BEST PERFORMANCE BY A YOUNGER ACTOR"
+    ],
     "tagline": "Innocence dies. Abby doesn't.",
     "directorofPhotography": "Greig Fraser",
     "executiveProducer": "Fredrik Malmberg",
@@ -2612,8 +2614,7 @@
     "productionDesign": "Ford Wheeler",
     "costumeDesign": "",
     "revenue": 24145613,
-    "budget": 20000000,
-    "tmdbId": 41402
+    "budget": 20000000
   },
   {
     "line": 97,
