@@ -3487,5 +3487,30 @@
     "revenue": 50048065,
     "budget": 806947,
     "tmdbId": 539
+  },
+  {
+    "line": 132,
+    "type": "movie",
+    "film": "The Blackcoat's Daughter",
+    "year": 2017,
+    "director": "Osgood Perkins",
+    "link": "https://www.imdb.com/title/tt3286052/",
+    "duration": 93,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "Abandoned as a child. Raised by the dark.",
+    "directorofPhotography": "Julie Kirkwood",
+    "executiveProducer": "Carissa Buffel",
+    "editor": "Brian Ufberg",
+    "producer": "Alphonse Ghossein",
+    "screenplay": "",
+    "originalMusicComposer": "Elvis Perkins",
+    "productionDesign": "Shane Boucher",
+    "costumeDesign": "Jennifer Stroud",
+    "revenue": 143545,
+    "budget": "",
+    "tmdbId": 334536
   }
 ]
