@@ -2914,5 +2914,30 @@
     "revenue": 224920315,
     "budget": 40000000,
     "tmdbId": 37799
+  },
+  {
+    "line": 109,
+    "type": "movie",
+    "film": "Scream",
+    "year": 1996,
+    "director": "Wes Craven",
+    "link": "https://www.imdb.com/title/tt0117571/",
+    "duration": 112,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "Someone has taken their love of scary movies one step too far. Solving this mystery is going to be murder.",
+    "directorofPhotography": "Mark Irwin",
+    "executiveProducer": "Marianne Maddalena",
+    "editor": "Patrick Lussier",
+    "producer": "Cary Woods",
+    "screenplay": "Kevin Williamson",
+    "originalMusicComposer": "Marco Beltrami",
+    "productionDesign": "Bruce Alan Miller",
+    "costumeDesign": "Cynthia Bergstrom",
+    "revenue": 173046663,
+    "budget": 14000000,
+    "tmdbId": 4232
   }
 ]
