@@ -2939,5 +2939,30 @@
     "revenue": 173046663,
     "budget": 14000000,
     "tmdbId": 4232
+  },
+  {
+    "line": 110,
+    "type": "movie",
+    "film": "Moon",
+    "year": 2009,
+    "director": "Duncan Jones",
+    "link": "https://www.imdb.com/title/tt1182345/",
+    "duration": 97,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-02",
+    "tags": [],
+    "tagline": "250,000 miles from home, the hardest thing to face...is yourself.",
+    "directorofPhotography": "Gary Shaw",
+    "executiveProducer": "Trevor Beattie",
+    "editor": "Nicolas Gaster",
+    "producer": "Nicky Bentham",
+    "screenplay": "Nathan Parker",
+    "originalMusicComposer": "Clint Mansell",
+    "productionDesign": "Tony Noble",
+    "costumeDesign": "Jane Petrie",
+    "revenue": 9760104,
+    "budget": 5000000,
+    "tmdbId": 17431
   }
 ]
