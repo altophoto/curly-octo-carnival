@@ -3602,5 +3602,30 @@
     "revenue": 93900000,
     "budget": 120000000,
     "tmdbId": 7459
+  },
+  {
+    "line": 136,
+    "type": "movie",
+    "film": "Deathstalker",
+    "year": 2025,
+    "director": "Steven Kostanski",
+    "link": "https://www.imdb.com/title/tt33996087/",
+    "duration": 102,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-05",
+    "tags": [],
+    "tagline": "Evil has many names. Adventure has only one...",
+    "directorofPhotography": "Andrew Appelle",
+    "executiveProducer": "Slash",
+    "editor": "Robert Hyland",
+    "producer": "Pasha Patriki",
+    "screenplay": "",
+    "originalMusicComposer": "Blitz//Berlin",
+    "productionDesign": "",
+    "costumeDesign": "",
+    "revenue": "",
+    "budget": "",
+    "tmdbId": 1253000
   }
 ]
