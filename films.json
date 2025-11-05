@@ -3575,5 +3575,32 @@
     "revenue": 36869414,
     "budget": 15000000,
     "tmdbId": 264660
+  },
+  {
+    "line": 135,
+    "type": "movie",
+    "film": "Speed Racer",
+    "year": 2008,
+    "director": "Lana Wachowski",
+    "link": "https://www.imdb.com/title/tt0811080/",
+    "duration": 135,
+    "platformLink": "https://www.lookmovie2.to/movies/play/1689756714-speed-racer-2008",
+    "podcastLink": "",
+    "dateAdded": "2025-11-05",
+    "tags": [
+      "featured-poster"
+    ],
+    "tagline": "A world built for speed.",
+    "directorofPhotography": "David Tattersall",
+    "executiveProducer": "Bruce Berman",
+    "editor": "Roger Barton",
+    "producer": "Lana Wachowski",
+    "screenplay": "",
+    "originalMusicComposer": "Michael Giacchino",
+    "productionDesign": "Owen Paterson",
+    "costumeDesign": "Kym Barrett",
+    "revenue": 93900000,
+    "budget": 120000000,
+    "tmdbId": 7459
   }
 ]
