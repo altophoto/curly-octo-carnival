@@ -3627,5 +3627,30 @@
     "revenue": "",
     "budget": "",
     "tmdbId": 1253000
+  },
+  {
+    "line": 137,
+    "type": "movie",
+    "film": "Cloud Atlas",
+    "year": 2012,
+    "director": "Lilly Wachowski",
+    "link": "https://www.imdb.com/title/tt1371111/",
+    "duration": 172,
+    "platformLink": "https://www.lookmovie2.to/movies/view/cloud-atlas-2012",
+    "podcastLink": "",
+    "dateAdded": "2025-11-05",
+    "tags": [],
+    "tagline": "Everything is connected",
+    "directorofPhotography": "Frank Griebe",
+    "executiveProducer": "Uwe Schott",
+    "editor": "Alexander Berner",
+    "producer": "Lana Wachowski",
+    "screenplay": "Lana Wachowski",
+    "originalMusicComposer": "Reinhold Heil",
+    "productionDesign": "Hugh Bateup",
+    "costumeDesign": "Kym Barrett",
+    "revenue": 130482868,
+    "budget": 102000000,
+    "tmdbId": 83542
   }
 ]
