@@ -3652,5 +3652,32 @@
     "revenue": 130482868,
     "budget": 102000000,
     "tmdbId": 83542
+  },
+  {
+    "line": 138,
+    "type": "movie",
+    "film": "mid90s",
+    "year": 2018,
+    "director": "Jonah Hill",
+    "link": "https://www.imdb.com/title/tt5613484/",
+    "duration": 86,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-06",
+    "tags": [
+      "STONEMAN RECOMMENDS"
+    ],
+    "tagline": "fall. get back up.",
+    "directorofPhotography": "Christopher Blauvelt",
+    "executiveProducer": "Scott Robertson",
+    "editor": "Nick Houy",
+    "producer": "Mikey Alfred",
+    "screenplay": "",
+    "originalMusicComposer": "Trent Reznor",
+    "productionDesign": "Jahmin Assa",
+    "costumeDesign": "",
+    "revenue": 9303022,
+    "budget": 1700000,
+    "tmdbId": 437586
   }
 ]
