@@ -524,42 +524,58 @@
     "bgColor": "#e67e22",
     "textColor": "#ffffff"
   },
-  "OSCAR [NOMINEE] BEST ORIGINAL SCREENPLAY",
   {
-    "tag": "OSCAR [WINNER] BEST ORIGINAL SCREENPLAY",
-    "bgColor": "#fefb41",
-    "textColor": "#000000"
+    "tag": "OSCAR NOMINEE BEST ORIGINAL SCREENPLAY",
+    "bgColor": "#1abc9c",
+    "textColor": "#ffffff"
   },
-  "SATURN AWARD [WINNER] BEST SCIENCE FICTION FILM",
-  "SATURN AWARD [WINNER] BEST ACTRESS",
-  "SATURN AWARD [WINNER] BEST HORROR FILM",
   {
-    "tags": "OSCAR [WINNER] BEST PICTURE",
+    "tag": "OSCAR WINNER BEST ORIGINAL SCREENPLAY",
     "bgColor": "#fefb41",
     "textColor": "#000000"
   },
   {
-    "tags": "OSCAR [WINNER] BEST ACTOR IN A LEADING ROLE",
+    "tag": "SATURN AWARD WINNER BEST SCIENCE FICTION FILM",
+    "bgColor": "#1abc9c",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "SATURN AWARD WINNER BEST ACTRESS",
+    "bgColor": "#1abc9c",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "SATURN AWARD WINNER BEST HORROR FILM",
+    "bgColor": "#1abc9c",
+    "textColor": "#ffffff"
+  },
+  {
+    "tags": "OSCAR WINNER BEST PICTURE",
     "bgColor": "#fefb41",
     "textColor": "#000000"
   },
   {
-    "tags": "OSCAR [WINNER] BEST ACTRESS IN A LEADING ROLE",
+    "tags": "OSCAR WINNER BEST ACTOR IN A LEADING ROLE",
     "bgColor": "#fefb41",
     "textColor": "#000000"
   },
   {
-    "tags": "OSCAR [WINNER] BEST DIRECTOR",
+    "tags": "OSCAR WINNER BEST ACTRESS IN A LEADING ROLE",
     "bgColor": "#fefb41",
     "textColor": "#000000"
   },
   {
-    "tags": "OSCAR [WINNER] BEST WRITING",
+    "tags": "OSCAR WINNER BEST DIRECTOR",
     "bgColor": "#fefb41",
     "textColor": "#000000"
   },
   {
-    "tags": "OSCAR [WINNER] BEST EFFECTS SOUND EFFECTS EDITING",
+    "tags": "OSCAR WINNER BEST WRITING",
+    "bgColor": "#fefb41",
+    "textColor": "#000000"
+  },
+  {
+    "tags": "OSCAR WINNER BEST EFFECTS SOUND EFFECTS EDITING",
     "bgColor": "#fefb41",
     "textColor": "#000000"
   }
