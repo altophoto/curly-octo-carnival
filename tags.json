@@ -548,35 +548,5 @@
     "tag": "SATURN AWARD WINNER BEST HORROR FILM",
     "bgColor": "#1abc9c",
     "textColor": "#ffffff"
-  },
-  {
-    "tags": "OSCAR WINNER BEST PICTURE",
-    "bgColor": "#fefb41",
-    "textColor": "#000000"
-  },
-  {
-    "tags": "OSCAR WINNER BEST ACTOR IN A LEADING ROLE",
-    "bgColor": "#fefb41",
-    "textColor": "#000000"
-  },
-  {
-    "tags": "OSCAR WINNER BEST ACTRESS IN A LEADING ROLE",
-    "bgColor": "#fefb41",
-    "textColor": "#000000"
-  },
-  {
-    "tags": "OSCAR WINNER BEST DIRECTOR",
-    "bgColor": "#fefb41",
-    "textColor": "#000000"
-  },
-  {
-    "tags": "OSCAR WINNER BEST WRITING",
-    "bgColor": "#fefb41",
-    "textColor": "#000000"
-  },
-  {
-    "tags": "OSCAR WINNER BEST EFFECTS SOUND EFFECTS EDITING",
-    "bgColor": "#fefb41",
-    "textColor": "#000000"
   }
 ]
