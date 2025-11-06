@@ -1,1 +1,132 @@
-[]
+[
+  {
+    "tag": "Academy Award Winner",
+    "bgColor": "#fefb41",
+    "textColor": "#000000"
+  },
+  {
+    "tag": "BGH Eric's Top 10",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Rachel's Top 10",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Jon's Top 10",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Casey's Top 10",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Eric Recommends",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Eric Does Not Recommend",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Rachel Recommends",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Rachel Does Not Recommend",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Jon Recommends",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Jon Does Not Recommend",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Casey Recommends",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "BGH Casey Does Not Recommend",
+    "bgColor": "#1a1a2e",
+    "textColor": "#00ff88"
+  },
+  {
+    "tag": "Roger Ebert 4 Stars",
+    "bgColor": "#c0392b",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Roger Ebert 3-1/2 Stars",
+    "bgColor": "#ff6a00",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Roger Ebert 3 Stars",
+    "bgColor": "#ffc5ab",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Roger Ebert 2-1/2 Stars",
+    "bgColor": "#0042a9",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Roger Ebert 2 Stars",
+    "bgColor": "#450d59",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Roger Ebert 1-1/2 Stars",
+    "bgColor": "#5a1c00",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Roger Ebert 1 Star",
+    "bgColor": "#474747",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Roger Ebert 1/2 Star",
+    "bgColor": "#333333",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "Roger Ebert 0 Stars",
+    "bgColor": "#000000",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "OSCAR NOMINEE BEST ORIGINAL SCREENPLAY",
+    "bgColor": "#fefb41",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "OSCAR WINNER BEST ORIGINAL SCREENPLAY",
+    "bgColor": "#fefb41",
+    "textColor": "#000000"
+  },
+  {
+    "tag": "SATURN AWARD WINNER BEST SCIENCE FICTION FILM",
+    "bgColor": "#1abc9c",
+    "textColor": "#ffffff"
+  },
+  {
+    "tag": "SATURN AWARD WINNER BEST ACTRESS",
+    "bgColor": "#1abc9c",
+    "textColor": "#ffffff"
+  }
+]
