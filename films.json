@@ -3687,7 +3687,7 @@
     "director": "Wes Anderson",
     "link": "https://www.imdb.com/title/tt30840798/",
     "duration": 102,
-    "platformLink": "",
+    "platformLink": "https://srv313.ulever.cyou/s4/0/06b23d716638e682677983fdd940e1d285a91dbc8a0d6214fb73a9e8c2b37e05/REkm4ACALaccd9oZZnWEjQ/1762607827/storage1/movies/1750929190-30840798-the-phoenician-scheme-2025/4eeccf2582857e3b2d4436b0d3bec8bf.mp4/index.m3u8",
     "podcastLink": "",
     "dateAdded": "2025-11-07",
     "tags": [],
@@ -3701,7 +3701,6 @@
     "productionDesign": "Adam Stockhausen",
     "costumeDesign": "Milena Canonero",
     "revenue": 40313783,
-    "budget": 30000000,
-    "tmdbId": 1137350
+    "budget": 30000000
   }
 ]
