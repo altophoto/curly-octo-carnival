@@ -3827,5 +3827,30 @@
     "revenue": 211623421,
     "budget": 150000000,
     "tmdbId": 8619
+  },
+  {
+    "line": 145,
+    "type": "movie",
+    "film": "Frankenstein",
+    "year": 2025,
+    "director": "Guillermo del Toro",
+    "link": "https://www.imdb.com/title/tt1312221/",
+    "duration": 150,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-07",
+    "tags": [],
+    "tagline": "Only monsters play God.",
+    "directorofPhotography": "Dan Laustsen",
+    "executiveProducer": "",
+    "editor": "Evan Schiff",
+    "producer": "J. Miles Dale",
+    "screenplay": "Guillermo del Toro",
+    "originalMusicComposer": "Alexandre Desplat",
+    "productionDesign": "Tamara Deverell",
+    "costumeDesign": "Kate Hawley",
+    "revenue": "",
+    "budget": 120000000,
+    "tmdbId": 1062722
   }
 ]
