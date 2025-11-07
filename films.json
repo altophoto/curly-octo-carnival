@@ -3777,5 +3777,30 @@
     "revenue": 32273161,
     "budget": 17000000,
     "tmdbId": 1242011
+  },
+  {
+    "line": 143,
+    "type": "movie",
+    "film": "Zodiac",
+    "year": 2007,
+    "director": "David Fincher",
+    "link": "https://www.imdb.com/title/tt0443706/",
+    "duration": 157,
+    "platformLink": "https://srv310.undomedian.cyou/s4/0/79bd4c11267d24e0be4f58097c0566dbd01bc290e28fa591474e13d9d2fba150/_vHwyVMJ3zuOdQKt6HUFRg/1762625332/storage3/movies/1762517674-0443706-zodiac-2007/4d0372736ca087e5a55d58b1f197ea06.mp4/index.m3u8",
+    "podcastLink": "",
+    "dateAdded": "2025-11-07",
+    "tags": [],
+    "tagline": "There's more than one way to lose your life to a killer.",
+    "directorofPhotography": "Harris Savides",
+    "executiveProducer": "Louis Phillips",
+    "editor": "Angus Wall",
+    "producer": "Mike Medavoy",
+    "screenplay": "James Vanderbilt",
+    "originalMusicComposer": "David Shire",
+    "productionDesign": "Donald Graham Burt",
+    "costumeDesign": "Casey Storm",
+    "revenue": 84785914,
+    "budget": 65000000,
+    "tmdbId": 1949
   }
 ]
