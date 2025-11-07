@@ -3727,5 +3727,30 @@
     "revenue": 54054069,
     "budget": 20000000,
     "tmdbId": 604079
+  },
+  {
+    "line": 141,
+    "type": "movie",
+    "film": "Prince of Darkness",
+    "year": 1987,
+    "director": "John Carpenter",
+    "link": "https://www.imdb.com/title/tt0093777/",
+    "duration": 102,
+    "platformLink": "https://srv313.ulever.cyou/aes/0/b0b087115b9676c276f734c81895711ba559164bd3dace39de21d3a70a76390e/RmWsS-nuzt8INOBnhtud1A/1762618104/storage2/movies/prince-of-darkness-1987/566c079576b79147b23fc6a2b90bde7d.mp4/index.m3u8",
+    "podcastLink": "",
+    "dateAdded": "2025-11-07",
+    "tags": [],
+    "tagline": "Before man walked the earth...It slept for centuries. It is evil. It is real. It is awakening.",
+    "directorofPhotography": "Gary B. Kibbe",
+    "executiveProducer": "Shep Gordon",
+    "editor": "Steve Mirkovich",
+    "producer": "Larry Franco",
+    "screenplay": "John Carpenter",
+    "originalMusicComposer": "John Carpenter",
+    "productionDesign": "Daniel A. Lomino",
+    "costumeDesign": "",
+    "revenue": 14182492,
+    "budget": 3000000,
+    "tmdbId": 8852
   }
 ]
