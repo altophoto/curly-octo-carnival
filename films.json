@@ -3902,5 +3902,30 @@
     "revenue": 9927714,
     "budget": 13400000,
     "tmdbId": 993784
+  },
+  {
+    "line": 148,
+    "type": "movie",
+    "film": "Rashomon",
+    "year": 1950,
+    "director": "Akira Kurosawa",
+    "link": "https://www.imdb.com/title/tt0042876/",
+    "duration": 88,
+    "platformLink": "https://srv310.undomedian.cyou/aes/0/af19cc4a845a648bdb118f0a65ea124d941b6ffcd7ab0f5b5dff0b0383079968/LrgQRxrHFbOLbczs9vvuuw/1762626021/storage2/movies/rashomon-1950/e58a586ef8c762bb1769ac7d44536adb.mp4/index.m3u8",
+    "podcastLink": "",
+    "dateAdded": "2025-11-07",
+    "tags": [],
+    "tagline": "The husband, the wife… or the bandit?",
+    "directorofPhotography": "Kazuo Miyagawa",
+    "executiveProducer": "Masaichi Nagata",
+    "editor": "Akira Kurosawa",
+    "producer": "Jingo Minoura",
+    "screenplay": "Shinobu Hashimoto",
+    "originalMusicComposer": "Fumio Hayasaka",
+    "productionDesign": "Takashi Matsuyama",
+    "costumeDesign": "Uichi Ôhata",
+    "revenue": 117668,
+    "budget": 250000,
+    "tmdbId": 548
   }
 ]
