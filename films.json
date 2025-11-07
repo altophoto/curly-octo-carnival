@@ -3852,5 +3852,30 @@
     "revenue": "",
     "budget": 120000000,
     "tmdbId": 1062722
+  },
+  {
+    "line": 146,
+    "type": "movie",
+    "film": "Frankenstein",
+    "year": 1931,
+    "director": "James Whale",
+    "link": "https://www.imdb.com/title/tt0021884/",
+    "duration": 70,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-07",
+    "tags": [],
+    "tagline": "THE MAN WHO MADE A MONSTER",
+    "directorofPhotography": "Arthur Edeson",
+    "executiveProducer": "",
+    "editor": "Clarence Kolster",
+    "producer": "Carl Laemmle Jr.",
+    "screenplay": "Francis Edward Faragoh",
+    "originalMusicComposer": "",
+    "productionDesign": "",
+    "costumeDesign": "",
+    "revenue": 12000000,
+    "budget": 291000,
+    "tmdbId": 3035
   }
 ]
