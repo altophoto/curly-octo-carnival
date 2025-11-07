@@ -3802,5 +3802,30 @@
     "revenue": 84785914,
     "budget": 65000000,
     "tmdbId": 1949
+  },
+  {
+    "line": 144,
+    "type": "movie",
+    "film": "Master and Commander: The Far Side of the World",
+    "year": 2003,
+    "director": "Peter Weir",
+    "link": "https://www.imdb.com/title/tt0311113/",
+    "duration": 138,
+    "platformLink": "https://srv310.undomedian.cyou/s4/0/eb0b72061dd6b9ea8435fd78e278d4aadb43471698eee1202a819fa1951ebb03/TURDx_F-P3D99O6Uk-v6Ng/1762625508/storage2/movies/1755101527-0311113-master-and-commander-the-far-side-of-the-world-2003/e5e00a6e24ac944dfb200420a56b8a06.mp4/index.m3u8",
+    "podcastLink": "",
+    "dateAdded": "2025-11-07",
+    "tags": [],
+    "tagline": "The courage to do the impossible lies in the hearts of men.",
+    "directorofPhotography": "Russell Boyd",
+    "executiveProducer": "Alan B. Curtiss",
+    "editor": "Lee Smith",
+    "producer": "Samuel Goldwyn Jr.",
+    "screenplay": "Peter Weir",
+    "originalMusicComposer": "Iva Davies",
+    "productionDesign": "William Sandell",
+    "costumeDesign": "Wendy Stites",
+    "revenue": 211623421,
+    "budget": 150000000,
+    "tmdbId": 8619
   }
 ]
