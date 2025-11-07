@@ -3702,5 +3702,30 @@
     "costumeDesign": "Milena Canonero",
     "revenue": 40313783,
     "budget": 30000000
+  },
+  {
+    "line": 140,
+    "type": "movie",
+    "film": "The Long Walk",
+    "year": 2025,
+    "director": "Francis Lawrence",
+    "link": "https://www.imdb.com/title/tt10374610/",
+    "duration": 108,
+    "platformLink": "https://srv313.ulever.cyou/s4/0/1982a2fcdeece6cee0b16dfd2f7868f82f3554c3c3bc927b8905111a5debbf01/1HkvmWhmULGy228faSaxpQ/1762608497/storage5/movies/1761420090-10374610-the-long-walk-2025/dbdbdfb9c82aa21edea1c04caf605437.mp4/index.m3u8",
+    "podcastLink": "",
+    "dateAdded": "2025-11-07",
+    "tags": [],
+    "tagline": "The task is simple: walk or die.",
+    "directorofPhotography": "Jo Willems",
+    "executiveProducer": "Stephen King",
+    "editor": "Mark Yoshikawa",
+    "producer": "Francis Lawrence",
+    "screenplay": "JT Mollner",
+    "originalMusicComposer": "Jeremiah Fraites",
+    "productionDesign": "Nicolas Lepage",
+    "costumeDesign": "",
+    "revenue": 54054069,
+    "budget": 20000000,
+    "tmdbId": 604079
   }
 ]
