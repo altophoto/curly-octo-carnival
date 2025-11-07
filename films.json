@@ -3877,5 +3877,30 @@
     "revenue": 12000000,
     "budget": 291000,
     "tmdbId": 3035
+  },
+  {
+    "line": 147,
+    "type": "movie",
+    "film": "Lisa Frankenstein",
+    "year": 2024,
+    "director": "Zelda Williams",
+    "link": "https://www.imdb.com/title/tt21188080/",
+    "duration": 102,
+    "platformLink": "https://srv310.undomedian.cyou/aes/0/28e624fe0b4d56ed24415970bf94b7fb7bc51d57ce122389ccbadac07b1102bb/MG8djbz7fThodbNHxij58Q/1762625892/storage8/movies/1709035418-21188080-lisa-frankenstein-2024/b29760bffb16f3146e210473dbef1931.mp4/index.m3u8",
+    "podcastLink": "",
+    "dateAdded": "2025-11-07",
+    "tags": [],
+    "tagline": "If you can't meet your perfect boyfriend…make him.",
+    "directorofPhotography": "Paula Huidobro",
+    "executiveProducer": "Jeffrey Lampert",
+    "editor": "Brad Turner",
+    "producer": "Diablo Cody",
+    "screenplay": "Diablo Cody",
+    "originalMusicComposer": "Isabella Summers",
+    "productionDesign": "Mark Worthington",
+    "costumeDesign": "Meagan McLaughlin",
+    "revenue": 9927714,
+    "budget": 13400000,
+    "tmdbId": 993784
   }
 ]
