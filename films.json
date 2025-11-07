@@ -3678,5 +3678,30 @@
     "revenue": 9303022,
     "budget": 1700000,
     "tmdbId": 437586
+  },
+  {
+    "line": 139,
+    "type": "movie",
+    "film": "The Phoenician Scheme",
+    "year": 2025,
+    "director": "Wes Anderson",
+    "link": "https://www.imdb.com/title/tt30840798/",
+    "duration": 102,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-07",
+    "tags": [],
+    "tagline": "If something gets in your way: flatten it.",
+    "directorofPhotography": "Bruno Delbonnel",
+    "executiveProducer": "Roman Coppola",
+    "editor": "Barney Pilling",
+    "producer": "Wes Anderson",
+    "screenplay": "Wes Anderson",
+    "originalMusicComposer": "Alexandre Desplat",
+    "productionDesign": "Adam Stockhausen",
+    "costumeDesign": "Milena Canonero",
+    "revenue": 40313783,
+    "budget": 30000000,
+    "tmdbId": 1137350
   }
 ]
