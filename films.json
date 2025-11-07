@@ -3952,5 +3952,30 @@
     "revenue": 442824138,
     "budget": 70000000,
     "tmdbId": 2503
+  },
+  {
+    "line": 150,
+    "type": "movie",
+    "film": "Judas and the Black Messiah",
+    "year": 2021,
+    "director": "Shaka King",
+    "link": "https://www.imdb.com/title/tt9784798/",
+    "duration": 126,
+    "platformLink": "https://srv310.undomedian.cyou/s4/0/5e1cfef356222a09cee512e89f1a01b44f2011b36c355543908a601a754c20b5/SfWz0hAsPywspvASsJMcWQ/1762630988/storage3/movies/1753751503-9784798-judas-and-the-black-messiah-2021/9d3a414d05a6647b507beb2cd1542152.mp4/index.m3u8",
+    "podcastLink": "",
+    "dateAdded": "2025-11-07",
+    "tags": [],
+    "tagline": "You can kill a revolutionary but you can't kill the revolution.",
+    "directorofPhotography": "Sean Bobbitt",
+    "executiveProducer": "Sev Ohanian",
+    "editor": "Kristan Sprague",
+    "producer": "Shaka King",
+    "screenplay": "Shaka King",
+    "originalMusicComposer": "Craig Harris",
+    "productionDesign": "Sam Lisenco",
+    "costumeDesign": "Charlese Antoinette Jones",
+    "revenue": 6416063,
+    "budget": 26000000,
+    "tmdbId": 583406
   }
 ]
