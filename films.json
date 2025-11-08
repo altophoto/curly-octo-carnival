@@ -3714,7 +3714,9 @@
     "platformLink": "https://srv313.ulever.cyou/s4/0/1982a2fcdeece6cee0b16dfd2f7868f82f3554c3c3bc927b8905111a5debbf01/1HkvmWhmULGy228faSaxpQ/1762608497/storage5/movies/1761420090-10374610-the-long-walk-2025/dbdbdfb9c82aa21edea1c04caf605437.mp4/index.m3u8",
     "podcastLink": "",
     "dateAdded": "2025-11-07",
-    "tags": [],
+    "tags": [
+      "featured-poster"
+    ],
     "tagline": "The task is simple: walk or die.",
     "directorofPhotography": "Jo Willems",
     "executiveProducer": "Stephen King",
