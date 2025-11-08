@@ -2,7 +2,7 @@
 
 A beautiful, personal film and TV logging app with a retro theater marquee display. Built with Vue 3 and stored entirely in GitHub (no database needed!).
 
-![Screenshot of theater marquee display]
+![Screenshot of theater marquee display](/theater-marquee.png)
 
 ## Features
 
@@ -79,4 +79,5 @@ MIT - Feel free to fork and customize!
 ## Credits
 
 Built by a self-taught tinkerer who loves movies and elegant code.
+
 
