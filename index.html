@@ -1462,7 +1462,7 @@
                 <div class="light"></div>
             </div>
 
-            <h1 class="marquee-title">Family Groovy Night</h1>
+            <h1 class="marquee-title">Family Groovy Night 2</h1>
             <p class="marquee-subtitle">Now showing from your curated collection</p>
             <p class="night-indicator">{{ isWeekendNight ? '🎉 Weekend Night 🎉' : '📚 School Night 📚' }} • Target End:
                 {{ currentTargetEndTime }}</p>
@@ -1940,7 +1940,7 @@
                     <strong>⚠️ This will:</strong><br>
                     • Search TMDb for each film in your collection<br>
                     • Add genre tags automatically (e.g., "action", "drama", "sci-fi")<br>
-                    • Skip films that already have 6+ genre tags<br>
+                    • Skip films that already have 2+ genre tags<br>
                     • Take 3-5 minutes for ~65 films<br>
                     • Make ~250 API calls (well within TMDb's free tier limits)
                 </div>
@@ -2186,6 +2186,10 @@
         createApp({
             data() {
                 return {
+                    genreMapping: {
+                        movie: {},
+                        tv: {}
+                    },
                     githubOwner: 'altophoto',
                     githubRepo: 'family-groovy-night-data',
                     githubFile: 'films.json',
@@ -2483,13 +2487,78 @@
             },
 
             methods: {
+                async loadGenreMappings() {
+                    if (!this.tmdbApiKey) return;
+
+                    try {
+                        // Load movie genres
+                        const movieResponse = await fetch(
+                            `https://api.themoviedb.org/3/genre/movie/list?api_key=${this.tmdbApiKey}`
+                        );
+                        const movieData = await movieResponse.json();
+                        if (movieData.genres) {
+                            movieData.genres.forEach(g => {
+                                this.genreMapping.movie[g.id] = g.name.toLowerCase();
+                            });
+                        }
+
+                        // Load TV genres
+                        const tvResponse = await fetch(
+                            `https://api.themoviedb.org/3/genre/tv/list?api_key=${this.tmdbApiKey}`
+                        );
+                        const tvData = await tvResponse.json();
+                        if (tvData.genres) {
+                            tvData.genres.forEach(g => {
+                                this.genreMapping.tv[g.id] = g.name.toLowerCase();
+                            });
+                        }
+
+                        console.log('Genre mappings loaded:', this.genreMapping);
+                    } catch (error) {
+                        console.error('Error loading genre mappings:', error);
+                    }
+                },
+
+                getGenresFromIds(genreIds, mediaType) {
+                    if (!genreIds || !Array.isArray(genreIds)) return [];
+
+                    const mapping = this.genreMapping[mediaType] || {};
+                    return genreIds
+                        .map(id => mapping[id])
+                        .filter(name => name); // Remove undefined values
+                },
+
+                async addGenresToPredefined(genres) {
+                    // Add new genres to the predefined list
+                    let added = 0;
+                    genres.forEach(genre => {
+                        if (!this.tagCategories.genres.includes(genre)) {
+                            this.tagCategories.genres.push(genre);
+                            added++;
+                        }
+                    });
+
+                    if (added > 0) {
+                        this.tagCategories.genres.sort((a, b) => a.localeCompare(b));
+                        await this.saveTagCategory('genres');
+                    }
+
+                    return added;
+                },
                 async batchUpdateGenresFromTMDb() {
                     if (!this.tmdbApiKey) {
                         alert('TMDb API key required!');
                         return;
                     }
 
+                    // Ensure genreMapping is initialized
+                    if (!this.genreMapping) {
+                        this.genreMapping = { movie: {}, tv: {} };
+                    }
+
+                    // Load genre mappings if not already loaded
                     if (!this.genreMapping.movie || Object.keys(this.genreMapping.movie).length === 0) {
+                        this.showSyncStatus('Loading genre mappings from TMDb...', '');
                         await this.loadGenreMappings();
                     }
 
@@ -3720,6 +3789,11 @@
                     await this.loadFromGitHub();
                     await this.loadAllTagCategories();
                     await this.loadDirectorsFromGitHub();
+                }
+
+                // ✨ NEW: Load genre mappings if TMDb key exists
+                if (this.tmdbApiKey) {
+                    await this.loadGenreMappings();
                 }
 
                 this.timeUpdateInterval = setInterval(() => {
