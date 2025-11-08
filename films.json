@@ -3536,7 +3536,9 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-11-02",
-    "tags": [],
+    "tags": [
+      "featured-poster"
+    ],
     "tagline": "Talk on the phone. Finish your homework. Watch TV. Die.",
     "directorofPhotography": "Eliot Rockett",
     "executiveProducer": "Hamza Ali",
