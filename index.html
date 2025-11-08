@@ -1927,6 +1927,23 @@
                     <a href="#" @click.prevent="clearPosterCache" style="color: #ff6b6b;">Clear cache</a>
                 </div>
             </div>
+            <div v-if="githubToken && tmdbApiKey" class="settings-section">
+                <h2>Batch Genre Update</h2>
+                <p>Retroactively add genre tags to all existing films by querying TMDb.</p>
+
+                <button @click="batchUpdateGenresFromTMDb" style="background: #4CAF50;">
+                    🎬 Update All Films with TMDb Genres
+                </button>
+
+                <div class="help-text" style="margin-top: 15px;">
+                    <strong>⚠️ This will:</strong><br>
+                    • Search TMDb for each film in your collection<br>
+                    • Add genre tags automatically (e.g., "action", "drama", "sci-fi")<br>
+                    • Skip films that already have 2+ genre tags<br>
+                    • Take 3-5 minutes for ~65 films<br>
+                    • Make ~250 API calls (well within TMDb's free tier limits)
+                </div>
+            </div>
 
             <div v-if="githubToken && tmdbApiKey" class="settings-section">
                 <h2>Marquee Auto-Rotation</h2>
@@ -2511,6 +2528,139 @@
                     if (film.tags.includes('featured-poster')) return 'featured';
                     if (film.tags.includes('hide-poster')) return 'hidden';
                     return 'normal';
+                },
+
+                async batchUpdateGenresFromTMDb() {
+                    if (!this.tmdbApiKey) {
+                        alert('TMDb API key required!');
+                        return;
+                    }
+
+                    if (!this.genreMapping.movie || Object.keys(this.genreMapping.movie).length === 0) {
+                        await this.loadGenreMappings();
+                    }
+
+                    const confirm = window.confirm(
+                        `This will search TMDb for all ${this.films.length} films and add genre tags.\n\n` +
+                        `This may take a few minutes and make many API calls.\n\n` +
+                        `Continue?`
+                    );
+
+                    if (!confirm) return;
+
+                    this.showSyncStatus('Starting genre update...', '');
+
+                    let updated = 0;
+                    let skipped = 0;
+                    let failed = 0;
+                    let newGenresAdded = new Set();
+
+                    for (let i = 0; i < this.films.length; i++) {
+                        const film = this.films[i];
+                        const progress = `[${i + 1}/${this.films.length}]`;
+
+                        this.showSyncStatus(`${progress} Processing: ${this.getDisplayTitle(film)}`, '');
+
+                        try {
+                            // Skip if film already has genre tags
+                            const existingGenres = film.tags ? film.tags.filter(tag =>
+                                this.tagCategories.genres.includes(tag)
+                            ) : [];
+
+                            if (existingGenres.length >= 2) {
+                                console.log(`${progress} Skipping ${this.getDisplayTitle(film)} - already has ${existingGenres.length} genres`);
+                                skipped++;
+                                continue;
+                            }
+
+                            // Search TMDb for this film
+                            const mediaType = film.type === 'tv' ? 'tv' : 'movie';
+                            const searchName = this.getPosterLookupName(film);
+                            const yearParam = film.year ? (mediaType === 'tv' ? `&first_air_date_year=${film.year}` : `&year=${film.year}`) : '';
+                            const searchUrl = `https://api.themoviedb.org/3/search/${mediaType}?api_key=${this.tmdbApiKey}&query=${encodeURIComponent(searchName)}${yearParam}`;
+
+                            const response = await fetch(searchUrl);
+                            const data = await response.json();
+
+                            if (data.results && data.results.length > 0) {
+                                const result = data.results[0];
+
+                                if (result.genre_ids && result.genre_ids.length > 0) {
+                                    const genres = this.getGenresFromIds(result.genre_ids, mediaType);
+
+                                    if (genres.length > 0) {
+                                        // Initialize tags array if it doesn't exist
+                                        if (!film.tags) {
+                                            film.tags = [];
+                                        }
+
+                                        // Add new genres that aren't already present
+                                        let addedToFilm = 0;
+                                        genres.forEach(genre => {
+                                            if (!film.tags.includes(genre)) {
+                                                film.tags.push(genre);
+                                                addedToFilm++;
+                                            }
+
+                                            // Track new genres to add to predefined list
+                                            if (!this.tagCategories.genres.includes(genre)) {
+                                                newGenresAdded.add(genre);
+                                            }
+                                        });
+
+                                        if (addedToFilm > 0) {
+                                            // Sort tags alphabetically
+                                            film.tags.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+                                            updated++;
+                                            console.log(`${progress} ✓ Added ${addedToFilm} genre(s) to ${this.getDisplayTitle(film)}: ${genres.join(', ')}`);
+                                        } else {
+                                            skipped++;
+                                        }
+                                    } else {
+                                        console.log(`${progress} No genre names found for ${this.getDisplayTitle(film)}`);
+                                        skipped++;
+                                    }
+                                } else {
+                                    console.log(`${progress} No genres in TMDb for ${this.getDisplayTitle(film)}`);
+                                    skipped++;
+                                }
+                            } else {
+                                console.log(`${progress} ✗ Not found on TMDb: ${this.getDisplayTitle(film)}`);
+                                failed++;
+                            }
+
+                            // Rate limiting: wait 250ms between requests (4 requests/second, well under TMDb limit)
+                            await new Promise(resolve => setTimeout(resolve, 250));
+
+                        } catch (error) {
+                            console.error(`${progress} Error processing ${this.getDisplayTitle(film)}:`, error);
+                            failed++;
+                        }
+                    }
+
+                    // Add new genres to predefined list
+                    if (newGenresAdded.size > 0) {
+                        newGenresAdded.forEach(genre => {
+                            this.tagCategories.genres.push(genre);
+                        });
+                        this.tagCategories.genres.sort((a, b) => a.localeCompare(b));
+                        await this.saveTagCategory('genres');
+                    }
+
+                    // Save all changes to GitHub
+                    if (updated > 0) {
+                        await this.saveToGitHub();
+                    }
+
+                    // Show summary
+                    const summary = `Batch Update Complete!\n\n` +
+                        `✓ Updated: ${updated} films\n` +
+                        `→ Skipped: ${skipped} films (already had genres)\n` +
+                        `✗ Failed: ${failed} films (not found on TMDb)\n` +
+                        `🎨 New genres added to collection: ${newGenresAdded.size}`;
+
+                    alert(summary);
+                    this.showSyncStatus(`Batch complete: ${updated} films updated`, 'success');
                 },
 
                 async cyclePosterTag(film) {
