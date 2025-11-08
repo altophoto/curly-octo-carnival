@@ -3511,7 +3511,9 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-11-02",
-    "tags": [],
+    "tags": [
+      "featured-poster"
+    ],
     "tagline": "Abandoned as a child. Raised by the dark.",
     "directorofPhotography": "Julie Kirkwood",
     "executiveProducer": "Carissa Buffel",
