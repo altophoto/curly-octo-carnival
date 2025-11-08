@@ -3336,7 +3336,9 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-11-02",
-    "tags": [],
+    "tags": [
+      "featured-poster"
+    ],
     "tagline": "Choose life.",
     "directorofPhotography": "Brian Tufano",
     "executiveProducer": "",
