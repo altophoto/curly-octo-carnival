@@ -1940,7 +1940,7 @@
                     <strong>⚠️ This will:</strong><br>
                     • Search TMDb for each film in your collection<br>
                     • Add genre tags automatically (e.g., "action", "drama", "sci-fi")<br>
-                    • Skip films that already have 2+ genre tags<br>
+                    • Skip films that already have 6+ genre tags<br>
                     • Take 3-5 minutes for ~65 films<br>
                     • Make ~250 API calls (well within TMDb's free tier limits)
                 </div>
@@ -2520,7 +2520,7 @@
                                 this.tagCategories.genres.includes(tag)
                             ) : [];
 
-                            if (existingGenres.length >= 2) {
+                            if (existingGenres.length >= 6) {
                                 console.log(`${progress} Skipping ${this.getDisplayTitle(film)} - already has ${existingGenres.length} genres`);
                                 skipped++;
                                 continue;
