@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Family Groovy Night</title>
+    <title>Film Log</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
@@ -15,7 +15,6 @@
             margin: 30px auto;
             padding: 20px;
             background: #0a0a0a;
-            color: #e0e0e0;
         }
         
         /* Marquee Theater Styling */
@@ -113,34 +112,6 @@
         @keyframes glow {
             0%, 100% { opacity: 0.6; }
             50% { opacity: 0.2; }
-        }
-        
-        /* New Entry Pulse Animation */
-        @keyframes pulse-new {
-            0%, 100% { background: rgba(255, 215, 0, 0.05); }
-            50% { background: rgba(255, 215, 0, 0.15); }
-        }
-
-        .new-entry {
-            animation: pulse-new 3s ease-in-out infinite;
-        }
-
-        .new-entry:hover {
-            background: rgba(255, 215, 0, 0.2) !important;
-        }
-        
-        /* Poster Status Indicators */
-        tr[data-poster-status="featured"] {
-            border-left: 4px solid gold;
-        }
-        
-        tr[data-poster-status="hidden"] {
-            opacity: 0.5;
-        }
-        
-        tr {
-            cursor: pointer;
-            transition: opacity 0.3s, border-left 0.3s;
         }
         
         /* Title with Color-Cycling Spotlight Effect */
@@ -285,7 +256,7 @@
             font-size: 12px;
         }
         
-        /* Poster Frames - 3D Angled */
+        /* Poster Frames - 3D Angled (closer to viewer) */
         .poster-frame-3d {
             position: relative;
             width: 320px;
@@ -371,7 +342,7 @@
             color: #aaa;
         }
         
-        /* Showtime Status */
+        /* Showtime Status - Angled with poster but tilted toward viewer */
         .showtime-status {
             text-align: center;
             margin-top: 20px;
@@ -458,54 +429,58 @@
         }
         
         h1 {
-            color: #e0e0e0;
-            border-bottom: 3px solid #555;
+            color: #333;
+            border-bottom: 3px solid #333;
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
         h2 {
-            color: #e0e0e0;
+            color: #333;
             margin-top: 30px;
         }
-        
+        .fun-fact {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            line-height: 1.6;
+        }
         .nav {
-            background: #1a1a1a;
+            background: white;
             padding: 15px 20px;
             margin-bottom: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
-            border: 1px solid #333;
         }
         .nav button {
             padding: 10px 20px;
-            background: #333;
-            color: #e0e0e0;
+            background: #666;
+            color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 14px;
         }
         .nav button.active {
-            background: #555;
+            background: #333;
         }
         .nav button:hover:not(:disabled) {
-            background: #444;
+            background: #555;
         }
         .nav button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
-        
         .controls {
-            background: #1a1a1a;
+            background: white;
             padding: 20px;
             margin-bottom: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            border: 1px solid #333;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .control-row {
             display: flex;
@@ -518,26 +493,19 @@
             margin-bottom: 0;
         }
         
-        /* Enhanced Tag Collapse Styling */
+        /* Collapsible Tags Section */
         .tags-collapse-header {
-            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: 1px solid #444;
-            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 10px;
             cursor: pointer;
             user-select: none;
+            padding: 10px 0;
             font-weight: bold;
-            color: #e0e0e0;
-            transition: all 0.3s;
         }
         
         .tags-collapse-header:hover {
-            background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
-            border-color: #666;
+            color: #555;
         }
         
         .collapse-icon {
@@ -561,16 +529,14 @@
         
         input[type="text"], input[type="file"], input[type="number"], input[type="password"], select {
             padding: 10px;
-            border: 1px solid #444;
+            border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 14px;
             flex: 1;
             min-width: 200px;
-            background: #2a2a2a;
-            color: #e0e0e0;
         }
         input[type="date"]:read-only {
-            background-color: #222;
+            background-color: #f5f5f5;
             cursor: not-allowed;
         }
         select {
@@ -578,8 +544,8 @@
         }
         button {
             padding: 10px 20px;
-            background: #444;
-            color: #e0e0e0;
+            background: #333;
+            color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -590,16 +556,8 @@
             background: #555;
         }
         button.secondary {
-            background: #333;
+            background: #666;
         }
-        button.clone-btn {
-            background: #1976d2;
-            margin-left: 10px;
-        }
-        button.clone-btn:hover {
-            background: #1565c0;
-        }
-        
         .tag-filters {
             display: flex;
             gap: 8px;
@@ -607,43 +565,25 @@
         }
         .tag-chip {
             padding: 6px 12px;
-            background: #333;
+            background: #e0e0e0;
             border: 2px solid transparent;
             border-radius: 20px;
             font-size: 13px;
             cursor: pointer;
             transition: all 0.2s;
-            color: #e0e0e0;
         }
         .tag-chip:hover {
-            background: #444;
+            background: #d0d0d0;
         }
         .tag-chip.active {
-            background: #555;
+            background: #333;
             color: white;
-            border-color: #777;
+            border-color: #333;
         }
         .tag-chip.clear {
             background: #c00;
             color: white;
         }
-        
-        /* Tag Categories */
-        .tag-category {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #222;
-            border-radius: 8px;
-            border: 1px solid #444;
-        }
-        
-        .tag-category h3 {
-            margin: 0 0 10px 0;
-            color: #ffd700;
-            font-size: 16px;
-            text-transform: capitalize;
-        }
-        
         .tag-selector {
             margin-bottom: 15px;
         }
@@ -651,7 +591,7 @@
             font-weight: bold;
             display: block;
             margin-bottom: 8px;
-            color: #e0e0e0;
+            color: #333;
         }
         .tag-options {
             display: flex;
@@ -661,66 +601,37 @@
         }
         .tag-option {
             padding: 5px 10px;
-            background: #2a2a2a;
-            border: 2px solid #444;
+            background: #f0f0f0;
+            border: 2px solid #ddd;
             border-radius: 15px;
             font-size: 12px;
             cursor: pointer;
             transition: all 0.2s;
-            color: #e0e0e0;
         }
         .tag-option:hover {
-            background: #333;
+            background: #e0e0e0;
         }
         .tag-option.selected {
-            background: #555;
+            background: #333;
             color: white;
-            border-color: #777;
+            border-color: #333;
         }
-        
-        /* Director options - blue, less rounded */
-        .director-options {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-        .director-option {
-            padding: 5px 12px;
-            background: #1a2a3a;
-            border: 2px solid #2a4a6a;
-            border-radius: 4px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: #a0c0e0;
-        }
-        .director-option:hover {
-            background: #2a3a4a;
-        }
-        .director-option.selected {
-            background: #2a5a8a;
-            color: white;
-            border-color: #4a7aaa;
-        }
-        
         .table-wrapper {
             width: 100%;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            background: #1a1a1a;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             border-radius: 8px;
             margin: 20px 0;
-            border: 1px solid #333;
         }
         .table-wrapper::after {
             content: '← Swipe to see more →';
             display: none;
             text-align: center;
             padding: 10px;
-            background: #222;
-            color: #888;
+            background: #f9f9f9;
+            color: #666;
             font-size: 12px;
             font-style: italic;
         }
@@ -736,16 +647,15 @@
             min-width: 1000px;
         }
         th {
-            background: #2a2a2a;
-            color: #e0e0e0;
+            background: #333;
+            color: white;
             padding: 12px 8px;
             text-align: left;
             cursor: pointer;
             user-select: none;
             white-space: nowrap;
-            border-bottom: 2px solid #444;
         }
-        th:hover { background: #333; }
+        th:hover { background: #555; }
         th::after {
             content: ' ⇅';
             opacity: 0.5;
@@ -767,16 +677,14 @@
         }
         td {
             padding: 10px 8px;
-            border-bottom: 1px solid #333;
-            color: #d0d0d0;
+            border-bottom: 1px solid #ddd;
         }
-        tr:hover { background: #222; }
+        tr:hover { background: #f9f9f9; }
         a {
-            color: #5a9fd4;
+            color: #0066cc;
             text-decoration: none;
         }
         a:hover { text-decoration: underline; }
-        
         .tags-cell {
             display: flex;
             gap: 5px;
@@ -784,17 +692,16 @@
         }
         .tag-badge {
             padding: 3px 8px;
-            background: #333;
+            background: #e0e0e0;
             border-radius: 12px;
             font-size: 11px;
-            color: #e0e0e0;
+            color: #333;
             white-space: nowrap;
         }
         .tag-badge.special-tag {
             background: #9c27b0;
             color: white;
         }
-        
         .stream-icon, .podcast-icon {
             font-size: 20px;
             text-decoration: none;
@@ -812,13 +719,11 @@
         .stream-icon.inactive:hover, .podcast-icon.inactive:hover {
             transform: none;
         }
-        
         .start-time {
             font-weight: bold;
-            color: #ff6b6b;
+            color: #d32f2f;
             white-space: nowrap;
         }
-        
         .action-buttons {
             display: flex;
             gap: 5px;
@@ -840,18 +745,16 @@
         .delete-btn:hover {
             background: #900;
         }
-        
         .loading {
             text-align: center;
             padding: 40px;
-            background: #1a1a1a;
+            background: white;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            border: 1px solid #333;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .loading-spinner {
-            border: 4px solid #333;
-            border-top: 4px solid #666;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #333;
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -862,63 +765,56 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
         .sync-status {
             padding: 10px 15px;
-            background: #3a3a1a;
-            color: #e0d080;
+            background: #fff3cd;
+            color: #856404;
             border-radius: 4px;
             margin-bottom: 20px;
             text-align: center;
             font-size: 14px;
-            border: 1px solid #555;
         }
         .sync-status.success {
-            background: #1a3a1a;
-            color: #80e080;
+            background: #d4edda;
+            color: #155724;
         }
         .sync-status.error {
-            background: #3a1a1a;
-            color: #e08080;
+            background: #f8d7da;
+            color: #721c24;
         }
-        
         .setup-required {
-            background: #1a1a1a;
+            background: white;
             padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             margin: 20px 0;
             text-align: center;
-            border: 1px solid #333;
         }
         .setup-required h2 {
-            color: #ff6b6b;
+            color: #d32f2f;
             margin-top: 0;
         }
-        
         .modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.5);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
         }
         .modal-content {
-            background: #1a1a1a;
+            background: white;
             padding: 30px;
             border-radius: 8px;
             max-width: 600px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
-            border: 2px solid #444;
         }
-        
         .form-group {
             margin-bottom: 20px;
         }
@@ -926,20 +822,18 @@
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
-            color: #e0e0e0;
+            color: #333;
         }
         .form-group input, .form-group textarea, .form-group select {
             width: 100%;
             padding: 10px;
-            border: 1px solid #444;
+            border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 14px;
             font-family: inherit;
-            background: #2a2a2a;
-            color: #e0e0e0;
         }
         .form-group small {
-            color: #aaa;
+            color: #666;
             font-size: 12px;
             display: block;
             margin-top: 5px;
@@ -950,34 +844,13 @@
             justify-content: flex-end;
             margin-top: 20px;
         }
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        .form-row .form-group {
-            margin-bottom: 0;
-        }
-        
-        .tv-episode-grid {
-            display: grid;
-            grid-template-columns: 80px 80px 1fr;
-            gap: 10px;
-            align-items: start;
-        }
-        .tv-episode-grid .form-group {
-            margin-bottom: 0;
-        }
-        
         .no-results {
             padding: 40px;
             text-align: center;
-            color: #888;
-            background: #1a1a1a;
+            color: #666;
+            background: white;
             border-radius: 8px;
-            border: 1px solid #333;
         }
-        
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -985,22 +858,21 @@
             margin: 20px 0;
         }
         .stat-card {
-            background: #1a1a1a;
+            background: white;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            border: 1px solid #333;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .stat-card h3 {
             margin: 0 0 10px 0;
-            color: #aaa;
+            color: #666;
             font-size: 14px;
             text-transform: uppercase;
         }
         .stat-card .stat-value {
             font-size: 32px;
             font-weight: bold;
-            color: #e0e0e0;
+            color: #333;
         }
         .stat-list {
             list-style: none;
@@ -1009,19 +881,16 @@
         }
         .stat-list li {
             padding: 8px 0;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid #eee;
             display: flex;
             justify-content: space-between;
-            color: #d0d0d0;
         }
-        
         .import-export {
-            background: #1a1a1a;
+            background: white;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             margin: 20px 0;
-            border: 1px solid #333;
         }
         .import-section {
             margin-bottom: 30px;
@@ -1031,37 +900,25 @@
         }
         .success-message {
             padding: 15px;
-            background: #1a3a1a;
-            color: #80e080;
+            background: #d4edda;
+            color: #155724;
             border-radius: 4px;
             margin: 15px 0;
-            border: 1px solid #2a5a2a;
         }
         .error-message {
             padding: 15px;
-            background: #3a1a1a;
-            color: #e08080;
+            background: #f8d7da;
+            color: #721c24;
             border-radius: 4px;
             margin: 15px 0;
-            border: 1px solid #5a2a2a;
         }
-        
         .settings-section {
-            background: #1a1a1a;
+            background: white;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             margin: 20px 0;
-            border: 1px solid #333;
         }
-        
-        .column-visibility-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
         .time-input {
             width: 120px;
         }
@@ -1073,7 +930,6 @@
             gap: 10px;
             flex-wrap: wrap;
         }
-        
         .token-status {
             padding: 10px;
             border-radius: 4px;
@@ -1081,26 +937,21 @@
             font-size: 14px;
         }
         .token-status.configured {
-            background: #1a3a1a;
-            color: #80e080;
-            border: 1px solid #2a5a2a;
+            background: #d4edda;
+            color: #155724;
         }
         .token-status.not-configured {
-            background: #3a3a1a;
-            color: #e0d080;
-            border: 1px solid #555;
+            background: #fff3cd;
+            color: #856404;
         }
-        
         .cache-info {
             margin-top: 15px;
             padding: 10px;
-            background: #222;
+            background: #f0f0f0;
             border-radius: 4px;
             font-size: 12px;
-            color: #aaa;
-            border: 1px solid #333;
+            color: #666;
         }
-        
         .checkbox-group {
             display: flex;
             align-items: center;
@@ -1114,9 +965,7 @@
         .checkbox-group label {
             cursor: pointer;
             margin: 0;
-            color: #e0e0e0;
         }
-        
         .tag-manager {
             display: flex;
             gap: 10px;
@@ -1126,8 +975,7 @@
         .tag-manager input {
             flex: 1;
         }
-        
-        .predefined-tags-list, .predefined-directors-list {
+        .predefined-tags-list {
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
@@ -1135,7 +983,7 @@
         }
         .predefined-tag {
             padding: 6px 12px;
-            background: #444;
+            background: #333;
             color: white;
             border-radius: 15px;
             font-size: 12px;
@@ -1143,27 +991,14 @@
             align-items: center;
             gap: 8px;
         }
-        .predefined-director {
-            padding: 6px 12px;
-            background: #2a5a8a;
-            color: white;
-            border-radius: 4px;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .predefined-tag .remove-tag,
-        .predefined-director .remove-tag {
+        .predefined-tag .remove-tag {
             cursor: pointer;
             color: #ff6b6b;
             font-weight: bold;
         }
-        .predefined-tag .remove-tag:hover,
-        .predefined-director .remove-tag:hover {
+        .predefined-tag .remove-tag:hover {
             color: #ff4444;
         }
-        
         .time-settings-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1175,7 +1010,6 @@
                 grid-template-columns: 1fr;
             }
         }
-        
         .type-badge {
             padding: 3px 8px;
             background: #6a4a9a;
@@ -1185,70 +1019,19 @@
             white-space: nowrap;
             margin-left: 5px;
         }
-        
         .help-text {
-            background: #1a2a3a;
+            background: #e3f2fd;
             padding: 15px;
             border-radius: 4px;
             margin-top: 15px;
             font-size: 13px;
             line-height: 1.6;
-            color: #a0c0e0;
-            border: 1px solid #2a4a6a;
         }
         .help-text strong {
-            color: #5a9fd4;
-        }
-        
-        /* TMDb Search Modal */
-        .search-results {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        .search-result-item {
-            cursor: pointer;
-            border: 2px solid #444;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: all 0.3s;
-            background: #2a2a2a;
-        }
-        .search-result-item:hover {
-            border-color: #1976d2;
-            transform: scale(1.05);
-        }
-        .search-result-poster {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background: #333;
-        }
-        .search-result-info {
-            padding: 10px;
-        }
-        .search-result-title {
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 4px;
-            color: #e0e0e0;
-        }
-        .search-result-year {
-            font-size: 11px;
-            color: #aaa;
-        }
-        .autofill-btn {
-            background: #4CAF50;
-            margin-right: 10px;
-        }
-        .autofill-btn:hover {
-            background: #45a049;
+            color: #1976d2;
         }
     </style>
-</head>                   
+</head>
 <body>
     <div id="app">
         <!-- 3D THEATER MARQUEE -->
@@ -1409,7 +1192,7 @@
                                     :class="{ active: selectedTags.includes(tag) }"
                                     @click="toggleTag(tag)"
                                 >
-                                    {{ formatTag(tag) }}
+                                    {{ tag }}
                                 </div>
                                 <div 
                                     class="tag-chip clear" 
@@ -1428,60 +1211,54 @@
                 <table>
                     <thead>
                         <tr>
-                            <th v-if="visibleColumns.line" @click="sortBy('line')" :class="sortClass('line')">#</th>
-                            <th v-if="visibleColumns.type" @click="sortBy('type')" :class="sortClass('type')">Type</th>
-                            <th v-if="visibleColumns.film" @click="sortBy('film')" :class="sortClass('film')">Title</th>
-                            <th v-if="visibleColumns.year" @click="sortBy('year')" :class="sortClass('year')">Year</th>
-                            <th v-if="visibleColumns.director" @click="sortBy('director')" :class="sortClass('director')">Director</th>
-                            <th v-if="visibleColumns.duration" @click="sortBy('duration')" :class="sortClass('duration')">Duration</th>
-                            <th v-if="visibleColumns.streaming" class="no-sort center-text">📺</th>
-                            <th v-if="visibleColumns.podcast" class="no-sort center-text">🎧</th>
-                            <th v-if="visibleColumns.dateAdded" @click="sortBy('dateAdded')" :class="sortClass('dateAdded')">Added</th>
-                            <th v-if="visibleColumns.tags" class="no-sort">Tags</th>
-                            <th v-if="visibleColumns.startTime" @click="sortBy('startTime')" :class="sortClass('startTime')">Start Time</th>
-                            <th v-if="visibleColumns.actions" class="no-sort">Actions</th>
+                            <th @click="sortBy('line')" :class="sortClass('line')">#</th>
+                            <th @click="sortBy('type')" :class="sortClass('type')">Type</th>
+                            <th @click="sortBy('film')" :class="sortClass('film')">Title</th>
+                            <th @click="sortBy('year')" :class="sortClass('year')">Year</th>
+                            <th @click="sortBy('director')" :class="sortClass('director')">Director</th>
+                            <th @click="sortBy('duration')" :class="sortClass('duration')">Duration</th>
+                            <th class="no-sort center-text">📺</th>
+                            <th class="no-sort center-text">🎧</th>
+                            <th @click="sortBy('dateAdded')" :class="sortClass('dateAdded')">Added</th>
+                            <th class="no-sort">Tags</th>
+                            <th @click="sortBy('startTime')" :class="sortClass('startTime')">Start Time</th>
+                            <th class="no-sort">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="film in filteredFilms" 
-                            :key="film.line"
-                            :class="{ 'new-entry': isNewEntry(film) }"
-                            :data-poster-status="getPosterStatus(film)"
-                            @click="cyclePosterTag(film)">
-                            <td v-if="visibleColumns.line">{{ film.line }}</td>
-                            <td v-if="visibleColumns.type">{{ getTypeLabel(film.type) }}</td>
-                            <td v-if="visibleColumns.film">
-                                <a v-if="film.link" :href="film.link" target="_blank" @click.stop>{{ getDisplayTitle(film) }}</a>
-                                <span v-else>{{ getDisplayTitle(film) }}</span>
+                        <tr v-for="film in filteredFilms" :key="film.line">
+                            <td>{{ film.line }}</td>
+                            <td>{{ film.type || 'movie' }}</td>
+                            <td>
+                                <a v-if="film.link" :href="film.link" target="_blank">{{ film.film }}</a>
+                                <span v-else>{{ film.film }}</span>
                                 <span v-if="film.type === 'tv'" class="type-badge">TV</span>
                             </td>
-                            <td v-if="visibleColumns.year">{{ film.year || '-' }}</td>
-                            <td v-if="visibleColumns.director">{{ film.director || '-' }}</td>
-                            <td v-if="visibleColumns.duration">{{ film.duration }} min</td>
-                            <td v-if="visibleColumns.streaming" class="center-text">
+                            <td>{{ film.year || '-' }}</td>
+                            <td>{{ film.director || '-' }}</td>
+                            <td>{{ film.duration }} min</td>
+                            <td class="center-text">
                                 <a v-if="film.platformLink" 
                                    :href="film.platformLink" 
                                    target="_blank" 
                                    class="stream-icon"
-                                   title="Watch online"
-                                   @click.stop>
+                                   title="Watch online">
                                     📺
                                 </a>
                                 <span v-else class="stream-icon inactive">📺</span>
                             </td>
-                            <td v-if="visibleColumns.podcast" class="center-text">
+                            <td class="center-text">
                                 <a v-if="film.podcastLink" 
                                    :href="film.podcastLink" 
                                    target="_blank" 
                                    class="podcast-icon"
-                                   title="Listen to podcast"
-                                   @click.stop>
+                                   title="Listen to podcast">
                                     🎧
                                 </a>
                                 <span v-else class="podcast-icon inactive">🎧</span>
                             </td>
-                            <td v-if="visibleColumns.dateAdded">{{ formatDate(film.dateAdded) }}</td>
-                            <td v-if="visibleColumns.tags">
+                            <td>{{ formatDate(film.dateAdded) }}</td>
+                            <td>
                                 <div class="tags-cell">
                                     <span 
                                         class="tag-badge" 
@@ -1489,13 +1266,13 @@
                                         v-for="tag in film.tags" 
                                         :key="tag"
                                     >
-                                        {{ formatTag(tag) }}
+                                        {{ tag }}
                                     </span>
                                 </div>
                             </td>
-                            <td v-if="visibleColumns.startTime" class="start-time">{{ calculateStartTime(film.duration) }}</td>
-                            <td v-if="visibleColumns.actions">
-                                <div class="action-buttons" @click.stop>
+                            <td class="start-time">{{ calculateStartTime(film.duration) }}</td>
+                            <td>
+                                <div class="action-buttons">
                                     <button class="edit-btn" @click="openEditModal(film)">Edit</button>
                                     <button class="delete-btn" @click="deleteFilm(film.line)">Delete</button>
                                 </div>
@@ -1546,7 +1323,7 @@
                 </div>
                 
                 <div class="stat-card">
-                    <h3>Films</h3>
+                    <h3>Movies</h3>
                     <div class="stat-value">{{ movieCount }}</div>
                 </div>
                 
@@ -1560,7 +1337,7 @@
                 <h3>Films by Tag</h3>
                 <ul class="stat-list">
                     <li v-for="(count, tag) in filmsByTag" :key="tag">
-                        <span>{{ formatTag(tag) }}</span>
+                        <span>{{ tag }}</span>
                         <strong>{{ count }}</strong>
                     </li>
                 </ul>
@@ -1662,94 +1439,48 @@
                 </div>
                 
                 <p style="margin-top: 20px;"><strong>Repository:</strong> altophoto/curly-octo-carnival</p>
-                <p><strong>Data files:</strong> films.json, tags/*.json, directors.json</p>
-            </div>
-
-            <div v-if="githubToken" class="settings-section">
-                <h2>Column Visibility</h2>
-                <p>Choose which columns to display in your film log. Perfect for different viewing contexts (phone vs. desktop).</p>
-                
-                <div class="column-visibility-grid">
-                    <div class="checkbox-group" v-for="(visible, col) in visibleColumns" :key="col">
-                        <input 
-                            type="checkbox" 
-                            :id="'col-' + col"
-                            v-model="visibleColumns[col]"
-                            @change="saveSettings"
-                        />
-                        <label :for="'col-' + col">{{ formatColumnName(col) }}</label>
-                    </div>
-                </div>
-                
-                <div class="help-text" style="margin-top: 20px;">
-                    <strong>💡 Tip:</strong> Click any row in the film log to cycle its poster status: Normal → Featured (gold border) → Hidden (faded) → Normal
-                </div>
+                <p><strong>Data files:</strong> films.json, tags.json</p>
             </div>
 
             <div v-if="githubToken" class="settings-section">
                 <h2>Tag Management</h2>
-                <p>Manage your predefined tags organized by category.</p>
-                
-                <div v-for="(tags, category) in tagCategories" :key="category" class="tag-category">
-                    <h3>{{ category }}</h3>
-                    <div class="tag-manager">
-                        <input 
-                            type="text" 
-                            v-model="newTagInputs[category]" 
-                            :placeholder="`Add new ${category} tag`"
-                            @keyup.enter="addPredefinedTag(category)"
-                        />
-                        <button @click="addPredefinedTag(category)">Add Tag</button>
-                    </div>
-                    
-                    <div class="predefined-tags-list" v-if="tags.length > 0">
-                        <div class="predefined-tag" v-for="tag in tags" :key="tag">
-                            {{ formatTag(tag) }}
-                            <span class="remove-tag" @click="removePredefinedTag(category, tag)">×</span>
-                        </div>
-                    </div>
-                    
-                    <p v-else style="margin-top: 10px; color: #888; font-size: 12px;">
-                        No {{ category }} tags yet.
-                    </p>
-                </div>
+                <p>Manage your predefined tags. These tags will be available as quick-select options when adding or editing films.</p>
                 
                 <div class="help-text">
-                    <strong>🎬 Special Poster Tags:</strong><br>
-                    • <strong>featured-poster</strong> - Shows this film 3x more often in rotation (gold border in table)<br>
-                    • <strong>hide-poster</strong> - Excludes this film from marquee rotation (faded in table)
+                    <strong>💡 Tip:</strong> When you type a new tag on a film (not already in this list), you'll be asked if you want to add it to your predefined tags.
                 </div>
-            </div>
-
-            <div v-if="githubToken" class="settings-section">
-                <h2>Director Management</h2>
-                <p>Manage your predefined directors for quick selection.</p>
                 
                 <div class="tag-manager">
                     <input 
                         type="text" 
-                        v-model="newDirectorInput" 
-                        placeholder="Add director (e.g., 'Steven Spielberg')"
-                        @keyup.enter="addPredefinedDirector"
+                        v-model="newTagInput" 
+                        placeholder="Add new tag (e.g., 'writer-as-god')"
+                        @keyup.enter="addPredefinedTag"
                     />
-                    <button @click="addPredefinedDirector">Add Director</button>
+                    <button @click="addPredefinedTag">Add Tag</button>
                 </div>
                 
-                <div class="predefined-directors-list" v-if="predefinedDirectors.length > 0">
-                    <div class="predefined-director" v-for="director in predefinedDirectors" :key="director">
-                        {{ director }}
-                        <span class="remove-tag" @click="removePredefinedDirector(director)">×</span>
+                <div class="predefined-tags-list" v-if="predefinedTags.length > 0">
+                    <div class="predefined-tag" v-for="tag in predefinedTags" :key="tag">
+                        {{ tag }}
+                        <span class="remove-tag" @click="removePredefinedTag(tag)">×</span>
                     </div>
                 </div>
                 
-                <p v-else style="margin-top: 15px; color: #888; font-size: 14px;">
-                    No predefined directors yet. Add some to make entry easier!
+                <p v-else style="margin-top: 15px; color: #666; font-size: 14px;">
+                    No predefined tags yet. Add some to make tagging easier!
                 </p>
+                
+                <div class="help-text" style="margin-top: 20px;">
+                    <strong>🎬 Special Poster Tags:</strong><br>
+                    • <strong>hide-poster</strong> - Excludes this film from marquee rotation<br>
+                    • <strong>featured-poster</strong> - Shows this film 3x more often in rotation
+                </div>
             </div>
 
             <div v-if="githubToken" class="settings-section">
                 <h2>TMDb API Setup</h2>
-                <p>Optional: Add your TMDb API key to display movie and TV show posters in the marquee and enable auto-fill.</p>
+                <p>Optional: Add your TMDb API key to display movie posters in the marquee.</p>
                 
                 <div class="form-group">
                     <label>TMDb API Key</label>
@@ -1767,15 +1498,15 @@
                 <button v-if="tmdbApiKey" class="secondary" @click="clearTmdbKey" style="margin-left: 10px;">Clear Key</button>
                 
                 <div v-if="tmdbApiKey" class="token-status configured">
-                    ✓ TMDb API key configured (supports movies & TV shows + auto-fill)
+                    ✓ TMDb API key configured
                 </div>
                 <div v-else class="token-status not-configured">
-                    ⚠ TMDb API key not configured - Posters and auto-fill disabled
+                    ⚠ TMDb API key not configured - Posters disabled
                 </div>
                 
                 <div v-if="tmdbApiKey" class="cache-info">
-                    📦 Poster cache: {{ posterCacheSize }} items cached • 
-                    <a href="#" @click.prevent="clearPosterCache" style="color: #ff6b6b;">Clear cache</a>
+                    📦 Poster cache: {{ posterCacheSize }} films cached • 
+                    <a href="#" @click.prevent="clearPosterCache" style="color: #c00;">Clear cache</a>
                 </div>
             </div>
 
@@ -1816,10 +1547,6 @@
                     />
                     <label for="filterSoldOut">Hide "sold out" films (more than 30 min past start time)</label>
                 </div>
-                
-                <div class="help-text">
-                    <strong>📺 TV Shows & Posters:</strong> Each unique show counts as 1 poster candidate (not once per episode). When selected, the show poster appears with a random episode's showtime.
-                </div>
             </div>
 
             <div v-if="githubToken" class="settings-section">
@@ -1850,7 +1577,7 @@
                     </div>
                 </div>
                 
-                <p style="margin-top: 10px; color: #888; font-size: 14px;">
+                <p style="margin-top: 10px; color: #666; font-size: 14px;">
                     Currently using: <strong>{{ isWeekendNight ? 'Weekend' : 'School Night' }}</strong> schedule ({{ currentTargetEndTime }})
                 </p>
             </div>
@@ -1860,189 +1587,93 @@
         <div class="modal" v-if="showFilmModal" @click.self="closeFilmModal">
             <div class="modal-content">
                 <h2>{{ editingFilm ? 'Edit Title' : 'Add New Title' }}</h2>
-                
-                <!-- Clone buttons for TV shows when editing -->
-                <div v-if="editingFilm && filmForm.type === 'tv'" style="margin-bottom: 20px;">
-                    <button class="clone-btn" @click="cloneToNextEpisode">📋 Next Episode ({{ filmForm.season }}x{{ (filmForm.episode || 0) + 1 }})</button>
-                    <button class="clone-btn" @click="cloneToNextSeason">📋 Next Season ({{ (filmForm.season || 0) + 1 }}x01)</button>
-                </div>
-                
                 <form @submit.prevent="saveFilm">
                     <div class="form-group">
                         <label>Type *</label>
-                        <select v-model="filmForm.type" required tabindex="1">
-                            <option value="movie">Film</option>
+                        <select v-model="filmForm.type" required>
+                            <option value="movie">Movie</option>
                             <option value="tv">TV Show</option>
                         </select>
                     </div>
                     
-                    <!-- Auto-fill button -->
-                    <div class="form-group" v-if="tmdbApiKey">
-                        <button type="button" class="autofill-btn" @click="openSearchModal">
-                            🔍 Search & Auto-Fill from TMDb
-                        </button>
-                        <small>Automatically fill director, year, runtime, and IMDB link</small>
-                    </div>
-                    
-                    <!-- Movie Title -->
-                    <div class="form-group" v-if="filmForm.type === 'movie'">
-                        <label>Movie Title *</label>
-                        <input type="text" v-model="filmForm.film" required placeholder="e.g., The Matrix" tabindex="2" />
-                    </div>
-                    
-                    <!-- TV Show Fields -->
-                    <div v-if="filmForm.type === 'tv'">
-                        <div class="form-group">
-                            <label>Show Name *</label>
-                            <input type="text" v-model="filmForm.showName" required placeholder="e.g., Wednesday" tabindex="2" />
-                            <small>Base show title for poster lookups</small>
-                        </div>
-                        
-                        <div class="tv-episode-grid">
-                            <div class="form-group">
-                                <label>Season *</label>
-                                <input type="number" v-model.number="filmForm.season" required min="1" placeholder="1" tabindex="3" />
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Episode *</label>
-                                <input type="number" v-model.number="filmForm.episode" required min="1" placeholder="1" tabindex="4" />
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Episode Title (optional)</label>
-                                <input type="text" v-model="filmForm.episodeTitle" placeholder="e.g., Woe Is the Loneliest Number" tabindex="5" />
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label>Title *</label>
+                        <input type="text" v-model="filmForm.film" required />
+                        <small v-if="filmForm.type === 'tv'">For TV shows, include season/episode info (e.g., "Breaking Bad S1E1")</small>
                     </div>
                     
                     <div class="form-group">
                         <label>Year Released</label>
-                        <select v-model="filmForm.year" tabindex="6">
+                        <select v-model="filmForm.year">
                             <option value="">-- Select Year --</option>
                             <option v-for="year in yearOptions" :key="year" :value="year">{{ year }}</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <div class="tag-selector" v-if="predefinedDirectors.length > 0">
-                            <label class="tag-selector-label">{{ filmForm.type === 'tv' ? 'Creator/Showrunner' : 'Director' }}</label>
-                            <div class="director-options">
-                                <div 
-                                    class="director-option" 
-                                    v-for="director in predefinedDirectors" 
-                                    :key="director"
-                                    :class="{ selected: filmForm.director === director }"
-                                    @click="filmForm.director = director"
-                                >
-                                    {{ director }}
-                                </div>
-                            </div>
-                        </div>
-                        <label>{{ filmForm.type === 'tv' ? 'Creator/Showrunner' : 'Director' }} (or type custom)</label>
-                        <input type="text" v-model="filmForm.director" :placeholder="filmForm.type === 'tv' ? 'e.g., Tim Burton' : 'e.g., Steven Spielberg'" tabindex="7" />
+                        <label>{{ filmForm.type === 'tv' ? 'Creator/Showrunner' : 'Director' }}</label>
+                        <input type="text" v-model="filmForm.director" :placeholder="filmForm.type === 'tv' ? 'e.g., Vince Gilligan' : 'e.g., Steven Spielberg'" />
                     </div>
                     
                     <div class="form-group">
                         <label>Info Link</label>
-                        <input type="url" v-model="filmForm.link" placeholder="https://www.imdb.com/..." tabindex="8" />
+                        <input type="url" v-model="filmForm.link" placeholder="https://www.imdb.com/..." />
                         <small>Link to IMDB, Wikipedia, etc.</small>
                     </div>
                     
                     <div class="form-group">
                         <label>Duration (minutes) *</label>
-                        <input type="number" v-model.number="filmForm.duration" min="1" placeholder="142" required tabindex="9" />
-                        <small v-if="filmForm.type === 'tv'">Episode runtime</small>
+                        <input type="number" v-model.number="filmForm.duration" min="1" placeholder="142" required />
+                        <small v-if="filmForm.type === 'tv'">For episodes, use the episode runtime</small>
                     </div>
                     
                     <div class="form-group">
                         <label>Streaming Link</label>
-                        <input type="url" v-model="filmForm.platformLink" placeholder="https://..." tabindex="10" />
+                        <input type="url" v-model="filmForm.platformLink" placeholder="https://..." />
                         <small>Direct link to watch (Netflix, Amazon, iTunes, etc.)</small>
                     </div>
 
                     <div class="form-group">
                         <label>Podcast Link</label>
-                        <input type="url" v-model="filmForm.podcastLink" placeholder="https://..." tabindex="11" />
+                        <input type="url" v-model="filmForm.podcastLink" placeholder="https://..." />
                         <small>Link to podcast episode or audio file</small>
                     </div>
                     
                     <div class="form-group" v-if="editingFilm">
                         <label>Date Added</label>
-                        <input type="date" v-model="filmForm.dateAdded" readonly tabindex="-1" />
+                        <input type="date" v-model="filmForm.dateAdded" readonly />
                         <small>This date is locked and shows when the title was originally added</small>
                     </div>
                     
                     <div class="form-group">
-                        <div v-for="(tags, category) in tagCategories" :key="category" class="tag-selector">
-                            <label class="tag-selector-label">{{ category }} Tags</label>
+                        <div class="tag-selector" v-if="predefinedTags.length > 0">
+                            <label class="tag-selector-label">Select Tags</label>
                             <div class="tag-options">
                                 <div 
                                     class="tag-option" 
-                                    v-for="tag in tags" 
+                                    v-for="tag in predefinedTags" 
                                     :key="tag"
                                     :class="{ selected: selectedFormTags.includes(tag) }"
                                     @click="toggleFormTag(tag)"
                                 >
-                                    {{ formatTag(tag) }}
+                                    {{ tag }}
                                 </div>
                             </div>
                         </div>
                         <label>Add Custom Tags</label>
-                        <input type="text" v-model="filmForm.tagsInput" placeholder="comma, separated, tags" tabindex="12" />
+                        <input type="text" v-model="filmForm.tagsInput" placeholder="writer-as-god, experimental" />
                         <small>Separate custom tags with commas. Click predefined tags above to select them.</small>
                     </div>
                     
                     <div class="form-actions">
                         <button type="button" class="secondary" @click="closeFilmModal">Cancel</button>
-                        <button type="submit" tabindex="13">{{ editingFilm ? 'Update' : 'Add' }} {{ filmForm.type === 'tv' ? 'Episode' : 'Film' }}</button>
+                        <button type="submit">{{ editingFilm ? 'Update' : 'Add' }} {{ filmForm.type === 'tv' ? 'Show' : 'Film' }}</button>
                     </div>
                 </form>
             </div>
         </div>
-
-        <!-- TMDb Search Modal -->
-        <div class="modal" v-if="showSearchModal" @click.self="closeSearchModal">
-            <div class="modal-content">
-                <h2>Search TMDb</h2>
-                <div class="form-group">
-                    <input 
-                        type="text" 
-                        v-model="tmdbSearchQuery" 
-                        @keyup.enter="searchTMDb"
-                        placeholder="Enter movie or TV show title..."
-                    />
-                    <button @click="searchTMDb" style="margin-top: 10px;">Search</button>
-                </div>
-                
-                <div v-if="searchResults.length > 0" class="search-results">
-                    <div 
-                        v-for="result in searchResults" 
-                        :key="result.id"
-                        class="search-result-item"
-                        @click="selectSearchResult(result)"
-                    >
-                        <img 
-                            v-if="result.poster_path" 
-                            :src="`https://image.tmdb.org/t/p/w200${result.poster_path}`"
-                            class="search-result-poster"
-                        />
-                        <div v-else class="search-result-poster" style="display: flex; align-items: center; justify-content: center; background: #333;">
-                            🎬
-                        </div>
-                        <div class="search-result-info">
-                            <div class="search-result-title">{{ result.title || result.name }}</div>
-                            <div class="search-result-year">{{ (result.release_date || result.first_air_date || '').substring(0, 4) }}</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-actions" style="margin-top: 20px;">
-                    <button type="button" class="secondary" @click="closeSearchModal">Close</button>
-                </div>
-            </div>
-        </div>
     </div>
+
     <script>
         const { createApp } = Vue;
 
@@ -2050,31 +1681,18 @@
             data() {
                 return {
                     githubOwner: 'altophoto',
-                    githubRepo: 'family-groovy-night-data',
+                    githubRepo: 'curly-octo-carnival',
                     githubFile: 'films.json',
-                    githubDirectorsFile: 'directors.json',
+                    githubTagsFile: 'tags.json',
                     githubToken: '',
                     tokenInput: '',
                     tokenSaved: false,
-                    tagCategories: {
-                        genres: [],
-                        awards: [],
-                        themes: [],
-                        technical: [],
-                        opinions: []
-                    },
-                    tagCategoryShas: {},
-                    newTagInputs: {
-                        genres: '',
-                        awards: '',
-                        themes: '',
-                        technical: '',
-                        opinions: ''
-                    },
-                    tagsExpanded: false,
-                    predefinedDirectors: [],
-                    newDirectorInput: '',
-                    directorsSha: null,
+                    
+                    predefinedTags: [],
+                    newTagInput: '',
+                    tagsSha: null,
+                    tagsExpanded: true,
+                    
                     tmdbApiKey: '',
                     tmdbKeyInput: '',
                     posterCache: {},
@@ -2087,37 +1705,18 @@
                     rotationInterval: 30,
                     filterSoldOutPosters: true,
                     
-                    visibleColumns: {
-                        line: true,
-                        type: true,
-                        film: true,
-                        year: true,
-                        director: true,
-                        duration: true,
-                        streaming: true,
-                        podcast: true,
-                        dateAdded: true,
-                        tags: true,
-                        startTime: true,
-                        actions: true
-                    },
-                    
                     currentView: 'log',
                     films: [],
                     searchQuery: '',
                     selectedTags: [],
                     selectedFormTags: [],
                     sortKey: 'line',
-                    sortDirection: 'desc',
+                    sortDirection: 'asc',
                     showFilmModal: false,
                     editingFilm: null,
                     filmForm: {
                         type: 'movie',
                         film: '',
-                        showName: '',
-                        season: null,
-                        episode: null,
-                        episodeTitle: '',
                         year: '',
                         director: '',
                         link: '',
@@ -2127,9 +1726,6 @@
                         dateAdded: '',
                         tagsInput: ''
                     },
-                    showSearchModal: false,
-                    tmdbSearchQuery: '',
-                    searchResults: [],
                     importMessage: '',
                     importSuccess: false,
                     csvMessage: '',
@@ -2192,23 +1788,6 @@
                 availableFilmsCount() {
                     return this.availableFilmsForPosters.length;
                 },
-                uniquePostercandidates() {
-                    const candidates = [];
-                    const seenShows = new Set();
-                    
-                    this.availableFilmsForPosters.forEach(f => {
-                        if (f.type === 'tv' && f.showName) {
-                            if (!seenShows.has(f.showName)) {
-                                seenShows.add(f.showName);
-                                candidates.push(f);
-                            }
-                        } else {
-                            candidates.push(f);
-                        }
-                    });
-                    
-                    return candidates;
-                },
                 filteredFilms() {
                     let filtered = this.films;
                     
@@ -2221,8 +1800,7 @@
                     if (this.searchQuery) {
                         const query = this.searchQuery.toLowerCase();
                         filtered = filtered.filter(f => 
-                            this.getDisplayTitle(f).toLowerCase().includes(query) ||
-                            (f.showName && f.showName.toLowerCase().includes(query)) ||
+                            f.film.toLowerCase().includes(query) ||
                             String(f.duration).includes(query) ||
                             (f.dateAdded && f.dateAdded.includes(query)) ||
                             (f.year && String(f.year).includes(query)) ||
@@ -2236,10 +1814,7 @@
                         let aVal = a[this.sortKey];
                         let bVal = b[this.sortKey];
                         
-                        if (this.sortKey === 'film') {
-                            aVal = this.getDisplayTitle(a);
-                            bVal = this.getDisplayTitle(b);
-                        } else if (this.sortKey === 'startTime') {
+                        if (this.sortKey === 'startTime') {
                             aVal = this.getStartTimeInMinutes(a.duration);
                             bVal = this.getStartTimeInMinutes(b.duration);
                         } else if (this.sortKey === 'line' || this.sortKey === 'duration' || this.sortKey === 'year') {
@@ -2268,7 +1843,7 @@
                     const sorted = [...this.films].sort((a, b) => 
                         new Date(b.dateAdded || '1900-01-01') - new Date(a.dateAdded || '1900-01-01')
                     );
-                    return this.getDisplayTitle(sorted[0]);
+                    return sorted[0].film;
                 },
                 filmsWithPodcasts() {
                     return this.films.filter(f => f.podcastLink).length;
@@ -2344,92 +1919,7 @@
                     }
                 }
             },
-            
             methods: {
-                // Tag formatting
-                formatTag(tag) {
-                    // Preserve original capitalization (as typed)
-                    return tag;
-                },
-                
-                normalizeTag(tag) {
-                    return tag.trim().toLowerCase();
-                },
-                
-                formatColumnName(col) {
-                    const names = {
-                        line: '#',
-                        type: 'Type',
-                        film: 'Title',
-                        year: 'Year',
-                        director: 'Director',
-                        duration: 'Duration',
-                        streaming: 'Streaming',
-                        podcast: 'Podcast',
-                        dateAdded: 'Date Added',
-                        tags: 'Tags',
-                        startTime: 'Start Time',
-                        actions: 'Actions'
-                    };
-                    return names[col] || col;
-                },
-                
-                isNewEntry(film) {
-                    if (!film.dateAdded) return false;
-                    const addedDate = new Date(film.dateAdded + 'T00:00:00');
-                    const now = new Date();
-                    const hoursSince = (now - addedDate) / (1000 * 60 * 60);
-                    return hoursSince < 24;
-                },
-                
-                getPosterStatus(film) {
-                    if (!film.tags) return 'normal';
-                    if (film.tags.includes('featured-poster')) return 'featured';
-                    if (film.tags.includes('hide-poster')) return 'hidden';
-                    return 'normal';
-                },
-                
-                async cyclePosterTag(film) {
-                    if (!film.tags) film.tags = [];
-                    
-                    const hasFeatured = film.tags.includes('featured-poster');
-                    const hasHidden = film.tags.includes('hide-poster');
-                    
-                    // Remove both tags first
-                    film.tags = film.tags.filter(t => t !== 'featured-poster' && t !== 'hide-poster');
-                    
-                    // Cycle: normal → featured → hidden → normal
-                    if (!hasFeatured && !hasHidden) {
-                        film.tags.push('featured-poster');
-                    } else if (hasFeatured) {
-                        film.tags.push('hide-poster');
-                    }
-                    
-                    await this.saveToGitHub();
-                    this.showSyncStatus('Poster visibility updated', 'success');
-                },
-                
-                getTypeLabel(type) {
-                    if (type === 'tv') return 'TV';
-                    if (type === 'movie') return 'Film';
-                    return 'Film';
-                },
-                getDisplayTitle(film) {
-                    if (film.type === 'tv' && film.showName) {
-                        let title = `${film.showName} S${film.season}E${film.episode}`;
-                        if (film.episodeTitle) {
-                            title += `: ${film.episodeTitle}`;
-                        }
-                        return title;
-                    }
-                    return film.film || '';
-                },
-                getPosterLookupName(film) {
-                    if (film.type === 'tv' && film.showName) {
-                        return film.showName;
-                    }
-                    return film.film;
-                },
                 hasTag(film, tag) {
                     return film.tags && film.tags.includes(tag);
                 },
@@ -2455,8 +1945,7 @@
                     return minutes === 1 ? '1 minute' : `${minutes} minutes`;
                 },
                 getCacheKey(film) {
-                    const name = this.getPosterLookupName(film);
-                    return `${name}-${film.year || 'unknown'}-${film.type || 'movie'}`;
+                    return `${film.film}-${film.year || 'unknown'}`;
                 },
                 loadPosterCache() {
                     const saved = localStorage.getItem('tmdbPosterCache');
@@ -2483,16 +1972,11 @@
                         this.showSyncStatus('Poster cache cleared', 'success');
                     }
                 },
-                async loadAllTagCategories() {
-                    for (const category of Object.keys(this.tagCategories)) {
-                        await this.loadTagCategory(category);
-                    }
-                },
-                async loadTagCategory(category) {
+                async loadTagsFromGitHub() {
                     if (!this.githubToken) return;
                     
                     try {
-                        const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/tags/${category}.json`;
+                        const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/${this.githubTagsFile}`;
                         const response = await fetch(url, {
                             headers: {
                                 'Authorization': `token ${this.githubToken}`,
@@ -2502,31 +1986,31 @@
                         
                         if (response.ok) {
                             const data = await response.json();
-                            this.tagCategoryShas[category] = data.sha;
+                            this.tagsSha = data.sha;
                             const content = atob(data.content);
-                            this.tagCategories[category] = JSON.parse(content);
+                            this.predefinedTags = JSON.parse(content);
                         } else if (response.status === 404) {
-                            this.tagCategories[category] = [];
+                            this.predefinedTags = [];
                         }
                     } catch (error) {
-                        console.error(`Error loading ${category} tags from GitHub:`, error);
-                        this.tagCategories[category] = [];
+                        console.error('Error loading tags from GitHub:', error);
+                        this.predefinedTags = [];
                     }
                 },
-                async saveTagCategory(category) {
+                async saveTagsToGitHub() {
                     if (!this.githubToken) return;
                     
                     try {
-                        const content = btoa(JSON.stringify(this.tagCategories[category], null, 2));
-                        const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/tags/${category}.json`;
+                        const content = btoa(JSON.stringify(this.predefinedTags, null, 2));
+                        const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/${this.githubTagsFile}`;
                         
                         const body = {
-                            message: `Update ${category} tags: ${new Date().toLocaleString()}`,
+                            message: `Update tags: ${new Date().toLocaleString()}`,
                             content: content
                         };
                         
-                        if (this.tagCategoryShas[category]) {
-                            body.sha = this.tagCategoryShas[category];
+                        if (this.tagsSha) {
+                            body.sha = this.tagsSha;
                         }
                         
                         const response = await fetch(url, {
@@ -2541,108 +2025,32 @@
                         
                         if (response.ok) {
                             const data = await response.json();
-                            this.tagCategoryShas[category] = data.content.sha;
+                            this.tagsSha = data.content.sha;
                         }
                     } catch (error) {
-                        console.error(`Error saving ${category} tags to GitHub:`, error);
+                        console.error('Error saving tags to GitHub:', error);
                     }
                 },
-                addPredefinedTag(category) {
-                    const tag = this.newTagInputs[category].trim();
-                    if (tag && !this.tagCategories[category].includes(tag)) {
-                        this.tagCategories[category].push(tag);
-                        this.tagCategories[category].sort((a, b) => a.localeCompare(b));
-                        this.saveTagCategory(category);
-                        this.newTagInputs[category] = '';
-                        this.showSyncStatus(`${category} tag added`, 'success');
+                addPredefinedTag() {
+                    const tag = this.newTagInput.trim().toLowerCase();
+                    if (tag && !this.predefinedTags.includes(tag)) {
+                        this.predefinedTags.push(tag);
+                        this.predefinedTags.sort((a, b) => a.localeCompare(b));
+                        this.saveTagsToGitHub();
+                        this.newTagInput = '';
+                        this.showSyncStatus('Tag added', 'success');
                     }
                 },
-                removePredefinedTag(category, tag) {
-                    if (confirm(`Remove "${tag}" from ${category} tags?`)) {
-                        this.tagCategories[category] = this.tagCategories[category].filter(t => t !== tag);
-                        this.saveTagCategory(category);
+                removePredefinedTag(tag) {
+                    if (confirm(`Remove "${tag}" from predefined tags?\n\nThis won't remove it from films that already use it.`)) {
+                        this.predefinedTags = this.predefinedTags.filter(t => t !== tag);
+                        this.saveTagsToGitHub();
                         this.showSyncStatus('Tag removed', 'success');
-                    }
-                },
-                async loadDirectorsFromGitHub() {
-                    if (!this.githubToken) return;
-                    
-                    try {
-                        const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/${this.githubDirectorsFile}`;
-                        const response = await fetch(url, {
-                            headers: {
-                                'Authorization': `token ${this.githubToken}`,
-                                'Accept': 'application/vnd.github.v3+json'
-                            }
-                        });
-                        
-                        if (response.ok) {
-                            const data = await response.json();
-                            this.directorsSha = data.sha;
-                            const content = atob(data.content);
-                            this.predefinedDirectors = JSON.parse(content);
-                        } else if (response.status === 404) {
-                            this.predefinedDirectors = [];
-                        }
-                    } catch (error) {
-                        console.error('Error loading directors from GitHub:', error);
-                        this.predefinedDirectors = [];
-                    }
-                },
-                async saveDirectorsToGitHub() {
-                    if (!this.githubToken) return;
-                    
-                    try {
-                        const content = btoa(JSON.stringify(this.predefinedDirectors, null, 2));
-                        const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/${this.githubDirectorsFile}`;
-                        
-                        const body = {
-                            message: `Update directors: ${new Date().toLocaleString()}`,
-                            content: content
-                        };
-                        
-                        if (this.directorsSha) {
-                            body.sha = this.directorsSha;
-                        }
-                        
-                        const response = await fetch(url, {
-                            method: 'PUT',
-                            headers: {
-                                'Authorization': `token ${this.githubToken}`,
-                                'Accept': 'application/vnd.github.v3+json',
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(body)
-                        });
-                        
-                        if (response.ok) {
-                            const data = await response.json();
-                            this.directorsSha = data.content.sha;
-                        }
-                    } catch (error) {
-                        console.error('Error saving directors to GitHub:', error);
-                    }
-                },
-                addPredefinedDirector() {
-                    const director = this.newDirectorInput.trim();
-                    if (director && !this.predefinedDirectors.includes(director)) {
-                        this.predefinedDirectors.push(director);
-                        this.predefinedDirectors.sort((a, b) => a.localeCompare(b));
-                        this.saveDirectorsToGitHub();
-                        this.newDirectorInput = '';
-                        this.showSyncStatus('Director added', 'success');
-                    }
-                },
-                removePredefinedDirector(director) {
-                    if (confirm(`Remove "${director}" from predefined directors?`)) {
-                        this.predefinedDirectors = this.predefinedDirectors.filter(d => d !== director);
-                        this.saveDirectorsToGitHub();
-                        this.showSyncStatus('Director removed', 'success');
                     }
                 },
                 startPosterRotation() {
                     this.stopPosterRotation();
-                    if (this.autoRotateEnabled && this.tmdbApiKey && this.uniquePostercandidates.length >= 2) {
+                    if (this.autoRotateEnabled && this.tmdbApiKey && this.availableFilmsForPosters.length >= 2) {
                         this.posterRotateInterval = setInterval(() => {
                             this.loadTwoRandomPosters();
                         }, this.rotationInterval * 1000);
@@ -2663,7 +2071,7 @@
                 getShowtimeText(poster) {
                     if (!poster || !poster.title) return '—';
                     
-                    const film = poster.filmRef || this.films.find(f => this.getDisplayTitle(f) === poster.title);
+                    const film = this.films.find(f => f.film === poster.title);
                     if (!film || !film.duration) return '—';
                     
                     const startTime = this.getStartTimeAsDate(film.duration);
@@ -2686,7 +2094,7 @@
                 getShowtimeClass(poster) {
                     if (!poster || !poster.title) return 'no-showtime';
                     
-                    const film = poster.filmRef || this.films.find(f => this.getDisplayTitle(f) === poster.title);
+                    const film = this.films.find(f => f.film === poster.title);
                     if (!film || !film.duration) return 'no-showtime';
                     
                     const startTime = this.getStartTimeAsDate(film.duration);
@@ -2751,8 +2159,7 @@
                         this.tokenInput = '';
                         this.showSyncStatus('Token saved! Loading data...', 'success');
                         this.loadFromGitHub();
-                        this.loadAllTagCategories();
-                        this.loadDirectorsFromGitHub();
+                        this.loadTagsFromGitHub();
                     }
                 },
                 clearToken() {
@@ -2792,41 +2199,36 @@
                 },
                 async loadPosterForFilm(film) {
                     if (!this.tmdbApiKey) return null;
+                    if (film.type === 'tv') return null;
                     
                     const cacheKey = this.getCacheKey(film);
                     
                     if (this.posterCache[cacheKey]) {
                         return {
-                            title: this.getDisplayTitle(film),
+                            title: film.film,
                             year: film.year,
                             director: film.director,
-                            poster: this.posterCache[cacheKey],
-                            filmRef: film
+                            poster: this.posterCache[cacheKey]
                         };
                     }
                     
                     try {
-                        const mediaType = film.type === 'tv' ? 'tv' : 'movie';
-                        const searchName = this.getPosterLookupName(film);
-                        const yearParam = film.year ? (mediaType === 'tv' ? `&first_air_date_year=${film.year}` : `&year=${film.year}`) : '';
-                        const searchUrl = `https://api.themoviedb.org/3/search/${mediaType}?api_key=${this.tmdbApiKey}&query=${encodeURIComponent(searchName)}${yearParam}`;
-                        
+                        const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${this.tmdbApiKey}&query=${encodeURIComponent(film.film)}${film.year ? '&year=' + film.year : ''}`;
                         const response = await fetch(searchUrl);
                         const data = await response.json();
                         
                         if (data.results && data.results.length > 0) {
-                            const result = data.results[0];
-                            const posterUrl = result.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : null;
+                            const movie = data.results[0];
+                            const posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : null;
                             
                             this.posterCache[cacheKey] = posterUrl;
                             this.savePosterCache();
                             
                             return {
-                                title: this.getDisplayTitle(film),
+                                title: film.film,
                                 year: film.year,
                                 director: film.director,
-                                poster: posterUrl,
-                                filmRef: film
+                                poster: posterUrl
                             };
                         }
                     } catch (error) {
@@ -2837,44 +2239,33 @@
                     this.savePosterCache();
                     
                     return {
-                        title: this.getDisplayTitle(film),
+                        title: film.film,
                         year: film.year,
                         director: film.director,
-                        poster: null,
-                        filmRef: film
+                        poster: null
                     };
                 },
                 async loadTwoRandomPosters() {
-                    if (!this.tmdbApiKey || this.uniquePostercandidates.length < 2) return;
+                    if (!this.tmdbApiKey || this.availableFilmsForPosters.length < 2) return;
                     
-                    const weightedItems = [];
-                    this.uniquePostercandidates.forEach(item => {
-                        const weight = this.hasTag(item, 'featured-poster') ? 3 : 1;
+                    let moviesOnly = this.availableFilmsForPosters.filter(f => !f.type || f.type === 'movie');
+                    if (moviesOnly.length < 2) return;
+                    
+                    // Build weighted array (featured posters appear 3x)
+                    const weightedMovies = [];
+                    moviesOnly.forEach(movie => {
+                        const weight = this.hasTag(movie, 'featured-poster') ? 3 : 1;
                         for (let i = 0; i < weight; i++) {
-                            weightedItems.push(item);
+                            weightedMovies.push(movie);
                         }
                     });
                     
-                    const shuffled = [...weightedItems].sort(() => 0.5 - Math.random());
+                    const shuffled = [...weightedMovies].sort(() => 0.5 - Math.random());
+                    const film1 = shuffled[0];
+                    const film2 = shuffled[1];
                     
-                    let candidate1 = shuffled[0];
-                    if (candidate1.type === 'tv' && candidate1.showName) {
-                        const episodes = this.availableFilmsForPosters.filter(f => 
-                            f.type === 'tv' && f.showName === candidate1.showName
-                        );
-                        candidate1 = episodes[Math.floor(Math.random() * episodes.length)];
-                    }
-                    
-                    let candidate2 = shuffled[1];
-                    if (candidate2.type === 'tv' && candidate2.showName) {
-                        const episodes = this.availableFilmsForPosters.filter(f => 
-                            f.type === 'tv' && f.showName === candidate2.showName
-                        );
-                        candidate2 = episodes[Math.floor(Math.random() * episodes.length)];
-                    }
-                    
-                    this.leftPoster = await this.loadPosterForFilm(candidate1);
-                    this.rightPoster = await this.loadPosterForFilm(candidate2);
+                    this.leftPoster = await this.loadPosterForFilm(film1);
+                    this.rightPoster = await this.loadPosterForFilm(film2);
                 },
                 handleLeftPosterError() {
                     if (this.leftPoster) {
@@ -2912,9 +2303,6 @@
                                 }
                                 if (!f.type) {
                                     f.type = 'movie';
-                                }
-                                if (f.type === 'tv' && f.showName && !f.film) {
-                                    f.film = this.getDisplayTitle(f);
                                 }
                             });
                             
@@ -3040,8 +2428,8 @@
                     
                     const tableData = this.films.map(f => [
                         f.line,
-                        this.getTypeLabel(f.type),
-                        this.getDisplayTitle(f),
+                        f.type || 'movie',
+                        f.film,
                         f.year || '-',
                         f.director || '-',
                         `${f.duration} min`,
@@ -3089,10 +2477,6 @@
                     this.filmForm = {
                         type: 'movie',
                         film: '',
-                        showName: '',
-                        season: null,
-                        episode: null,
-                        episodeTitle: '',
                         year: '',
                         director: '',
                         link: '',
@@ -3109,11 +2493,7 @@
                     this.selectedFormTags = film.tags ? [...film.tags] : [];
                     this.filmForm = {
                         type: film.type || 'movie',
-                        film: film.film || '',
-                        showName: film.showName || '',
-                        season: film.season || null,
-                        episode: film.episode || null,
-                        episodeTitle: film.episodeTitle || '',
+                        film: film.film,
                         year: film.year || '',
                         director: film.director || '',
                         link: film.link || '',
@@ -3130,45 +2510,33 @@
                     this.editingFilm = null;
                     this.selectedFormTags = [];
                 },
-                cloneToNextEpisode() {
-                    this.editingFilm = null;
-                    this.filmForm.episode = (this.filmForm.episode || 0) + 1;
-                    this.filmForm.episodeTitle = '';
-                    this.filmForm.dateAdded = this.getTodayDate();
-                },
-                cloneToNextSeason() {
-                    this.editingFilm = null;
-                    this.filmForm.season = (this.filmForm.season || 0) + 1;
-                    this.filmForm.episode = 1;
-                    this.filmForm.episodeTitle = '';
-                    this.filmForm.dateAdded = this.getTodayDate();
-                },
                 async saveFilm() {
                     const newTags = this.filmForm.tagsInput
                         .split(',')
-                        .map(t => t.trim())
+                        .map(t => t.trim().toLowerCase())
                         .filter(t => t.length > 0);
                     
-                    // Auto-add director
-                    if (this.filmForm.director && !this.predefinedDirectors.includes(this.filmForm.director)) {
-                        this.predefinedDirectors.push(this.filmForm.director);
-                        this.predefinedDirectors.sort((a, b) => a.localeCompare(b));
-                        await this.saveDirectorsToGitHub();
+                    // Check for tags not in predefined list
+                    const tagsToAdd = newTags.filter(t => !this.predefinedTags.includes(t));
+                    
+                    if (tagsToAdd.length > 0) {
+                        const tagList = tagsToAdd.join(', ');
+                        const shouldAdd = confirm(`Add these new tags to your predefined list?\n\n${tagList}\n\n(This makes them available as quick-select options in the future)`);
+                        
+                        if (shouldAdd) {
+                            tagsToAdd.forEach(tag => {
+                                if (!this.predefinedTags.includes(tag)) {
+                                    this.predefinedTags.push(tag);
+                                }
+                            });
+                            this.predefinedTags.sort((a, b) => a.localeCompare(b));
+                            await this.saveTagsToGitHub();
+                        }
                     }
                     
                     const allTags = [...new Set([...this.selectedFormTags, ...newTags])].sort((a, b) => 
                         a.toLowerCase().localeCompare(b.toLowerCase())
                     );
-                    
-                    let displayTitle;
-                    if (this.filmForm.type === 'tv') {
-                        displayTitle = `${this.filmForm.showName} S${this.filmForm.season}E${this.filmForm.episode}`;
-                        if (this.filmForm.episodeTitle) {
-                            displayTitle += `: ${this.filmForm.episodeTitle}`;
-                        }
-                    } else {
-                        displayTitle = this.filmForm.film;
-                    }
                     
                     if (this.editingFilm) {
                         const index = this.films.findIndex(f => f.line === this.editingFilm.line);
@@ -3176,11 +2544,7 @@
                             this.films[index] = {
                                 ...this.films[index],
                                 type: this.filmForm.type,
-                                film: displayTitle,
-                                showName: this.filmForm.type === 'tv' ? this.filmForm.showName : undefined,
-                                season: this.filmForm.type === 'tv' ? this.filmForm.season : undefined,
-                                episode: this.filmForm.type === 'tv' ? this.filmForm.episode : undefined,
-                                episodeTitle: this.filmForm.type === 'tv' ? this.filmForm.episodeTitle : undefined,
+                                film: this.filmForm.film,
                                 year: this.filmForm.year ? parseInt(this.filmForm.year) : null,
                                 director: this.filmForm.director,
                                 link: this.filmForm.link,
@@ -3196,10 +2560,10 @@
                             ? Math.max(...this.films.map(f => f.line)) + 1 
                             : 1;
                         
-                        const newFilm = {
+                        this.films.push({
                             line: nextLine,
                             type: this.filmForm.type,
-                            film: displayTitle,
+                            film: this.filmForm.film,
                             year: this.filmForm.year ? parseInt(this.filmForm.year) : null,
                             director: this.filmForm.director,
                             link: this.filmForm.link,
@@ -3208,16 +2572,7 @@
                             podcastLink: this.filmForm.podcastLink,
                             dateAdded: this.getTodayDate(),
                             tags: allTags
-                        };
-                        
-                        if (this.filmForm.type === 'tv') {
-                            newFilm.showName = this.filmForm.showName;
-                            newFilm.season = this.filmForm.season;
-                            newFilm.episode = this.filmForm.episode;
-                            newFilm.episodeTitle = this.filmForm.episodeTitle;
-                        }
-                        
-                        this.films.push(newFilm);
+                        });
                     }
                     
                     await this.saveToGitHub();
@@ -3247,8 +2602,7 @@
                         autoRotateEnabled: this.autoRotateEnabled,
                         rotationInterval: this.rotationInterval,
                         filterSoldOutPosters: this.filterSoldOutPosters,
-                        tagsExpanded: this.tagsExpanded,
-                        visibleColumns: this.visibleColumns
+                        tagsExpanded: this.tagsExpanded
                     }));
                 },
                 loadSettings() {
@@ -3260,10 +2614,7 @@
                         this.autoRotateEnabled = settings.autoRotateEnabled !== undefined ? settings.autoRotateEnabled : true;
                         this.rotationInterval = settings.rotationInterval || 30;
                         this.filterSoldOutPosters = settings.filterSoldOutPosters !== undefined ? settings.filterSoldOutPosters : true;
-                        this.tagsExpanded = settings.tagsExpanded !== undefined ? settings.tagsExpanded : false;
-                        if (settings.visibleColumns) {
-                            this.visibleColumns = settings.visibleColumns;
-                        }
+                        this.tagsExpanded = settings.tagsExpanded !== undefined ? settings.tagsExpanded : true;
                     }
                 },
                 exportJSON() {
@@ -3375,70 +2726,6 @@
                         this.$refs.csvInput.value = '';
                     };
                     reader.readAsText(file);
-                },
-                openSearchModal() {
-                    this.showSearchModal = true;
-                    this.tmdbSearchQuery = '';
-                    this.searchResults = [];
-                },
-                closeSearchModal() {
-                    this.showSearchModal = false;
-                    this.searchResults = [];
-                },
-                async searchTMDb() {
-                    if (!this.tmdbSearchQuery.trim() || !this.tmdbApiKey) return;
-                    
-                    try {
-                        const mediaType = this.filmForm.type === 'tv' ? 'tv' : 'movie';
-                        const searchUrl = `https://api.themoviedb.org/3/search/${mediaType}?api_key=${this.tmdbApiKey}&query=${encodeURIComponent(this.tmdbSearchQuery)}`;
-                        
-                        const response = await fetch(searchUrl);
-                        const data = await response.json();
-                        
-                        this.searchResults = data.results ? data.results.slice(0, 10) : [];
-                    } catch (error) {
-                        console.error('Error searching TMDb:', error);
-                        alert('Error searching TMDb. Please try again.');
-                    }
-                },
-                async selectSearchResult(result) {
-                    try {
-                        const mediaType = this.filmForm.type === 'tv' ? 'tv' : 'movie';
-                        const detailsUrl = `https://api.themoviedb.org/3/${mediaType}/${result.id}?api_key=${this.tmdbApiKey}&append_to_response=credits,external_ids`;
-                        
-                        const response = await fetch(detailsUrl);
-                        const details = await response.json();
-                        
-                        if (this.filmForm.type === 'movie') {
-                            this.filmForm.film = details.title || details.name;
-                        } else {
-                            this.filmForm.showName = details.name || details.title;
-                        }
-                        
-                        this.filmForm.year = details.release_date ? parseInt(details.release_date.substring(0, 4)) : 
-                                             (details.first_air_date ? parseInt(details.first_air_date.substring(0, 4)) : '');
-                        
-                        this.filmForm.duration = details.runtime || (details.episode_run_time && details.episode_run_time[0]) || null;
-                        
-                        if (mediaType === 'movie' && details.credits && details.credits.crew) {
-                            const director = details.credits.crew.find(c => c.job === 'Director');
-                            if (director) {
-                                this.filmForm.director = director.name;
-                            }
-                        } else if (mediaType === 'tv' && details.created_by && details.created_by.length > 0) {
-                            this.filmForm.director = details.created_by[0].name;
-                        }
-                        
-                        if (details.external_ids && details.external_ids.imdb_id) {
-                            this.filmForm.link = `https://www.imdb.com/title/${details.external_ids.imdb_id}/`;
-                        }
-                        
-                        this.closeSearchModal();
-                        this.showSyncStatus('Auto-filled from TMDb!', 'success');
-                    } catch (error) {
-                        console.error('Error fetching details:', error);
-                        alert('Error fetching details. Please try again.');
-                    }
                 }
             },
             async mounted() {
@@ -3449,8 +2736,7 @@
                 
                 if (this.githubToken) {
                     await this.loadFromGitHub();
-                    await this.loadAllTagCategories();
-                    await this.loadDirectorsFromGitHub();
+                    await this.loadTagsFromGitHub();
                 }
                 
                 this.timeUpdateInterval = setInterval(() => {
