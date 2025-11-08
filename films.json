@@ -3561,7 +3561,9 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-11-02",
-    "tags": [],
+    "tags": [
+      "featured-poster"
+    ],
     "tagline": "There is nothing more human than the will to survive.",
     "directorofPhotography": "Rob Hardy",
     "executiveProducer": "Eli Bush",
