@@ -3111,7 +3111,9 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-11-02",
-    "tags": [],
+    "tags": [
+      "featured-poster"
+    ],
     "tagline": "In Vietnam, the wind doesn't blow. It sucks.",
     "directorofPhotography": "Douglas Milsome",
     "executiveProducer": "Jan Harlan",
