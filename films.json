@@ -3884,7 +3884,9 @@
     "platformLink": "",
     "podcastLink": "",
     "dateAdded": "2025-11-07",
-    "tags": [],
+    "tags": [
+      "featured-poster"
+    ],
     "tagline": "THE MAN WHO MADE A MONSTER",
     "directorofPhotography": "Arthur Edeson",
     "executiveProducer": "",
