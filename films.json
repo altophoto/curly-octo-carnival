@@ -4001,5 +4001,18 @@
     "revenue": 6416063,
     "budget": 26000000,
     "tmdbId": 583406
+  },
+  {
+    "line": 151,
+    "type": "movie",
+    "film": "Predator: Badlands",
+    "year": 2025,
+    "director": "Dan Trachtenberg",
+    "link": "https://www.imdb.com/title/tt31227572/",
+    "duration": 107,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2025-11-08",
+    "tags": []
   }
 ]
