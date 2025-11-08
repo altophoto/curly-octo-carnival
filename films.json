@@ -3739,7 +3739,9 @@
     "platformLink": "https://srv313.ulever.cyou/aes/0/b0b087115b9676c276f734c81895711ba559164bd3dace39de21d3a70a76390e/RmWsS-nuzt8INOBnhtud1A/1762618104/storage2/movies/prince-of-darkness-1987/566c079576b79147b23fc6a2b90bde7d.mp4/index.m3u8",
     "podcastLink": "",
     "dateAdded": "2025-11-07",
-    "tags": [],
+    "tags": [
+      "featured-poster"
+    ],
     "tagline": "Before man walked the earth...It slept for centuries. It is evil. It is real. It is awakening.",
     "directorofPhotography": "Gary B. Kibbe",
     "executiveProducer": "Shep Gordon",
