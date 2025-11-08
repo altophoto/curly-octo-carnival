@@ -1,0 +1,32 @@
+[
+  {
+    "line": 1,
+    "type": "movie",
+    "film": "The Matrix",
+    "year": 1999,
+    "director": "Lana Wachowski, Lilly Wachowski",
+    "link": "https://www.imdb.com/title/tt0133093/",
+    "duration": 136,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2024-01-01",
+    "tags": ["sci-fi", "action", "mind-bending"]
+  },
+  {
+    "line": 2,
+    "type": "tv",
+    "showName": "The Bear",
+    "season": 1,
+    "episode": 1,
+    "episodeTitle": "System",
+    "film": "The Bear S1E1: System",
+    "year": 2022,
+    "director": "Christopher Storer",
+    "link": "https://www.imdb.com/title/tt14452776/",
+    "duration": 31,
+    "platformLink": "",
+    "podcastLink": "",
+    "dateAdded": "2024-01-02",
+    "tags": ["drama", "cooking", "intense"]
+  }
+]
