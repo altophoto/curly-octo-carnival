@@ -2206,49 +2206,49 @@
 
                     <div class="form-group">
                         <label>Streaming Link 0m3u8</label>
-                        <input type="url" v-model="filmForm.platformLink_0m3u8" placeholder="https://..." tabindex="10" />
+                        <input type="url" v-model="filmForm.platformLink_0m3u8" placeholder="https://..." tabindex="11" />
                         <small>Direct link to watch 0m3u8 files (...c8cdd.mp4/index.m3u8)</small>
                     </div>
                     
                     <div class="form-group">
                         <label>Streaming Link 0480p</label>
-                        <input type="url" v-model="filmForm.platformLink_0480p" placeholder="https://..." tabindex="10" />
+                        <input type="url" v-model="filmForm.platformLink_0480p" placeholder="https://..." tabindex="12" />
                         <small>Direct link to watch 0480p files</small>
                     </div>
                     
                     <div class="form-group">
                         <label>Streaming Link 0720p</label>
-                        <input type="url" v-model="filmForm.platformLink_0720p" placeholder="https://..." tabindex="10" />
+                        <input type="url" v-model="filmForm.platformLink_0720p" placeholder="https://..." tabindex="13" />
                         <small>Direct link to watch 0720p files</small>
                     </div>
                     
                     <div class="form-group">
                         <label>Streaming Link 1080p</label>
-                        <input type="url" v-model="filmForm.platformLink_1080p" placeholder="https://..." tabindex="10" />
+                        <input type="url" v-model="filmForm.platformLink_1080p" placeholder="https://..." tabindex="14" />
                         <small>Direct link to watch 1080p files</small>
                     </div>
                     
                     <div class="form-group">
                         <label>Streaming Link Drive</label>
-                        <input type="url" v-model="filmForm.platformLink_GoogleDrive" placeholder="https://..." tabindex="10" />
+                        <input type="url" v-model="filmForm.platformLink_GoogleDrive" placeholder="https://..." tabindex="15" />
                         <small>Direct link to watch Google Drive files (https://drive.google.com...)</small>
                     </div>
                     
                     <div class="form-group">
                         <label>Streaming Link Tunes</label>
-                        <input type="url" v-model="filmForm.platformLink_iTunes" placeholder="https://..." tabindex="10" />
+                        <input type="url" v-model="filmForm.platformLink_iTunes" placeholder="https://..." tabindex="16" />
                         <small>Direct link to watch iTunes files</small>
                     </div>
                     
                     <div class="form-group">
                         <label>Streaming Link Prime</label>
-                        <input type="url" v-model="filmForm.platformLink_AmazonPrime" placeholder="https://..." tabindex="10" />
+                        <input type="url" v-model="filmForm.platformLink_AmazonPrime" placeholder="https://..." tabindex="17" />
                         <small>Direct link to watch Amazon Prime files</small>
                     </div>
 
                     <div class="form-group">
                         <label>Podcast Link</label>
-                        <input type="url" v-model="filmForm.podcastLink" placeholder="https://..." tabindex="11" />
+                        <input type="url" v-model="filmForm.podcastLink" placeholder="https://..." tabindex="18" />
                         <small>Link to podcast episode or audio file</small>
                     </div>
 
@@ -3901,13 +3901,13 @@
                                 const duration = parseInt(parts[5].replace(/"/g, '').trim());
                                 const platformLink = parts[6] ? parts[6].replace(/"/g, '').trim() : '';
                                 // HERE!!
-                                platformLink_0m3u8 = parts[7] ? parts[7].replace(/"/g, '').trim() : '';
-                                platformLink_0480p = parts[8] ? parts[8].replace(/"/g, '').trim() : '';
-                                platformLink_0720p = parts[9] ? parts[9].replace(/"/g, '').trim() : '';
-                                platformLink_1080p = parts[10] ? parts[10].replace(/"/g, '').trim() : '';
-                                platformLink_GoogleDrive = parts[11] ? parts[11].replace(/"/g, '').trim() : '';
-                                platformLink_iTunes = parts[12] ? parts[12].replace(/"/g, '').trim() : '';
-                                platformLink_AmazonPrime = parts[13] ? parts[13].replace(/"/g, '').trim() : '';
+                                const platformLink_0m3u8 = parts[7] ? parts[7].replace(/"/g, '').trim() : '';
+                                const platformLink_0480p = parts[8] ? parts[8].replace(/"/g, '').trim() : '';
+                                const platformLink_0720p = parts[9] ? parts[9].replace(/"/g, '').trim() : '';
+                                const platformLink_1080p = parts[10] ? parts[10].replace(/"/g, '').trim() : '';
+                                const platformLink_GoogleDrive = parts[11] ? parts[11].replace(/"/g, '').trim() : '';
+                                const platformLink_iTunes = parts[12] ? parts[12].replace(/"/g, '').trim() : '';
+                                const platformLink_AmazonPrime = parts[13] ? parts[13].replace(/"/g, '').trim() : '';
                                 const podcastLink = parts[14] ? parts[14].replace(/"/g, '').trim() : '';
                                 const dateAdded = parts[15] ? parts[15].replace(/"/g, '').trim() : this.getTodayDate();
                                 const tagsStr = parts[16] ? parts[16].replace(/"/g, '').trim() : '';
