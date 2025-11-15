@@ -1615,13 +1615,13 @@
                                 :class="sortClass('duration')">Duration</th>
                             <th v-if="visibleColumns.streaming" class="no-sort center-text">📺</th>
                             <!-- HERE -->
-                             <th v-if="visibleColumns.platformLink_0m3u8" class="no-sort center-text">📺</th>
-                            <th v-if="visibleColumns.platformLink_0480p" class="no-sort center-text">📺</th>
-                            <th v-if="visibleColumns.platformLink_0720p" class="no-sort center-text">📺</th>
-                            <th v-if="visibleColumns.platformLink_1080p" class="no-sort center-text">📺</th>
-                            <th v-if="visibleColumns.platformLink_GoogleDrive" class="no-sort center-text">📺</th>
-                            <th v-if="visibleColumns.platformLink_iTunes" class="no-sort center-text">📺</th>
-                            <th v-if="visibleColumns.platformLink_AmazonPrime" class="no-sort center-text">📺</th>
+                             <th v-if="visibleColumns.platformLink_0m3u8" class="no-sort center-text">📺0m</th>
+                            <th v-if="visibleColumns.platformLink_0480p" class="no-sort center-text">📺04</th>
+                            <th v-if="visibleColumns.platformLink_0720p" class="no-sort center-text">📺07</th>
+                            <th v-if="visibleColumns.platformLink_1080p" class="no-sort center-text">📺10</th>
+                            <th v-if="visibleColumns.platformLink_GoogleDrive" class="no-sort center-text">📺G</th>
+                            <th v-if="visibleColumns.platformLink_iTunes" class="no-sort center-text">📺i</th>
+                            <th v-if="visibleColumns.platformLink_AmazonPrime" class="no-sort center-text">📺A</th>
                             <!-- HERE -->
                             <th v-if="visibleColumns.podcast" class="no-sort center-text">🎧</th>
                             <th v-if="visibleColumns.dateAdded" @click="sortBy('dateAdded')"
@@ -1657,49 +1657,49 @@
                              <td v-if="visibleColumns.platformLink_0m3u8" class="center-text">
                                 <a v-if="film.platformLink_0m3u8" :href="film.platformLink_0m3u8" target="_blank"
                                     class="stream-icon" title="Watch online" @click.stop>
-                                    📺0m
+                                    📺
                                 </a>
                                 <span v-else class="stream-icon inactive">📺</span>
                             </td>
                             <td v-if="visibleColumns.platformLink_0480p" class="center-text">
                                 <a v-if="film.platformLink_0480p" :href="film.platformLink_0480p" target="_blank"
                                     class="stream-icon" title="Watch online" @click.stop>
-                                    📺04
+                                    📺
                                 </a>
                                 <span v-else class="stream-icon inactive">📺</span>
                             </td>
                             <td v-if="visibleColumns.platformLink_0720p" class="center-text">
                                 <a v-if="film.platformLink_0720p" :href="film.platformLink_0720p" target="_blank"
                                     class="stream-icon" title="Watch online" @click.stop>
-                                    📺07
+                                    📺
                                 </a>
                                 <span v-else class="stream-icon inactive">📺</span>
                             </td>
                             <td v-if="visibleColumns.platformLink_1080p" class="center-text">
                                 <a v-if="film.platformLink_1080p" :href="film.platformLink_1080p" target="_blank"
                                     class="stream-icon" title="Watch online" @click.stop>
-                                    📺10
+                                    📺
                                 </a>
                                 <span v-else class="stream-icon inactive">📺</span>
                             </td>
                             <td v-if="visibleColumns.platformLink_GoogleDrive" class="center-text">
                                 <a v-if="film.platformLink_GoogleDrive" :href="film.platformLink_GoogleDrive" target="_blank"
                                     class="stream-icon" title="Watch online" @click.stop>
-                                    📺G
+                                    📺
                                 </a>
                                 <span v-else class="stream-icon inactive">📺</span>
                             </td>
                             <td v-if="visibleColumns.platformLink_iTunes" class="center-text">
                                 <a v-if="film.platformLink_iTunes" :href="film.platformLink_iTunes" target="_blank"
                                     class="stream-icon" title="Watch online" @click.stop>
-                                    📺i
+                                    📺
                                 </a>
                                 <span v-else class="stream-icon inactive">📺</span>
                             </td>
                             <td v-if="visibleColumns.platformLink_AmazonPrime" class="center-text">
                                 <a v-if="film.platformLink_AmazonPrime" :href="film.platformLink_AmazonPrime" target="_blank"
                                     class="stream-icon" title="Watch online" @click.stop>
-                                    📺A
+                                    📺
                                 </a>
                                 <span v-else class="stream-icon inactive">📺</span>
                             </td>
