@@ -1747,7 +1747,7 @@
                     <h3>Films with Streaming Links (AmazonPrime)</h3>
                     <div class="stat-value">{{ filmsWithStreaming_AmazonPrime }}</div>
                 </div>
-                
+
                 <div class="stat-card">
                     <h3>Films</h3>
                     <div class="stat-value">{{ movieCount }}</div>
@@ -2142,6 +2142,48 @@
                         <label>Streaming Link</label>
                         <input type="url" v-model="filmForm.platformLink" placeholder="https://..." tabindex="10" />
                         <small>Direct link to watch (Netflix, Amazon, iTunes, etc.)</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Streaming Link 0m3u8</label>
+                        <input type="url" v-model="filmForm.platformLink_0m3u8" placeholder="https://..." tabindex="10" />
+                        <small>Direct link to watch 0m3u8 files (...c8cdd.mp4/index.m3u8)</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Streaming Link 0480p</label>
+                        <input type="url" v-model="filmForm.platformLink_0480p" placeholder="https://..." tabindex="10" />
+                        <small>Direct link to watch 0480p files</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Streaming Link 0720p</label>
+                        <input type="url" v-model="filmForm.platformLink_0720p" placeholder="https://..." tabindex="10" />
+                        <small>Direct link to watch 0720p files</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Streaming Link 1080p</label>
+                        <input type="url" v-model="filmForm.platformLink_1080p" placeholder="https://..." tabindex="10" />
+                        <small>Direct link to watch 1080p files</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Streaming Link Drive</label>
+                        <input type="url" v-model="filmForm.platformLink_GoogleDrive" placeholder="https://..." tabindex="10" />
+                        <small>Direct link to watch Google Drive files (https://drive.google.com...)</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Streaming Link Tunes</label>
+                        <input type="url" v-model="filmForm.platformLink_iTunes" placeholder="https://..." tabindex="10" />
+                        <small>Direct link to watch iTunes files</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Streaming Link Prime</label>
+                        <input type="url" v-model="filmForm.platformLink_AmazonPrime" placeholder="https://..." tabindex="10" />
+                        <small>Direct link to watch Amazon Prime files</small>
                     </div>
 
                     <div class="form-group">
