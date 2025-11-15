@@ -1714,6 +1714,41 @@
                 </div>
 
                 <div class="stat-card">
+                    <h3>Films with Streaming Links (0m3u8)</h3>
+                    <div class="stat-value">{{ filmsWithStreaming_0m3u8 }}</div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Films with Streaming Links (0480p)</h3>
+                    <div class="stat-value">{{ filmsWithStreaming_0480p }}</div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Films with Streaming Links (0720p)</h3>
+                    <div class="stat-value">{{ filmsWithStreaming_0720p }}</div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Films with Streaming Links (1080p)</h3>
+                    <div class="stat-value">{{ filmsWithStreaming_1080p }}</div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Films with Streaming Links (GoogleDrive)</h3>
+                    <div class="stat-value">{{ filmsWithStreaming_GoogleDrive }}</div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Films with Streaming Links (iTunes)</h3>
+                    <div class="stat-value">{{ filmsWithStreaming_iTunes }}</div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Films with Streaming Links (AmazonPrime)</h3>
+                    <div class="stat-value">{{ filmsWithStreaming_AmazonPrime }}</div>
+                </div>
+                
+                <div class="stat-card">
                     <h3>Films</h3>
                     <div class="stat-value">{{ movieCount }}</div>
                 </div>
@@ -2179,7 +2214,9 @@
             </div>
         </div>
     </div>
-    <script>
+    
+</body>
+<script>
         const { createApp } = Vue;
 
         createApp({
@@ -2263,6 +2300,14 @@
                         link: '',
                         duration: null,
                         platformLink: '',
+                        // HERE!!
+                        platformLink_0m3u8: '',
+                        platformLink_0480p: '',
+                        platformLink_0720p: '',
+                        platformLink_1080p: '',
+                        platformLink_GoogleDrive: '',
+                        platformLink_iTunes: '',
+                        platformLink_AmazonPrime: '',
                         podcastLink: '',
                         dateAdded: '',
                         tagsInput: ''
@@ -2415,6 +2460,28 @@
                 },
                 filmsWithStreaming() {
                     return this.films.filter(f => f.platformLink).length;
+                },
+                // HERE!!
+                filmsWithStreaming_0m3u8() {
+                    return this.films.filter(f => f.platformLink_0m3u8).length;
+                },
+                filmsWithStreaming_0480p() {
+                    return this.films.filter(f => f.platformLink_0480p).length;
+                },
+                filmsWithStreaming_0720p() {
+                    return this.films.filter(f => f.platformLink_0720p).length;
+                },
+                filmsWithStreaming_1080p() {
+                    return this.films.filter(f => f.platformLink_1080p).length;
+                },
+                filmsWithStreaming_GoogleDrive() {
+                    return this.films.filter(f => f.platformLink_GoogleDrive).length;
+                },
+                filmsWithStreaming_iTunes() {
+                    return this.films.filter(f => f.platformLink_iTunes).length;
+                },
+                filmsWithStreaming_AmazonPrime() {
+                    return this.films.filter(f => f.platformLink_AmazonPrime).length;
                 },
                 movieCount() {
                     return this.films.filter(f => !f.type || f.type === 'movie').length;
@@ -3383,6 +3450,14 @@
                         f.director || '-',
                         `${f.duration} min`,
                         f.platformLink ? '📺' : '',
+                        // HERE!!
+                        platformLink_0m3u8 ? '📺0m' : '',
+                        platformLink_0480p ? '📺04' : '',
+                        platformLink_0720p ? '📺07' : '',
+                        platformLink_1080p ? '📺10' : '',
+                        platformLink_GoogleDrive ? '📺g' : '',
+                        platformLink_iTunes ? '📺i' : '',
+                        platformLink_AmazonPrime ? '📺a' : '',
                         f.podcastLink ? '🎧' : '',
                         this.formatDate(f.dateAdded),
                         f.tags ? f.tags.join(', ') : '',
@@ -3435,6 +3510,14 @@
                         link: '',
                         duration: null,
                         platformLink: '',
+                        // HERE!!
+                        platformLink_0m3u8: '',
+                        platformLink_0480p: '',
+                        platformLink_0720p: '',
+                        platformLink_1080p: '',
+                        platformLink_GoogleDrive: '',
+                        platformLink_iTunes: '',
+                        platformLink_AmazonPrime: '',
                         podcastLink: '',
                         dateAdded: this.getTodayDate(),
                         tagsInput: ''
@@ -3456,6 +3539,14 @@
                         link: film.link || '',
                         duration: film.duration,
                         platformLink: film.platformLink || '',
+                        // HERE!!
+                        platformLink_0m3u8: film.platformLink_0m3u8 || '',
+                        platformLink_0480p: film.platformLink_0480p || '',
+                        platformLink_0720p: film.platformLink_0720p || '',
+                        platformLink_1080p: film.platformLink_1080p || '',
+                        platformLink_GoogleDrive: film.platformLink_GoogleDrive || '',
+                        platformLink_iTunes: film.platformLink_iTunes || '',
+                        platformLink_AmazonPrime: film.platformLink_AmazonPrime || '',
                         podcastLink: film.podcastLink || '',
                         dateAdded: film.dateAdded || this.getTodayDate(),
                         tagsInput: ''
@@ -3523,6 +3614,14 @@
                                 link: this.filmForm.link,
                                 duration: this.filmForm.duration,
                                 platformLink: this.filmForm.platformLink,
+                                // HERE!!
+                                platformLink_0m3u8: this.platformLink_0m3u8,
+                                platformLink_0480p: this.platformLink_0480p,
+                                platformLink_0720p: this.platformLink_0720p,
+                                platformLink_1080p: this.platformLink_1080p,
+                                platformLink_GoogleDrive: this.platformLink_GoogleDrive,
+                                platformLink_iTunes: this.platformLink_iTunes,
+                                platformLink_AmazonPrime: this.platformLink_AmazonPrime,
                                 podcastLink: this.filmForm.podcastLink,
                                 dateAdded: this.films[index].dateAdded,
                                 tags: allTags
@@ -3542,6 +3641,14 @@
                             link: this.filmForm.link,
                             duration: this.filmForm.duration,
                             platformLink: this.filmForm.platformLink,
+                            // HERE!!
+                            platformLink_0m3u8: this.platformLink_0m3u8,
+                            platformLink_0480p: this.platformLink_0480p,
+                            platformLink_0720p: this.platformLink_0720p,
+                            platformLink_1080p: this.platformLink_1080p,
+                            platformLink_GoogleDrive: this.platformLink_GoogleDrive,
+                            platformLink_iTunes: this.platformLink_iTunes,
+                            platformLink_AmazonPrime: this.platformLink_AmazonPrime,
                             podcastLink: this.filmForm.podcastLink,
                             dateAdded: this.getTodayDate(),
                             tags: allTags
@@ -3677,9 +3784,17 @@
                                 const director = parts[4] ? parts[4].replace(/"/g, '').trim() : '';
                                 const duration = parseInt(parts[5].replace(/"/g, '').trim());
                                 const platformLink = parts[6] ? parts[6].replace(/"/g, '').trim() : '';
-                                const podcastLink = parts[7] ? parts[7].replace(/"/g, '').trim() : '';
-                                const dateAdded = parts[8] ? parts[8].replace(/"/g, '').trim() : this.getTodayDate();
-                                const tagsStr = parts[9] ? parts[9].replace(/"/g, '').trim() : '';
+                                // HERE!!
+                                platformLink_0m3u8 = parts[7] ? parts[7].replace(/"/g, '').trim() : '';
+                                platformLink_0480p = parts[8] ? parts[8].replace(/"/g, '').trim() : '';
+                                platformLink_0720p = parts[9] ? parts[9].replace(/"/g, '').trim() : '';
+                                platformLink_1080p = parts[10] ? parts[10].replace(/"/g, '').trim() : '';
+                                platformLink_GoogleDrive = parts[11] ? parts[11].replace(/"/g, '').trim() : '';
+                                platformLink_iTunes = parts[12] ? parts[12].replace(/"/g, '').trim() : '';
+                                platformLink_AmazonPrime = parts[13] ? parts[13].replace(/"/g, '').trim() : '';
+                                const podcastLink = parts[14] ? parts[14].replace(/"/g, '').trim() : '';
+                                const dateAdded = parts[15] ? parts[15].replace(/"/g, '').trim() : this.getTodayDate();
+                                const tagsStr = parts[16] ? parts[16].replace(/"/g, '').trim() : '';
 
                                 const tags = tagsStr.split(',').map(t => t.trim()).filter(t => t);
 
@@ -3693,6 +3808,14 @@
                                         director,
                                         duration,
                                         platformLink,
+                                        // HERE!!
+                                        platformLink_0m3u8,
+                                        platformLink_0480p,
+                                        platformLink_0720p,
+                                        platformLink_1080p,
+                                        platformLink_GoogleDrive,
+                                        platformLink_iTunes,
+                                        platformLink_AmazonPrime,
                                         podcastLink,
                                         dateAdded,
                                         tags
@@ -3807,6 +3930,4 @@
             }
         }).mount('#app');
     </script>
-</body>
-
 </html>
