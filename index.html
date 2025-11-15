@@ -3461,7 +3461,7 @@
 
                     try {
                         this.showSyncStatus('Syncing to GitHub...', '');
-                        console.log(this.films);
+                        // console.log(this.films);
                         const content = btoa(JSON.stringify(this.films, null, 2));
                         const url = `https://api.github.com/repos/${this.githubOwner}/${this.githubRepo}/contents/${this.githubFile}`;
 
