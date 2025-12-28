@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+hi<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -2167,8 +2167,8 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <!--div class="tag-selector" v-if="predefinedDirectors.length > 0">
+                    <!--div class="form-group">
+                        <div class="tag-selector" v-if="predefinedDirectors.length > 0">
                             <label class="tag-selector-label">{{ filmForm.type === 'tv' ? 'Creator/Showrunner' :
                                 'Director' }}</label>
                             <div class="director-options">
@@ -2178,17 +2178,13 @@
                                     {{ director }}
                                 </div>
                             </div>
-                        </div-->
+                        </div>
                         <label>{{ filmForm.type === 'tv' ? 'Creator/Showrunner' : 'Director' }} (or type custom)</label>
                         <input type="text" v-model="filmForm.director"
                             :placeholder="filmForm.type === 'tv' ? 'e.g., Tim Burton' : 'e.g., Steven Spielberg'"
                             tabindex="7" />
                     </div>
-                    <div class="form-actions">
-                        <button type="button" class="secondary" @click="closeFilmModal">Cancel</button>
-                        <button type="submit" tabindex="8">{{ editingFilm ? 'Update' : 'Add' }} {{ filmForm.type ===
-                            'tv' ? 'Episode' : 'Film' }}</button>
-                    </div>
+                    
                     <div class="form-group">
                         <label>Info Link</label>
                         <input type="url" v-model="filmForm.link" placeholder="https://www.imdb.com/..." tabindex="9" />
@@ -2200,7 +2196,7 @@
                         <input type="number" v-model.number="filmForm.duration" min="1" placeholder="142" required
                             tabindex="10" />
                         <small v-if="filmForm.type === 'tv'">Episode runtime</small>
-                    </div>
+                    </div-->
 
                     <div class="form-group">
                         <label>Streaming Link</label>
@@ -2232,7 +2228,7 @@
                         <small>Direct link to watch 1080p files</small>
                     </div>
                     
-                    <div class="form-group">
+                    <!--div class="form-group">
                         <label>Streaming Link Drive</label>
                         <input type="url" v-model="filmForm.platformLink_GoogleDrive" placeholder="https://..." tabindex="16" />
                         <small>Direct link to watch Google Drive files (https://drive.google.com...)</small>
@@ -2260,7 +2256,7 @@
                         <label>Date Added</label>
                         <input type="date" v-model="filmForm.dateAdded" readonly tabindex="-1" />
                         <small>This date is locked and shows when the title was originally added</small>
-                    </div>
+                    </div-->
 
                     <div class="form-group">
                         <div v-for="(tags, category) in tagCategories" :key="category" class="tag-selector">
@@ -2277,7 +2273,11 @@
                             tabindex="20" />
                         <small>Separate custom tags with commas. Click predefined tags above to select them.</small>
                     </div>
-
+                    <div class="form-actions">
+                        <button type="button" class="secondary" @click="closeFilmModal">Cancel</button>
+                        <button type="submit" tabindex="21">{{ editingFilm ? 'Update' : 'Add' }} {{ filmForm.type ===
+                            'tv' ? 'Episode' : 'Film' }}</button>
+                    </div>
 
                 </form>
             </div>
@@ -3958,7 +3958,7 @@
                     this.searchResults = [];
                 },
                 closeSearchModal() {
-                    this.showSearchModal = true;
+                    this.showSearchModal = false;
                     this.searchResults = [];
                 },
                 async searchTMDb() {
